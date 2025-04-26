@@ -4,30 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent]
-public class SceneChangeManager : MonoBehaviour
+public class SceneChangeManager : SingletonMonoBehaviour<SceneChangeManager>
 {
-    public static SceneChangeManager Instance {  get; private set; }
 
-    #region シングルトン
-    public static SceneChangeManager GetInstance()
-    {
-        if(Instance == null)
-        {
-            Instance = FindObjectOfType<SceneChangeManager>();
-        }
-        return Instance;
-    }
-
-    private void Awake()
-    {
-        if(this != GetInstance())
-        {
-            Destroy(this.gameObject);
-            return;
-        }
-        DontDestroyOnLoad(this.gameObject );
-    }
-    #endregion
 
     /// <summary>
     /// 同期でシーンをロード
