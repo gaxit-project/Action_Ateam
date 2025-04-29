@@ -9,7 +9,7 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
     {
         get
         {
-            if(instance = null)
+            if(instance == null)
             {
                 Type type = typeof(T);
 

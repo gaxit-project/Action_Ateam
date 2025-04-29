@@ -138,7 +138,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     /// </summary>
     /// <param name="index">çƒê∂ÇµÇΩÇ¢SEListî‘çÜ</param>
     /// <param name="_audioSource">SEÇÃAudioSource</param>
-    public void Playsound(int index, AudioSource _audioSource)
+    public void PlaySound(int index, AudioSource _audioSource)
     {
         _audioSourceSE.clip = _seLists[index];
         _audioSourceSE.PlayOneShot(_seLists[index]);
