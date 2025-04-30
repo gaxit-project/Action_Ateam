@@ -6,19 +6,11 @@ public class LoadingUIController : MonoBehaviour
     [SerializeField] private GameObject _loadingPanel;
     [SerializeField] private Slider _loadSlider;
 
-    void Start()
+    public void ShowLoading()
     {
         if (_loadingPanel != null)
         {
-            _loadingPanel.SetActive(false);
-        }
-    }
-
-    public void ShowLoading(bool show)
-    {
-        if (_loadingPanel != null)
-        {
-            _loadingPanel.SetActive(show);
+            _loadingPanel.SetActive(true);
         }
     }
 

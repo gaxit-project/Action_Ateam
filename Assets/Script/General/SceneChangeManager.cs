@@ -7,11 +7,18 @@ public class SceneChangeManager : SingletonMonoBehaviour<SceneChangeManager>
 {
     [SerializeField] private LoadingUIController loadingUI;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneChange("Result");
+        }
+    }
     public void LoadNextScene(string name)
     {
         if (loadingUI != null)
         {
-            loadingUI.ShowLoading(true);
+            loadingUI.ShowLoading();
         }
         StartCoroutine(LoadSceneAsync(name));
     }
