@@ -9,9 +9,12 @@ public class PinBase : MonoBehaviour
     private Rigidbody rb;
 
     private Quaternion initialRotation;
+    private bool isFallDown = false;
+
 
     private void Start()
     {
+        isFallDown = false;
         initialRotation = transform.rotation;
         rb = GetComponent<Rigidbody>();
         if(rb != null)
@@ -22,7 +25,17 @@ public class PinBase : MonoBehaviour
 
     public bool IsKnockedDownPin()
     {
+        if (isFallDown)
+        {
+            return true;
+        }
+
         float angle = Quaternion.Angle(initialRotation, transform.rotation);
-        return angle > knockDownAngleThreshold;
+        if(angle > knockDownAngleThreshold)
+        {
+            isFallDown = true;
+            return true;
+        }
+        return false;
     }
 }
