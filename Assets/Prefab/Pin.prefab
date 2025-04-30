@@ -99,7 +99,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6711740875953914368}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -138,9 +138,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.0058217663
-  m_Height: 0.023217529
+  m_Height: 0.022123365
   m_Direction: 1
-  m_Center: {x: -0.00017825543, y: -0.004179623, z: 4.7894247e-17}
+  m_Center: {x: -0.00017825543, y: -0.0036325403, z: 4.3191083e-17}
 --- !u!65 &5958700507775113958
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -160,8 +160,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0056193946, y: 0.015394141, z: 0.0049783066}
-  m_Center: {x: 0.0000013124943, y: 0.014594666, z: 0.00011527225}
+  m_Size: {x: 0.0056193946, y: 0.03727325, z: 0.0049783066}
+  m_Center: {x: 0.0000013124943, y: 0.0036550658, z: 0.000115272254}
 --- !u!114 &6103272964692883607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,4 +175,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockDownAngleThreshold: 45
-  pins: []
