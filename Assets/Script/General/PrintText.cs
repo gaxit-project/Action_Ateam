@@ -15,7 +15,7 @@ public class PrintText : MonoBehaviour
         //GameManager‚ªnull‚È‚ç’T‚·
         if(gameManager == null)
         {
-            gameManager = FindObjectOfType<GameManager>();
+            gameManager = FindFirstObjectByType<GameManager>();
         }
     }
     void Update()
