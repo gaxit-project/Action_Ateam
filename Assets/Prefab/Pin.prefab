@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3396262242332453076}
   - component: {fileID: 4337354738031280327}
   - component: {fileID: 5958700507775113958}
+  - component: {fileID: 6103272964692883607}
   m_Layer: 0
   m_Name: Pin
   m_TagString: Untagged
@@ -161,3 +162,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0056193946, y: 0.015394141, z: 0.0049783066}
   m_Center: {x: 0.0000013124943, y: 0.014594666, z: 0.00011527225}
+--- !u!114 &6103272964692883607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6711740875953914368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76a600f00ca9474ba07a7051ae1e54d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockDownAngleThreshold: 45
+  pins: []
