@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7089598434595638812}
   - component: {fileID: 8250766742780482078}
   - component: {fileID: 2599592150080433209}
+  - component: {fileID: 1971394887524117986}
   m_Layer: 0
   m_Name: Bowing Ball
   m_TagString: Untagged
@@ -138,3 +139,19 @@ CapsuleCollider:
   m_Height: 0.019999994
   m_Direction: 1
   m_Center: {x: -4.656613e-10, y: 0, z: 0}
+--- !u!114 &1971394887524117986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7629587496250833099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc9a3eb17e5d7d4eb11f492ea257b19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 300
+  weight: 10
+  gravity: {x: 0, y: -75, z: 0}
+  rotateSpeed: 100

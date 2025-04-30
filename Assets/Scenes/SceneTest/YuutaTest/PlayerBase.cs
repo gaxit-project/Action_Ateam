@@ -1,61 +1,76 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
 {
-    //‰Šúİ’è
+    //ï¿½ï¿½ï¿½ï¿½ï¿½İ’ï¿½
     private new Rigidbody rigidbody;
     Player player = new Player();
 
-    //ƒXƒe[ƒ^ƒX
+    //ï¿½Xï¿½eï¿½[ï¿½^ï¿½X
     [SerializeField] protected float speed = 300f;
     [SerializeField] protected float weight = 10f;
     protected float rotation = 0f;
 
-    //ˆÚ“®ŠÖ˜A
+    //ï¿½Ú“ï¿½ï¿½Ö˜A
     [SerializeField] private Vector3 gravity = new Vector3(0f, -75f, 0f);
+
+    public float rotateSpeed = 100f;
+        float yRotation = 0f;
 
     void Start()
     {
-        //Rigidbody‚ğæ“¾
+        //Rigidbodyï¿½ï¿½ï¿½æ“¾
         rigidbody = GetComponent<Rigidbody>();
-        //•W€‚Ìd—Í‚ğ–³Œø‰»‚·‚é
+        //ï¿½Wï¿½ï¿½ï¿½Ìdï¿½Í‚ğ–³Œï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         rigidbody.useGravity = false;
-        //ƒNƒ‰ƒX“à‚ÌƒXƒe[ƒ^ƒX‚Ì‰Šú‰»
+        //ï¿½Nï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ÌƒXï¿½eï¿½[ï¿½^ï¿½Xï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
         player.InitializeStatus(speed, weight);
+
+        
     }
 
     
     void Update()
     {
-        //ƒXƒe[ƒ^ƒX‚ÌXV
+        //ï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½ÌXï¿½V
         speed = player.Speed;
         weight = player.Weight;
         rotation = player.Rotation;
 
-        //ˆÚ“®ŠÖ˜A‚Ìˆ—
+        //ï¿½Ú“ï¿½ï¿½Ö˜Aï¿½Ìï¿½ï¿½ï¿½
         transform.rotation = Quaternion.Euler(0f, rotation, 0f);
         if (rigidbody)
         {
-            //ƒXƒeƒBƒbƒNAWASDA–îˆóƒL[‚ÅˆÚ“®
+            //ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½AWASDï¿½Aï¿½ï¿½ï¿½Lï¿½[ï¿½ÅˆÚ“ï¿½
             rigidbody.linearVelocity = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")).normalized * speed * Time.deltaTime;
-            //d—Í‚Ì•ÏX
+            //ï¿½dï¿½Í‚Ì•ÏX
             rigidbody.AddForce(gravity, ForceMode.Acceleration);
         }
         else
         {
-            Debug.LogError("RigidBody‚ªƒAƒ^ƒbƒ`‚³‚ê‚Ä‚¢‚Ü‚¹‚ñI");
+            Debug.LogError("RigidBodyï¿½ï¿½ï¿½Aï¿½^ï¿½bï¿½`ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½I");
         }
+
+        
+        float mouseX = Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime; //å·¦å³å›è»¢
+        yRotation += mouseX;
+            transform.Rotate(0f,yRotation,0f);
+            
     }
+        
+        
 
     public class Character
     {
-        //ƒXƒe[ƒ^ƒX
+        //ï¿½Xï¿½eï¿½[ï¿½^ï¿½X
         public float Speed;
         public float Weight;
         public float Rotation;
 
         /// <summary>
-        /// ƒXƒe[ƒ^ƒX‚Ì‰Šú‰»
+        /// ï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public void InitializeStatus(float speed, float weight)
         {
