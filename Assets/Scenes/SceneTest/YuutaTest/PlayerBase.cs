@@ -4,59 +4,65 @@ using UnityEngine;
 
 public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
 {
-    //�����ݒ�
+    //プレイヤー関係
     private new Rigidbody rigidbody;
     Player player = new Player();
 
-    //�X�e�[�^�X
-    [SerializeField] protected float speed = 300f;
+    //ステータス
+    [SerializeField] protected float speed = 5f;
     [SerializeField] protected float weight = 10f;
     protected float rotation = 0f;
 
-    //�ړ��֘A
-    [SerializeField] private Vector3 gravity = new Vector3(0f, -75f, 0f);
+    //移動関係
+    [SerializeField] protected float rotateSpeed = 100f;
+    [SerializeField] private Vector3 gravity = new Vector3(0f, -20f, 0f);
 
-    public float rotateSpeed = 100f;
-        float yRotation = 0f;
 
     void Start()
     {
-        //Rigidbody���擾
+        //Rigidbodyを取得
         rigidbody = GetComponent<Rigidbody>();
-        //�W���̏d�͂𖳌�������
-        rigidbody.useGravity = false;
-        //�N���X���̃X�e�[�^�X�̏�����
+        //クラス内のステータスを初期化する
         player.InitializeStatus(speed, weight);
-
         
+        if (rigidbody)
+        {
+            //回転を無効化する
+            rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+
+            //標準の重力を無効化する
+            rigidbody.useGravity = false;
+        }
+        else
+        {
+            Debug.LogError("PlayerにRigidBodyがアタッチされていません!");
+        }
     }
 
     
     void Update()
     {
-        //�X�e�[�^�X�̍X�V
+        //ステータスを取得
         speed = player.Speed;
         weight = player.Weight;
         rotation = player.Rotation;
 
-        //�ړ��֘A�̏���
-        transform.rotation = Quaternion.Euler(0f, rotation, 0f);
+        //移動関係
+        //transform.rotation = Quaternion.Euler(0f, rotation, 0f);
         if (rigidbody)
         {
-            //�X�e�B�b�N�AWASD�A���L�[�ňړ�
-            rigidbody.linearVelocity = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")).normalized * speed * Time.deltaTime;
-            //�d�͂̕ύX
+            //スティックまたはWASD,矢印キーで移動
+            Vector3 x = transform.right * Input.GetAxis("Horizontal") * speed;
+            Vector3 z = transform.forward * Input.GetAxis("Vertical") * speed;
+            rigidbody.MovePosition(rigidbody.position + (x + z) * Time.deltaTime); 
+            //rigidbody.linerVelocity = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")).normalized * speed * Time.deltaTime;
+            //固有の重力
             rigidbody.AddForce(gravity, ForceMode.Acceleration);
         }
-        else
-        {
-            Debug.LogError("RigidBody���A�^�b�`����Ă��܂���I");
-        }
-
         
         float mouseX = Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime; //左右回転
-        yRotation += mouseX;
-            transform.Rotate(0f,yRotation,0f);
+        rotation += mouseX;
+        transform.Rotate(0f,rotation,0f);
             
     }
         
@@ -64,13 +70,13 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
 
     public class Character
     {
-        //�X�e�[�^�X
+        //ステータス
         public float Speed;
         public float Weight;
         public float Rotation;
 
         /// <summary>
-        /// �X�e�[�^�X�̏�����
+        /// ステータスの初期化
         /// </summary>
         public void InitializeStatus(float speed, float weight)
         {
