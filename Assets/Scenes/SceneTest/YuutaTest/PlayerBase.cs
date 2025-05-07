@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
 {
@@ -15,12 +16,28 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
     //移動関係
     protected Vector3 x = Vector3.zero;
     protected Vector3 z = Vector3.zero;
+    protected Vector2 lookVec;
     [SerializeField] protected float rayDistance = 1.2f;
     [SerializeField] protected float rotateSpeed = 100f;
     [SerializeField] protected float acceleration = 5f;
     [SerializeField] protected float deceleration = 5f;
     [SerializeField] private Vector3 gravity = new Vector3(0f, -20f, 0f);
+    [SerializeField] private InputActionReference lookAction;
 
+    private void Awake()
+    {
+        lookAction.action.performed += OnLook;
+        lookAction.action.canceled += OnLook;
+    }
+
+    private void OnDestroy()
+    {
+        lookAction.action.performed -= OnLook;
+        lookAction.action.canceled -= OnLook;
+    }
+
+    private void OnEnable() => lookAction.action.Enable();
+    private void OnDisable() => lookAction.action.Disable();
 
     void Start()
     {
@@ -79,12 +96,18 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
             rigidbody.AddForce(gravity, ForceMode.Acceleration);
         }
         
-        float mouseX = Input.GetAxis("Mouse X") * rotateSpeed * Time.fixedDeltaTime; //左右回転
+        //float mouseX = Input.GetAxis("Mouse X") * rotateSpeed * Time.fixedDeltaTime; //左右回転
+        float mouseX = lookVec.x * rotateSpeed * Time.fixedDeltaTime; //左右回転
         rotation += mouseX;
         transform.Rotate(0f,rotation,0f);
             
     }
-        
+    
+
+    private void OnLook(InputAction.CallbackContext context)
+    {
+        lookVec = context.ReadValue<Vector2>();
+    }
         
 
     public class Character
