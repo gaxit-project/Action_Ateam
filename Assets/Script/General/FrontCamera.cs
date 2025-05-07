@@ -8,16 +8,16 @@ public class FrontCamera : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     //前提としてカメラにアタッチする
-    public GameObject Player0;
-    public GameObject Player1;
-    public GameObject Player2;
-    public GameObject Player3;//プレイヤーども
+    private GameObject Player0;
+    private GameObject Player1;
+    private GameObject Player2;
+    private GameObject Player3;//プレイヤーども
 
-    public GameObject FastGoal;//bowlingエリアまでののゴール
+    private GameObject FastGoal;//bowlingエリアまでののゴール
 
-    public Vector3 offset = new Vector3(0f, 5f, -10f);  // カメラの相対位置
-    public float followSpeed = 5f;  // カメラの追従スピード
-    public Vector3 rotationEuler = new Vector3(20f, 0f, 0f); // インスペクターで設定するカメラの角度
+    private Vector3 offset = new Vector3(0f, 5f, -10f);  // カメラの相対位置
+    private float followSpeed = 5f;  // カメラの追従スピード
+    private Vector3 rotationEuler = new Vector3(20f, 0f, 0f); // インスペクターで設定するカメラの角度
 
 
     void Start()
