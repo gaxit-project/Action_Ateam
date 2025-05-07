@@ -233,11 +233,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c235de791d3969498878508a684aa1a, type: 3}
---- !u!1 &770884640 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6711740875953914368, guid: 8c235de791d3969498878508a684aa1a, type: 3}
-  m_PrefabInstance: {fileID: 8963249923527686304}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1031127032
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,14 +519,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2761796e15f01b649a0f7f053d1e4e4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player0: {fileID: 1619075062}
-  Player1: {fileID: 770884640}
-  Player2: {fileID: 1440021857}
-  Player3: {fileID: 1979069350}
-  FastGoal: {fileID: 1687322145}
-  offset: {x: -10, y: 5, z: 0}
-  followSpeed: 5
-  rotationEuler: {x: 20, y: 90, z: 0}
+  Player0: {fileID: 0}
+  Player1: {fileID: 0}
+  Player2: {fileID: 0}
+  Player3: {fileID: 0}
+  FastGoal: {fileID: 0}
 --- !u!1 &1257096986
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,11 +645,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &1440021857 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6711740875953914368, guid: 8c235de791d3969498878508a684aa1a, type: 3}
-  m_PrefabInstance: {fileID: 1781681542}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1619075061
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -833,11 +820,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!1 &1687322145 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6711740875953914368, guid: 8c235de791d3969498878508a684aa1a, type: 3}
-  m_PrefabInstance: {fileID: 336641185}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1781681542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1003,11 +985,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!1 &1979069350 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6711740875953914368, guid: 8c235de791d3969498878508a684aa1a, type: 3}
-  m_PrefabInstance: {fileID: 475499179}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8963249923527686304
 PrefabInstance:
   m_ObjectHideFlags: 0
