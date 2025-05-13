@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player2 : SingletonMonoBehaviour<Player2>
+public class Player2 : SingletonMonoBehaviour<Player2> //簡単な動きをするプレイヤー　テストプレイ用
 {
     //プレイヤー関係
     private new Rigidbody rigidbody;
@@ -77,13 +77,17 @@ public class Player2 : SingletonMonoBehaviour<Player2>
             //rigidbody.linerVelocity = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")).normalized * speed * Time.deltaTime;
             //固有の重力
             rigidbody.AddForce(gravity, ForceMode.Acceleration);
-            if(Input.GetKey(KeyCode.L)) this.transform.Translate(0.1f, 0.0f, 0.0f);
-            if(Input.GetKey(KeyCode.K)) this.transform.Translate(-0.1f, 0.0f, 0.0f);
+            //簡単な移動 IJKLがWASDにそれぞれ対応
+            if (Input.GetKey(KeyCode.I)) this.transform.Translate(0f, 0f, 0.1f);
+            if (Input.GetKey(KeyCode.J)) this.transform.Translate(-0.1f, 0f, 0f);
+            if (Input.GetKey(KeyCode.K)) this.transform.Translate(0f, 0f, -0.1f);
+            if (Input.GetKey(KeyCode.L)) this.transform.Translate(0.1f, 0f, 0f);
+            
         }
 
-        float mouseX = Input.GetAxis("Mouse X") * rotateSpeed * Time.fixedDeltaTime; //左右回転
+        /*float mouseX = Input.GetAxis("Mouse X") * rotateSpeed * Time.fixedDeltaTime; //左右回転
         rotation += mouseX;
-        transform.Rotate(0f, rotation, 0f);
+        transform.Rotate(0f, rotation, 0f);*/
 
     }
 
@@ -112,7 +116,7 @@ public class Player2 : SingletonMonoBehaviour<Player2>
         {
             Ray ray = new Ray(pos + Vector3.up * 0.1f, Vector3.down);
 
-            return true;//Physics.Raycast(ray, distance);
+            return Physics.Raycast(ray, distance);
         }
 
     }

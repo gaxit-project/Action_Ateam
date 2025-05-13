@@ -5,11 +5,13 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
 {
     //プレイヤー関係
     private new Rigidbody rigidbody;
+    private new CameraController camera;
     Player player = new Player();
 
     //ステータス
     [SerializeField] protected float speed = 5f;
     [SerializeField] protected float weight = 10f;
+    [SerializeField] protected float initialRotation = 0f;
     protected float rotation = 0f;
     private Vector3 currentVelocity  = Vector3.zero;
 
@@ -17,15 +19,16 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
     protected Vector3 x = Vector3.zero;
     protected Vector3 z = Vector3.zero;
     protected Vector2 lookVec;
-    [SerializeField] protected float rayDistance = 1.2f;
+    protected float rayDistance = 1.2f;
     [SerializeField] protected float rotateSpeed = 100f;
     [SerializeField] protected float acceleration = 5f;
     [SerializeField] protected float deceleration = 5f;
-    [SerializeField] private Vector3 gravity = new Vector3(0f, -20f, 0f);
+    [SerializeField] private float gravity = 20f;
     [SerializeField] private InputActionReference lookAction;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake(); //SingletonMonoBehaviourのAwakeに元々あったものを実行する
         lookAction.action.performed += OnLook;
         lookAction.action.canceled += OnLook;
     }
@@ -43,6 +46,15 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
     {
         //Rigidbodyを取得
         rigidbody = GetComponent<Rigidbody>();
+        //CameraControllerを取得
+        camera = GameObject.FindFirstObjectByType<CameraController>();
+        //CameraControllerがアタッチされたオブジェクトがある場合rotation.yを取得
+        if (camera)
+        {
+            initialRotation = camera.GetInitialRotationY() / 2;
+            //Debug.Log(initialRotation);
+            transform.rotation = Quaternion.Euler(0f, initialRotation, 0f);
+        }
         //クラス内のステータスを初期化する
         player.InitializeStatus(speed, weight);
         
@@ -69,14 +81,13 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
         rotation = player.Rotation;
 
         //移動関係
-        //transform.rotation = Quaternion.Euler(0f, rotation, 0f);
         if (rigidbody)
         {
             //地面についている場合のみスティックまたはWASD,矢印キーの入力を受付
             if (player.IsGrounded(transform.position, rayDistance))
             {
-                x = transform.right * Input.GetAxis("Horizontal") * speed;
-                z = transform.forward * Input.GetAxis("Vertical") * speed;
+                x = transform.right * Input.GetAxis("Horizontal");
+                z = transform.forward * Input.GetAxis("Vertical");
             }
 
             //ローカル座標に変換
@@ -89,16 +100,12 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
             //移動
             rigidbody.MovePosition(rigidbody.position + currentVelocity * Time.fixedDeltaTime);
 
-             //rigidbody.MovePosition(rigidbody.position + (x + z) * Time.deltaTime);
-                
-            //rigidbody.linerVelocity = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")).normalized * speed * Time.deltaTime;
             //固有の重力
-            rigidbody.AddForce(gravity, ForceMode.Acceleration);
+            rigidbody.AddForce(new Vector3(0f, -gravity, 0f), ForceMode.Acceleration);
         }
-        
-        //float mouseX = Input.GetAxis("Mouse X") * rotateSpeed * Time.fixedDeltaTime; //左右回転
-        float mouseX = lookVec.x * rotateSpeed * Time.fixedDeltaTime; //左右回転
-        rotation += mouseX;
+
+        float RstickX = lookVec.x * rotateSpeed * Time.fixedDeltaTime; //右スティックで左右回転
+        rotation += RstickX;
         transform.Rotate(0f,rotation,0f);
             
     }
@@ -120,6 +127,8 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
         /// <summary>
         /// ステータスの初期化
         /// </summary>
+        /// <param name="speed"></param>
+        /// <param name="weight"></param>
         public void InitializeStatus(float speed, float weight)
         {
             Speed = speed;
@@ -127,13 +136,16 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
         }
 
         /// <summary>
-        /// 地面に接しているか判定する
+        /// 地面に接しているか確認する
         /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
         public bool IsGrounded(Vector3 pos, float distance)
         {
             Ray ray = new Ray(pos + Vector3.up * 0.1f, Vector3.down);
 
-            return true;//Physics.Raycast(ray, distance);
+            return Physics.Raycast(ray, distance);
         }
 
     }

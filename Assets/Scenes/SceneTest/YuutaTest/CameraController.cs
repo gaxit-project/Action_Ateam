@@ -1,16 +1,24 @@
+using System;
 using UnityEngine;
 
 public class CameraController : SingletonMonoBehaviour<CameraController>
 {
     private GameObject player;
+    private float initialRotationY;
     private Vector3 targetPosition;
     private bool isChasingPlayer = true;
     [SerializeField] private float rotateSpeed = 200f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    protected override void Awake()
+    {
+        base.Awake();
+        initialRotationY = transform.eulerAngles.y; //カメラがy軸を中心にどの程度回転しているか
+    }
+
     void Start()
     {
-        player = GameObject.FindFirstObjectByType<PlayerBase>().gameObject;
+        player = GameObject.FindFirstObjectByType<PlayerBase>().gameObject; //PlayerBaseがアタッチされたオブジェクトを取得
         if(player != null)
         {
             targetPosition = player.transform.position;
@@ -21,7 +29,6 @@ public class CameraController : SingletonMonoBehaviour<CameraController>
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         //位置の更新
@@ -35,6 +42,7 @@ public class CameraController : SingletonMonoBehaviour<CameraController>
         float mouseX = Input.GetAxis("Mouse X") * rotateSpeed * Time.fixedDeltaTime; //左右回転
         transform.RotateAround(targetPosition, Vector3.up, mouseX);
 
+        //Oキーを押すとカメラがその場で停止
         if (Input.GetKeyDown(KeyCode.O))
         {
             switch(isChasingPlayer)
@@ -50,5 +58,14 @@ public class CameraController : SingletonMonoBehaviour<CameraController>
             }
                 
         }
+    }
+
+    /// <summary>
+    /// このスクリプトが付いたカメラのy軸の角度を返す
+    /// </summary>
+    /// <returns></returns>
+    public float GetInitialRotationY()
+    {
+        return initialRotationY;
     }
 }
