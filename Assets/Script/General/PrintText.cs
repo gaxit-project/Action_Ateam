@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -21,10 +21,11 @@ public class PrintText : MonoBehaviour
     void Update()
     {
         //GameManagerでスコア計算
-        score = gameManager.CalcScore();       
+        score = gameManager.ScoreText();       
 
         TextMeshProUGUI score_text = Score_obj.GetComponent<TextMeshProUGUI>();      
         score_text.text = "Score:" + score.ToString();
         
     }
 }
+*/

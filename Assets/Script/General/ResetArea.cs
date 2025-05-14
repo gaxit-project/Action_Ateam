@@ -3,34 +3,21 @@ using UnityEngine.SceneManagement;
 
 public class ResetArea : MonoBehaviour
 {
+    public GameManager gameManager;
     bool isPlayerOut = false;
 
-    void Update()
+    public void ResetGame()
     {
-        if (Input.GetKey(KeyCode.R))
-        {
-            ResetGame();
-        }
+        SceneManager.LoadScene(1);
     }
 
     private void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Playerがエリア外に到達");
+            Debug.Log("エリア外に到達しました");
             isPlayerOut = true;
-        }
-    }
-
-    private void ResetGame()
-    {
-        if (isPlayerOut)
-        {
-            SceneManager.LoadScene(1);
-        }
-        else
-        {
-            Debug.Log("Playerはエリア内です");
+            gameManager.currentFrameResult();
         }
     }
 }
