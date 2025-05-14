@@ -12,7 +12,7 @@ public class PinManager : SingletonMonoBehaviour<PinManager>
         }
     }
 
-    public int GetKnockedDownPinCount()//Œ»İ“|‚µ‚Ä‚¢‚éƒsƒ“‚Ì–{”
+    public int GetKnockedDownPinCount()
     {
         int count = 0;
         foreach(PinBase pin in pins)
