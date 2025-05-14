@@ -12,6 +12,7 @@ public class PinBase : MonoBehaviour
     private bool isFallDown = false;
 
 
+
     private void Start()
     {
         isFallDown = false;
@@ -22,6 +23,16 @@ public class PinBase : MonoBehaviour
             rb.centerOfMass = center;
         }
     }
+   
+        void OnCollisionEnter(Collision other)
+        {
+        if (other.gameObject.tag == "Pin")
+        {
+            AudioManager.Instance.PlaySound(1);
+            Debug.Log("ピン同士のタッチ");
+        }
+        }
+
 
     public bool IsKnockedDownPin()
     {
