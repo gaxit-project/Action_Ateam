@@ -3,16 +3,16 @@ using UnityEngine;
 public class ObjectMover : MonoBehaviour
 {
     [Header("Players")]
-    public GameObject[] PlayerObjects = new GameObject[4];
+    [SerializeField] private GameObject[] PlayerObjects = new GameObject[4];
 
     [Header("Pin")]
-    public GameObject[] PinObjects = new GameObject[10];
+    [SerializeField] private GameObject[] PinObjects = new GameObject[10];
 
     [Header("Cube")]
-    public GameObject[] CubeAreas = new GameObject[4];
+    [SerializeField] private GameObject[] CubeAreas = new GameObject[4];
 
     [Header("Cube2")]
-    public GameObject[] Cube2Areas = new GameObject[10];
+    [SerializeField] private GameObject[] Cube2Areas = new GameObject[10];
 
 
     void Update()
@@ -43,10 +43,10 @@ public class ObjectMover : MonoBehaviour
     {
         if (PlayerObjects[i] != null && CubeAreas[i] != null)
         {
-            Vector3 targetPosition = CubeAreas[i].transform.position;
+            Vector3 CubePosition = CubeAreas[i].transform.position;
 
 
-            PlayerObjects[i].transform.position = targetPosition;
+            PlayerObjects[i].transform.position = CubePosition;
 
             PlayerObjects[i].transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
@@ -56,7 +56,7 @@ public class ObjectMover : MonoBehaviour
                 rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
 
-                rb.linearVelocity = new Vector3(5f, rb.linearVelocity.y, rb.linearVelocity.z);
+                rb.linearVelocity = new Vector3(20f, rb.linearVelocity.y, rb.linearVelocity.z);
             }
 
 
@@ -68,10 +68,10 @@ public class ObjectMover : MonoBehaviour
     {
         if (PinObjects[j] != null && Cube2Areas[j] != null)
         {
-            Vector3 targetPosition = Cube2Areas[j].transform.position;
+            Vector3 CubePosition = Cube2Areas[j].transform.position;
 
 
-            PinObjects[j].transform.position = targetPosition;
+            PinObjects[j].transform.position = CubePosition;
 
             PinObjects[j].transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
