@@ -55,7 +55,7 @@ public class CameraController : SingletonMonoBehaviour<CameraController>
     }
 
     /// <summary>
-    /// このスクリプトが付いたカメラのy軸の角度を返す
+    /// このスクリプトが付いたカメラのy軸の角度を返す(多分もう使わない)
     /// </summary>
     /// <returns></returns>
     public float GetCameraRotationY()
@@ -70,7 +70,7 @@ public class CameraController : SingletonMonoBehaviour<CameraController>
     }
     public void RestartCameraMove()
     {
-        transform.rotation = Quaternion.Euler(transform.eulerAngles.x, player.transform.eulerAngles.y, transform.eulerAngles.z);
+        //transform.rotation = Quaternion.Euler(transform.eulerAngles.x, player.transform.eulerAngles.y, transform.eulerAngles.z);
         isChasingPlayer = true;
     }
 }

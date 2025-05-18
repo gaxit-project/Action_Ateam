@@ -1,5 +1,3 @@
-using JetBrains.Annotations;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +12,9 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
     [SerializeField] protected float speed = 5f;
     [SerializeField] protected float weight = 10f;
     [SerializeField] protected float initialRotation = 0f;
+    [SerializeField] protected float maxGaugeValue = 100f;
+    [SerializeField] protected float gaugeSpeed = 200f;
+    protected float currentGaugeValue = 0f;
     protected float rotation = 0f;
     protected Vector3 currentVelocity = Vector3.zero;
     protected Vector3 throwVelocity;
@@ -30,7 +31,7 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
     [SerializeField] protected float rotateSpeed = 100f;
     [SerializeField] protected float acceleration = 5f;
     [SerializeField] protected float deceleration = 5f;
-    [SerializeField] protected float speedMultiplier = 5f;
+    [SerializeField] protected float throwPower = 5f;
     [SerializeField] protected float gravity = 20f;
     [SerializeField] private InputActionReference lookAction;
 
@@ -41,15 +42,6 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
         lookAction.action.performed += OnLook;
         lookAction.action.canceled += OnLook;
 
-        //CameraControllerを取得
-        camera = GameObject.FindFirstObjectByType<CameraController>();
-        //CameraControllerがアタッチされたオブジェクトがある場合rotation.yを取得
-        if (camera)
-        {
-            initialRotation = camera.GetCameraRotationY() / 2;
-            //Debug.Log(initialRotation);
-            transform.rotation = Quaternion.Euler(0f, initialRotation, 0f);
-        }
     }
 
     private void OnDestroy()
@@ -67,7 +59,7 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
         rigidbody = GetComponent<Rigidbody>();
         //クラス内のステータスを初期化する
         player.InitializeStatus(speed, weight);
-        
+
         if (rigidbody)
         {
             //回転を無効化する
@@ -80,9 +72,25 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
         {
             Debug.LogError("PlayerにRigidBodyがアタッチされていません!");
         }
+
+        //CameraControllerを取得
+        camera = GameObject.FindFirstObjectByType<CameraController>();
+        //CameraControllerがアタッチされたオブジェクトがある場合rotation.yを取得
+        if (camera)
+        {
+            /*
+            initialRotation = camera.GetCameraRotationY();
+            Debug.Log(initialRotation);
+            transform.rotation = Quaternion.Euler(0f, initialRotation, 0f);
+            */
+
+            Vector3 forward = camera.transform.forward; //カメラの正面
+            forward.y = 0f;
+            transform.rotation = Quaternion.LookRotation(forward);
+        }
     }
 
-    
+
     void FixedUpdate()
     {
         //プレイヤーの進む方向
@@ -100,12 +108,26 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
             //地面についている場合のみスティックまたはWASD,矢印キーの入力を受付
             if (player.IsGrounded(transform.position, rayDistance))
             {
+                /*
                 x = transform.right * Input.GetAxis("Horizontal");
                 z = transform.forward * Input.GetAxis("Vertical");
+                */
+
+                //カメラ基準の方向
+                x = camera.transform.right * Input.GetAxis("Horizontal");
+                z = camera.transform.forward * Input.GetAxis("Vertical");
+
+                x.y = 0f;
+                z.y = 0f;
+                x.Normalize();
+                z.Normalize();
             }
 
             //ローカル座標に変換
-            targetVelocity = transform.TransformDirection(Vector3.ClampMagnitude(x + z, 1f)) * speed;
+            //targetVelocity = transform.TransformDirection(Vector3.ClampMagnitude(x + z, 1f)) * speed;
+
+            //方向決定
+            targetVelocity = Vector3.ClampMagnitude(x + z, 1f) * speed;
 
             //加減速処理
             float lerpRate = (targetVelocity.magnitude > 0.1f) ? acceleration : deceleration;
@@ -116,8 +138,7 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
             else if (!isThrowed) rigidbody.linearVelocity = Vector3.zero;
             else
             {
-                rigidbody.MovePosition(rigidbody.position + throwVelocity * Time.fixedDeltaTime);
-                throwVelocity = Vector3.Lerp(throwVelocity, Vector3.zero, deceleration / 10f * Time.fixedDeltaTime);
+                //rigidbody.linearVelocity = Vector3.Lerp(rigidbody.linearVelocity, Vector3.zero, deceleration / 100f * Time.fixedDeltaTime);
             }
             //固有の重力
             rigidbody.AddForce(new Vector3(0f, -gravity, 0f), ForceMode.Acceleration);
@@ -125,35 +146,43 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
 
         //右スティックで回転
         RstickX = lookVec.x * rotateSpeed * Time.fixedDeltaTime;
-        rotation += RstickX;
-        transform.Rotate(0f,rotation,0f);
+        transform.Rotate(0f, RstickX, 0f);
 
         //投擲関連
         if (Input.GetKeyDown(KeyCode.Return)) //停止
         {
-            switch (isModeChanged)
-            {
-                case true:
-                    isModeChanged = false;
-                    break;
-                case false:
-                    isModeChanged = true;
-                    throwPosition = transform.position;
-                    Debug.Log(throwPosition);
-                    break;
-            }
-            if (isThrowed)
-            {
-                isThrowed = false;
-                camera.RestartCameraMove();
-                transform.position = throwPosition;
-                transform.rotation = Quaternion.Euler(transform.eulerAngles.x, camera.GetCameraRotationY() / 2f, transform.eulerAngles.z);
-            }
+            ThrowStandBy();
         }
         if (isModeChanged && !isThrowed && Input.GetKeyDown(KeyCode.Space)) //投擲
         {
             Throw();
             isThrowed = true;
+        }
+    }
+
+    /// <summary>
+    /// 投擲後Wallタグをもつオブジェクトに当たった場合反射
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Player")
+        {
+            if (isThrowed && collision.contactCount > 0)
+            {
+                // 現在の進行方向
+                Vector3 incomingVelocity = rigidbody.linearVelocity;
+
+                // 衝突面の法線
+                Vector3 normal = collision.contacts[0].normal;
+
+                // 反射ベクトルの計算
+                Vector3 reflectVelocity = Vector3.Reflect(incomingVelocity, normal);
+
+                // 反射後の速度倍率(多分1以下だとスピードが下がりすぎる)
+                float bounceDamping = 1.5f;
+                rigidbody.linearVelocity = reflectVelocity * bounceDamping;
+            }
         }
     }
 
@@ -167,12 +196,42 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
     }
 
     /// <summary>
+    /// 投擲待機
+    /// </summary>
+    public void ThrowStandBy()
+    {
+        switch (isModeChanged)
+        {
+            case true:
+                isModeChanged = false;
+                break;
+            case false:
+                isModeChanged = true;
+                throwPosition = transform.position;
+                Debug.Log(throwPosition);
+                break;
+        }
+        if (isThrowed)
+        {
+            isThrowed = false;
+            camera.RestartCameraMove();
+            rigidbody.linearVelocity = Vector3.zero;
+            transform.position = throwPosition;
+            transform.rotation = Quaternion.Euler(transform.eulerAngles.x, camera.GetCameraRotationY(), transform.eulerAngles.z);
+        }
+    }
+
+    /// <summary>
     /// 投擲
     /// </summary>
-    public void Throw()
+    private void Throw()
     {
-        transform.rotation = Quaternion.Euler(transform.eulerAngles.x, camera.GetCameraRotationY(), transform.eulerAngles.z);
-        throwVelocity = transform.forward * speed * speedMultiplier;
+        //transform.rotation = Quaternion.Euler(transform.eulerAngles.x, camera.GetCameraRotationY(), transform.eulerAngles.z);
+        Vector3 forward = camera.transform.forward;
+        forward.y = 0f;
+        transform.rotation = Quaternion.LookRotation(forward);
+        throwVelocity = transform.forward * speed * throwPower;
+        rigidbody.linearVelocity = throwVelocity;
         camera.StopCameraMove();
     }
 
@@ -180,7 +239,7 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
     {
         lookVec = context.ReadValue<Vector2>();
     }
-        
+
 
     public class Character
     {

@@ -38,6 +38,7 @@ public class ThrowingAreaManager : MonoBehaviour
             }
         }
         //ここから投擲モードにするプログラム呼び出して
+        onAllThrowingAreaEntered.Invoke();
         Debug.Log("全プレイヤーが投擲エリアに到着しました");
     }
 }
