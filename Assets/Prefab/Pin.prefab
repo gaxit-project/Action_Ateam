@@ -175,4 +175,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockDownAngleThreshold: 45
+  outAreaObj: {fileID: 6201076561418300839, guid: dc984a84fbe164844ab3418274f12880, type: 3}
   center: {x: 0, y: -0.6, z: 0}

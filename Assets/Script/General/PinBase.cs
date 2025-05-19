@@ -4,6 +4,7 @@ using UnityEngine;
 public class PinBase : MonoBehaviour
 {
     [SerializeField] private float knockDownAngleThreshold = 45f;
+    [SerializeField] private GameObject outAreaObj;
 
     public Vector3 center = new Vector3(0f, -0.6f, 0f);
     private Rigidbody rb;
@@ -23,16 +24,19 @@ public class PinBase : MonoBehaviour
             rb.centerOfMass = center;
         }
     }
-   
-        void OnCollisionEnter(Collision other)
-        {
+
+    void OnCollisionEnter(Collision other)
+    {
         if (other.gameObject.tag == "Pin")
         {
             AudioManager.Instance.PlaySound(1);
-            Debug.Log("ピン同士のタッチ");
         }
-        }
+    }
 
+    private void OnTriggerEnter(Collider outAreaObj)
+    {
+        isFallDown = true;
+    }
 
     public bool IsKnockedDownPin()
     {
