@@ -41,17 +41,8 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         {
             _audioSourceBGM = gameObject.AddComponent<AudioSource>();   
         }
-        PlayBGM(0);
     }
 
-    private void Update()
-    {
-        //デバッグ用
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            PlaySound(0);
-        }
-    }
     /// <summary>
     /// スライダー初期化
     /// </summary>
