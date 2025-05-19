@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
 {
@@ -13,13 +14,19 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
     [SerializeField] protected float weight = 10f;
     [SerializeField] protected float initialRotation = 0f;
     [SerializeField] protected float maxGaugeValue = 100f;
-    [SerializeField] protected float gaugeSpeed = 200f;
+    [SerializeField] protected float initialGaugeSpeed = 200f;
+    [SerializeField] protected float maxThrowPower = 10f;
+    [SerializeField] private GameObject throwGauge;
+    [SerializeField] private Slider gauge;
     protected float currentGaugeValue = 0f;
+    protected float currentGaugeSpeed;
     protected float rotation = 0f;
     protected Vector3 currentVelocity = Vector3.zero;
     protected Vector3 throwVelocity;
     protected bool isModeChanged = false;
     protected bool isThrowed = false;
+    protected bool isGaugeIncreasing = true;
+    protected float throwPower = 0f;
 
     //移動関係
     Vector3 throwPosition;
@@ -31,7 +38,6 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
     [SerializeField] protected float rotateSpeed = 100f;
     [SerializeField] protected float acceleration = 5f;
     [SerializeField] protected float deceleration = 5f;
-    [SerializeField] protected float throwPower = 5f;
     [SerializeField] protected float gravity = 20f;
     [SerializeField] private InputActionReference lookAction;
 
@@ -68,10 +74,13 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
             //標準の重力を無効化する
             rigidbody.useGravity = false;
         }
-        else
+        else Debug.LogError("PlayerにRigidBodyがアタッチされていません!");
+        if(gauge)
         {
-            Debug.LogError("PlayerにRigidBodyがアタッチされていません!");
+            gauge.maxValue = maxGaugeValue;
+            throwGauge.SetActive(false);
         }
+        else Debug.LogError("PlayerBaseにスライダーがアタッチされていません!");
 
         //CameraControllerを取得
         camera = GameObject.FindFirstObjectByType<CameraController>();
@@ -88,6 +97,9 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
             forward.y = 0f;
             transform.rotation = Quaternion.LookRotation(forward);
         }
+
+        //ゲージ速度の初期値を取得
+        currentGaugeSpeed = initialGaugeSpeed;
     }
 
 
@@ -158,6 +170,32 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
             Throw();
             isThrowed = true;
         }
+        //ゲージの増減
+        if (isModeChanged && !isThrowed)
+        {
+            if (isGaugeIncreasing)
+            {
+                currentGaugeValue += currentGaugeSpeed * Time.fixedDeltaTime;
+            }
+            else if (!isGaugeIncreasing)
+            {
+                currentGaugeValue -= currentGaugeSpeed * Time.fixedDeltaTime;
+            }
+
+            if (currentGaugeValue < 0f)
+            {
+                currentGaugeValue = 0f;
+                isGaugeIncreasing = true;
+            }
+            else if (currentGaugeValue > maxGaugeValue)
+            {
+                currentGaugeValue = maxGaugeValue;
+                isGaugeIncreasing = false;
+            }
+
+            gauge.value = currentGaugeValue;
+            throwPower = (maxThrowPower * (currentGaugeValue / maxGaugeValue) / 2f) + maxThrowPower / 2f;
+        }
     }
 
     /// <summary>
@@ -204,9 +242,12 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
         {
             case true:
                 isModeChanged = false;
+                throwGauge.SetActive(false);
                 break;
             case false:
                 isModeChanged = true;
+                currentGaugeValue = 0f;
+                throwGauge.SetActive(true);
                 throwPosition = transform.position;
                 Debug.Log(throwPosition);
                 break;
@@ -214,6 +255,7 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
         if (isThrowed)
         {
             isThrowed = false;
+            throwGauge.SetActive(false);
             camera.RestartCameraMove();
             rigidbody.linearVelocity = Vector3.zero;
             transform.position = throwPosition;
@@ -233,6 +275,7 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
         throwVelocity = transform.forward * speed * throwPower;
         rigidbody.linearVelocity = throwVelocity;
         camera.StopCameraMove();
+        Debug.Log("投擲");
     }
 
     private void OnLook(InputAction.CallbackContext context)
