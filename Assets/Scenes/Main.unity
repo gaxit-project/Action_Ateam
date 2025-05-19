@@ -834,7 +834,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9dc0b36773ba38498e8532b6f1ecd7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 200
 --- !u!1 &408225142
 GameObject:
   m_ObjectHideFlags: 0
@@ -1539,8 +1538,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwingAreaPrefab: {fileID: 5490692745757171016, guid: dfab284279b6d044aa9e10b2c2bdd8a9, type: 3}
-  throwingAreaCount: 1
-  spacing: 2
+  throwingAreaCount: 3
+  spacing: 3
   onAllThrowingAreaEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -2457,9 +2456,12 @@ MonoBehaviour:
   speed: 20
   weight: 10
   initialRotation: 0
+  maxGaugeValue: 100
+  gaugeSpeed: 200
   rotateSpeed: 100
   acceleration: 5
   deceleration: 5
+  throwPower: 5
   gravity: 20
   lookAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1 &1594772109
@@ -2475,7 +2477,7 @@ GameObject:
   - component: {fileID: 1594772111}
   - component: {fileID: 1594772110}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: ResetArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2569,7 +2571,7 @@ Transform:
   m_GameObject: {fileID: 1594772109}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 56.00386, y: -24.1, z: -0.76}
+  m_LocalPosition: {x: 56.00386, y: -100, z: -0.76}
   m_LocalScale: {x: 1000, y: 0, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2661,7 +2663,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1
+  m_Text: 0
 --- !u!222 &1696117394
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ public class ThrowingAreaManager : MonoBehaviour
         for(int i = 0; i < throwingAreaCount; i++)
         {
             GameObject area = Instantiate(throwingAreaPrefab, transform);
-            area.transform.localPosition = new Vector3(i * spacing, 0, 0);
+            area.transform.localPosition = new Vector3(0, 0, i * spacing);
             ThrowingArea controller = area.GetComponent<ThrowingArea>();
             controller.Initialize(this);
             throwingAreaControllers[i] = controller;
