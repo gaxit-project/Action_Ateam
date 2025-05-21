@@ -27,7 +27,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private void Start()
     {
-        resetArea = GameObject.FindFirstObjectByType<ResetArea>();
+
     }
 
     private void Update()
