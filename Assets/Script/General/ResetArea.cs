@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class ResetArea : MonoBehaviour
 {
     public GameManager gameManager;
-    bool isPlayerOut = false;
+    public bool isPlayerOut = false;
 
     public void ResetGame()
     {
