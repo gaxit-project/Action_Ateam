@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -26,6 +27,7 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
     [SerializeField] protected float maxThrowPower = 10f;
     [SerializeField] private GameObject throwGauge;
     [SerializeField] private Slider gauge;
+    [SerializeField] protected float throwTimer;
     protected float currentGaugeValue = 0f;
     protected float currentGaugeSpeed;
     protected float rotation = 0f;
@@ -33,8 +35,12 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
     protected Vector3 throwVelocity;
     protected bool isModeChanged = false;
     protected bool isGaugeIncreasing = true;
+    protected bool isThrowTimerStarted = false;
     protected float throwPower = 0f;
     protected PlayerState currentState = PlayerState.Idle;
+
+    ResetArea resetArea;
+    GameManager gameManager;
 
     //移動関係
     Vector3 throwPosition;
@@ -71,6 +77,8 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
     {
         //Rigidbodyを取得
         rigidbody = GetComponent<Rigidbody>();
+        resetArea = GameObject.FindFirstObjectByType<ResetArea>();
+        gameManager = GameObject.FindFirstObjectByType<GameManager>();
         //クラス内のステータスを初期化する
         player.InitializeStatus(speed, weight);
 
@@ -111,6 +119,18 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
 
         //スタート時currentStateをRunにする
         currentState = PlayerState.Run;
+    }
+
+    private void Update()
+    {
+        if (isThrowTimerStarted)
+        {
+            throwTimer += Time.deltaTime;
+        }
+        if (resetArea.isPlayerOut == false && throwTimer > 10f)
+        {
+            gameManager.currentFrameResult();
+        }
     }
 
     void FixedUpdate()
@@ -226,7 +246,7 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
 
                 camera.StopCameraMove();
                 this.gameObject.SetActive(false);
-
+                resetArea.ResetGame();
                 break;
 
         }
@@ -317,6 +337,11 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
         throwVelocity = transform.forward * speed * throwPower;
         rigidbody.linearVelocity = throwVelocity;
         camera.StopCameraMove();
+        if (!isThrowTimerStarted)
+        {
+            isThrowTimerStarted = true;
+            throwTimer = 0f;
+        }
         //Debug.Log("投擲");
     }
 
