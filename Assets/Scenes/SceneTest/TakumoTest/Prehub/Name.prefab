@@ -93,6 +93,14 @@ PrefabInstance:
       value: 1G
       objectReference: {fileID: 0}
     - target: {fileID: 801070106481905531, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 801070106481905531, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 801070106481905531, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.002
       objectReference: {fileID: 0}
@@ -184,6 +192,14 @@ PrefabInstance:
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 801070106481905531, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 801070106481905531, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1579297193871008725, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
       propertyPath: m_Name
       value: WAKUYOKO-2
@@ -251,6 +267,14 @@ PrefabInstance:
       value: 'name1
 
 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 801070106481905531, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 801070106481905531, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1579297193871008725, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
       propertyPath: m_Name
@@ -320,9 +344,21 @@ PrefabInstance:
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 801070106481905531, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 801070106481905531, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1579297193871008725, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
       propertyPath: m_Name
       value: WAKUYOKO-3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736080118349752535, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
+      propertyPath: m_Name
+      value: PlayerPoint0-1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -380,6 +416,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 15878259021879312, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 801070106481905531, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 801070106481905531, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1579297193871008725, guid: bf96c2e1c726b2340ae994ecaf1a5aef, type: 3}
