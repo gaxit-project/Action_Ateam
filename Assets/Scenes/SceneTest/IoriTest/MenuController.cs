@@ -4,18 +4,28 @@ using System.Collections;
 
 public class MenuController : MonoBehaviour
 {
-    public UnityEngine.UI.Button pushToStartButton;
+    public Button pushToStartButton;
     public RectTransform startButton;
     public RectTransform settingsButton;
     public RectTransform quitButton;
     public RectTransform arrow;
 
     private RectTransform[] menuButtons;
+    private Button[] buttonComponents;
     private int currentIndex = 0;
+
+    private float inputCooldown = 0.3f;
+    private float lastInputTime = 0f;
 
     void Start()
     {
         menuButtons = new RectTransform[] { startButton, settingsButton, quitButton };
+        buttonComponents = new Button[]
+        {
+            startButton.GetComponent<Button>(),
+            settingsButton.GetComponent<Button>(),
+            quitButton.GetComponent<Button>()
+        };
 
         foreach (var btn in menuButtons)
         {
@@ -38,8 +48,7 @@ public class MenuController : MonoBehaviour
         for (int i = 0; i < menuButtons.Length; i++)
         {
             targetPositions[i] = menuButtons[i].anchoredPosition;
-            // 右画面外へ移動
-            menuButtons[i].anchoredPosition += new Vector2(800, 0);
+            menuButtons[i].anchoredPosition += new Vector2(800, 0); // 右画面外
             menuButtons[i].gameObject.SetActive(true);
         }
 
@@ -54,11 +63,14 @@ public class MenuController : MonoBehaviour
 
     IEnumerator SmoothSlide(RectTransform btn, Vector2 target)
     {
-        float speed = 50f;
+        float duration = 0.5f;
+        float elapsed = 0f;
+        Vector2 start = btn.anchoredPosition;
 
-        while (Vector2.Distance(btn.anchoredPosition, target) > 0.1f)
+        while (elapsed < duration)
         {
-            btn.anchoredPosition = Vector2.MoveTowards(btn.anchoredPosition, target, speed);
+            btn.anchoredPosition = Vector2.Lerp(start, target, Mathf.SmoothStep(0f, 1f, elapsed / duration));
+            elapsed += Time.deltaTime;
             yield return null;
         }
 
@@ -69,21 +81,46 @@ public class MenuController : MonoBehaviour
     {
         if (!arrow.gameObject.activeSelf) return;
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        // 入力クールダウンチェック
+        if (Time.time - lastInputTime > inputCooldown)
         {
-            currentIndex = (currentIndex + menuButtons.Length - 1) % menuButtons.Length;
-            UpdateArrowPosition();
+            float vertical = Input.GetAxis("Vertical");
+
+            // 上方向
+            if (Input.GetKeyDown(KeyCode.UpArrow) || vertical > 0.5f)
+            {
+                currentIndex = (currentIndex + menuButtons.Length - 1) % menuButtons.Length;
+                UpdateArrowPosition();
+                lastInputTime = Time.time;
+            }
+            // 下方向
+            else if (Input.GetKeyDown(KeyCode.DownArrow) || vertical < -0.5f)
+            {
+                currentIndex = (currentIndex + 1) % menuButtons.Length;
+                UpdateArrowPosition();
+                lastInputTime = Time.time;
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+
+        // 決定（EnterキーまたはAボタン）
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Joystick1Button0))
         {
-            currentIndex = (currentIndex + 1) % menuButtons.Length;
-            UpdateArrowPosition();
+            buttonComponents[currentIndex].onClick.Invoke();
         }
     }
 
     void UpdateArrowPosition()
     {
+        // 全てのボタンのスケールをリセット
+        for (int i = 0; i < menuButtons.Length; i++)
+        {
+            menuButtons[i].localScale = new Vector3(3, 3, 1);
+        }
+
+        // 選択中のボタンを強調
         RectTransform target = menuButtons[currentIndex];
         arrow.anchoredPosition = new Vector2(target.anchoredPosition.x - 500, target.anchoredPosition.y);
+        target.localScale = new Vector3(3.6f, 3.6f, 1);
+        AudioManager.Instance.PlaySound(0);
     }
 }

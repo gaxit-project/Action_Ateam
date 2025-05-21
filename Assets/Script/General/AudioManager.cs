@@ -37,10 +37,12 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         {
             _audioSourceSE = gameObject.AddComponent<AudioSource>();
         }
-        if(BGMSlider != null)
+        if (BGMSlider != null)
         {
-            _audioSourceBGM = gameObject.AddComponent<AudioSource>();   
+            _audioSourceBGM = gameObject.AddComponent<AudioSource>();
         }
+
+        PlayBGM(0);
     }
 
     /// <summary>
