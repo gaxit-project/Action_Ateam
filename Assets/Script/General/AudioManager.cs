@@ -40,7 +40,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         {
             _audioSourceSE = gameObject.AddComponent<AudioSource>();
         }
-        if (_audioSourceBGM != null)
+        if (_audioSourceBGM == null)
         {
             _audioSourceBGM = gameObject.AddComponent<AudioSource>();
         }
