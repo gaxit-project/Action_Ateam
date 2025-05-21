@@ -41,8 +41,6 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         {
             _audioSourceBGM = gameObject.AddComponent<AudioSource>();   
         }
-        
-        PlayBGM(0);
     }
 
     /// <summary>
