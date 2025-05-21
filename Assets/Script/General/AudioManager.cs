@@ -28,6 +28,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 
     private int BuildIndex;
 
+
     private void Start()
     {
         LoadVolumeSetting();
@@ -100,6 +101,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         _audioSourceSE.volume = SESlider.value;
         PlayerPrefs.SetFloat("SEVolume", seVolume);
         PlayerPrefs.Save();
+        PlaySound(0);
     }
     /// <summary>
     /// BGM‚Ì’l‚ª•ÏX‚³‚ê‚½‚Æ‚«‚Ìˆ—

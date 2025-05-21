@@ -6,7 +6,7 @@ public class ButtonHandler : MonoBehaviour
     [SerializeField] private int _SENumber;
 
     [Header("BGMを停止するかどうか")]
-    [SerializeField] private bool _stopBGM = false;
+    [SerializeField] private bool _stopBGM;
 
     /// <summary>
     /// シーンを同期で読み込むボタンが押されたとき
