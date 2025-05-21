@@ -294,6 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneName: Title
   _SENumber: 0
+  _stopBGM: 1
 --- !u!114 &149011889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1584,6 +1585,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneName: Main
   _SENumber: 0
+  _stopBGM: 1
 --- !u!114 &1999165121
 MonoBehaviour:
   m_ObjectHideFlags: 0

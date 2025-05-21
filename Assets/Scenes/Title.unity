@@ -309,6 +309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneName: Setting
   _SENumber: 0
+  _stopBGM: 0
 --- !u!114 &415601408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -870,6 +871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneName: Main
   _SENumber: 0
+  _stopBGM: 1
 --- !u!114 &719780563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1945,6 +1947,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneName: 
   _SENumber: 0
+  _stopBGM: 0
 --- !u!114 &1344903081
 MonoBehaviour:
   m_ObjectHideFlags: 0

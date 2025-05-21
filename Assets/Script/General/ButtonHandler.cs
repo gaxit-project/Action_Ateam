@@ -5,11 +5,19 @@ public class ButtonHandler : MonoBehaviour
     [SerializeField] private string _sceneName;
     [SerializeField] private int _SENumber;
 
+    [Header("BGMを停止するかどうか")]
+    [SerializeField] private bool _stopBGM = false;
+
     /// <summary>
     /// シーンを同期で読み込むボタンが押されたとき
     /// </summary>
     public void ButtonOnClicked()
     {
+        if (_stopBGM)
+        {
+            AudioManager.Instance.StopBGM();
+        }
+
         AudioManager.Instance.PlaySound(_SENumber);
         SceneChangeManager.Instance.SceneChange(_sceneName);
     }
@@ -19,6 +27,11 @@ public class ButtonHandler : MonoBehaviour
     /// </summary>
     public void ButtonOnClickedAsync()
     {
+        if (_stopBGM)
+        {
+            AudioManager.Instance.StopBGM();
+        }
+
         AudioManager.Instance.PlaySound(_SENumber);
         SceneChangeManager.Instance.LoadNextScene(_sceneName);
     }
@@ -28,10 +41,10 @@ public class ButtonHandler : MonoBehaviour
     /// </summary>
     public void ApplicationExit()
     {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
             Application.Quit();
-        #endif
+#endif
     }
 }
