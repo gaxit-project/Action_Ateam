@@ -2458,11 +2458,13 @@ MonoBehaviour:
   weight: 10
   initialRotation: 0
   maxGaugeValue: 100
-  gaugeSpeed: 200
+  initialGaugeSpeed: 200
+  maxThrowPower: 10
+  throwGauge: {fileID: 0}
+  gauge: {fileID: 0}
   rotateSpeed: 100
   acceleration: 5
   deceleration: 5
-  throwPower: 5
   gravity: 20
   lookAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1 &1594772109
@@ -2880,7 +2882,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb8eae4e1afb3674d978528eb61b7dbc, type: 2}
+  - {fileID: 2100000, guid: af55611eeadd9094183fced8e85377ef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
