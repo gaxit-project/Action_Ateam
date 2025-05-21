@@ -170,12 +170,12 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
                 }
 
                 //Enterキーで状態を変化
-                /*
+                
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
                     ChangeMode();
                 }
-                */
+                
                 //ゲージの増減
                 if (isModeChanged)
                 {
@@ -213,12 +213,12 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
             case PlayerState.Throwed:
 
                 //Enterキーで状態を変化
-                /*
+                
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
                     ChangeMode();
                 }
-                */
+                
 
                 break;
 
