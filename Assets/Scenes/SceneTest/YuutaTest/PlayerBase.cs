@@ -2,14 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public enum PlayerState
-{
-    Idle,
-    Run,
-    Throwed,
-    Dead
-}
-
 public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
 {
     //プレイヤー関係
@@ -32,9 +24,9 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
     protected Vector3 currentVelocity = Vector3.zero;
     protected Vector3 throwVelocity;
     protected bool isModeChanged = false;
+    protected bool isThrowed = false;
     protected bool isGaugeIncreasing = true;
     protected float throwPower = 0f;
-    protected PlayerState currentState = PlayerState.Idle;
 
     //移動関係
     Vector3 throwPosition;
@@ -83,7 +75,7 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
             rigidbody.useGravity = false;
         }
         else Debug.LogError("PlayerにRigidBodyがアタッチされていません!");
-        if (gauge)
+        if(gauge)
         {
             gauge.maxValue = maxGaugeValue;
             throwGauge.SetActive(false);
@@ -108,10 +100,8 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
 
         //ゲージ速度の初期値を取得
         currentGaugeSpeed = initialGaugeSpeed;
-
-        //スタート時currentStateをRunにする
-        currentState = PlayerState.Run;
     }
+
 
     void FixedUpdate()
     {
@@ -123,130 +113,100 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
         weight = player.Weight;
         rotation = player.Rotation;
 
+        //移動関係
+        if (rigidbody)
+        {
+
+            //地面についている場合のみスティックまたはWASD,矢印キーの入力を受付
+            if (player.IsGrounded(transform.position, rayDistance))
+            {
+                /*
+                x = transform.right * Input.GetAxis("Horizontal");
+                z = transform.forward * Input.GetAxis("Vertical");
+                */
+
+                //カメラ基準の方向
+                x = camera.transform.right * Input.GetAxis("Horizontal");
+                z = camera.transform.forward * Input.GetAxis("Vertical");
+
+                x.y = 0f;
+                z.y = 0f;
+                x.Normalize();
+                z.Normalize();
+            }
+
+            //ローカル座標に変換
+            //targetVelocity = transform.TransformDirection(Vector3.ClampMagnitude(x + z, 1f)) * speed;
+
+            //方向決定
+            targetVelocity = Vector3.ClampMagnitude(x + z, 1f) * speed;
+
+            //加減速処理
+            float lerpRate = (targetVelocity.magnitude > 0.1f) ? acceleration : deceleration;
+            currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, lerpRate * Time.fixedDeltaTime);
+
+            //移動
+            if (!isModeChanged) rigidbody.MovePosition(rigidbody.position + currentVelocity * Time.fixedDeltaTime);
+            else if (!isThrowed) rigidbody.linearVelocity = Vector3.zero;
+            else
+            {
+                //rigidbody.linearVelocity = Vector3.Lerp(rigidbody.linearVelocity, Vector3.zero, deceleration / 100f * Time.fixedDeltaTime);
+            }
+            //固有の重力
+            rigidbody.AddForce(new Vector3(0f, -gravity, 0f), ForceMode.Acceleration);
+        }
+
         //右スティックで回転
         RstickX = lookVec.x * rotateSpeed * Time.fixedDeltaTime;
         transform.Rotate(0f, RstickX, 0f);
 
-        //固有の重力
-        rigidbody.AddForce(new Vector3(0f, -gravity, 0f), ForceMode.Acceleration);
-
-        //現在のステートによって行動を変える
-        switch (currentState)
+        //投擲関連
+        if (Input.GetKeyDown(KeyCode.Return)) //停止
         {
-            case PlayerState.Idle:
+            ThrowStandBy();
+        }
+        if (isModeChanged && !isThrowed && Input.GetKeyDown(KeyCode.Space)) //投擲
+        {
+            Throw();
+            isThrowed = true;
+        }
+        //ゲージの増減
+        if (isModeChanged && !isThrowed)
+        {
+            if (isGaugeIncreasing)
+            {
+                currentGaugeValue += currentGaugeSpeed * Time.fixedDeltaTime;
+            }
+            else if (!isGaugeIncreasing)
+            {
+                currentGaugeValue -= currentGaugeSpeed * Time.fixedDeltaTime;
+            }
 
-                break;
+            if (currentGaugeValue < 0f)
+            {
+                currentGaugeValue = 0f;
+                isGaugeIncreasing = true;
+            }
+            else if (currentGaugeValue > maxGaugeValue)
+            {
+                currentGaugeValue = maxGaugeValue;
+                isGaugeIncreasing = false;
+            }
 
-            case PlayerState.Run:
-
-                //移動関係
-                if (rigidbody)
-                {
-
-                    //地面についている場合のみスティックまたはWASD,矢印キーの入力を受付
-                    if (player.IsGrounded(transform.position, rayDistance))
-                    {
-                        //カメラ基準の方向
-                        x = camera.transform.right * Input.GetAxis("Horizontal");
-                        z = camera.transform.forward * Input.GetAxis("Vertical");
-
-                        x.y = 0f;
-                        z.y = 0f;
-                        x.Normalize();
-                        z.Normalize();
-                    }
-
-                    //方向決定
-                    targetVelocity = Vector3.ClampMagnitude(x + z, 1f) * speed;
-
-                    //加減速処理
-                    float lerpRate = (targetVelocity.magnitude > 0.1f) ? acceleration : deceleration;
-                    currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, lerpRate * Time.fixedDeltaTime);
-
-                    //移動
-                    if (!isModeChanged) rigidbody.MovePosition(rigidbody.position + currentVelocity * Time.fixedDeltaTime);
-                    else rigidbody.linearVelocity = Vector3.zero;
-
-                }
-
-                //Enterキーで状態を変化
-                /*
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    ChangeMode();
-                }
-                */
-                //ゲージの増減
-                if (isModeChanged)
-                {
-                    if (isGaugeIncreasing)
-                    {
-                        currentGaugeValue += currentGaugeSpeed * Time.fixedDeltaTime;
-                    }
-                    else if (!isGaugeIncreasing)
-                    {
-                        currentGaugeValue -= currentGaugeSpeed * Time.fixedDeltaTime;
-                    }
-
-                    if (currentGaugeValue < 0f)
-                    {
-                        currentGaugeValue = 0f;
-                        isGaugeIncreasing = true;
-                    }
-                    else if (currentGaugeValue > maxGaugeValue)
-                    {
-                        currentGaugeValue = maxGaugeValue;
-                        isGaugeIncreasing = false;
-                    }
-
-                    gauge.value = currentGaugeValue;
-                    throwPower = (maxThrowPower * (currentGaugeValue / maxGaugeValue) / 2f) + maxThrowPower / 2f;
-                }
-                //スペースキーで投擲
-                if (isModeChanged && Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0))
-                {
-                    Throw();
-                }
-
-                break;
-
-            case PlayerState.Throwed:
-
-                //Enterキーで状態を変化
-                /*
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    ChangeMode();
-                }
-                */
-
-                break;
-
-            case PlayerState.Dead:
-
-                camera.StopCameraMove();
-                this.gameObject.SetActive(false);
-
-                break;
-
+            gauge.value = currentGaugeValue;
+            throwPower = (maxThrowPower * (currentGaugeValue / maxGaugeValue) / 2f) + maxThrowPower / 2f;
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //Run状態でDeathAreaタグを持つオブジェクトに触れた場合死亡
-        if ((currentState == PlayerState.Run) && other.gameObject.CompareTag("DeathArea"))
-        {
-            currentState = PlayerState.Dead;
-        }
-    }
-
+    /// <summary>
+    /// 投擲後Wallタグをもつオブジェクトに当たった場合反射
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter(Collision collision)
     {
-        //投擲後Wallタグをもつオブジェクトに当たった場合反射
-        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Player")
         {
-            if ((currentState == PlayerState.Throwed) && collision.contactCount > 0)
+            if (isThrowed && collision.contactCount > 0)
             {
                 // 現在の進行方向
                 Vector3 incomingVelocity = rigidbody.linearVelocity;
@@ -276,7 +236,7 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
     /// <summary>
     /// 投擲待機
     /// </summary>
-    public void ChangeMode()
+    public void ThrowStandBy()
     {
         switch (isModeChanged)
         {
@@ -292,10 +252,9 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
                 Debug.Log(throwPosition);
                 break;
         }
-
-        if (currentState == PlayerState.Throwed)
+        if (isThrowed)
         {
-            currentState = PlayerState.Run;
+            isThrowed = false;
             throwGauge.SetActive(false);
             camera.RestartCameraMove();
             rigidbody.linearVelocity = Vector3.zero;
@@ -309,7 +268,6 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
     /// </summary>
     private void Throw()
     {
-        currentState = PlayerState.Throwed;
         //transform.rotation = Quaternion.Euler(transform.eulerAngles.x, camera.GetCameraRotationY(), transform.eulerAngles.z);
         Vector3 forward = camera.transform.forward;
         forward.y = 0f;
@@ -317,7 +275,7 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
         throwVelocity = transform.forward * speed * throwPower;
         rigidbody.linearVelocity = throwVelocity;
         camera.StopCameraMove();
-        //Debug.Log("投擲");
+        Debug.Log("投擲");
     }
 
     private void OnLook(InputAction.CallbackContext context)

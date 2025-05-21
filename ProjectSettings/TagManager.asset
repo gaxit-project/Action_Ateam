@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Pin
   - Wall
-  - DeathArea
   layers:
   - Default
   - TransparentFX
