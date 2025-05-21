@@ -2275,7 +2275,7 @@ PrefabInstance:
     - target: {fileID: 8629183568665788304, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: _loadingUI
       value: 
-      objectReference: {fileID: 708237339}
+      objectReference: {fileID: 843782867}
     - target: {fileID: 8629183568665788304, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: _loadSlider
       value: 

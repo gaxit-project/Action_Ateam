@@ -5,8 +5,15 @@ using UnityEngine.SceneManagement;
 [DisallowMultipleComponent]
 public class SceneChangeManager : SingletonMonoBehaviour<SceneChangeManager>
 {
-    [SerializeField] private LoadingUIController loadingUI;
+    [SerializeField] private LoadingUIController _loadingUI;
 
+    private void Start()
+    {
+        if (_loadingUI == null)
+        {
+            _loadingUI = GetComponent<LoadingUIController>();
+        }
+    }
     private void Update()
     {
         //デバッグ用
@@ -16,15 +23,33 @@ public class SceneChangeManager : SingletonMonoBehaviour<SceneChangeManager>
         }
     }
 
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (_loadingUI == null)
+        {
+            _loadingUI = GetComponent<LoadingUIController>();
+        }
+           
+    }
+
     /// <summary>
     /// Sceneを非同期で読み込む際のロード画面
     /// </summary>
     /// <param name="name">シーンの名前</param>
     public void LoadNextScene(string name)
     {
-        if (loadingUI != null)
+        if (_loadingUI != null)
         {
-            loadingUI.ShowLoading();
+            _loadingUI.ShowLoading();
         }
 
         //コルーチン開始
@@ -50,9 +75,9 @@ public class SceneChangeManager : SingletonMonoBehaviour<SceneChangeManager>
         AsyncOperation async = SceneManager.LoadSceneAsync(name);
         while (!async.isDone)
         {
-            if (loadingUI != null)
+            if (_loadingUI != null)
             {
-                loadingUI.UpdateProgress(async.progress);
+                _loadingUI.UpdateProgress(async.progress);
             }
             yield return null;
         }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
+using System.Diagnostics;
 
 public class AudioManager : SingletonMonoBehaviour<AudioManager>
 {
@@ -25,6 +26,8 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     private float seVolume = 0.25f;
     private float bgmVolume = 0.25f;
 
+    private int BuildIndex;
+
     private void Start()
     {
         LoadVolumeSetting();
@@ -37,7 +40,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         {
             _audioSourceSE = gameObject.AddComponent<AudioSource>();
         }
-        if (BGMSlider != null)
+        if (_audioSourceBGM != null)
         {
             _audioSourceBGM = gameObject.AddComponent<AudioSource>();
         }
@@ -57,6 +60,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         SESlider.value = seVolume;
         BGMSlider.value = bgmVolume;
 
+
         //イベントリスナーを登録
         SESlider.onValueChanged.RemoveAllListeners();
         SESlider.onValueChanged.AddListener(delegate { OnSEVolumeChange(); });
@@ -66,6 +70,27 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 
 
     }
+
+    #region シーンを移動してSettingシーン戻ってきた際の処理
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        BuildIndex = scene.buildIndex; //ビルド番号を取得
+
+        if (scene.name == "Setting") // Settingシーンにいるときだけ処理を実行
+        {
+            InitializeSliders();
+        }
+    }
+    #endregion
 
     #region SE・BGM操作
     /// <summary>

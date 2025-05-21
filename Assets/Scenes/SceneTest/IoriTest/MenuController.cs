@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class MenuController : MonoBehaviour
         arrow.gameObject.SetActive(false);
     }
 
+
     public void OnPushToStart()
     {
         pushToStartButton.gameObject.SetActive(false);
@@ -48,7 +50,7 @@ public class MenuController : MonoBehaviour
         for (int i = 0; i < menuButtons.Length; i++)
         {
             targetPositions[i] = menuButtons[i].anchoredPosition;
-            menuButtons[i].anchoredPosition += new Vector2(800, 0); // 右画面外
+            menuButtons[i].anchoredPosition += new Vector2(1500, 0); // 右画面外
             menuButtons[i].gameObject.SetActive(true);
         }
 
@@ -64,7 +66,7 @@ public class MenuController : MonoBehaviour
     IEnumerator SmoothSlide(RectTransform btn, Vector2 target)
     {
         float duration = 0.5f;
-        float elapsed = 0f;
+        float elapsed = 0.2f;
         Vector2 start = btn.anchoredPosition;
 
         while (elapsed < duration)
@@ -120,7 +122,8 @@ public class MenuController : MonoBehaviour
         // 選択中のボタンを強調
         RectTransform target = menuButtons[currentIndex];
         arrow.anchoredPosition = new Vector2(target.anchoredPosition.x - 500, target.anchoredPosition.y);
+        AudioManager.Instance.PlaySound(0);        
         target.localScale = new Vector3(3.6f, 3.6f, 1);
-        AudioManager.Instance.PlaySound(0);
+
     }
 }
