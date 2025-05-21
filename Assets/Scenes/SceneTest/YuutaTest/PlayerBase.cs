@@ -223,7 +223,7 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
                     throwPower = (maxThrowPower * (currentGaugeValue / maxGaugeValue) / 2f) + maxThrowPower / 2f;
                 }
                 //スペースキーで投擲
-                if (isModeChanged && Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0))
+                if (isModeChanged && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0)))
                 {
                     Throw();
                 }
