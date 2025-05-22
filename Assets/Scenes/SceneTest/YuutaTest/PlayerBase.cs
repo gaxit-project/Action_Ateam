@@ -118,7 +118,7 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
         currentGaugeSpeed = initialGaugeSpeed;
 
         //スタート時currentStateをRunにする
-        currentState = PlayerState.Run;
+        //currentState = PlayerState.Run;
     }
 
     private void Update()
@@ -178,13 +178,13 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
 
                     //方向決定
                     targetVelocity = Vector3.ClampMagnitude(x + z, 1f) * speed;
-
+                    /*
                     //加減速処理
                     float lerpRate = (targetVelocity.magnitude > 0.1f) ? acceleration : deceleration;
                     currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, lerpRate * Time.fixedDeltaTime);
-
+                    */
                     //移動
-                    if (!isModeChanged) rigidbody.MovePosition(rigidbody.position + currentVelocity * Time.fixedDeltaTime);
+                    if (!isModeChanged) rigidbody.MovePosition(rigidbody.position + /*currentVelocity*/targetVelocity * Time.fixedDeltaTime);
                     else rigidbody.linearVelocity = Vector3.zero;
 
                 }
@@ -284,6 +284,12 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
         }
     }
 
+    public void StartMove()
+    {
+        currentState = PlayerState.Run;
+        Debug.Log("スタート!");
+    }
+
     /// <summary>
     /// プレイヤーとカメラの回転を同期させる用
     /// </summary>
@@ -381,7 +387,6 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
 
             return Physics.Raycast(ray, distance);
         }
-
     }
 
     public class Player : Character
