@@ -20,7 +20,7 @@ public class MenuController : MonoBehaviour
 
     void Start()
     {
-        menuButtons = new RectTransform[] { startButton, settingsButton, quitButton };
+        menuButtons = new RectTransform[] { startButton, settingsButton, quitButton }; //menuButton配列初期化
         buttonComponents = new Button[]
         {
             startButton.GetComponent<Button>(),
@@ -36,13 +36,19 @@ public class MenuController : MonoBehaviour
         arrow.gameObject.SetActive(false);
     }
 
-
+    /// <summary>
+    /// PushToStartが押されたとき
+    /// </summary>
     public void OnPushToStart()
     {
         pushToStartButton.gameObject.SetActive(false);
         StartCoroutine(ShowMenuWithSlide());
     }
 
+    /// <summary>
+    /// ボタンを画面外でアクティブにする
+    /// </summary>
+    /// <returns>コルーチン「SmoothSlide」開始</returns>
     IEnumerator ShowMenuWithSlide()
     {
         Vector2[] targetPositions = new Vector2[menuButtons.Length];
@@ -63,6 +69,12 @@ public class MenuController : MonoBehaviour
         UpdateArrowPosition();
     }
 
+    /// <summary>
+    /// ボタンが画面外からスライド
+    /// </summary>
+    /// <param name="btn">ボタンの位置</param>
+    /// <param name="target">ボタンの最終位置</param>
+    /// <returns></returns>
     IEnumerator SmoothSlide(RectTransform btn, Vector2 target)
     {
         float duration = 0.5f;
@@ -81,7 +93,7 @@ public class MenuController : MonoBehaviour
 
     void Update()
     {
-        if (!arrow.gameObject.activeSelf) return;
+        if (!arrow.gameObject.activeSelf) return; //PushToStartが押されていない場合
 
         // 入力クールダウンチェック
         if (Time.time - lastInputTime > inputCooldown)
@@ -111,6 +123,9 @@ public class MenuController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// カーソルの位置変更
+    /// </summary>
     void UpdateArrowPosition()
     {
         // 全てのボタンのスケールをリセット
