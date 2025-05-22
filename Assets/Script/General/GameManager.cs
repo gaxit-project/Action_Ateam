@@ -27,7 +27,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private void Start()
     {
-
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 144;
     }
 
     private void Update()
