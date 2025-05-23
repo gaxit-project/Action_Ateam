@@ -31,8 +31,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         Debug.Log("RESET");
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 144;
-        pinManager = FindObjectOfType<PinManager>();
-        resetArea = FindObjectOfType<ResetArea>();
+        pinManager = FindFirstObjectByType<PinManager>();
+        resetArea = FindFirstObjectByType<ResetArea>();
         score_object = GameObject.Find("Canvas/Text");
     }
 
