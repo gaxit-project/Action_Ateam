@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
@@ -25,10 +26,14 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     int pp0,pp1,pp2,pp3;//a-dは仮置き,スコアを表す
 
 
-    private void Start()
+    public void ResetStart()
     {
+        Debug.Log("RESET");
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 144;
+        pinManager = FindFirstObjectByType<PinManager>();
+        resetArea = FindFirstObjectByType<ResetArea>();
+        score_object = GameObject.Find("Canvas/Text");
     }
 
     private void Update()
@@ -36,6 +41,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         if (false/*resetArea.OnTriggerEnter*/)
         {
             FrameSaveSystem();
+        }
+        if (pinManager == null || resetArea == null || score_object == null)
+        {
+            ResetStart();
         }
     }
 

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class GameStarter : SingletonMonoBehaviour<GameStarter>
+public class GameStarter : MonoBehaviour
 {
 
     private PlayerBase player;

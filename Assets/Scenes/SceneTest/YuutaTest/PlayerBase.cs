@@ -11,7 +11,7 @@ public enum PlayerState
     Dead
 }
 
-public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
+public class PlayerBase : MonoBehaviour
 {
     //プレイヤー関係
     private new Rigidbody rigidbody;
@@ -55,10 +55,8 @@ public class PlayerBase : SingletonMonoBehaviour<PlayerBase>
     [SerializeField] protected float gravity = 20f;
     [SerializeField] private InputActionReference lookAction;
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake(); //SingletonMonoBehaviourのAwakeに元々あったものを実行する
-
         lookAction.action.performed += OnLook;
         lookAction.action.canceled += OnLook;
 

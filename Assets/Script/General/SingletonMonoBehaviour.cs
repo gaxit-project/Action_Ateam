@@ -1,23 +1,21 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
-public class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;
-
     public static T Instance
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
             {
-                Type type = typeof(T);
+                Type t = typeof(T);
 
-                instance = (T)FindAnyObjectByType(type);
-
-                if(instance == null)
+                instance = (T)FindObjectOfType(t);
+                if (instance == null)
                 {
-                    Debug.LogError(type + "をアタッチしているGameObjectが存在しません");
+                    Debug.LogError(t + " をアタッチしているGameObjectはありません");
                 }
             }
 
@@ -27,16 +25,19 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
 
     virtual protected void Awake()
     {
-        CheckInstance();
+        // 他のGameObjectにアタッチされているか調べる.
+        // アタッチされている場合は破棄する.
+        if (this != Instance)
+        {
+            Destroy(this);
+            /*Debug.LogError(
+                typeof(T) +
+                " は既に他のGameObjectにアタッチされているため、コンポーネントを破棄しました." +
+                " アタッチされているGameObjectは " + Instance.gameObject.name + " です.");*/
+            return;
+        }
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
-    protected void CheckInstance()
-    {
-        if (instance == null) { instance = this as T; return; }
-
-        else if (Instance == this) { return; }
-
-        Destroy(gameObject);
-        return;
-    }
 }
