@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3809920478863450171}
   - component: {fileID: 5724567422248666484}
   m_Layer: 0
-  m_Name: bafuaria
+  m_Name: GrowBiggerAria
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

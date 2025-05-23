@@ -1,10 +1,21 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-public class ScaleOnTouch : MonoBehaviour
+public class ScaleOnTouchOnce : MonoBehaviour
 {
+    // すでにスケール済みのオブジェクトを記録する
+    private HashSet<Transform> scaledObjects = new HashSet<Transform>();
+
     private void OnTriggerEnter(Collider other)
     {
-        // 触れたオブジェクトの現在のサイズを取得し、1.1倍にする
-        other.transform.localScale *= 1.1f;
+        Transform BigPlayer = other.transform;
+
+        // まだスケールしていないオブジェクトのみ処理
+        if (!scaledObjects.Contains(BigPlayer))
+        {
+            BigPlayer.localScale *= 1.1f;
+            AudioManager.Instance.PlaySound(2);
+            scaledObjects.Add(BigPlayer);
+        }
     }
 }

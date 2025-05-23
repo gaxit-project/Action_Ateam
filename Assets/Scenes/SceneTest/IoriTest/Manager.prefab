@@ -55,6 +55,7 @@ MonoBehaviour:
   _seLists:
   - {fileID: 8300000, guid: 66aa1d4182834d046a289ffe1453e4b5, type: 3}
   - {fileID: 8300000, guid: df4e5d414c383a1448f62a8de8e82c48, type: 3}
+  - {fileID: 8300000, guid: 1678de29736ff7342b0e94e800f643b0, type: 3}
   _bgmLists:
   - {fileID: 8300000, guid: 2f19c5fd1a422504bace20b8b8c9d4cf, type: 3}
   _audioSourceSE: {fileID: 4600566453074975748}
@@ -73,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c0e44d397a30d240aecff792c548acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadingUI: {fileID: 0}
+  _loadingUI: {fileID: 0}
 --- !u!114 &8915725821885507200
 MonoBehaviour:
   m_ObjectHideFlags: 0
