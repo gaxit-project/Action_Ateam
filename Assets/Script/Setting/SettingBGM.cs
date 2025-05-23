@@ -4,6 +4,6 @@ public class SettingBGM : MonoBehaviour
 {
     void Start()
     {
-        AudioManager.Instance.PlayBGM(0);       
+        AudioManager.Instance.PlayBGM(1);       
     }
 }

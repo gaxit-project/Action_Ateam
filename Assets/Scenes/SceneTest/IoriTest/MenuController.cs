@@ -40,6 +40,7 @@ public class MenuController : MonoBehaviour
     public void OnPushToStart()
     {
         pushToStartButton.gameObject.SetActive(false);
+        AudioManager.Instance.PlaySound(3);
         StartCoroutine(ShowMenuWithSlide());
     }
 
@@ -121,7 +122,7 @@ public class MenuController : MonoBehaviour
 
         // ‘I‘ð’†‚Ìƒ{ƒ^ƒ“‚ð‹­’²
         RectTransform target = menuButtons[currentIndex];
-        arrow.anchoredPosition = new Vector2(target.anchoredPosition.x - 500, target.anchoredPosition.y);
+        arrow.anchoredPosition = new Vector2(target.anchoredPosition.x - 400, target.anchoredPosition.y);
         AudioManager.Instance.PlaySound(0);        
         target.localScale = new Vector3(3.6f, 3.6f, 1);
 
