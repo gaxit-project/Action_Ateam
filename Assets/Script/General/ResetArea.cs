@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class ResetArea : MonoBehaviour
 {
-    public GameManager gameManager;
     public bool isPlayerOut = false;
 
     public void ResetGame()
@@ -17,7 +16,7 @@ public class ResetArea : MonoBehaviour
         {
             Debug.Log("エリア外に到達しました");
             isPlayerOut = true;
-            gameManager.currentFrameResult();
+            GameManager.Instance.currentFrameResult();
         }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PinManager : SingletonMonoBehaviour<PinManager>
+public class PinManager : MonoBehaviour
 {
     [SerializeField] private PinBase[] pins;
 

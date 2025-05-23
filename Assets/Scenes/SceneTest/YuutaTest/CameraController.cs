@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class CameraController : SingletonMonoBehaviour<CameraController>
+public class CameraController : MonoBehaviour
 {
     private GameObject player;
     private PlayerBase playerBase;
