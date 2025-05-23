@@ -42,7 +42,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         {
             FrameSaveSystem();
         }
-        if (pinManager == null)
+        if (pinManager == null || resetArea == null || score_object == null)
         {
             ResetStart();
         }
