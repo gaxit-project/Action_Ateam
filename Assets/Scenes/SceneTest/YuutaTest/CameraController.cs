@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     private Vector3 targetPosition;
     private bool isChasingPlayer = true;
     //[SerializeField] private float rotateSpeed = 200f;
+    private Vector3 InitialCameraDirection;
 
     void Start()
     {
@@ -17,6 +18,8 @@ public class CameraController : MonoBehaviour
         {
             playerBase = GameObject.FindFirstObjectByType<PlayerBase>();
             targetPosition = player.transform.position;
+            InitialCameraDirection = this.transform.eulerAngles;
+            //Debug.Log("(" + InitialCameraDirection.x + ", " + InitialCameraDirection.y + ", " + InitialCameraDirection.z + ")");
         }
         else
         {
@@ -77,5 +80,7 @@ public class CameraController : MonoBehaviour
     public void ChangeCameraMode()
     {
         Debug.Log("ÉJÉÅÉâÇÃå¸Ç´ïœçX");
+        this.transform.eulerAngles = InitialCameraDirection - new Vector3(InitialCameraDirection.x / 2f, 0f, 0f);
+        this.transform.position -= new Vector3(0f, this.transform.position.y / 2f, 0f);
     }
 }
