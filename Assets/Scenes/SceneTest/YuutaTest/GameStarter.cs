@@ -7,7 +7,7 @@ public class GameStarter : MonoBehaviour
     private PlayerBase player;
     [SerializeField] private TextMeshProUGUI countText;
     private float time = 3f;
-    private bool isCountStoped = false;
+    private bool isCountStopped = false;
 
     void Start()
     {
@@ -20,7 +20,7 @@ public class GameStarter : MonoBehaviour
 
     void Update()
     {
-        if (!isCountStoped)
+        if (!isCountStopped)
         {
             time -= Time.deltaTime;
             // ¬”“_ˆÈ‰º‚ğØ‚èÌ‚Ä‚Ä®”•\¦
@@ -29,7 +29,7 @@ public class GameStarter : MonoBehaviour
         }
         if(time <= 0)
         {
-            isCountStoped = true;
+            isCountStopped = true;
             countText.text = "GO!!";
             Invoke("Disabled", 1f);
         }
@@ -45,4 +45,8 @@ public class GameStarter : MonoBehaviour
         countText.enabled = false;
     }
 
+    public bool IsCountStopped()
+    {
+        return isCountStopped;
+    }
 }
