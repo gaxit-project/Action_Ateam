@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
@@ -18,12 +19,20 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public GameObject score_object = null;
     public int totalScore;
 
+    [Header("PlayerのPrefabと人数")]
+    [SerializeField] private GameObject _playerPrefab;
+    public int NumHumanPlayers;
+    public int NumBots;
 
-    private int[] NowFramePoint_0 = new int[11];
-    private int[] NowFramePoint_1 = new int[11];
-    private int[] NowFramePoint_2 = new int[11];
-    private int[] NowFramePoint_3 = new int[11];
-    int pp0,pp1,pp2,pp3;//a-dは仮置き,スコアを表す
+    //Playerのスコア管理
+    private List<PlayerBase> players = new List<PlayerBase>();
+    private List<PlayerScoreData> playerScores = new List<PlayerScoreData>();
+
+    //private int[] NowFramePoint_0 = new int[11];
+    //private int[] NowFramePoint_1 = new int[11];
+    //private int[] NowFramePoint_2 = new int[11];
+    //private int[] NowFramePoint_3 = new int[11];
+    //int pp0,pp1,pp2,pp3;//a-dは仮置き,スコアを表す
 
 
     public void ResetStart()
@@ -36,6 +45,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         score_object = GameObject.Find("Canvas/Text (Legacy)");
     }
 
+    private void Start()
+    {
+        SetUpPlayers();
+    }
     private void Update()
     {
         if (false/*resetArea.OnTriggerEnter*/)
@@ -48,25 +61,65 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
     }
 
+    /// <summary>
+    /// Mainに入ったときにプレイヤーを作成
+    /// </summary>
+    public void SetUpPlayers()
+    {
+        players.Clear();
+        playerScores.Clear();
+
+        //人間
+        for (int i = 0; i < NumHumanPlayers; i++)
+        {
+            var playerobj = Instantiate(_playerPrefab);
+            var player = playerobj.GetComponent<PlayerBase>();
+            player.Init($"Player{i + 1}", false);
+            players.Add(player);
+            playerScores.Add(new PlayerScoreData($"Player{i + 1}", false));
+            var cam = FindFirstObjectByType<CameraController>();
+            //if (cam == null) Debug.LogError("nullだよ");
+            cam.SetTargetPlayer(player); // Instantiate後に必ず設定！
+            var starter = FindFirstObjectByType<GameStarter>();
+            //if (starter == null) Debug.LogError("starternull");
+            starter.SetPlayer(player);
+
+        }
+
+        //Bot
+        for (int i = 0; i < NumBots; i++)
+        {
+            var botobj = Instantiate(_playerPrefab);
+            var bot = botobj.GetComponent<PlayerBase>().GetComponent<PlayerBase>();
+            bot.Init($"Bot{i + 1}", true);
+            players.Add(bot);
+            playerScores.Add(new PlayerScoreData($"Bot{i + 1}", true));
+        }
+    }
+
+    /// <summary>
+    /// スコアをリストに保存
+    /// </summary>
     public void FrameSaveSystem()
     {
-        
-        if (true) {// かつPlayer0であれば
-            pp0 = pinManager.GetKnockedDownPinCount();
+        foreach (var player in players)
+        {
+            int pins = pinManager.GetKnockedDownPinCount();
 
-    NowFramePoint_0[Num_NowFrame] = pp0;//今回の得点
-        NowFramePoint_0[0] += NowFramePoint_0[Num_NowFrame];//合計点
-        }//if文の終わり
-
-
+            var scoreData = playerScores.Find(p => p.PlayerID == player.GetPlayerID());
+            if (scoreData != null)
+            {
+                scoreData.Addscore(Num_NowFrame, pins);
+                Debug.Log($"{scoreData.PlayerID}: {pins} 点（合計 {scoreData.GetTotalScore()}）");
+            }
+        }
 
         Num_NowFrame++;
         resetArea.ResetGame();
-        Debug.Log("現在 +Num_NowFrame+ frameになりました");
     }
 
 
-    public void currentFrameResult()
+    public void CurrentFrameResult()
     {
         ScoreText();
         StartCoroutine(DelayAndResetCoroutine());

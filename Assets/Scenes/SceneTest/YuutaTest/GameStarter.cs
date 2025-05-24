@@ -13,9 +13,9 @@ public class GameStarter : MonoBehaviour
     {
         countText.enabled = true; 
         countText.SetText("3");
-        if (!player) player = GameObject.FindFirstObjectByType<PlayerBase>();
-        if (!player) Debug.LogError("PlayerBaseがアタッチされたオブジェクトが見つかりません！");
-        else StartCoroutine("StartMove");
+        //if (!player) player = GameObject.FindFirstObjectByType<PlayerBase>();
+        //if (!player) Debug.LogError("PlayerBaseがアタッチされたオブジェクトが見つかりません！");
+        //else StartCoroutine("StartMove");
     }
 
     void Update()
@@ -48,5 +48,15 @@ public class GameStarter : MonoBehaviour
     public bool IsCountStopped()
     {
         return isCountStopped;
+    }
+
+    /// <summary>
+    /// GameManagerのStart関数側でPlayerBaseをアタッチ
+    /// </summary>
+    /// <param name="player">PlayerのPlayerBase</param>
+    public void SetPlayer(PlayerBase player)
+    {
+        this.player = player;
+        StartCoroutine("StartMove");
     }
 }

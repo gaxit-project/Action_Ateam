@@ -7,6 +7,7 @@ public class ResetArea : MonoBehaviour
 
     public void ResetGame()
     {
+        
         SceneManager.LoadScene(1);
     }
 
@@ -16,7 +17,7 @@ public class ResetArea : MonoBehaviour
         {
             Debug.Log("エリア外に到達しました");
             isPlayerOut = true;
-            GameManager.Instance.currentFrameResult();
+            GameManager.Instance.CurrentFrameResult();
         }
     }
 }
