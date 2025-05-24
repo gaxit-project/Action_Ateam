@@ -4,10 +4,8 @@ using UnityEngine;
 
 namespace NPC.StateAI
 {
-    public class IState : IColorable
+    public interface IState : IColorable
     {
-        public Color MeshColor {  get; set; }
-
         public void Enter()
         {
             

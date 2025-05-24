@@ -636,8 +636,8 @@ Transform:
   m_GameObject: {fileID: 350550460}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -251.8, y: -1.7, z: -0.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -91.6, y: -1.7, z: -0.4}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1205,17 +1205,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
---- !u!114 &630092381 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8915725821885507200, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-  m_PrefabInstance: {fileID: 630092380}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f7e888c9b7420e49886d83ad7d1c332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &670844653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2379,7 +2368,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 0be64a1fa655d7e4a8a1d3507b199193, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 2edb9132fc1b24a45bb3823a7bb7a928, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &1429624743
 GameObject:
@@ -2448,7 +2437,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1461788568
 Transform:
   m_ObjectHideFlags: 0
@@ -2458,7 +2447,7 @@ Transform:
   m_GameObject: {fileID: 1461788567}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.0259857, y: 50.6, z: 46.979088}
+  m_LocalPosition: {x: 3.0259857, y: 50, z: 46.979088}
   m_LocalScale: {x: 200, y: 0.5, z: 15}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3150,7 +3139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda1e013890d78f4f9b809b3e43a3432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 630092381}
   isPlayerOut: 0
 --- !u!65 &1694203331
 BoxCollider:

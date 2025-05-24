@@ -6,10 +6,29 @@ namespace NPC.StateAI
 {
     public class AttackState : IState
     {
-        private Color meshColor = Color.red;
-        public Color MeshColor { get => meshColor; set => meshColor = value; }
+        public Color MeshColor { get; set; }
+
+        private EnemyAI enemyAI;
+        
+        public AttackState(EnemyAI enemyAI)
+        {
+            this.enemyAI = enemyAI;
+            MeshColor = Color.red;
+        }
+
+        //AttackState‚É‘JˆÚ‚µ‚½‚Æ‚«‚É1‰ñŒÄ‚Ño‚³‚ê‚é
+        void Enter()
+        {
+            enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
+        }
 
         void Update()
+        {
+
+        }
+
+        //RunState‚©‚ç•Ê‚Ìó‘Ô‚É‘JˆÚ‚·‚é‚Æ‚«‚É1‰ñŒÄ‚Ño‚³‚ê‚é
+        void Exit()
         {
 
         }

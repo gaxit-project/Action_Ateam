@@ -19,9 +19,9 @@ namespace NPC.StateAI
         //コンストラクター
         public StateMachine(EnemyAI enemy)
         {
-            this.idleState = new IdleState(/*enemy*/);
-            this.runState = new RunState(/*enemy*/);
-            this.attackState = new AttackState(/*enemy*/);
+            this.idleState = new IdleState(enemy);
+            this.runState = new RunState(enemy);
+            this.attackState = new AttackState(enemy);
         }
 
         //初期状態の指定

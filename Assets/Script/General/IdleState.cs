@@ -6,22 +6,34 @@ namespace NPC.StateAI
 {
     public class IdleState : IState
     {
-        private Color meshColor = Color.gray;
-        public Color MeshColor { get => meshColor; set => meshColor = value; }
+        public Color MeshColor {  get; set; }
 
+        private EnemyAI enemyAI;
+        private GameStarter gameStarter;
+        
+        public IdleState(EnemyAI enemyAI)
+        {
+            this.enemyAI = enemyAI;
+            MeshColor = Color.blue;
+        }
+
+        //IdleState‚É‘JˆÚ‚µ‚½‚Æ‚«‚É1‰ñŒÄ‚Ño‚³‚ê‚é
         public void Enter()
         {
-
+             enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
         }
 
         public void Update()
         {
-
+            if (gameStarter.IsCountStopped())
+            {
+                enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.runState);
+            }
         }
 
         public void Exit()
         {
-
+            
         }
     }
 }

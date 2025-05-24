@@ -8,7 +8,6 @@ namespace NPC.StateAI
     {
         [SerializeField] private float speed = 5f;
         [SerializeField] private float weight = 10f;
-        [SerializeField] private float initialRotation = 0f;
         [SerializeField] private float rayDistance = 2f;
 
         [SerializeField] private bool isGround = true;
