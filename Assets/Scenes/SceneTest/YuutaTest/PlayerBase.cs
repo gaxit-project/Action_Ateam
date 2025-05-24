@@ -413,6 +413,11 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// PlayerID初期化
+    /// </summary>
+    /// <param name="id">playerのID</param>
+    /// <param name="isbot">Bot判定</param>
     public void Init(string id, bool isbot)
     {
         PlayerID = id;

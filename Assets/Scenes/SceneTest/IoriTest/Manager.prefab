@@ -65,6 +65,8 @@ MonoBehaviour:
   _audioSourceBGM: {fileID: 5922074557707150540}
   SESlider: {fileID: 0}
   BGMSlider: {fileID: 0}
+  isBGMMute: 0
+  isSEMute: 0
 --- !u!114 &8629183568665788304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,6 +98,9 @@ MonoBehaviour:
   resetArea: {fileID: 0}
   score_object: {fileID: 0}
   totalScore: 0
+  _playerPrefab: {fileID: 6162004822796889170, guid: c6cf9cdf0d3cded4ea3ce6694d67d924, type: 3}
+  NumHumanPlayers: 1
+  NumBots: 0
 --- !u!82 &4600566453074975748
 AudioSource:
   m_ObjectHideFlags: 0

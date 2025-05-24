@@ -152,12 +152,6 @@ MonoBehaviour:
   speed: 10
   weight: 10
   initialRotation: 0
-  maxGaugeValue: 100
-  initialGaugeSpeed: 200
-  maxThrowPower: 10
-  throwGauge: {fileID: 6476526875681949758, guid: a2d3a55538bd707499fbae2a82be089d, type: 3}
-  gauge: {fileID: 6108284179320734791, guid: a2d3a55538bd707499fbae2a82be089d, type: 3}
-  throwTimer: 0
   rotateSpeed: 100
   acceleration: 5
   deceleration: 5

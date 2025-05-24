@@ -13,23 +13,23 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindFirstObjectByType<PlayerBase>().gameObject; //PlayerBaseがアタッチされたオブジェクトを取得
+        /*player = GameObject.FindFirstObjectByType<PlayerBase>().gameObject; //PlayerBaseがアタッチされたオブジェクトを取得
         if(player != null)
         {
             playerBase = GameObject.FindFirstObjectByType<PlayerBase>();
-            targetPosition = player.transform.position;
-            InitialCameraDirection = this.transform.eulerAngles;
             //Debug.Log("(" + InitialCameraDirection.x + ", " + InitialCameraDirection.y + ", " + InitialCameraDirection.z + ")");
         }
         else
         {
             Debug.LogError("PlayerBaseがアタッチされたオブジェクトが見つかりません!");
-        }
+        }*/
     }
 
     void FixedUpdate()
     {
         //位置の更新
+
+        if (player == null || playerBase == null) return;
 
         if(isChasingPlayer)
         {
@@ -82,5 +82,17 @@ public class CameraController : MonoBehaviour
         Debug.Log("カメラの向き変更");
         this.transform.eulerAngles = InitialCameraDirection - new Vector3(InitialCameraDirection.x / 2f, 0f, 0f);
         this.transform.position -= new Vector3(0f, this.transform.position.y / 2f, 0f);
+    }
+
+    /// <summary>
+    /// GameManagerのStart関数側でPlayerBaseをアタッチ
+    /// </summary>
+    /// <param name="player">PlayerのPlayerBase</param>
+    public void SetTargetPlayer(PlayerBase player)
+    {
+        this.playerBase = player;
+        this.player = player.gameObject;
+        targetPosition = player.transform.position;
+        InitialCameraDirection = this.transform.eulerAngles;
     }
 }
