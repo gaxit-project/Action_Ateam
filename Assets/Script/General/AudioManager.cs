@@ -23,6 +23,9 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     public Slider SESlider;
     public Slider BGMSlider;
 
+    public bool isBGMMute;
+    public bool isSEMute;
+
     private float seVolume = 0.5f;
     private float bgmVolume = 0.5f;
 
@@ -216,4 +219,14 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         SaveVolumeSetting();
     }
     #endregion
+
+    public bool IsSEMuted()
+    {
+        return seVolume < 0.01;
+    }
+
+    public bool IsBGMMuted()
+    {
+        return bgmVolume < 0.01;
+    }
 }   
