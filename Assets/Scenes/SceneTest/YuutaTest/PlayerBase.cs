@@ -22,6 +22,7 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] protected float speed = 5f;
     [SerializeField] protected float weight = 10f;
     [SerializeField] protected float initialRotation = 0f;
+    /*
     [SerializeField] protected float maxGaugeValue = 100f;
     [SerializeField] protected float initialGaugeSpeed = 200f;
     [SerializeField] protected float maxThrowPower = 10f;
@@ -30,13 +31,14 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] protected float throwTimer;
     protected float currentGaugeValue = 0f;
     protected float currentGaugeSpeed;
+    */
     protected float rotation = 0f;
     protected Vector3 currentVelocity = Vector3.zero;
     protected Vector3 throwVelocity;
     protected bool isModeChanged = false;
     protected bool isGaugeIncreasing = true;
     protected bool isThrowTimerStarted = false;
-    protected float throwPower = 0f;
+    protected float throwPower = 2f;
     protected PlayerState currentState = PlayerState.Idle;
 
     ResetArea resetArea;
@@ -89,12 +91,14 @@ public class PlayerBase : MonoBehaviour
             rigidbody.useGravity = false;
         }
         else Debug.LogError("PlayerにRigidBodyがアタッチされていません!");
+        /*
         if (gauge)
         {
             gauge.maxValue = maxGaugeValue;
             throwGauge.SetActive(false);
         }
         else Debug.LogError("PlayerBaseにスライダーがアタッチされていません!");
+        */
 
         //CameraControllerを取得
         camera = GameObject.FindFirstObjectByType<CameraController>();
@@ -113,7 +117,7 @@ public class PlayerBase : MonoBehaviour
         }
 
         //ゲージ速度の初期値を取得
-        currentGaugeSpeed = initialGaugeSpeed;
+        //currentGaugeSpeed = initialGaugeSpeed;
 
         //スタート時currentStateをRunにする
         //currentState = PlayerState.Run;
@@ -121,6 +125,7 @@ public class PlayerBase : MonoBehaviour
 
     private void Update()
     {
+        /*
         if (isThrowTimerStarted)
         {
             throwTimer += Time.deltaTime;
@@ -129,6 +134,7 @@ public class PlayerBase : MonoBehaviour
         {
             gameManager.currentFrameResult();
         }
+        */
     }
 
     void FixedUpdate()
@@ -194,6 +200,7 @@ public class PlayerBase : MonoBehaviour
                     ChangeMode();
                 }
                 */
+                /*
                 //ゲージの増減
                 if (isModeChanged)
                 {
@@ -225,6 +232,7 @@ public class PlayerBase : MonoBehaviour
                 {
                     Throw();
                 }
+                */
 
                 break;
 
@@ -237,6 +245,9 @@ public class PlayerBase : MonoBehaviour
                     ChangeMode();
                 }
                 */
+
+                throwVelocity = transform.forward * speed * throwPower;
+                rigidbody.linearVelocity = throwVelocity;
 
                 break;
 
@@ -275,9 +286,13 @@ public class PlayerBase : MonoBehaviour
                 // 反射ベクトルの計算
                 Vector3 reflectVelocity = Vector3.Reflect(incomingVelocity, normal);
 
+                /*
                 // 反射後の速度倍率(多分1以下だとスピードが下がりすぎる)
                 float bounceDamping = 1.5f;
                 rigidbody.linearVelocity = reflectVelocity * bounceDamping;
+                */
+                //進む方向の変更
+                this.transform.forward = reflectVelocity;
             }
         }
     }
@@ -297,6 +312,7 @@ public class PlayerBase : MonoBehaviour
         return RstickX;
     }
 
+    /*
     /// <summary>
     /// 投擲待機
     /// </summary>
@@ -327,26 +343,30 @@ public class PlayerBase : MonoBehaviour
             transform.rotation = Quaternion.Euler(transform.eulerAngles.x, camera.GetCameraRotationY(), transform.eulerAngles.z);
         }
     }
+    */
 
     /// <summary>
     /// 投擲
     /// </summary>
-    private void Throw()
+    public void Throw()
     {
         currentState = PlayerState.Throwed;
         //transform.rotation = Quaternion.Euler(transform.eulerAngles.x, camera.GetCameraRotationY(), transform.eulerAngles.z);
         Vector3 forward = camera.transform.forward;
         forward.y = 0f;
         transform.rotation = Quaternion.LookRotation(forward);
-        throwVelocity = transform.forward * speed * throwPower;
+        //throwVelocity = transform.forward * speed * throwPower;
         rigidbody.linearVelocity = throwVelocity;
         camera.StopCameraMove();
+        /*
         if (!isThrowTimerStarted)
         {
             isThrowTimerStarted = true;
             throwTimer = 0f;
         }
+        */
         //Debug.Log("投擲");
+        camera.ChangeCameraMode();
     }
 
     private void OnLook(InputAction.CallbackContext context)

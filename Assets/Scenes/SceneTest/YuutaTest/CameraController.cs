@@ -73,4 +73,9 @@ public class CameraController : MonoBehaviour
         //transform.rotation = Quaternion.Euler(transform.eulerAngles.x, player.transform.eulerAngles.y, transform.eulerAngles.z);
         isChasingPlayer = true;
     }
+
+    public void ChangeCameraMode()
+    {
+        Debug.Log("ƒJƒƒ‰‚ÌŒü‚«•ÏX");
+    }
 }
