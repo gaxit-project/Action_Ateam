@@ -33,7 +33,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         Application.targetFrameRate = 144;
         pinManager = FindFirstObjectByType<PinManager>();
         resetArea = FindFirstObjectByType<ResetArea>();
-        score_object = GameObject.Find("Canvas/Text");
+        score_object = GameObject.Find("Canvas/Text (Legacy)");
     }
 
     private void Update()
