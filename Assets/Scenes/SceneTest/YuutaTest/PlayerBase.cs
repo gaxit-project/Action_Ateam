@@ -17,6 +17,8 @@ public class PlayerBase : MonoBehaviour
     private new Rigidbody rigidbody;
     private new CameraController camera;
     private Player player = new Player();
+    public bool IsBot { get; private set; } = false;
+    private string PlayerID = "UnKnown";
 
     //ステータス
     [SerializeField] protected float speed = 5f;
@@ -247,7 +249,11 @@ public class PlayerBase : MonoBehaviour
                 */
 
                 throwVelocity = transform.forward * speed * throwPower;
-                rigidbody.linearVelocity = throwVelocity;
+                if(player.IsGrounded(transform.position, rayDistance))
+                {
+                    rigidbody.linearVelocity = throwVelocity;
+                }
+               
 
                 break;
 
@@ -357,7 +363,7 @@ public class PlayerBase : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(forward);
         //throwVelocity = transform.forward * speed * throwPower;
         rigidbody.linearVelocity = throwVelocity;
-        camera.StopCameraMove();
+        //camera.StopCameraMove();
         /*
         if (!isThrowTimerStarted)
         {
@@ -407,6 +413,13 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    public void Init(string id, bool isbot)
+    {
+        PlayerID = id;
+        IsBot = isbot;
+    }
+
+    public string GetPlayerID() => PlayerID;
     public class Player : Character
     {
 

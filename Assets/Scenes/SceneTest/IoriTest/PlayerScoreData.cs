@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerScoreData : MonoBehaviour{
+public class PlayerScoreData{
     public string PlayerID {  get; private set; }
     public bool IsBot {  get; private set; }
     public int[] FrameScores = new int[11];

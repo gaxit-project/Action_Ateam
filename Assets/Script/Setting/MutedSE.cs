@@ -26,5 +26,9 @@ public class MutedSE : MonoBehaviour
         {
             seImage.sprite  = unmuteSprite;
         }
+        if(audioManager == null)
+        {
+            audioManager = FindFirstObjectByType<AudioManager>();
+        }
     }
 }

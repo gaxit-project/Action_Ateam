@@ -26,5 +26,9 @@ public class MutedBGM : MonoBehaviour
         {
             bgmImage.sprite = unmuteSprite;
         }
+        if(audioManager == null)
+        {
+            audioManager = FindFirstObjectByType<AudioManager>();
+        }
     }
 }
