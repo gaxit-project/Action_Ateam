@@ -40,7 +40,7 @@ public class PlayerBase : MonoBehaviour
     protected bool isModeChanged = false;
     protected bool isGaugeIncreasing = true;
     protected bool isThrowTimerStarted = false;
-    protected float throwPower = 2f;
+    [SerializeField] protected float throwPower = 2f;
     protected PlayerState currentState = PlayerState.Idle;
 
     ResetArea resetArea;
@@ -248,12 +248,19 @@ public class PlayerBase : MonoBehaviour
                 }
                 */
 
-                throwVelocity = transform.forward * speed * throwPower;
-                if(player.IsGrounded(transform.position, rayDistance))
+                if (player.IsGrounded(transform.position, rayDistance))
                 {
-                    rigidbody.linearVelocity = throwVelocity;
+                    //プレイヤー基準の方向
+                    x = this.transform.right * Input.GetAxis("Horizontal");
+
+                    x.y = 0f;
+                    x.Normalize();
+
+                    targetVelocity = Vector3.ClampMagnitude(x, 1f) * speed / 10f;
+
+                    rigidbody.linearVelocity = throwVelocity + targetVelocity;
                 }
-               
+
 
                 break;
 
@@ -361,7 +368,7 @@ public class PlayerBase : MonoBehaviour
         Vector3 forward = camera.transform.forward;
         forward.y = 0f;
         transform.rotation = Quaternion.LookRotation(forward);
-        //throwVelocity = transform.forward * speed * throwPower;
+        throwVelocity = transform.forward * speed * throwPower;
         rigidbody.linearVelocity = throwVelocity;
         //camera.StopCameraMove();
         /*
