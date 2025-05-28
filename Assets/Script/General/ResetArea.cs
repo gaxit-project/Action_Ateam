@@ -18,7 +18,7 @@ public class ResetArea : MonoBehaviour
     public void ResetGame()
     {
         scoreManager.FrameSaveSystem(); 
-        SceneChangeManager.Instance.ResetScene("IoriTest");
+        SceneChangeManager.Instance.ResetScene("Main");
         
     }
 
