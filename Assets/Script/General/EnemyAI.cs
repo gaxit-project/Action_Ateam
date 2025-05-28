@@ -9,19 +9,21 @@ namespace NPC.StateAI
         [SerializeField] private float speed = 5f;
         [SerializeField] private float weight = 10f;
         [SerializeField] private float rayDistance = 2f;
-
         [SerializeField] private bool isGround = true;
-
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private Transform target;
+        [SerializeField] private GameStarter gameStarter;
 
         private StateMachine enemyStateMachine;
         private EnemyAI enemyAI;
+        private Vector3 throwVelocity;
 
         public bool isGrounded => isGrounded;
-
+        public NavMeshAgent Agent => agent;
+        public Transform Target => target;
         public StateMachine EnemyStateMachine => enemyStateMachine;
 
+        private float throwPower = 2f;
         private float rotation = 0f;
         private Transform attackTarget;
         private Vector3 currentVelocity = Vector3.zero;
@@ -30,7 +32,7 @@ namespace NPC.StateAI
         private void Awake()
         {
             enemyAI = GetComponent<EnemyAI>();
-            enemyStateMachine = new StateMachine(this);
+            enemyStateMachine = new StateMachine(this, gameStarter);
         }
 
         private void Start()
@@ -41,7 +43,6 @@ namespace NPC.StateAI
         private void Update()
         {
             enemyStateMachine.Update();
-            agent.SetDestination(target.position);
         }
 
         private void LateUpdate()
@@ -60,62 +61,23 @@ namespace NPC.StateAI
 
         }
 
-
-//---------------------------------------------------------------------------------------------------
-
-
-        /*enum EnemyState
+        public float ReturnSpeed()
         {
-            Idle,
-            Run,
-            Throwed,
-            Attacking,
-            Dead
+            return speed;
         }
 
-        private void FixedUpdate()
+        public float ReturnThrowPower()
         {
-            switch (currentState)
+            return throwPower;
+        }
+
+        public void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("ThrowArea"))
             {
-                case EnemyState.Idle:
-
-                    break;
-                case EnemyState.Run:
-
-                    break;
-                case EnemyState.Throwed:
-
-                    break;
-                case EnemyState.Attacking:
-
-                    break;
-                case EnemyState.Dead:
-                    this.gameObject.SetActive(false);
-                    break;
+                enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.throwState);
+                Debug.Log("throwState‚É‘JˆÚ");
             }
         }
-
-        public void Idle()
-        {
-
-        }
-
-        
-
-        public void Throwed()
-        {
-
-            GetComponent<NavMeshAgent>().enabled = false;
-        }
-
-        public void Attacking()
-        {
-            attackAnimator.SetBool("Attack", true);
-        }
-
-        public void Dead()
-        {
-
-        }*/
     }
 }

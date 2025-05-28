@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Services.Analytics;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace NPC.StateAI
 {
@@ -16,7 +18,6 @@ namespace NPC.StateAI
             MeshColor = Color.green;
         }
 
-        //RunState‚É‘JˆÚ‚µ‚½‚Æ‚«‚É1‰ñŒÄ‚Ño‚³‚ê‚é
         public void Enter()
         {
             enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
@@ -24,13 +25,21 @@ namespace NPC.StateAI
 
         public void Update()
         {
-
+            enemyAI.Agent.SetDestination(enemyAI.Target.position);
         }
 
-        //RunState‚©‚ç•Ê‚Ìó‘Ô‚É‘JˆÚ‚·‚é‚Æ‚«‚É1‰ñŒÄ‚Ño‚³‚ê‚é
         public void Exit()
         {
 
+        }
+
+        private void OnTriggerEnter(Collision other)
+        {
+            if (other.gameObject.CompareTag("ThrowArea"))
+            {
+                enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.throwState);
+            }
+            Debug.Log("throwState‚É‘JˆÚ");
         }
     }
 }

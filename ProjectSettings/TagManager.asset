@@ -7,6 +7,8 @@ TagManager:
   - Pin
   - Wall
   - DeathArea
+  - NPC
+  - ThrowArea
   layers:
   - Default
   - TransparentFX
