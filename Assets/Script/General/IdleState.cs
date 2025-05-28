@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,17 +8,16 @@ namespace NPC.StateAI
     public class IdleState : IState
     {
         public Color MeshColor {  get; set; }
-
         private EnemyAI enemyAI;
         private GameStarter gameStarter;
         
-        public IdleState(EnemyAI enemyAI)
+        public IdleState(EnemyAI enemyAI, GameStarter gameStarter)
         {
             this.enemyAI = enemyAI;
+            this.gameStarter = gameStarter /*?? throw new ArgumentNullException(nameof(gameStarter))*/;
             MeshColor = Color.blue;
         }
 
-        //IdleState‚É‘JˆÚ‚µ‚½‚Æ‚«‚É1‰ñŒÄ‚Ño‚³‚ê‚é
         public void Enter()
         {
              enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
@@ -28,6 +28,7 @@ namespace NPC.StateAI
             if (gameStarter.IsCountStopped())
             {
                 enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.runState);
+                Debug.Log("RunState‚É‘JˆÚ");
             }
         }
 
