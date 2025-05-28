@@ -36,7 +36,7 @@ public class CameraController : MonoBehaviour
             transform.position += player.transform.position - targetPosition;
             targetPosition = player.transform.position;
             float RstickX = playerBase.GetRstickX(); //左右回転
-            transform.RotateAround(targetPosition, Vector3.up, RstickX * 2.0f);
+            transform.RotateAround(targetPosition, Vector3.up, RstickX);
         }
 
         //Oキーを押すとカメラがその場で停止

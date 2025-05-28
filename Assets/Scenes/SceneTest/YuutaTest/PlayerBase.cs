@@ -1,3 +1,4 @@
+using NPC.StateAI;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -40,8 +41,14 @@ public class PlayerBase : MonoBehaviour
     protected bool isModeChanged = false;
     protected bool isGaugeIncreasing = true;
     protected bool isThrowTimerStarted = false;
-    [SerializeField] protected float throwPower = 2f;
+    [SerializeField] protected float throwPower = 5f;
     protected PlayerState currentState = PlayerState.Idle;
+
+    //攻撃関係
+    protected bool isAttacking = false;
+    protected bool isAttacked = false;
+    [SerializeField] private GameObject attackArea;
+    private GameObject AttackZone;
 
     ResetArea resetArea;
     GameManager gameManager;
@@ -150,7 +157,8 @@ public class PlayerBase : MonoBehaviour
         rotation = player.Rotation;
 
         //右スティックで回転
-        RstickX = lookVec.x * rotateSpeed * Time.fixedDeltaTime;
+        if (!isAttacking && !isAttacked) RstickX = lookVec.x * rotateSpeed * 2f * Time.fixedDeltaTime;
+        else RstickX = 0f;
         transform.Rotate(0f, RstickX, 0f);
 
         //固有の重力
@@ -190,8 +198,8 @@ public class PlayerBase : MonoBehaviour
                     currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, lerpRate * Time.fixedDeltaTime);
                     */
                     //移動
-                    if (!isModeChanged) rigidbody.MovePosition(rigidbody.position + /*currentVelocity*/targetVelocity * Time.fixedDeltaTime);
-                    else rigidbody.linearVelocity = Vector3.zero;
+                    if (!isModeChanged && !isAttacking && !isAttacked) rigidbody.MovePosition(rigidbody.position + /*currentVelocity*/targetVelocity * Time.fixedDeltaTime);
+                    else if(!isAttacked) rigidbody.linearVelocity = Vector3.zero;
 
                 }
 
@@ -235,6 +243,12 @@ public class PlayerBase : MonoBehaviour
                     Throw();
                 }
                 */
+
+                //スペースキーまたはAボタンで攻撃
+                if (!isAttacking && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0)))
+                {
+                    Attack();
+                }
 
                 break;
 
@@ -380,6 +394,33 @@ public class PlayerBase : MonoBehaviour
         */
         //Debug.Log("投擲");
         camera.ChangeCameraMode();
+    }
+
+    private void Attack()
+    {
+        isAttacking = true;
+        AttackZone = Instantiate(attackArea, this.transform);
+        AttackZone.transform.localPosition = new Vector3(0.6f, 0f, 0f);
+        Invoke("StopAttack", 0.5f);
+    }
+
+    private void StopAttack()
+    {
+        isAttacking = false;
+        Destroy(AttackZone);
+    }
+
+    public void Attacked(Vector3 attackedVelocity)
+    {
+        if(isAttacking) StopAttack();
+        isAttacked = true;
+        rigidbody.linearVelocity = attackedVelocity;
+        Invoke("Restart", 1f);
+    }
+
+    private void Restart()
+    {
+        isAttacked = false;
     }
 
     private void OnLook(InputAction.CallbackContext context)
