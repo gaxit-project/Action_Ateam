@@ -64,6 +64,7 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] protected float acceleration = 5f;
     [SerializeField] protected float deceleration = 5f;
     [SerializeField] protected float gravity = 20f;
+    /*
     [SerializeField] private InputActionReference lookAction;
 
     protected void Awake()
@@ -81,6 +82,7 @@ public class PlayerBase : MonoBehaviour
 
     private void OnEnable() => lookAction.action.Enable();
     private void OnDisable() => lookAction.action.Disable();
+    */
 
     void Start()
     {
@@ -157,7 +159,7 @@ public class PlayerBase : MonoBehaviour
         rotation = player.Rotation;
 
         //右スティックで回転
-        if (!isAttacking && !isAttacked) RstickX = lookVec.x * rotateSpeed * 2f * Time.fixedDeltaTime;
+        if (!isAttacking && !isAttacked) RstickX = Input.GetAxis("Horizontal2") * rotateSpeed * 2f * Time.fixedDeltaTime;
         else RstickX = 0f;
         transform.Rotate(0f, RstickX, 0f);
 
@@ -423,11 +425,12 @@ public class PlayerBase : MonoBehaviour
         isAttacked = false;
     }
 
+    /*
     private void OnLook(InputAction.CallbackContext context)
     {
         lookVec = context.ReadValue<Vector2>();
     }
-
+    */
 
     public class Character
     {
