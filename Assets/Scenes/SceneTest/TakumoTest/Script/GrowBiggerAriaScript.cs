@@ -10,7 +10,7 @@ public class ScaleOnTouchOnce : MonoBehaviour
     {
         Transform BigPlayer = other.transform;
 
-        // まだスケールしていないオブジェクトのみ処理
+        // まだ触れていないオブジェクトのみ処理
         if (!scaledObjects.Contains(BigPlayer))
         {
             BigPlayer.localScale *= 1.1f;
