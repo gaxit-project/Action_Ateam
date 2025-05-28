@@ -26,6 +26,11 @@ namespace NPC.StateAI
         public void Update()
         {
             enemyAI.Agent.SetDestination(enemyAI.Target.position);
+            if (enemyAI.DetectPlayer())
+            {
+                enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.attackState);
+                Debug.Log("AttackState‚É‘JˆÚ");
+            }
         }
 
         public void Exit()

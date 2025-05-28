@@ -10,7 +10,7 @@ namespace NPC.StateAI
     {
         public Color MeshColor {  get; set; }
 
-        private float throwPower = 2f;
+        private float throwPower = 10f;
         private EnemyAI enemyAI;
         private Vector3 throwVelocity;
         private Rigidbody rb;
@@ -34,7 +34,7 @@ namespace NPC.StateAI
 
         public void Update()
         {
-
+            
         }
 
         public void Exit()

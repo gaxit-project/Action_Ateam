@@ -7,19 +7,30 @@ namespace NPC.StateAI
     public class AttackState : IState
     {
         public Color MeshColor { get; set; }
-
         private EnemyAI enemyAI;
-        
+        private bool isAnimationFinished;
+
         public AttackState(EnemyAI enemyAI)
         {
             this.enemyAI = enemyAI;
             MeshColor = Color.red;
         }
 
-        //AttackState‚É‘JˆÚ‚µ‚½‚Æ‚«‚É1‰ñŒÄ‚Ño‚³‚ê‚é
         void Enter()
         {
             enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
+            enemyAI.Agent.isStopped = true;
+            isAnimationFinished = false;
+
+            if (enemyAI.Animator != null)
+            {
+                enemyAI.Animator.SetTrigger("Attack");
+                enemyAI.StartCoroutine(WaitForAnimation());
+            }
+            else
+            {
+                isAnimationFinished = true;
+            }
         }
 
         void Update()
@@ -27,10 +38,22 @@ namespace NPC.StateAI
 
         }
 
-        //RunState‚©‚ç•Ê‚Ìó‘Ô‚É‘JˆÚ‚·‚é‚Æ‚«‚É1‰ñŒÄ‚Ño‚³‚ê‚é
         void Exit()
         {
 
+        }
+
+        private System.Collections.IEnumerator WaitForAnimation()
+        {
+            float animationLength = 1f;
+            AnimatorClipInfo[] clipInfo = enemyAI.Animator.GetCurrentAnimatorClipInfo(0);
+            if (clipInfo.Length > 0)
+            {
+                animationLength = clipInfo[0].clip.length;
+            }
+
+            yield return new WaitForSeconds(animationLength);
+            isAnimationFinished = true;
         }
     }
 }

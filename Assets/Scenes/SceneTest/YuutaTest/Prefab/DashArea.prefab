@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 4187727483796653629}
   m_Layer: 0
   m_Name: ThrowedArea
-  m_TagString: Untagged
+  m_TagString: ThrowArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
