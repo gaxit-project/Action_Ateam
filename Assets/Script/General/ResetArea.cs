@@ -4,11 +4,22 @@ using UnityEngine.SceneManagement;
 public class ResetArea : MonoBehaviour
 {
     public bool isPlayerOut = false;
+    [SerializeField] private ScoreManager scoreManager;
 
+    private int BuildIndex;
+    private void Update()
+    {
+        BuildIndex = SceneManager.GetActiveScene().buildIndex;
+        if(BuildIndex == 1 || BuildIndex == 4)
+        {
+            scoreManager = FindFirstObjectByType<ScoreManager>();
+        }
+    }
     public void ResetGame()
     {
+        scoreManager.FrameSaveSystem(); 
+        SceneChangeManager.Instance.ResetScene("IoriTest");
         
-        SceneManager.LoadScene(1);
     }
 
     private void OnTriggerEnter(Collider collision)
