@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class PinManager : MonoBehaviour
 {
-    [SerializeField] private PinBase[] pins;
+    [SerializeField] private PinBase[] WhitePins;
+    [SerializeField] private PinBase[] RedPins;
+    [SerializeField] private PinBase[] BlackPins;
 
     private void Update()
     {
@@ -15,11 +17,28 @@ public class PinManager : MonoBehaviour
     public int GetKnockedDownPinCount()
     {
         int count = 0;
-        foreach(PinBase pin in pins)
+        foreach(PinBase pin in WhitePins)//白色のピンは加点
         {
             if (pin.IsKnockedDownPin())
             {
                 count++;
+            }
+        }
+
+        foreach (PinBase pin in RedPins)//赤色のピンは多めに加点
+        {
+            if (pin.IsKnockedDownPin())
+            {
+                count += 3;
+            }
+        }
+
+
+        foreach (PinBase pin in BlackPins)//黒色のピンは減点
+        {
+            if (pin.IsKnockedDownPin())
+            {
+                count -= 3;
             }
         }
         return count;
