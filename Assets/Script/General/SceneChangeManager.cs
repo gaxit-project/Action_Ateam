@@ -36,7 +36,7 @@ public class SceneChangeManager : SingletonMonoBehaviour<SceneChangeManager>
     {
         if (_loadingUI == null)
         {
-            _loadingUI = GetComponent<LoadingUIController>();
+            _loadingUI = FindFirstObjectByType<LoadingUIController>();
         }
            
     }
@@ -54,6 +54,12 @@ public class SceneChangeManager : SingletonMonoBehaviour<SceneChangeManager>
 
         //コルーチン開始
         StartCoroutine(LoadSceneAsync(name));
+    }
+
+    public void ResetScene(string name)
+    {
+        //コルーチン開始
+        StartCoroutine(ResetSceneAsync(name));
     }
 
     /// <summary>
@@ -79,6 +85,15 @@ public class SceneChangeManager : SingletonMonoBehaviour<SceneChangeManager>
             {
                 _loadingUI.UpdateProgress(async.progress);
             }
+            yield return null;
+        }
+    }
+
+    IEnumerator ResetSceneAsync(string name)
+    {
+        AsyncOperation async = SceneManager.LoadSceneAsync(name);
+        while (!async.isDone)
+        {
             yield return null;
         }
     }
