@@ -20,6 +20,7 @@ public class PlayerBase : MonoBehaviour
     private Player player = new Player();
     public bool IsBot { get; private set; } = false;
     private string PlayerID = "UnKnown";
+    private ScoreManager scoreManager;
 
     //ステータス
     [SerializeField] protected float speed = 5f;
@@ -90,6 +91,7 @@ public class PlayerBase : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         resetArea = GameObject.FindFirstObjectByType<ResetArea>();
         gameManager = GameObject.FindFirstObjectByType<GameManager>();
+        scoreManager = GameObject.FindFirstObjectByType<ScoreManager>();
         //クラス内のステータスを初期化する
         player.InitializeStatus(speed, weight);
 
@@ -284,7 +286,7 @@ public class PlayerBase : MonoBehaviour
 
                 camera.StopCameraMove();
                 this.gameObject.SetActive(false);
-                resetArea.ResetGame();
+                scoreManager.FrameSaveSystem();
                 break;
 
         }

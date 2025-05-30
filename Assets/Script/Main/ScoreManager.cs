@@ -20,7 +20,7 @@ public class ScoreManager : MonoBehaviour
     public int NumHumanPlayers;
     public int NumBots;
 
-    public GameManager gameManager;
+    private GameManager gameManager;
 
     private void Start()
     {
