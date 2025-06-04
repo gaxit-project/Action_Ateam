@@ -16,6 +16,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public List<PlayerBase> players = new List<PlayerBase>();
     public List<PlayerScoreData> playerScores = new List<PlayerScoreData>();
 
+    [Header("Player‚ÆbotPrefab‚Æl”")]
+    public GameObject _playerPrefab;
+    public GameObject _botPrefab;
+    public int NumHumanPlayers;
+    public int NumBots;
+
     //private int[] NowFramePoint_0 = new int[11];
     //private int[] NowFramePoint_1 = new int[11];
     //private int[] NowFramePoint_2 = new int[11];

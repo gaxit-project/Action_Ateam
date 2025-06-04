@@ -15,12 +15,6 @@ public class ScoreManager : MonoBehaviour
     public GameObject score_object = null;
     public int totalScore;
 
-    [Header("PlayerÇ∆botPrefabÇ∆êlêî")]
-    [SerializeField] private GameObject _playerPrefab;
-    [SerializeField] private GameObject _botPrefab;
-    public int NumHumanPlayers;
-    public int NumBots;
-
     private GameManager gameManager;
 
     private void Start()
@@ -76,9 +70,9 @@ public class ScoreManager : MonoBehaviour
 
 
         //êlä‘
-        for (int i = 0; i < NumHumanPlayers; i++)
+        for (int i = 0; i < gameManager.NumHumanPlayers; i++)
         {
-            var playerobj = Instantiate(_playerPrefab);
+            var playerobj = Instantiate(gameManager._playerPrefab);
             var player = playerobj.GetComponent<PlayerBase>();
             player.Init($"Player{i + 1}", false);
             gameManager.players.Add(player);
@@ -93,9 +87,9 @@ public class ScoreManager : MonoBehaviour
         }
 
         //Bot
-        for (int i = 0; i < NumBots; i++)
+        for (int i = 0; i < gameManager.NumBots; i++)
         {
-            var botobj = Instantiate(_botPrefab);
+            var botobj = Instantiate(gameManager._botPrefab);
             var bot = botobj.GetComponent<PlayerBase>();
             bot.Init($"Bot{i + 1}", true);
             gameManager.players.Add(bot);
