@@ -27,7 +27,7 @@ public class PinBase : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Pin" || other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Pin")
         {
             AudioManager.Instance.PlaySound(1);
         }
