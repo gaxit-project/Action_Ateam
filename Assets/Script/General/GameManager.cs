@@ -12,7 +12,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private ScoreManager scoreManager;
 
     private int buildIndex;
-        //Playerのスコア管理
+    //Playerのスコア管理
     public List<PlayerBase> players = new List<PlayerBase>();
     public List<PlayerScoreData> playerScores = new List<PlayerScoreData>();
 
@@ -32,12 +32,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         buildIndex = SceneManager.GetActiveScene().buildIndex;
         //Debug.Log(buildIndex);
-        if(buildIndex == 1 || buildIndex == 4)
+        if (buildIndex == 1 || buildIndex == 4)
         {
             scoreManager = FindFirstObjectByType<ScoreManager>();
         }
     }
-    
+
 
     public void CurrentFrameResult()
     {
@@ -45,5 +45,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         StartCoroutine(scoreManager.DelayAndResetCoroutine());
     }
 
-
+    public PlayerScoreData GetPlayerScoreData(string playerID)
+    {
+        return playerScores.Find(p => p.PlayerID == playerID);
+    }
 }
+

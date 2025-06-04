@@ -15,11 +15,10 @@ public class PointPrintf : MonoBehaviour
 
 
     public GameManager gamemanager;
-    [SerializeField]private ScoreManager scoremanager;
 
     void Start()
     {
-        
+        gamemanager = FindFirstObjectByType<GameManager>();
     }
     private void Update()
     {
@@ -33,9 +32,9 @@ public class PointPrintf : MonoBehaviour
        
         for (int i = 0; i < 1/*ここにプレイヤー数を入れる*/; i++)// TPL を4行作成
         {
-            //int[] score; = new int[11];
-            //score[1] = scoremanager.
-            PT[i/*ここにPlayernameを入れる*/].PL[1/*ここにframe数を入れる*/].text = 1/*gamemanager.playerScores[i]ここにScoreを入れる*/.ToString();
+            var playerData = gamemanager.GetPlayerScoreData("player1");
+            int score = playerData.FrameScores[1];
+            PT[i/*ここにPlayernameを入れる*/].PL[1/*ここにframe数を入れる*/].text = score.ToString();
         }
 
        
