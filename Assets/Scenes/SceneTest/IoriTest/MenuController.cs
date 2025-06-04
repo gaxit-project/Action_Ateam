@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
@@ -12,21 +13,12 @@ public class MenuController : MonoBehaviour
     public RectTransform arrow;
 
     private RectTransform[] menuButtons;
-    private Button[] buttonComponents;
-    private int currentIndex = 0;
 
-    private float inputCooldown = 0.3f;
-    private float lastInputTime = 0f;
+    private GameObject LastSelected = null;
 
     void Start()
     {
         menuButtons = new RectTransform[] { startButton, settingsButton, quitButton };
-        buttonComponents = new Button[]
-        {
-            startButton.GetComponent<Button>(),
-            settingsButton.GetComponent<Button>(),
-            quitButton.GetComponent<Button>()
-        };
 
         foreach (var btn in menuButtons)
         {
@@ -35,7 +27,6 @@ public class MenuController : MonoBehaviour
 
         arrow.gameObject.SetActive(false);
     }
-
 
     public void OnPushToStart()
     {
@@ -51,7 +42,7 @@ public class MenuController : MonoBehaviour
         for (int i = 0; i < menuButtons.Length; i++)
         {
             targetPositions[i] = menuButtons[i].anchoredPosition;
-            menuButtons[i].anchoredPosition += new Vector2(1500, 0); // 右画面外
+            menuButtons[i].anchoredPosition += new Vector2(1500, 0);
             menuButtons[i].gameObject.SetActive(true);
         }
 
@@ -61,7 +52,9 @@ public class MenuController : MonoBehaviour
         }
 
         arrow.gameObject.SetActive(true);
-        UpdateArrowPosition();
+
+        // 最初の選択を明示的に設定
+        EventSystem.current.SetSelectedGameObject(startButton.gameObject);
     }
 
     IEnumerator SmoothSlide(RectTransform btn, Vector2 target)
@@ -84,47 +77,36 @@ public class MenuController : MonoBehaviour
     {
         if (!arrow.gameObject.activeSelf) return;
 
-        // 入力クールダウンチェック
-        if (Time.time - lastInputTime > inputCooldown)
-        {
-            float vertical = Input.GetAxis("Vertical");
-
-            // 上方向
-            if (Input.GetKeyDown(KeyCode.UpArrow) || vertical > 0.5f)
-            {
-                currentIndex = (currentIndex + menuButtons.Length - 1) % menuButtons.Length;
-                UpdateArrowPosition();
-                lastInputTime = Time.time;
-            }
-            // 下方向
-            else if (Input.GetKeyDown(KeyCode.DownArrow) || vertical < -0.5f)
-            {
-                currentIndex = (currentIndex + 1) % menuButtons.Length;
-                UpdateArrowPosition();
-                lastInputTime = Time.time;
-            }
-        }
-
-        // 決定（EnterキーまたはAボタン）
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Joystick1Button0))
-        {
-            buttonComponents[currentIndex].onClick.Invoke();
-        }
+        UpdateArrowPosition();
     }
 
     void UpdateArrowPosition()
     {
-        // 全てのボタンのスケールをリセット
-        for (int i = 0; i < menuButtons.Length; i++)
+        GameObject selected = EventSystem.current.currentSelectedGameObject;
+
+        if (selected == null || selected.GetComponent<RectTransform>() == null)
+            return;
+
+        // 前回と同じ選択なら何もしない
+        if (selected == LastSelected) return;
+
+        // 選択が変わったときだけサウンド再生
+        AudioManager.Instance.PlaySound(0);
+        LastSelected = selected;
+
+        RectTransform selectedRect = selected.GetComponent<RectTransform>();
+
+        // 矢印の位置を更新
+        Vector2 offset = new Vector2(-400f, 0f);
+        arrow.anchoredPosition = selectedRect.anchoredPosition + offset;
+
+        // スケールの強調表示
+        foreach (RectTransform btn in menuButtons)
         {
-            menuButtons[i].localScale = new Vector3(3, 3, 1);
+            btn.localScale = new Vector3(3, 3, 1);
         }
 
-        // 選択中のボタンを強調
-        RectTransform target = menuButtons[currentIndex];
-        arrow.anchoredPosition = new Vector2(target.anchoredPosition.x - 400, target.anchoredPosition.y);
-        AudioManager.Instance.PlaySound(0);        
-        target.localScale = new Vector3(3.6f, 3.6f, 1);
-
+        selectedRect.localScale = new Vector3(3.6f, 3.6f, 1);
     }
+
 }
