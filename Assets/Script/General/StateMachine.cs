@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace NPC.StateAI
 {
@@ -17,12 +18,12 @@ namespace NPC.StateAI
         public ThrowState throwState;
 
         //コンストラクター
-        public StateMachine(EnemyAI enemy, GameStarter gameStarter)
+        public StateMachine(EnemyAI enemy, GameStarter gameStarter, Transform throwTarget)
         {
             this.idleState = new IdleState(enemy, gameStarter);
             this.runState = new RunState(enemy);
             this.attackState = new AttackState(enemy);
-            this.throwState = new ThrowState(enemy);
+            this.throwState = new ThrowState(enemy, throwTarget);
         }
 
         //初期状態の指定

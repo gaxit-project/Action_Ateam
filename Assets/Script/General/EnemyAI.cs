@@ -16,6 +16,7 @@ namespace NPC.StateAI
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private Transform target;
         [SerializeField] private GameStarter gameStarter;
+        [SerializeField] private Transform throwTarget;
         [SerializeField] private Animator animator;
 
         private StateMachine enemyStateMachine;
@@ -37,7 +38,7 @@ namespace NPC.StateAI
         private void Awake()
         {
             enemyAI = GetComponent<EnemyAI>();
-            enemyStateMachine = new StateMachine(this, gameStarter);
+            enemyStateMachine = new StateMachine(this, gameStarter, throwTarget);
         }
 
         private void Start()
