@@ -15,8 +15,9 @@ public class ScoreManager : MonoBehaviour
     public GameObject score_object = null;
     public int totalScore;
 
-    [Header("Player‚ÌPrefab‚Æl”")]
+    [Header("Player‚ÆbotPrefab‚Æl”")]
     [SerializeField] private GameObject _playerPrefab;
+    [SerializeField] private GameObject _botPrefab;
     public int NumHumanPlayers;
     public int NumBots;
 
@@ -56,7 +57,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (gameManager == null)
         {
-            gameManager = GameManager.Instance;
+            gameManager = FindFirstObjectByType<GameManager>();
             if (gameManager == null)
             {
                 Debug.LogError("GameManager.Instance ‚ª null ‚Å‚·");
@@ -94,8 +95,8 @@ public class ScoreManager : MonoBehaviour
         //Bot
         for (int i = 0; i < NumBots; i++)
         {
-            var botobj = Instantiate(_playerPrefab);
-            var bot = botobj.GetComponent<PlayerBase>().GetComponent<PlayerBase>();
+            var botobj = Instantiate(_botPrefab);
+            var bot = botobj.GetComponent<PlayerBase>();
             bot.Init($"Bot{i + 1}", true);
             gameManager.players.Add(bot);
             gameManager.playerScores.Add(new PlayerScoreData($"Bot{i + 1}", true));
@@ -145,4 +146,8 @@ public class ScoreManager : MonoBehaviour
         resetArea.ResetGame();
     }
 
+    public PlayerScoreData GetPlayerScoreData(string playerID)
+    {
+        return gameManager.playerScores.Find(p => p.PlayerID == playerID);
+    }
 }
