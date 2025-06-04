@@ -23,4 +23,9 @@ public class PlayerScoreData{
     {
         return FrameScores[0];
     }
+
+    public int GetScore(int frame)
+    {
+        return FrameScores[frame];
+    }
 }
