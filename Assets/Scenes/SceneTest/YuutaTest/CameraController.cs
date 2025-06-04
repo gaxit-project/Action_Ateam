@@ -81,7 +81,7 @@ public class CameraController : MonoBehaviour
     {
         Debug.Log("ƒJƒƒ‰‚ÌŒü‚«•ÏX");
         this.transform.eulerAngles = InitialCameraDirection - new Vector3(InitialCameraDirection.x / 2f, 0f, 0f);
-        this.transform.position -= new Vector3(0f, this.transform.position.y / 2f, 0f);
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, player.transform.position.z) - new Vector3(0f, this.transform.position.y / 2f, 0f);
     }
 
     /// <summary>

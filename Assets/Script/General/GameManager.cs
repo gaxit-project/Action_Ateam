@@ -25,7 +25,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private void Update()
     {
         buildIndex = SceneManager.GetActiveScene().buildIndex;
-        Debug.Log(buildIndex);
+        //Debug.Log(buildIndex);
         if(buildIndex == 1 || buildIndex == 4)
         {
             scoreManager = FindFirstObjectByType<ScoreManager>();
