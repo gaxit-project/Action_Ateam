@@ -22,7 +22,7 @@ public class MutedSE : MonoBehaviour
         {
             seImage.sprite = muteSprite;
         }
-        else if(!audioManager.IsBGMMuted())
+        else if(!audioManager.IsSEMuted())
         {
             seImage.sprite  = unmuteSprite;
         }
