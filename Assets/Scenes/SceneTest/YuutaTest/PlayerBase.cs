@@ -249,7 +249,7 @@ public class PlayerBase : MonoBehaviour
                 */
 
                 //スペースキーまたはAボタンで攻撃
-                if (!isAttacking && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0)))
+                if (!isAttacking && player.IsGrounded(transform.position, rayDistance) && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0)))
                 {
                     Attack();
                 }
