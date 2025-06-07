@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8915725821885507200}
   - component: {fileID: 4600566453074975748}
   - component: {fileID: 5922074557707150540}
+  - component: {fileID: 1385530237899902720}
   m_Layer: 5
   m_Name: Manager
   m_TagString: Untagged
@@ -28,7 +29,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2130485150559971973}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -55,9 +56,6 @@ MonoBehaviour:
   _seLists:
   - {fileID: 8300000, guid: 66aa1d4182834d046a289ffe1453e4b5, type: 3}
   - {fileID: 8300000, guid: df4e5d414c383a1448f62a8de8e82c48, type: 3}
-  - {fileID: 8300000, guid: 1678de29736ff7342b0e94e800f643b0, type: 3}
-  - {fileID: 8300000, guid: 4aab229baf3eb464eb7898d619f9d354, type: 3}
-  - {fileID: 8300000, guid: be8156c109ee41b4fa033d3f71dbac76, type: 3}
   _bgmLists:
   - {fileID: 8300000, guid: 5aea1eb8e494546ccb52c0d547cb54c6, type: 3}
   - {fileID: 8300000, guid: a4157eac71a524d5e85d2fb6f4649506, type: 3}
@@ -92,13 +90,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f7e888c9b7420e49886d83ad7d1c332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayScoreTime: 3
-  Num_NowFrame: 1
-  pinManager: {fileID: 0}
-  resetArea: {fileID: 0}
-  score_object: {fileID: 0}
-  totalScore: 0
+  IsStart: 0
+  players: []
   _playerPrefab: {fileID: 6162004822796889170, guid: c6cf9cdf0d3cded4ea3ce6694d67d924, type: 3}
+  _botPrefab: {fileID: 0}
   NumHumanPlayers: 1
   NumBots: 0
 --- !u!82 &4600566453074975748
@@ -295,3 +290,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1385530237899902720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130485150559971973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2d7c73963d87f149b4f2c153d38750b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PT:
+  - PL:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  gamemanager: {fileID: 8915725821885507200}

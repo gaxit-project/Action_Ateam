@@ -12,6 +12,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private ScoreManager scoreManager;
 
     private int buildIndex;
+    public bool IsStart = false;
     //Player‚ÌƒXƒRƒAŠÇ—
     public List<PlayerBase> players = new List<PlayerBase>();
     public List<PlayerScoreData> playerScores = new List<PlayerScoreData>();

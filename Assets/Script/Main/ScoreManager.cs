@@ -21,6 +21,7 @@ public class ScoreManager : MonoBehaviour
     {
         ResetStart();
         SetUpPlayers();
+        gameManager.IsStart = true;
     }
     private void Update()
     {
@@ -65,8 +66,12 @@ public class ScoreManager : MonoBehaviour
         if (gameManager.playerScores == null)
             gameManager.playerScores = new List<PlayerScoreData>();
 
-        gameManager.players.Clear();
-        gameManager.playerScores.Clear();
+        if (!gameManager.IsStart)
+        {
+            Debug.LogWarning("ÉNÉäÉAÇ≥ÇÍÇΩÇÊ");
+            gameManager.players.Clear();
+            gameManager.playerScores.Clear();
+        }
 
 
         //êlä‘
