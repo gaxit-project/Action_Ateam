@@ -32,7 +32,7 @@ public class PointPrintf : MonoBehaviour
        
         for (int i = 0; i < 1/*ここにプレイヤー数を入れる*/; i++)// TPL を4行作成
         {
-            var playerData = gamemanager.GetPlayerScoreData("player1");
+            var playerData = gamemanager.GetPlayerScoreData("Player1");
             int score = playerData.FrameScores[1];
             PT[i/*ここにPlayernameを入れる*/].PL[1/*ここにframe数を入れる*/].text = score.ToString();
         }

@@ -142,6 +142,12 @@ public class ScoreManager : MonoBehaviour
 
     public PlayerScoreData GetPlayerScoreData(string playerID)
     {
+        foreach (var p in gameManager.playerScores)
+        {
+            Debug.Log($"”äŠr’†: ˆø”={playerID}, ŽÀƒf[ƒ^={p.PlayerID}");
+        }
+
         return gameManager.playerScores.Find(p => p.PlayerID == playerID);
     }
+
 }
