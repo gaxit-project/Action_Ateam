@@ -144,10 +144,16 @@ public class ScoreManager : MonoBehaviour
     {
         foreach (var p in gameManager.playerScores)
         {
-            Debug.Log($"比較中: 引数={playerID}, 実データ={p.PlayerID}");
+            Debug.Log($"登録されているID: '{p.PlayerID}'");
         }
 
-        return gameManager.playerScores.Find(p => p.PlayerID == playerID);
+        var result = gameManager.playerScores.Find(p => p.PlayerID == playerID);
+        if (result == null)
+        {
+            Debug.LogWarning($"'{playerID}' のスコアデータが見つかりません！");
+        }
+        return result;
     }
+
 
 }

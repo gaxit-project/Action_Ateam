@@ -47,7 +47,17 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     public PlayerScoreData GetPlayerScoreData(string playerID)
     {
-        return playerScores.Find(p => p.PlayerID == playerID);
+        foreach (var p in playerScores)
+        {
+            Debug.Log($"登録されているID: '{p.PlayerID}'");
+        }
+
+        var result = playerScores.Find(p => p.PlayerID == playerID);
+        if (result == null)
+        {
+            Debug.LogWarning($"'{playerID}' のスコアデータが見つかりません！");
+        }
+        return result;
     }
 }
 

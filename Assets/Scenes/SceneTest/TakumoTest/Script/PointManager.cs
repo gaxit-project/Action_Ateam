@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,15 +17,13 @@ public class PointPrintf : MonoBehaviour
 
     public GameManager gamemanager;
 
-    void Start()
+    private IEnumerator Start()
     {
         gamemanager = FindFirstObjectByType<GameManager>();
-    }
-    private void Update()
-    {
+        yield return new WaitForSeconds(1f);
         PointManeger();
-
     }
+
 
     void PointManeger()
     {
