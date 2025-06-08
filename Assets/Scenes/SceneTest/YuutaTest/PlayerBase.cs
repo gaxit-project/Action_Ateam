@@ -196,13 +196,11 @@ public class PlayerBase : MonoBehaviour
 
                     //方向決定
                     targetVelocity = Vector3.ClampMagnitude(x + z, 1f) * speed;
-                    /*
                     //加減速処理
                     float lerpRate = (targetVelocity.magnitude > 0.1f) ? acceleration : deceleration;
                     currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, lerpRate * Time.fixedDeltaTime);
-                    */
                     //移動
-                    if (!isModeChanged && !isAttacking && !isAttacked) rigidbody.MovePosition(rigidbody.position + /*currentVelocity*/targetVelocity * Time.fixedDeltaTime);
+                    if (!isModeChanged && !isAttacking && !isAttacked) rigidbody.MovePosition(rigidbody.position + currentVelocity/*targetVelocity*/ * Time.fixedDeltaTime);
                     else if(!isAttacked) rigidbody.linearVelocity = Vector3.zero;
 
                 }
@@ -274,9 +272,12 @@ public class PlayerBase : MonoBehaviour
                     x.y = 0f;
                     x.Normalize();
 
-                    targetVelocity = Vector3.ClampMagnitude(x, 1f) * speed / 10f;
+                    targetVelocity = Vector3.ClampMagnitude(x, 1f) * speed;
+                    //加減速処理
+                    float lerpRate = (targetVelocity.magnitude > 0.1f) ? acceleration : deceleration;
+                    currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, lerpRate * Time.fixedDeltaTime);
 
-                    rigidbody.linearVelocity = throwVelocity + targetVelocity;
+                    rigidbody.linearVelocity = throwVelocity + currentVelocity / 10f;
                 }
 
 
