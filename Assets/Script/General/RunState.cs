@@ -11,6 +11,7 @@ namespace NPC.StateAI
         public Color MeshColor {  get; set; }
         
         private EnemyAI enemyAI;
+        private Sensor sensor;
 
         public RunState(EnemyAI enemyAI)
         {
