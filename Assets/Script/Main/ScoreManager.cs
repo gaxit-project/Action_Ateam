@@ -16,12 +16,11 @@ public class ScoreManager : MonoBehaviour
     public int totalScore;
 
     private GameManager gameManager;
+    private GameStarter gameStarter;
 
     private void Start()
     {
         ResetStart();
-        SetUpPlayers();
-        gameManager.IsStart = true;
     }
     private void Update()
     {
@@ -40,67 +39,14 @@ public class ScoreManager : MonoBehaviour
         Debug.Log("RESET");
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 144;
+        gameStarter = FindFirstObjectByType<GameStarter>();
         pinManager = FindFirstObjectByType<PinManager>();
         resetArea = FindFirstObjectByType<ResetArea>();
         score_object = GameObject.Find("Canvas/Text (Legacy)");
+        gameStarter.SetUpPlayers();
     }
 
-    /// <summary>
-    /// Mainに入ったときにプレイヤーを作成
-    /// </summary>
-    public void SetUpPlayers()
-    {
-        if (gameManager == null)
-        {
-            gameManager = FindFirstObjectByType<GameManager>();
-            if (gameManager == null)
-            {
-                Debug.LogError("GameManager.Instance が null です");
-                return;
-            }
-        }
 
-        if (gameManager.players == null)
-            gameManager.players = new List<PlayerBase>();
-
-        if (gameManager.playerScores == null)
-            gameManager.playerScores = new List<PlayerScoreData>();
-
-        if (!gameManager.IsStart)
-        {
-            Debug.LogWarning("クリアされたよ");
-            gameManager.players.Clear();
-            gameManager.playerScores.Clear();
-        }
-
-
-        //人間
-        for (int i = 0; i < gameManager.NumHumanPlayers; i++)
-        {
-            var playerobj = Instantiate(gameManager._playerPrefab);
-            var player = playerobj.GetComponent<PlayerBase>();
-            player.Init($"Player{i + 1}", false);
-            gameManager.players.Add(player);
-            gameManager.playerScores.Add(new PlayerScoreData($"Player{i + 1}", false));
-            var cam = FindFirstObjectByType<CameraController>();
-            if (cam == null) Debug.LogError("nullだよ");
-            cam.SetTargetPlayer(player); // Instantiate後に必ず設定！
-            var starter = FindFirstObjectByType<GameStarter>();
-            if (starter == null) Debug.LogError("starternull");
-            starter.SetPlayer(player);
-
-        }
-
-        //Bot
-        for (int i = 0; i < gameManager.NumBots; i++)
-        {
-            var botobj = Instantiate(gameManager._botPrefab);
-            var bot = botobj.GetComponent<PlayerBase>();
-            bot.Init($"Bot{i + 1}", true);
-            gameManager.players.Add(bot);
-            gameManager.playerScores.Add(new PlayerScoreData($"Bot{i + 1}", true));
-        }
-    }
 
     /// <summary>
     /// スコアをリストに保存
