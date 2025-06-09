@@ -52,10 +52,37 @@ namespace NPC.StateAI
         }
             
 
+
         public void Exit()
         {
             enemyAI.Agent.enabled = true;
         }
+
+        /*private void OnCollisionEnter(Collision collision)
+        {
+            // 投擲後 Wall または Player に当たった場合
+            if ((collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Player")) && collision.contactCount > 0)
+            {
+                // 現在の進行方向（速度）
+                Vector3 incomingVelocity = rigidbody.linearVelocity;
+
+                // 衝突面の法線
+                Vector3 normal = collision.contacts[0].normal;
+
+                // 反射ベクトルの計算
+                Vector3 reflectVelocity = Vector3.Reflect(incomingVelocity.normalized, normal).normalized;
+
+                // 法線方向に少し押し返しを加える（チューニング可能）
+                reflectVelocity += normal * 0.2f;
+
+                reflectVelocity.Normalize();
+
+                enemyAI.transform.forward = reflectVelocity;
+                throwVelocity = reflectVelocity * speed * throwPower;
+                rigidbody.linearVelocity = throwVelocity;
+
+            }
+        }*/
 
     }
 }

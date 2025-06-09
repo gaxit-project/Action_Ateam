@@ -9,7 +9,7 @@ namespace NPC.StateAI
         [SerializeField] private float speed = 5f;
         [SerializeField] private float weight = 10f;
         [SerializeField] private float rayDistance = 2f;
-        [SerializeField] private float detectionRadius = 2f;
+        [SerializeField] private float detectionRadius = 10f;
         [SerializeField] private float bounceSpeed = 30.0f;
         [SerializeField] private float bounceVectorMultiple = 2f;
         [SerializeField] private bool isGround = true;
@@ -22,6 +22,7 @@ namespace NPC.StateAI
         private StateMachine enemyStateMachine;
         private EnemyAI enemyAI;
         private Vector3 throwVelocity;
+        private new Rigidbody rigidbody;
 
         public bool isGrounded => isGrounded;
         public NavMeshAgent Agent => agent;
@@ -87,7 +88,7 @@ namespace NPC.StateAI
                     Vector3 toPlayer = (hit.transform.position - transform.position).normalized;
                     Vector3 forward = transform.forward;
                     float angle = Vector3.Angle(forward, toPlayer);
-                    if (angle <= 22.5f)
+                    if (angle <= 45.0f)
                     {
                         return true;
                     }
@@ -103,8 +104,8 @@ namespace NPC.StateAI
             Gizmos.DrawWireSphere(transform.position, detectionRadius);
 
             Vector3 forward = transform.forward;
-            Quaternion leftRay = Quaternion.Euler(0, -22.5f, 0);
-            Quaternion rightRay = Quaternion.Euler(0, 22.5f, 0);
+            Quaternion leftRay = Quaternion.Euler(0, -45f, 0);
+            Quaternion rightRay = Quaternion.Euler(0, 45f, 0);
             Gizmos.color = Color.yellow;
             Gizmos.DrawRay(transform.position, leftRay * forward * detectionRadius);
             Gizmos.DrawRay(transform.position, rightRay * forward * detectionRadius);
