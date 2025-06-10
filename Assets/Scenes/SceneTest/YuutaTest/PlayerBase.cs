@@ -59,31 +59,11 @@ public class PlayerBase : MonoBehaviour
     protected float RstickX;
     protected Vector3 x = Vector3.zero;
     protected Vector3 z = Vector3.zero;
-    protected Vector2 lookVec;
     protected float rayDistance = 1.2f;
     [SerializeField] protected float rotateSpeed = 100f;
     [SerializeField] protected float acceleration = 5f;
     [SerializeField] protected float deceleration = 5f;
     [SerializeField] protected float gravity = 20f;
-    /*
-    [SerializeField] private InputActionReference lookAction;
-
-    protected void Awake()
-    {
-        lookAction.action.performed += OnLook;
-        lookAction.action.canceled += OnLook;
-
-    }
-
-    private void OnDestroy()
-    {
-        lookAction.action.performed -= OnLook;
-        lookAction.action.canceled -= OnLook;
-    }
-
-    private void OnEnable() => lookAction.action.Enable();
-    private void OnDisable() => lookAction.action.Disable();
-    */
 
     void Start()
     {
@@ -118,11 +98,6 @@ public class PlayerBase : MonoBehaviour
         //CameraControllerがアタッチされたオブジェクトがある場合rotation.yを取得
         if (camera)
         {
-            /*
-            initialRotation = camera.GetCameraRotationY();
-            Debug.Log(initialRotation);
-            transform.rotation = Quaternion.Euler(0f, initialRotation, 0f);
-            */
 
             Vector3 forward = camera.transform.forward; //カメラの正面
             forward.y = 0f;
@@ -132,8 +107,6 @@ public class PlayerBase : MonoBehaviour
         //ゲージ速度の初期値を取得
         //currentGaugeSpeed = initialGaugeSpeed;
 
-        //スタート時currentStateをRunにする
-        //currentState = PlayerState.Run;
     }
 
     private void Update()
@@ -315,9 +288,9 @@ public class PlayerBase : MonoBehaviour
             Vector3 normal = collision.contacts[0].normal;
 
             // 反射ベクトルの計算
-            Vector3 reflectVelocity = Vector3.Reflect(incomingVelocity.normalized, normal).normalized;
+            Vector3 reflectVelocity = Vector3.Reflect(incomingVelocity, normal).normalized;
 
-            // 法線方向に少し押し返しを加える（チューニング可能）
+            // 法線方向に少し押し返しを加える
             reflectVelocity += normal * 0.2f;
 
             reflectVelocity.Normalize();
@@ -428,13 +401,6 @@ public class PlayerBase : MonoBehaviour
     {
         isAttacked = false;
     }
-
-    /*
-    private void OnLook(InputAction.CallbackContext context)
-    {
-        lookVec = context.ReadValue<Vector2>();
-    }
-    */
 
     public class Character
     {

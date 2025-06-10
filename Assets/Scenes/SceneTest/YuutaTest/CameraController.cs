@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
     private bool isChasingPlayer = true;
     //[SerializeField] private float rotateSpeed = 200f;
     private Vector3 InitialCameraDirection;
+    private bool isModeChanged = false;
 
     void Start()
     {
@@ -36,7 +37,7 @@ public class CameraController : MonoBehaviour
             transform.position += player.transform.position - targetPosition;
             targetPosition = player.transform.position;
             float RstickX = playerBase.GetRstickX(); //左右回転
-            transform.RotateAround(targetPosition, Vector3.up, RstickX);
+            if (!isModeChanged) transform.RotateAround(targetPosition, Vector3.up, RstickX);
         }
 
         //Oキーを押すとカメラがその場で停止
@@ -80,6 +81,7 @@ public class CameraController : MonoBehaviour
     public void ChangeCameraMode()
     {
         Debug.Log("カメラの向き変更");
+        isModeChanged = true;
         this.transform.eulerAngles = InitialCameraDirection - new Vector3(InitialCameraDirection.x / 2f, 0f, 0f);
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, player.transform.position.z) - new Vector3(0f, this.transform.position.y / 2f, 0f);
     }

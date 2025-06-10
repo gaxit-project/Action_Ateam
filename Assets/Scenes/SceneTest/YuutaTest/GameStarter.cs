@@ -10,6 +10,7 @@ public class GameStarter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI countText;
     private float time = 3f;
     private bool isCountStopped = false;
+    [SerializeField] private Vector3 spawnPoint = Vector3.zero;
 
     private GameManager gameManager;
 
@@ -105,8 +106,7 @@ void Update()
         List<Vector3> spawnPositions = new List<Vector3>();
         for(int i = 0; i < totalPlayers; i++)
         {
-            //現在はx座標を75fずつ左にずらしている状態
-            spawnPositions.Add(new Vector3(i * -75f, 0f, 0f)); //ここをいじって変えてください
+            spawnPositions.Add(spawnPoint + new Vector3(0f, 0f, i * 5f));
         }
 
         spawnPositions = spawnPositions.OrderBy(x => Random.value).ToList(); //スポーン場所をランダムに
