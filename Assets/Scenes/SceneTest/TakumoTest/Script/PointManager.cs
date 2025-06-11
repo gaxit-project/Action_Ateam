@@ -1,25 +1,52 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI.Table;
 
-public class PointPrintf : MonoBehaviour
+public class PointManager : MonoBehaviour
 {
     [System.Serializable]
     public class TPL
     {
-        public List<Text> PL = new List<Text>(); // 1çsÇÃText
+        public List<Text> PL = new List<Text>(); // 1Ë°å„ÅÆText
     }
 
     [SerializeField] private List<TPL> PT= new List<TPL>();
 
 
-    public GameManager gamemanager;
+    public GameManager gameManager;
+
+    private void Awake()
+    {
+        Transform tensu = GameObject.Find("TENSU").transform;
+
+        for (int i = 0; i < tensu.childCount; i++) // name0„Äúname3
+        {
+            Transform player = tensu.GetChild(i);
+            TPL tpl = new TPL();
+
+            // ÂêÑ„Éó„É¨„Ç§„É§„Éº„ÅÆ "waku(x)" „ÇíÊé¢„Åô
+            foreach (Transform child in player)
+            {
+                if (child.name.StartsWith("waku"))
+                {
+                    Text scoreText = child.GetComponentInChildren<Text>();
+                    if (scoreText != null)
+                    {
+                        tpl.PL.Add(scoreText);
+                    }
+                }
+            }
+
+            PT.Add(tpl);
+        }
+    }
+
 
     private IEnumerator Start()
     {
-        gamemanager = FindFirstObjectByType<GameManager>();
+        gameManager = FindFirstObjectByType<GameManager>();
         yield return new WaitForSeconds(1f);
         PointManeger();
     }
@@ -29,13 +56,23 @@ public class PointPrintf : MonoBehaviour
     {
        
        
-        for (int i = 0; i < 1/*Ç±Ç±Ç…ÉvÉåÉCÉÑÅ[êîÇì¸ÇÍÇÈ*/; i++)// TPL Ç4çsçÏê¨
+        for (int i = 0; i < gameManager.NumHumanPlayers; i++)// TPL „Çí4Ë°å‰ΩúÊàê
         {
-            var playerData = gamemanager.GetPlayerScoreData("Player1");
-            int score = playerData.FrameScores[1];
-            PT[i/*Ç±Ç±Ç…PlayernameÇì¸ÇÍÇÈ*/].PL[1/*Ç±Ç±Ç…frameêîÇì¸ÇÍÇÈ*/].text = score.ToString();
+            var playerData = gameManager.GetPlayerScoreData("Player"+ (i+1));
+            int score = playerData.FrameScores[gameManager.Num_NowFrame-1];
+            int wholescore = playerData.FrameScores[0];
+            PT[i].PL[gameManager.Num_NowFrame].text = score.ToString();
+            PT[i].PL[10].text = wholescore.ToString();
         }
 
+        for(int i = 0;i < gameManager.NumBots;i++)
+        {
+            var botData = gameManager.GetPlayerScoreData("bot" + (i+1));
+            int score = botData.FrameScores[gameManager.Num_NowFrame-1];
+            int wholescore = botData.FrameScores[0];
+            PT[i].PL[gameManager.Num_NowFrame].text = score.ToString();
+            PT[i].PL[10].text = wholescore.ToString();
+        }
        
        
     }
@@ -45,8 +82,8 @@ public class PointPrintf : MonoBehaviour
 
 
 
-    //Point[1/*1Ç…ïœêîÇì¸ÇÍÇÈ*/].text = /*1Ç…ïœêîÇì¸ÇÍÇÈ*/1.ToString();
-    //Point[0].text = /*1Ç…ïœêîÇì¸ÇÍÇÈ*/1.ToString();
+    //Point[1/*1„Å´Â§âÊï∞„ÇíÂÖ•„Çå„Çã*/].text = /*1„Å´Â§âÊï∞„ÇíÂÖ•„Çå„Çã*/1.ToString();
+    //Point[0].text = /*1„Å´Â§âÊï∞„ÇíÂÖ•„Çå„Çã*/1.ToString();
 
 
 

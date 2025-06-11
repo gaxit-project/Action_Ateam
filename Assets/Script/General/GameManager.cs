@@ -13,6 +13,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private int buildIndex;
     public bool IsStart = false;
+
+    //現在のフレーム
+    public int Num_NowFrame = 1;
+
     //Playerのスコア管理
     public List<PlayerBase> players = new List<PlayerBase>();
     public List<PlayerScoreData> playerScores = new List<PlayerScoreData>();

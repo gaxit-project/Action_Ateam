@@ -24,7 +24,7 @@ public class GameStarter : MonoBehaviour
         //else StartCoroutine("StartMove");
     }
 
-void Update()
+    void Update()
     {
         if (!isCountStopped)
         {
@@ -117,9 +117,12 @@ void Update()
         {
             var playerobj = Instantiate(gameManager._playerPrefab, spawnPositions[spawnIndex++], Quaternion.identity);
             var player = playerobj.GetComponent<PlayerBase>();
-            player.Init($"Player{i + 1}", false);
-            gameManager.players.Add(player);
-            gameManager.playerScores.Add(new PlayerScoreData($"Player{i + 1}", false));
+            if(gameManager.IsStart == false)
+            {
+                player.Init($"Player{i + 1}", false);
+                gameManager.players.Add(player);
+                gameManager.playerScores.Add(new PlayerScoreData($"Player{i + 1}", false));
+            }
             var cam = FindFirstObjectByType<CameraController>();
             if (cam == null) Debug.LogError("nullÇæÇÊ");
             cam.SetTargetPlayer(player); // Instantiateå„Ç…ïKÇ∏ê›íËÅI
@@ -134,9 +137,13 @@ void Update()
         {
             var botobj = Instantiate(gameManager._botPrefab, spawnPositions[spawnIndex++], Quaternion.identity);
             var bot = botobj.GetComponent<PlayerBase>();
-            bot.Init($"Bot{i + 1}", true);
-            gameManager.players.Add(bot);
-            gameManager.playerScores.Add(new PlayerScoreData($"Bot{i + 1}", true));
+            if(gameManager.IsStart == false)
+            {
+                bot.Init($"Bot{i + 1}", true);
+                gameManager.players.Add(bot);
+                gameManager.playerScores.Add(new PlayerScoreData($"Bot{i + 1}", true));
+            }
+
         }
     }
 }
