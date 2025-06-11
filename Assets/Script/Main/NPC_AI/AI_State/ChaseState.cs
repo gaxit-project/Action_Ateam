@@ -70,7 +70,9 @@ namespace NPC.StateAI{
 
             if (chaseTimer <= 0 && isFindPlayer)
             {
+                Debug.Log("’ÇÕI—¹");
                 isFindPlayer = false;
+                enemyAI.RandomTarget();
             }
         }
 

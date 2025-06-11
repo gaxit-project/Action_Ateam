@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,11 +16,14 @@ namespace NPC.StateAI
         [SerializeField] private float bounceVectorMultiple = 2f;
         [SerializeField] private bool isGround = true;
         [SerializeField] private NavMeshAgent agent;
-        [SerializeField] private Transform firstTarget;
         [SerializeField] private Transform target;
         [SerializeField] private GameStarter gameStarter;
         [SerializeField] private Transform throwTarget;
         [SerializeField] private Animator animator;
+
+        [SerializeField] public List<Transform> targetCandidates = new List<Transform>();
+        [SerializeField] private float targetSwitchInterval = 3f;
+        public Coroutine targetSwitchCoroutine;
 
         private StateMachine enemyStateMachine;
         private EnemyAI enemyAI;
@@ -27,7 +32,12 @@ namespace NPC.StateAI
 
         public bool isGrounded => isGrounded;
         public NavMeshAgent Agent => agent;
-        public Transform Target => target;
+        public Transform Target
+        {
+            get => target;
+            set => target = value;
+        }
+
         public StateMachine EnemyStateMachine => enemyStateMachine;
         public Animator Animator => animator;
 
@@ -44,12 +54,16 @@ namespace NPC.StateAI
         {
             enemyAI = GetComponent<EnemyAI>();
             enemyStateMachine = new StateMachine(this, gameStarter, throwTarget);
-            target = firstTarget;
         }
 
         private void Start()
         {
             enemyStateMachine.Initialize(enemyStateMachine.idleState);
+
+            if(targetCandidates.Count > 0)
+            {
+                targetSwitchCoroutine = StartCoroutine(RandomlySwitchTarget());
+            }
         }
 
         private void Update()
@@ -156,11 +170,6 @@ namespace NPC.StateAI
             Gizmos.DrawRay(transform.position, leftRay * forwardIn * (detectionRadius / 3));
             Gizmos.DrawRay(transform.position, rightRay * forwardIn * (detectionRadius / 3));
         }
-        private void OnDrawGizmosIn()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, detectionRadius / 3);
-        }
 
         public Vector3 CalculateAvoidance()
         {
@@ -180,6 +189,25 @@ namespace NPC.StateAI
             }
 
             return avoidance.magnitude > 0 ? avoidance.normalized : Vector3.zero;
+        }
+
+        public void RandomTarget()
+        {
+            targetSwitchCoroutine = StartCoroutine(RandomlySwitchTarget());
+        }
+
+        public IEnumerator RandomlySwitchTarget()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(targetSwitchInterval);
+                if(targetCandidates.Count > 0)
+                {
+                    int index = Random.Range(0, targetCandidates.Count);
+                    target = targetCandidates[index];
+                    Debug.Log("Targetを: " + Target.name + "に変更");
+                }
+            }
         }
 
         public void OnTriggerEnter(Collider other)
