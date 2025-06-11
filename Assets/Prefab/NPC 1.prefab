@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c6fee7292c33b44ab236c59451683d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
   weight: 10
   rayDistance: 2
   detectionRadius: 10
@@ -110,10 +110,15 @@ MonoBehaviour:
   bounceVectorMultiple: 2
   isGround: 1
   agent: {fileID: 5829692272381626354}
+  firstTarget: {fileID: 0}
   target: {fileID: 0}
   gameStarter: {fileID: 0}
   throwTarget: {fileID: 0}
   animator: {fileID: 0}
+  avoidAngle: 45
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!135 &3058030073249538274
 SphereCollider:
   m_ObjectHideFlags: 0

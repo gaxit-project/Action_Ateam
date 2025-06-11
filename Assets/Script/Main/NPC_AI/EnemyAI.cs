@@ -31,6 +31,9 @@ namespace NPC.StateAI
         public StateMachine EnemyStateMachine => enemyStateMachine;
         public Animator Animator => animator;
 
+        public float avoidAngle = 45.0f;
+        public LayerMask obstacleLayer;
+
         private float throwPower = 2f;
         private float rotation = 0f;
         private Transform attackTarget;
@@ -157,8 +160,26 @@ namespace NPC.StateAI
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, detectionRadius / 3);
+        }
 
+        public Vector3 CalculateAvoidance()
+        {
+            Vector3 avoidance = Vector3.zero;
+            RaycastHit hit;
+
+            Vector3[] rayDirections = { transform.forward, Quaternion.Euler(0, avoidAngle, 0) * transform.forward, Quaternion.Euler(0, -avoidAngle, 0) * transform.forward };
             
+            foreach(Vector3 direction in rayDirections)
+            {
+                if (Physics.Raycast(transform.position, direction, out hit, rayDistance, obstacleLayer))
+                {
+                    float distanceFactor = (rayDistance - hit.distance) / rayDistance;
+                    Vector3 hitNormal = hit.normal;
+                    avoidance += hitNormal * distanceFactor;
+                }
+            }
+
+            return avoidance.magnitude > 0 ? avoidance.normalized : Vector3.zero;
         }
 
         public void OnTriggerEnter(Collider other)

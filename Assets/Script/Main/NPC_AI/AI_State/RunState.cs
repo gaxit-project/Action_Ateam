@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Services.Analytics;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static UnityEngine.GraphicsBuffer;
 
 namespace NPC.StateAI
@@ -26,12 +27,17 @@ namespace NPC.StateAI
 
         public void Update()
         {
+            Vector3 avoidDirection = enemyAI.CalculateAvoidance();
             enemyAI.Agent.SetDestination(enemyAI.Target.position);
             if (enemyAI.DetectPlayer())
             {
                 enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.chaseState);
                 Debug.Log("ChaseState�Ɉڍs");
             }
+            /*if (avoidDirection != Vector3.zero)
+            {
+                moveDirection = Vector3.Lerp(moveDirection, avoidDirection, 0.5f).normalized;
+            }*/
         }
 
         public void Exit()
