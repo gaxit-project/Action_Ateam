@@ -20,6 +20,7 @@ namespace NPC.StateAI
 
         public void Enter()
         {
+            enemyAI.Agent.enabled = true;
             enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
         }
 
@@ -29,7 +30,7 @@ namespace NPC.StateAI
             if (enemyAI.DetectPlayer())
             {
                 enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.chaseState);
-                Debug.Log("ChaseState‚É‘JˆÚ");
+                Debug.Log("ChaseState‚ÉˆÚs");
             }
         }
 
@@ -44,7 +45,7 @@ namespace NPC.StateAI
             {
                 enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.throwState);
             }
-            Debug.Log("throwState‚É‘JˆÚ");
+            Debug.Log("throwState‚ÉˆÚs");
         }
     }
 }
