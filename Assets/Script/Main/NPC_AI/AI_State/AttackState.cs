@@ -13,7 +13,7 @@ namespace NPC.StateAI
         public AttackState(EnemyAI enemyAI)
         {
             this.enemyAI = enemyAI;
-            MeshColor = Color.red;
+            MeshColor = Color.cyan;
         }
 
         void Enter()

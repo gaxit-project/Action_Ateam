@@ -14,6 +14,7 @@ namespace NPC.StateAI
         public IState CurrentState { get; private set; }
         public IdleState idleState;
         public RunState runState;
+        public ChaseState chaseState;
         public AttackState attackState;
         public ThrowState throwState;
 
@@ -22,6 +23,7 @@ namespace NPC.StateAI
         {
             this.idleState = new IdleState(enemy, gameStarter);
             this.runState = new RunState(enemy);
+            this.chaseState = new ChaseState(enemy);
             this.attackState = new AttackState(enemy);
             this.throwState = new ThrowState(enemy, throwTarget);
         }

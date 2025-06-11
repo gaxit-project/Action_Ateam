@@ -78,6 +78,11 @@ namespace NPC.StateAI
             return throwPower;
         }
 
+        public float ReturnNPCSpeed()
+        {
+            return speed;
+        }
+
         public bool DetectPlayer()
         {
             Collider[] hits = Physics.OverlapSphere(transform.position, detectionRadius, LayerMask.GetMask("Player"));

@@ -28,8 +28,8 @@ namespace NPC.StateAI
             enemyAI.Agent.SetDestination(enemyAI.Target.position);
             if (enemyAI.DetectPlayer())
             {
-                enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.attackState);
-                Debug.Log("AttackState‚É‘JˆÚ");
+                enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.chaseState);
+                Debug.Log("ChaseState‚É‘JˆÚ");
             }
         }
 
