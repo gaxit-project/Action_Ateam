@@ -28,7 +28,7 @@ namespace NPC.StateAI
             if (gameStarter.IsCountStopped())
             {
                 enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.runState);
-                Debug.Log("RunState‚É‘JˆÚ");
+                Debug.Log("RunState‚ÉˆÚs");
             }
         }
 

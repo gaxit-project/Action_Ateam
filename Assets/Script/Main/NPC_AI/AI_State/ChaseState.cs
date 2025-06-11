@@ -13,8 +13,10 @@ namespace NPC.StateAI{
         private EnemyAI enemyAI;
         private Transform targetTransform;
         private float chaseTimer;
+        private bool isFindPlayer = true;
 
         [SerializeField] private float chaseTime = 3.0f;
+        [SerializeField] private float minDistance = 1.0f;
 
         public ChaseState(EnemyAI enemyAI)
         {
@@ -24,23 +26,52 @@ namespace NPC.StateAI{
 
         public void Enter()
         {
-            GameObject targetObject = GameObject.FindWithTag("Player");
+            enemyAI.StartCoroutine(FindPlayer());
+        }
+
+        private IEnumerator FindPlayer()
+        {
+            while (target == null)
+            {
+                targetTransform = enemyAI.DetectPlayer();
+                if(targetTransform != null)
+                {
+                    target = targetTransform.gameObject;
+                }
+                else
+                {
+                    yield return new WaitForSeconds(0.5f);
+                }
+            }
             chaseTimer = chaseTime;
         }
 
         public void Update()
         {
-            chaseTimer -= Time.deltaTime;
-            if(chaseTimer <= 0)
+            if (isFindPlayer)
+            {
+                chaseTimer -= Time.deltaTime;
+                Vector3 direction = (targetTransform.position - enemyAI.transform.position).normalized;
+                float distance = Vector3.Distance(enemyAI.transform.position, targetTransform.position);
+
+                enemyAI.transform.LookAt(targetTransform);
+                enemyAI.transform.position += direction * enemyAI.ReturnSpeed() * Time.deltaTime;
+
+                if (enemyAI.AttackPlayer())
+                {
+                    enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.runState);
+                    Debug.Log("AttackState�Ɉڍs");
+                }
+            }
+            else
             {
                 enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.runState);
             }
 
-            Vector3 direction = (targetTransform.position - enemyAI.transform.position).normalized;
-            float distance = Vector3.Distance(enemyAI.transform.position, targetTransform.position);
-
-            enemyAI.transform.position += direction * enemyAI.ReturnNPCSpeed() * Time.deltaTime;
-            enemyAI.transform.LookAt(targetTransform);
+            if (chaseTimer <= 0 && isFindPlayer)
+            {
+                isFindPlayer = false;
+            }
         }
 
         public void Exit()
