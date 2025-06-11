@@ -1,5 +1,6 @@
 using NPC.StateAI;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -64,6 +65,16 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] protected float acceleration = 5f;
     [SerializeField] protected float deceleration = 5f;
     [SerializeField] protected float gravity = 20f;
+    private Vector3 reflection = Vector3.zero;
+
+    //プロパティ
+    public PlayerState PlayerStateProperty
+    {
+        get => currentState;
+        set => currentState = value;
+    }
+    public float GetRstickX => RstickX;
+    
 
     void Start()
     {
@@ -173,7 +184,7 @@ public class PlayerBase : MonoBehaviour
                     float lerpRate = (targetVelocity.magnitude > 0.1f) ? acceleration : deceleration;
                     currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, lerpRate * Time.fixedDeltaTime);
                     //移動
-                    if (!isModeChanged && !isAttacking && !isAttacked) rigidbody.MovePosition(rigidbody.position + currentVelocity/*targetVelocity*/ * Time.fixedDeltaTime);
+                    if (!isModeChanged && !isAttacking && !isAttacked) rigidbody.MovePosition(rigidbody.position + (currentVelocity/*targetVelocity*/ + reflection) * Time.fixedDeltaTime);
                     else if(!isAttacked) rigidbody.linearVelocity = Vector3.zero;
 
                 }
@@ -266,20 +277,12 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //Run状態でDeathAreaタグを持つオブジェクトに触れた場合死亡
-        if ((currentState == PlayerState.Run) && other.gameObject.CompareTag("DeathArea"))
-        {
-            currentState = PlayerState.Dead;
-        }
-    }
-
+    //投擲後に壁やプレイヤーに衝突した際の処理
     private void OnCollisionEnter(Collision collision)
     {
         // 投擲後 Wall または Player に当たった場合
-        if ((collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Player")) &&
-            currentState == PlayerState.Throwed && collision.contactCount > 0)
+        if ((collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Player")) /*&&
+            currentState == PlayerState.Throwed */&& collision.contactCount > 0)
         {
             // 現在の進行方向（速度）
             Vector3 incomingVelocity = rigidbody.linearVelocity;
@@ -294,28 +297,23 @@ public class PlayerBase : MonoBehaviour
             reflectVelocity += normal * 0.2f;
 
             reflectVelocity.Normalize();
-
-            transform.forward = reflectVelocity;
-            throwVelocity = reflectVelocity * speed * throwPower;
-            rigidbody.linearVelocity = throwVelocity;
-
+            if (currentState == PlayerState.Throwed)
+            {
+                transform.forward = reflectVelocity;
+                throwVelocity = reflectVelocity * speed * throwPower;
+                rigidbody.linearVelocity = throwVelocity;
+            }
+            else if (currentState == PlayerState.Run)
+            {
+                Reflect(reflectVelocity);
+            }
         }
     }
-
 
     public void StartMove()
     {
         currentState = PlayerState.Run;
         Debug.Log("スタート!");
-    }
-
-    /// <summary>
-    /// プレイヤーとカメラの回転を同期させる用
-    /// </summary>
-    /// <returns></returns>
-    public float GetRstickX()
-    {
-        return RstickX;
     }
 
     /*
@@ -356,7 +354,6 @@ public class PlayerBase : MonoBehaviour
     /// </summary>
     public void Throw()
     {
-        currentState = PlayerState.Throwed;
         //transform.rotation = Quaternion.Euler(transform.eulerAngles.x, camera.GetCameraRotationY(), transform.eulerAngles.z);
         Vector3 forward = camera.transform.forward;
         forward.y = 0f;
@@ -373,33 +370,38 @@ public class PlayerBase : MonoBehaviour
         */
         //Debug.Log("投擲");
         camera.ChangeCameraMode();
+        currentState = PlayerState.Throwed;
     }
 
-    private void Attack()
+    private async void Attack()
     {
         isAttacking = true;
         AttackZone = Instantiate(attackArea, this.transform);
         AttackZone.transform.localPosition = new Vector3(0.6f, 0f, 0f);
-        Invoke("StopAttack", 0.5f);
-    }
-
-    private void StopAttack()
-    {
+        await Task.Delay(500);
         isAttacking = false;
         Destroy(AttackZone);
     }
 
-    public void Attacked(Vector3 attackedVelocity)
+    public async void Attacked(Vector3 attackedVelocity)
     {
-        if(isAttacking) StopAttack();
+        if(isAttacking)
+        {
+            isAttacking = false;
+            Destroy(AttackZone);
+        }
         isAttacked = true;
         rigidbody.linearVelocity = attackedVelocity;
-        Invoke("Restart", 1f);
+        await Task.Delay(1000);
+        isAttacked = false;
     }
 
-    private void Restart()
+    //Run状態の時の衝突処理
+    public async void Reflect(Vector3 reflectVelocity)
     {
-        isAttacked = false;
+        reflection = reflectVelocity * speed * 2f;
+        await Task.Delay(300);
+        reflection = Vector3.zero;
     }
 
     public class Character

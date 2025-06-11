@@ -36,7 +36,7 @@ public class CameraController : MonoBehaviour
         {
             transform.position += player.transform.position - targetPosition;
             targetPosition = player.transform.position;
-            float RstickX = playerBase.GetRstickX(); //¶‰E‰ñ“]
+            float RstickX = playerBase.GetRstickX; //¶‰E‰ñ“]
             if (!isModeChanged) transform.RotateAround(targetPosition, Vector3.up, RstickX);
         }
 
