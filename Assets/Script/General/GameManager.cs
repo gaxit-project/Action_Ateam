@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
@@ -63,6 +64,73 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             Debug.LogWarning($"'{playerID}' のスコアデータが見つかりません！");
         }
         return result;
+    }
+
+    /// <summary>
+    /// Mainに入ったときにプレイヤーを作成
+    /// </summary>
+    public void SetUpPlayers()
+    {
+        if (players == null)
+            players = new List<PlayerBase>();
+
+        if (playerScores == null)
+            playerScores = new List<PlayerScoreData>();
+
+        if (!IsStart)
+        {
+            Debug.LogWarning("クリアされたよ");
+            players.Clear();
+            playerScores.Clear();
+        }
+
+        //合計人数
+        int totalPlayers = NumHumanPlayers + NumBots;
+
+        //スポーン地点をリストに保存
+        List<Vector3> spawnPositions = new List<Vector3>();
+        for (int i = 0; i < totalPlayers; i++)
+        {
+            //現在はx座標を75fずつ左にずらしている状態
+            spawnPositions.Add(new Vector3(i * -75f, 0f, 0f)); //ここをいじって変えてください
+        }
+
+        spawnPositions = spawnPositions.OrderBy(x => Random.value).ToList(); //スポーン場所をランダムに
+
+        int spawnIndex = 0; //人数
+        //Player
+        for (int i = 0; i < NumHumanPlayers; i++)
+        {
+            var playerobj = Instantiate(_playerPrefab, spawnPositions[spawnIndex++], Quaternion.identity);
+            var player = playerobj.GetComponent<PlayerBase>();
+            player.Init($"Player{i + 1}", false);
+            players.Add(player);
+            if (IsStart == false)
+            {
+                playerScores.Add(new PlayerScoreData($"Player{i + 1}", false));
+            }
+            var cam = FindFirstObjectByType<CameraController>();
+            if (cam == null) Debug.LogError("nullだよ");
+            cam.SetTargetPlayer(player); // Instantiate後に必ず設定！
+            var starter = FindFirstObjectByType<GameStarter>();
+            if (starter == null) Debug.LogError("starternull");
+            starter.SetPlayer(player);
+
+        }
+
+        //Bot
+        for (int i = 0; i < NumBots; i++)
+        {
+            var botobj = Instantiate(_botPrefab, spawnPositions[spawnIndex++], Quaternion.identity);
+            var bot = botobj.GetComponent<PlayerBase>();
+            if (IsStart == false)
+            {
+                bot.Init($"Bot{i + 1}", true);
+                players.Add(bot);
+                playerScores.Add(new PlayerScoreData($"Bot{i + 1}", true));
+            }
+
+        }
     }
 }
 

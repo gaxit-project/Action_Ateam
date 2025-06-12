@@ -18,6 +18,12 @@ public class ResetArea : MonoBehaviour
     public void ResetGame()
     {
         scoreManager.FrameSaveSystem();
+        foreach (var player in GameManager.Instance.players)
+        {
+            if (player != null)
+                Destroy(player.gameObject);
+        }
+        GameManager.Instance.players.Clear();
         SceneChangeManager.Instance.ResetScene(SceneName);
         
     }

@@ -15,6 +15,10 @@ public class GameStarter : MonoBehaviour
 
     void Start()
     {
+        if(gameManager == null)
+        {
+            gameManager = FindFirstObjectByType<GameManager>();
+        }
         countText.enabled = true; 
         countText.SetText("3");
         gameManager.IsStart = true;
@@ -38,6 +42,14 @@ public class GameStarter : MonoBehaviour
             isCountStopped = true;
             countText.text = "GO!!";
             Invoke("Disabled", 1f);
+            foreach(var p in gameManager.players)
+            {
+                Debug.Log(p);
+            }
+            foreach(var j in gameManager.playerScores)
+            {
+                Debug.Log(j);
+            }
         }
         if(gameManager == null)
         {
@@ -70,80 +82,4 @@ public class GameStarter : MonoBehaviour
         StartCoroutine("StartMove");
     }
 
-    /// <summary>
-    /// Mainに入ったときにプレイヤーを作成
-    /// </summary>
-    public void SetUpPlayers()
-    {
-        if (gameManager == null)
-        {
-            gameManager = FindFirstObjectByType<GameManager>();
-            if (gameManager == null)
-            {
-                Debug.LogError("GameManager.Instance が null です");
-                return;
-            }
-        }
-
-        if (gameManager.players == null)
-            gameManager.players = new List<PlayerBase>();
-
-        if (gameManager.playerScores == null)
-            gameManager.playerScores = new List<PlayerScoreData>();
-
-        if (!gameManager.IsStart)
-        {
-            Debug.LogWarning("クリアされたよ");
-            gameManager.players.Clear();
-            gameManager.playerScores.Clear();
-        }
-
-        //合計人数
-        int totalPlayers = gameManager.NumHumanPlayers + gameManager.NumBots;
-
-        //スポーン地点をリストに保存
-        List<Vector3> spawnPositions = new List<Vector3>();
-        for(int i = 0; i < totalPlayers; i++)
-        {
-            //現在はx座標を75fずつ左にずらしている状態
-            spawnPositions.Add(new Vector3(i * -75f, 0f, 0f)); //ここをいじって変えてください
-        }
-
-        spawnPositions = spawnPositions.OrderBy(x => Random.value).ToList(); //スポーン場所をランダムに
-
-        int spawnIndex = 0; //人数
-        //Player
-        for (int i = 0; i < gameManager.NumHumanPlayers; i++)
-        {
-            var playerobj = Instantiate(gameManager._playerPrefab, spawnPositions[spawnIndex++], Quaternion.identity);
-            var player = playerobj.GetComponent<PlayerBase>();
-            if(gameManager.IsStart == false)
-            {
-                player.Init($"Player{i + 1}", false);
-                gameManager.players.Add(player);
-                gameManager.playerScores.Add(new PlayerScoreData($"Player{i + 1}", false));
-            }
-            var cam = FindFirstObjectByType<CameraController>();
-            if (cam == null) Debug.LogError("nullだよ");
-            cam.SetTargetPlayer(player); // Instantiate後に必ず設定！
-            var starter = FindFirstObjectByType<GameStarter>();
-            if (starter == null) Debug.LogError("starternull");
-            starter.SetPlayer(player);
-
-        }
-
-        //Bot
-        for (int i = 0; i < gameManager.NumBots; i++)
-        {
-            var botobj = Instantiate(gameManager._botPrefab, spawnPositions[spawnIndex++], Quaternion.identity);
-            var bot = botobj.GetComponent<PlayerBase>();
-            if(gameManager.IsStart == false)
-            {
-                bot.Init($"Bot{i + 1}", true);
-                gameManager.players.Add(bot);
-                gameManager.playerScores.Add(new PlayerScoreData($"Bot{i + 1}", true));
-            }
-
-        }
-    }
 }

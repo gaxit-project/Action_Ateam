@@ -19,7 +19,11 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-            ResetStart();  
+        if (gameManager == null)
+        {
+            gameManager = FindFirstObjectByType<GameManager>();
+        }
+        ResetStart();
     }
     private void Update()
     {
@@ -42,7 +46,7 @@ public class ScoreManager : MonoBehaviour
         pinManager = FindFirstObjectByType<PinManager>();
         resetArea = FindFirstObjectByType<ResetArea>();
         score_object = GameObject.Find("Canvas/Text (Legacy)");
-        gameStarter.SetUpPlayers();
+        gameManager.SetUpPlayers();
     }
 
 
@@ -51,12 +55,10 @@ public class ScoreManager : MonoBehaviour
     /// スコアをリストに保存
     /// </summary>
     public void FrameSaveSystem()
-    {
-        gameManager.players.RemoveAll(p => p == null);
-
+    { 
         if(gameManager.players == null)
         {
-            Debug.Log("player null"); return;
+            Debug.LogError("player null"); return;
         }
         foreach (var player in gameManager.players)
         {
