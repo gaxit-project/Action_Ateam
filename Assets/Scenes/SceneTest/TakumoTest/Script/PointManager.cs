@@ -77,10 +77,42 @@ public class PointManager : MonoBehaviour
                 Debug.Log(gameManager.HumanScore[i, j]);
                 PT[i].PL[j-1].text = gameManager.HumanScore[i, j].ToString();
             }
+            if (PT == null)
+            {
+                Debug.LogError("PTがnullです！");
+                return;
+            }
+
+            if (i >= PT.Count)
+            {
+                Debug.LogError($"PTのインデックス{i}が範囲外です！ Count={PT.Count}");
+                return;
+            }
+
+            if (PT[i].PL == null)
+            {
+                Debug.LogError($"PT[{i}].PL が null です！");
+                return;
+            }
+
+            if (PT[i].PL.Count <= 10)
+            {
+                Debug.LogError($"PT[{i}].PL に十分な Text 要素がありません（Count={PT[i].PL.Count}）");
+                return;
+            }
+
+            if (PT[i].PL[10] == null)
+            {
+                Debug.LogError($"PT[{i}].PL[10] が null です（Textコンポーネントが見つからなかった可能性）");
+                return;
+            }
+
+            // 安全に代入
             PT[i].PL[10].text = wholescore.ToString();
+
         }
 
-        for(int i = 0;i < gameManager.NumBots;i++)
+        for (int i = 0;i < gameManager.NumBots;i++)
         {
             var botData = gameManager.GetPlayerScoreData("bot" + (i+1));
             gameManager.BotScore[i, gameManager.Num_NowFrame] = botData.FrameScores[gameManager.Num_NowFrame];
