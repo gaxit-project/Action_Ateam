@@ -213,7 +213,6 @@ namespace NPC.StateAI
         public void Attacked(Vector3 vec, float power)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
-            Debug.Log(vec.magnitude + ", " + power);
             for (float timer = 0f; timer < 1f; timer += Time.deltaTime)
                 rb.linearVelocity = vec * power;
         }
