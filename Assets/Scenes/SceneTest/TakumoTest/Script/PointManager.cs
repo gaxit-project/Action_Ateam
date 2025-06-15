@@ -18,9 +18,6 @@ public class PointManager : MonoBehaviour
 
     public GameManager gameManager;
 
-    private int[,] HumanScore;
-    private int[,] BotScore;
-
     private void Awake()
     {
         Transform tensu = GameObject.Find("TENSU").transform;
@@ -54,7 +51,12 @@ public class PointManager : MonoBehaviour
         {
             Debug.LogError("gameManagerがnull");
         }
-        yield return new WaitForSeconds(5f);
+        if (gameManager.IsStart == false)
+        {
+            gameManager.HumanScore = new int[gameManager.NumHumanPlayers, 11];
+            gameManager.BotScore = new int[gameManager.NumBots, 11];
+        }
+        yield return new WaitForSeconds(1f);
         PrintPoint();
     }
 
@@ -62,30 +64,18 @@ public class PointManager : MonoBehaviour
 
     void PrintPoint()
     {
-        if (gameManager.IsStart == false)
-        {
-            HumanScore = new int[gameManager.NumHumanPlayers, 11];
-            BotScore = new int[gameManager.NumBots, 11];
-        }
         for (int i = 0; i < gameManager.NumHumanPlayers; i++)// TPL を4行作成
         {
-            var playerData = gameManager.GetPlayerScoreData("Player" + (i + 1));
-            if (playerData == null || playerData.FrameScores == null)
-            {
-                Debug.LogError($"PlayerData or FrameScores is null for Player{i + 1}");
-                continue;
-            }
-            if (gameManager.Num_NowFrame >= playerData.FrameScores.Length)
-            {
-                Debug.LogError($"Num_NowFrame {gameManager.Num_NowFrame} is out of range for FrameScores (Length: {playerData.FrameScores.Length})");
-                continue;
-            }
-
-            HumanScore[i, gameManager.Num_NowFrame] = playerData.FrameScores[gameManager.Num_NowFrame];
+            var playerData = gameManager.GetPlayerScoreData("Player"+(i+1));
+            gameManager.HumanScore[i, gameManager.Num_NowFrame-1] = playerData.FrameScores[gameManager.Num_NowFrame-1];
+            Debug.Log(gameManager.HumanScore[i, gameManager.Num_NowFrame - 1]);
             int wholescore = playerData.GetTotalScore();
             for(int j = 1; j < gameManager.Num_NowFrame; j++)
             {
-                PT[i].PL[gameManager.Num_NowFrame - j-1].text = HumanScore[i, j].ToString();
+                Debug.Log(i);
+                Debug.Log(j);
+                Debug.Log(gameManager.HumanScore[i, j]);
+                PT[i].PL[j-1].text = gameManager.HumanScore[i, j].ToString();
             }
             PT[i].PL[10].text = wholescore.ToString();
         }
@@ -93,11 +83,11 @@ public class PointManager : MonoBehaviour
         for(int i = 0;i < gameManager.NumBots;i++)
         {
             var botData = gameManager.GetPlayerScoreData("bot" + (i+1));
-            BotScore[i, gameManager.Num_NowFrame] = botData.FrameScores[gameManager.Num_NowFrame];
+            gameManager.BotScore[i, gameManager.Num_NowFrame] = botData.FrameScores[gameManager.Num_NowFrame];
             int wholescore = botData.FrameScores[0];
             for (int j = 1; j < gameManager.Num_NowFrame; j++)
             {
-                PT[i].PL[gameManager.Num_NowFrame - j-1].text = BotScore[i, j].ToString();
+                PT[i].PL[gameManager.Num_NowFrame - j-1].text = gameManager.BotScore[i, j].ToString();
             }
 
 

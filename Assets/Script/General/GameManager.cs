@@ -28,6 +28,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public int NumHumanPlayers;
     public int NumBots;
 
+    public int[,] HumanScore;
+    public int[,] BotScore;
+
     //private int[] NowFramePoint_0 = new int[11];
     //private int[] NowFramePoint_1 = new int[11];
     //private int[] NowFramePoint_2 = new int[11];
