@@ -6,7 +6,6 @@ public class ResetArea : MonoBehaviour
     public bool isPlayerOut = false;
     [SerializeField] private ScoreManager scoreManager;
     [SerializeField] private string SceneName;
-
     private int BuildIndex;
     private void Update()
     {
@@ -18,7 +17,13 @@ public class ResetArea : MonoBehaviour
     }
     public void ResetGame()
     {
-        scoreManager.FrameSaveSystem(); 
+        scoreManager.FrameSaveSystem();
+        foreach (var player in GameManager.Instance.players)
+        {
+            if (player != null)
+                Destroy(player.gameObject);
+        }
+        GameManager.Instance.players.Clear();
         SceneChangeManager.Instance.ResetScene(SceneName);
         
     }

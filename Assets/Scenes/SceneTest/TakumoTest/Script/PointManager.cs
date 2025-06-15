@@ -1,41 +1,98 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI.Table;
 
-public class PointPrintf : MonoBehaviour
+public class PointManager : MonoBehaviour
 {
     [System.Serializable]
     public class TPL
     {
-        public List<Text> PL = new List<Text>(); // 1çsÇÃText
+        public List<Text> PL = new List<Text>(); // 1Ë°å„ÅÆText
     }
 
     [SerializeField] private List<TPL> PT= new List<TPL>();
 
 
-    public GameManager gamemanager;
+    public GameManager gameManager;
 
-    private IEnumerator Start()
+    private void Awake()
     {
-        gamemanager = FindFirstObjectByType<GameManager>();
+        Transform tensu = GameObject.Find("TENSU").transform;
+
+        for (int i = 0; i < tensu.childCount; i++) // name0„Äúname3
+        {
+            Transform player = tensu.GetChild(i);
+            TPL tpl = new TPL();
+
+            // ÂêÑ„Éó„É¨„Ç§„É§„Éº„ÅÆ "waku(x)" „ÇíÊé¢„Åô
+            foreach (Transform child in player)
+            {
+                if (child.name.StartsWith("waku"))
+                {
+                    Text scoreText = child.GetComponentInChildren<Text>();
+                    if (scoreText != null)
+                    {
+                        tpl.PL.Add(scoreText);
+                    }
+                }
+            }
+
+            PT.Add(tpl);
+        }
+    }
+
+    IEnumerator Start()
+    {
+        gameManager = FindFirstObjectByType<GameManager>();
+        if(gameManager == null)
+        {
+            Debug.LogError("gameManager„Åånull");
+        }
+        if (gameManager.IsStart == false)
+        {
+            gameManager.HumanScore = new int[gameManager.NumHumanPlayers, 11];
+            gameManager.BotScore = new int[gameManager.NumBots, 11];
+        }
         yield return new WaitForSeconds(1f);
-        PointManeger();
+        PrintPoint();
     }
 
 
-    void PointManeger()
+
+    void PrintPoint()
     {
-       
-       
-        for (int i = 0; i < 1/*Ç±Ç±Ç…ÉvÉåÉCÉÑÅ[êîÇì¸ÇÍÇÈ*/; i++)// TPL Ç4çsçÏê¨
+        for (int i = 0; i < gameManager.NumHumanPlayers; i++)// TPL „Çí4Ë°å‰ΩúÊàê
         {
-            var playerData = gamemanager.GetPlayerScoreData("Player1");
-            int score = playerData.FrameScores[1];
-            PT[i/*Ç±Ç±Ç…PlayernameÇì¸ÇÍÇÈ*/].PL[1/*Ç±Ç±Ç…frameêîÇì¸ÇÍÇÈ*/].text = score.ToString();
+            var playerData = gameManager.GetPlayerScoreData("Player"+(i+1));
+            gameManager.HumanScore[i, gameManager.Num_NowFrame-1] = playerData.FrameScores[gameManager.Num_NowFrame-1];
+            Debug.Log(gameManager.HumanScore[i, gameManager.Num_NowFrame - 1]);
+            int wholescore = playerData.GetTotalScore();
+            for(int j = 1; j < gameManager.Num_NowFrame; j++)
+            {
+                Debug.Log(i);
+                Debug.Log(j);
+                Debug.Log(gameManager.HumanScore[i, j]);
+                PT[i].PL[j-1].text = gameManager.HumanScore[i, j].ToString();
+            }
+            PT[i].PL[10].text = wholescore.ToString();
         }
 
+        for(int i = 0;i < gameManager.NumBots;i++)
+        {
+            var botData = gameManager.GetPlayerScoreData("bot" + (i+1));
+            gameManager.BotScore[i, gameManager.Num_NowFrame] = botData.FrameScores[gameManager.Num_NowFrame];
+            int wholescore = botData.FrameScores[0];
+            for (int j = 1; j < gameManager.Num_NowFrame; j++)
+            {
+                PT[i].PL[gameManager.Num_NowFrame - j-1].text = gameManager.BotScore[i, j].ToString();
+            }
+
+
+            PT[i].PL[10].text = wholescore.ToString();
+        }
        
        
     }
@@ -45,8 +102,8 @@ public class PointPrintf : MonoBehaviour
 
 
 
-    //Point[1/*1Ç…ïœêîÇì¸ÇÍÇÈ*/].text = /*1Ç…ïœêîÇì¸ÇÍÇÈ*/1.ToString();
-    //Point[0].text = /*1Ç…ïœêîÇì¸ÇÍÇÈ*/1.ToString();
+    //Point[1/*1„Å´Â§âÊï∞„ÇíÂÖ•„Çå„Çã*/].text = /*1„Å´Â§âÊï∞„ÇíÂÖ•„Çå„Çã*/1.ToString();
+    //Point[0].text = /*1„Å´Â§âÊï∞„ÇíÂÖ•„Çå„Çã*/1.ToString();
 
 
 

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField] int Num_NowFrame = 1;
     [SerializeField] private float displayScoreTime = 3;
 
     public PinManager pinManager;
@@ -20,6 +19,10 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
+        if (gameManager == null)
+        {
+            gameManager = FindFirstObjectByType<GameManager>();
+        }
         ResetStart();
     }
     private void Update()
@@ -43,7 +46,7 @@ public class ScoreManager : MonoBehaviour
         pinManager = FindFirstObjectByType<PinManager>();
         resetArea = FindFirstObjectByType<ResetArea>();
         score_object = GameObject.Find("Canvas/Text (Legacy)");
-        gameStarter.SetUpPlayers();
+        gameManager.SetUpPlayers();
     }
 
 
@@ -52,29 +55,42 @@ public class ScoreManager : MonoBehaviour
     /// スコアをリストに保存
     /// </summary>
     public void FrameSaveSystem()
-    {
+    { 
         if(gameManager.players == null)
         {
-            Debug.Log("player null"); return;
+            Debug.LogError("player null"); return;
         }
-        
         foreach (var player in gameManager.players)
         {
-            int pins = pinManager.GetKnockedDownPinCount();
+            if (player == null)
+            {
+                Debug.LogError("playerがnullです！");
+                continue;
+            }
 
-            var scoreData = gameManager.playerScores.Find(p => p.PlayerID == player.GetPlayerID());
+            string id = player.GetPlayerID();
+            if (string.IsNullOrEmpty(id))
+            {
+                Debug.LogError("playerIDが無効です！");
+                continue;
+            }
+
+            var scoreData = gameManager.playerScores.Find(p => p != null && p.PlayerID == id);
+
             if (scoreData != null)
             {
-                scoreData.Addscore(Num_NowFrame, pins);
+                int pins = pinManager.GetKnockedDownPinCount();
+                scoreData.Addscore(gameManager.Num_NowFrame, pins);
                 Debug.Log($"{scoreData.PlayerID}: {pins} 点（合計 {scoreData.GetTotalScore()}）");
             }
             else
             {
-                Debug.Log("scoreDataがnull");
+                Debug.LogWarning($"スコアデータが見つかりません: {id}");
             }
         }
 
-        Num_NowFrame++;
+
+        gameManager.Num_NowFrame++;
     }
 
     public void ScoreText()
