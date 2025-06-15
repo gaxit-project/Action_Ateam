@@ -45,6 +45,8 @@ public class PlayerBase : MonoBehaviour
     protected bool isThrowTimerStarted = false;
     [SerializeField] protected float throwPower = 5f;
     protected PlayerState currentState = PlayerState.Idle;
+    private bool isReflecting = false;
+    private bool isDecelerating = false;
 
     //攻撃関係
     protected bool isAttacking = false;
@@ -183,8 +185,20 @@ public class PlayerBase : MonoBehaviour
                     //加減速処理
                     float lerpRate = (targetVelocity.magnitude > 0.1f) ? acceleration : deceleration;
                     currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, lerpRate * Time.fixedDeltaTime);
+                    if (isDecelerating)
+                    {
+                        reflection = Vector3.Lerp(reflection, Vector3.zero, lerpRate * Time.fixedDeltaTime);
+
+                        // 減速が十分に小さくなったら解除
+                        if (reflection.magnitude < 0.05f)
+                        {
+                            reflection = Vector3.zero;
+                            isDecelerating = false;
+                        }
+                    }
                     //移動
-                    if (!isModeChanged && !isAttacking && !isAttacked) rigidbody.MovePosition(rigidbody.position + (currentVelocity/*targetVelocity*/ + reflection) * Time.fixedDeltaTime);
+                    if (reflection.magnitude > 0.5f) rigidbody.MovePosition(rigidbody.position + reflection * Time.fixedDeltaTime);
+                    else if (!isModeChanged && !isAttacking && !isAttacked) rigidbody.MovePosition(rigidbody.position + currentVelocity * Time.fixedDeltaTime);
                     else if(!isAttacked) rigidbody.linearVelocity = Vector3.zero;
 
                 }
@@ -277,12 +291,10 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-    //投擲後に壁やプレイヤーに衝突した際の処理
+    //投擲後に壁やNPCに衝突した際の処理
     private void OnCollisionEnter(Collision collision)
     {
-        // 投擲後 Wall または Player に当たった場合
-        if ((collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Player")) /*&&
-            currentState == PlayerState.Throwed */&& collision.contactCount > 0)
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("NPC"))
         {
             // 現在の進行方向（速度）
             Vector3 incomingVelocity = rigidbody.linearVelocity;
@@ -293,19 +305,27 @@ public class PlayerBase : MonoBehaviour
             // 反射ベクトルの計算
             Vector3 reflectVelocity = Vector3.Reflect(incomingVelocity, normal).normalized;
 
-            // 法線方向に少し押し返しを加える
-            reflectVelocity += normal * 0.2f;
+            if (collision.gameObject.CompareTag("Wall") && collision.contactCount > 0)
+            {
+                // 法線方向に少し押し返しを加える
+                reflectVelocity += normal * 0.2f;
 
-            reflectVelocity.Normalize();
-            if (currentState == PlayerState.Throwed)
-            {
-                transform.forward = reflectVelocity;
-                throwVelocity = reflectVelocity * speed * throwPower;
-                rigidbody.linearVelocity = throwVelocity;
+                reflectVelocity.Normalize();
+                if (currentState == PlayerState.Throwed)
+                {
+                    transform.forward = reflectVelocity;
+                    throwVelocity = reflectVelocity * speed * throwPower;
+                    rigidbody.linearVelocity = throwVelocity;
+                }
+                else if (currentState == PlayerState.Run)
+                {
+                    Reflect(reflectVelocity);
+                }
             }
-            else if (currentState == PlayerState.Run)
+            else if (collision.gameObject.CompareTag("NPC"))
             {
-                Reflect(reflectVelocity);
+                EnemyAI enemy =  collision.gameObject.GetComponent<EnemyAI>();
+                if (enemy != null) enemy.Attacked(Vector3.ClampMagnitude(reflectVelocity, 1f), 10f);
             }
         }
     }
@@ -399,9 +419,11 @@ public class PlayerBase : MonoBehaviour
     //Run状態の時の衝突処理
     public async void Reflect(Vector3 reflectVelocity)
     {
-        reflection = reflectVelocity * speed * 2f;
+        isReflecting = true;
+        reflection = reflectVelocity * speed;
         await Task.Delay(300);
-        reflection = Vector3.zero;
+        isReflecting = false;
+        isDecelerating = true;
     }
 
     public class Character

@@ -110,11 +110,12 @@ MonoBehaviour:
   bounceVectorMultiple: 2
   isGround: 1
   agent: {fileID: 5829692272381626354}
-  firstTarget: {fileID: 0}
   target: {fileID: 0}
   gameStarter: {fileID: 0}
   throwTarget: {fileID: 0}
   animator: {fileID: 0}
+  targetCandidates: []
+  targetSwitchInterval: 3
   avoidAngle: 45
   obstacleLayer:
     serializedVersion: 2
