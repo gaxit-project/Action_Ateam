@@ -28,7 +28,7 @@ namespace NPC.StateAI
         public void Update()
         {
             Vector3 avoidDirection = enemyAI.CalculateAvoidance();
-            enemyAI.Agent.SetDestination(enemyAI.Target.position);
+            if (enemyAI.Agent.enabled && enemyAI.Agent.isOnNavMesh) enemyAI.Agent.SetDestination(enemyAI.Target.position);
             if (enemyAI.DetectPlayer())
             {
                 enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.chaseState);

@@ -42,6 +42,7 @@ public class GameStarter : MonoBehaviour
             isCountStopped = true;
             countText.text = "GO!!";
             Invoke("Disabled", 1f);
+            /*
             foreach(var p in gameManager.players)
             {
                 Debug.Log(p);
@@ -50,6 +51,7 @@ public class GameStarter : MonoBehaviour
             {
                 Debug.Log(j);
             }
+            */
         }
         if(gameManager == null)
         {

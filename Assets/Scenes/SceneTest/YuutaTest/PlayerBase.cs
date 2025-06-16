@@ -332,7 +332,11 @@ public class PlayerBase : MonoBehaviour
             else if (collision.gameObject.CompareTag("NPC"))
             {
                 EnemyAI enemy =  collision.gameObject.GetComponent<EnemyAI>();
-                if (enemy != null) enemy.Attacked(Vector3.ClampMagnitude(reflectVelocity, 1f), 10f);
+                if (enemy != null)
+                {
+                    if (currentState == PlayerState.Run) enemy.Attacked(Vector3.ClampMagnitude(reflectVelocity, 1f), 7f);
+                    else if (currentState == PlayerState.Throwed) enemy.Attacked(Vector3.ClampMagnitude(reflectVelocity, 1f), 10f);
+                }
             }
         }
     }

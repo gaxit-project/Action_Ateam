@@ -30,7 +30,7 @@ namespace NPC.StateAI
         private Vector3 throwVelocity;
         private new Rigidbody rigidbody;
 
-        public bool isGrounded => isGrounded;
+        public bool isGrounded => isGround;
         public NavMeshAgent Agent => agent;
         public Transform Target
         {
@@ -44,15 +44,17 @@ namespace NPC.StateAI
         public float avoidAngle = 45.0f;
         public LayerMask obstacleLayer;
 
-        private float throwPower = 2f;
+        private float throwPower = 5f;
         private float rotation = 0f;
         private Transform attackTarget;
         private Vector3 currentVelocity = Vector3.zero;
         private Animator attackAnimator;
+        Rigidbody rb;
 
         private void Awake()
         {
             enemyAI = GetComponent<EnemyAI>();
+            rb = GetComponent<Rigidbody>();
             enemyStateMachine = new StateMachine(this, gameStarter, throwTarget);
         }
 
@@ -69,6 +71,8 @@ namespace NPC.StateAI
         private void Update()
         {
             enemyStateMachine.Update();
+            if(!IsGrounded() && enemyAI.agent.enabled) enemyAI.agent.enabled = false;
+            else if(IsGrounded() && !enemyAI.agent.enabled)enemyAI.agent.enabled = true;
         }
 
         private void LateUpdate()
@@ -201,7 +205,7 @@ namespace NPC.StateAI
             while (true)
             {
                 yield return new WaitForSeconds(targetSwitchInterval);
-                if(targetCandidates.Count > 0)
+                if(targetCandidates.Count > 0 && enemyAI.agent.enabled)
                 {
                     int index = Random.Range(0, targetCandidates.Count);
                     target = targetCandidates[index];
@@ -212,9 +216,15 @@ namespace NPC.StateAI
 
         public void Attacked(Vector3 vec, float power)
         {
-            Rigidbody rb = GetComponent<Rigidbody>();
-            for (float timer = 0f; timer < 1f; timer += Time.deltaTime)
+            for (float timer = 0f; timer < 0.5f; timer += Time.deltaTime)
                 rb.linearVelocity = vec * power;
+        }
+
+        private bool IsGrounded()
+        {
+            Ray ray = new Ray(transform.position + Vector3.up * 0.1f, Vector3.down);
+
+            return Physics.Raycast(ray, 1.2f);
         }
 
         public void OnTriggerEnter(Collider other)
@@ -228,12 +238,36 @@ namespace NPC.StateAI
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.tag == "Player")
+            if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "NPC")
             {
                 Vector3 normal = collision.contacts[0].normal;
                 Vector3 velocity = collision.rigidbody.linearVelocity.normalized;
                 velocity += new Vector3(-normal.x * bounceVectorMultiple, 0f, -normal.z * bounceVectorMultiple);
                 collision.rigidbody.AddForce(velocity * bounceSpeed, ForceMode.Impulse);
+            }
+
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                Debug.Log("当たった");
+
+                // 現在の進行方向（速度）
+                Vector3 incomingVelocity = rb.linearVelocity;
+
+                // 衝突面の法線
+                Vector3 normal = collision.contacts[0].normal;
+
+                // 反射ベクトルの計算
+                Vector3 reflectVelocity = Vector3.Reflect(incomingVelocity, normal).normalized;
+
+                // 法線方向に少し押し返しを加える
+                reflectVelocity += normal * 0.2f;
+
+                reflectVelocity.Normalize();
+
+                transform.forward = reflectVelocity;
+                throwVelocity = reflectVelocity * speed * throwPower;
+                rb.linearVelocity = throwVelocity;
+
             }
         }
     }
