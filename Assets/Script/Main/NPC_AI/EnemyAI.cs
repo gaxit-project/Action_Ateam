@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -214,10 +215,24 @@ namespace NPC.StateAI
             }
         }
 
-        public void Attacked(Vector3 vec, float power)
+        public async void Attacked(Vector3 vec, float power)
         {
-            for (float timer = 0f; timer < 0.5f; timer += Time.deltaTime)
-                rb.linearVelocity = vec * power;
+            rb.linearVelocity = vec * power;
+            await Task.Delay(300);
+            StartCoroutine(Decelerate());
+        }
+
+        private IEnumerator Decelerate()
+        {
+            Vector3 v  = rb.linearVelocity;
+            while(rb.linearVelocity.magnitude > 0.5f)
+            {
+                v *= 0.9f;
+                rb.linearVelocity = v;
+                yield return null;
+            }
+
+            rb.linearVelocity = Vector3.zero;
         }
 
         private bool IsGrounded()

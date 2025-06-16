@@ -26,7 +26,7 @@ namespace NPC.StateAI
 
         public void Enter()
         {
-            enemyAI.Agent.enabled = false;
+            //enemyAI.Agent.enabled = false;
             enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
             enemyAI.GetComponent<Rigidbody>();
             rb = enemyAI.GetComponent<Rigidbody>();
