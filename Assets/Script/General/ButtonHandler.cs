@@ -7,6 +7,12 @@ public class ButtonHandler : MonoBehaviour
 
     [Header("BGMを停止するかどうか")]
     [SerializeField] private bool _stopBGM;
+    private PauseMenu pauseMenu;
+
+    void Start()
+    {
+        pauseMenu = Object.FindFirstObjectByType<PauseMenu>();
+    }
 
     /// <summary>
     /// シーンを同期で読み込むボタンが押されたとき
@@ -19,7 +25,14 @@ public class ButtonHandler : MonoBehaviour
         }
 
         AudioManager.Instance.PlaySound(_SENumber);
-        SceneChangeManager.Instance.SceneChange(_sceneName);
+        if (!pauseMenu.ReturnIsPaused())
+        {
+            SceneChangeManager.Instance.SceneChange(_sceneName);
+        }
+        else
+        {
+            SceneChangeManager.Instance.SceneChange("Main");
+        }
     }
 
     /// <summary>

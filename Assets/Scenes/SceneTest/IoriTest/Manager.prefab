@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4600566453074975748}
   - component: {fileID: 5922074557707150540}
   - component: {fileID: 1385530237899902720}
+  - component: {fileID: -8861721413767712754}
   m_Layer: 5
   m_Name: Manager
   m_TagString: Untagged
@@ -91,6 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsStart: 0
+  Num_NowFrame: 1
   players: []
   _playerPrefab: {fileID: 6162004822796889170, guid: c6cf9cdf0d3cded4ea3ce6694d67d924, type: 3}
   _botPrefab: {fileID: 0}
@@ -315,4 +317,20 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
-  gamemanager: {fileID: 8915725821885507200}
+  gameManager: {fileID: 0}
+--- !u!114 &-8861721413767712754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130485150559971973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8140d32a8d20fed42a8dd20d80c7d6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pausePanel: {fileID: 0}
+  resumeButton: {fileID: 0}
+  settingButton: {fileID: 0}
+  titleButton: {fileID: 0}
