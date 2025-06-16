@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8915725821885507200}
   - component: {fileID: 4600566453074975748}
   - component: {fileID: 5922074557707150540}
-  - component: {fileID: 1385530237899902720}
   m_Layer: 5
   m_Name: Manager
   m_TagString: Untagged
@@ -91,6 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsStart: 0
+  Num_NowFrame: 1
   players: []
   _playerPrefab: {fileID: 6162004822796889170, guid: c6cf9cdf0d3cded4ea3ce6694d67d924, type: 3}
   _botPrefab: {fileID: 0}
@@ -290,29 +290,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1385530237899902720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2130485150559971973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2d7c73963d87f149b4f2c153d38750b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PT:
-  - PL:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-  gamemanager: {fileID: 8915725821885507200}

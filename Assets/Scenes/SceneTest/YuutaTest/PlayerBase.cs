@@ -286,6 +286,13 @@ public class PlayerBase : MonoBehaviour
                 camera.StopCameraMove();
                 this.gameObject.SetActive(false);
                 scoreManager.FrameSaveSystem();
+                foreach (var player in GameManager.Instance.players)
+                {
+                    if (player != null)
+                        Destroy(player.gameObject);
+                }
+                GameManager.Instance.players.Clear();
+                SceneChangeManager.Instance.ResetScene("Main");
                 break;
 
         }

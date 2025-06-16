@@ -18,31 +18,6 @@ public class PointManager : MonoBehaviour
 
     public GameManager gameManager;
 
-    private void Awake()
-    {
-        Transform tensu = GameObject.Find("TENSU").transform;
-
-        for (int i = 0; i < tensu.childCount; i++) // name0〜name3
-        {
-            Transform player = tensu.GetChild(i);
-            TPL tpl = new TPL();
-
-            // 各プレイヤーの "waku(x)" を探す
-            foreach (Transform child in player)
-            {
-                if (child.name.StartsWith("waku"))
-                {
-                    Text scoreText = child.GetComponentInChildren<Text>();
-                    if (scoreText != null)
-                    {
-                        tpl.PL.Add(scoreText);
-                    }
-                }
-            }
-
-            PT.Add(tpl);
-        }
-    }
 
     IEnumerator Start()
     {
@@ -56,7 +31,7 @@ public class PointManager : MonoBehaviour
             gameManager.HumanScore = new int[gameManager.NumHumanPlayers, 11];
             gameManager.BotScore = new int[gameManager.NumBots, 11];
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         PrintPoint();
     }
 
