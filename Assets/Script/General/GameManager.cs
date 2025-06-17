@@ -14,6 +14,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private int buildIndex;
     public bool IsStart = false;
+    public bool isPaused = false;
 
     //Œ»İ‚ÌƒtƒŒ[ƒ€
     public int Num_NowFrame = 1;
