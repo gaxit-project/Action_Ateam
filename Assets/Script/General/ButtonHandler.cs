@@ -7,32 +7,52 @@ public class ButtonHandler : MonoBehaviour
 
     [Header("BGMを停止するかどうか")]
     [SerializeField] private bool _stopBGM;
+    
     private PauseMenu pauseMenu;
-
+    private GameManager gameManager;
     void Start()
     {
         pauseMenu = Object.FindFirstObjectByType<PauseMenu>();
     }
 
+    private void Update()
+    {
+        if(gameManager == null)
+        {
+            Debug.LogWarning("GameManagerNULL");
+            gameManager = FindFirstObjectByType<GameManager>();
+        }
+    }
     /// <summary>
     /// シーンを同期で読み込むボタンが押されたとき
     /// </summary>
     public void ButtonOnClicked()
     {
+        Debug.Log(gameManager.isPaused);
         if (_stopBGM)
         {
             AudioManager.Instance.StopBGM();
         }
 
         AudioManager.Instance.PlaySound(_SENumber);
-        if (!pauseMenu.ReturnIsPaused())
+        if (gameManager.isPaused == true)
         {
-            SceneChangeManager.Instance.SceneChange(_sceneName);
+            Debug.Log("PauseTrue");
+            if (PlayerPrefs.HasKey("Main"))
+            {
+                SceneChangeManager.Instance.SceneChange("Main");
+            }
+            else
+            {
+                Debug.LogError("保存されていません");
+            }
         }
         else
         {
-            SceneChangeManager.Instance.SceneChange("Main");
+            Debug.LogWarning("PauseFalse");
+            SceneChangeManager.Instance.SceneChange(_sceneName);
         }
+        
     }
 
     /// <summary>

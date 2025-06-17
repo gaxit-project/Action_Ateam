@@ -11,11 +11,11 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Button settingButton;
     [SerializeField] private Button titleButton;
     private GameInput input;
-
-    private bool isPaused = false;
+    private GameManager gameManager;
 
     private void Awake()
     {
+        gameManager = FindFirstObjectByType<GameManager>();
         input = new GameInput();
         input.GamePlay.Pause.performed += OnPause;
     }
@@ -39,7 +39,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (context.performed)
         {
-            if (isPaused)
+            if (gameManager.isPaused)
             {
                 Resume();
             }
@@ -75,24 +75,24 @@ public class PauseMenu : MonoBehaviour
     {
         pausePanel.SetActive(true);
         Time.timeScale = 0f;
-        isPaused = true;
+        gameManager.isPaused = true;
     }
 
     public void Resume()
     {
         pausePanel.SetActive(false);
         Time.timeScale = 1f;
-        isPaused = false;
+        gameManager.isPaused = false;
     }
 
     public void GotoSetting()
     {
         string currentScene = SceneManager.GetActiveScene().name;
-        PlayerPrefs.SetString("PreviousScene", currentScene);
+        PlayerPrefs.SetString("Main", currentScene);
         PlayerPrefs.Save();
 
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Setting");
+        SceneChangeManager.Instance.SceneChange("Setting");
     }
 
     public void GoToTitle()
@@ -103,7 +103,7 @@ public class PauseMenu : MonoBehaviour
 
     public bool ReturnIsPaused()
     {
-        return isPaused;
+        return gameManager.isPaused;
     }
 
     void OnDestroy()
