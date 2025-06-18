@@ -34,11 +34,11 @@ public class CameraWarpToCenter : MonoBehaviour
 
         if (mainCamera != null && menObject != null)/*ちゃんとついてるか*/
         {
-            mainCamera.transform.position = menObject.position + positionOffset;/*指定位置に飛ぶ*/
+            mainCamera.transform.position = menObject.position + positionOffset;/*指定位置に物体の前に行く*/
 
             if (useMenObjectRotation)
             {
-                mainCamera.transform.rotation = menObject.rotation;/*指定角度で飛ぶ*/
+                mainCamera.transform.rotation = menObject.rotation;/*指定角度で物体の前に行く*/
             }
             else
             {
