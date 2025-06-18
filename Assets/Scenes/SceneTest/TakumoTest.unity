@@ -795,6 +795,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2953359388180043484, guid: 5a9daffe691aafc4ba173795fe7a4935, type: 3}
   m_PrefabInstance: {fileID: 3499492234501366992}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &990699805 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2344955951976542316, guid: a131e2526392f894ca89c12a4e550514, type: 3}
+  m_PrefabInstance: {fileID: 6951022374769876252}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1082590173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1250,6 +1255,7 @@ GameObject:
   - component: {fileID: 1254192256}
   - component: {fileID: 1254192255}
   - component: {fileID: 1254192258}
+  - component: {fileID: 1254192259}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1331,7 +1337,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PT: []
-  gamemanager: {fileID: 0}
+  gameManager: {fileID: 0}
+--- !u!114 &1254192259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254192254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685b68484a891a241a70663a6f7b8a52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 1154749404}
+  menObject: {fileID: 990699805}
+  positionOffset: {x: -88, y: 0, z: 0}
 --- !u!1 &1257096986
 GameObject:
   m_ObjectHideFlags: 0
@@ -2815,18 +2836,7 @@ MonoBehaviour:
     - {fileID: 6743958220423606656}
     - {fileID: 1522323391951977177}
     - {fileID: 6315113648217579726}
-  gamemanager: {fileID: 2019427450}
---- !u!114 &2019427450 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8915725821885507200, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-  m_PrefabInstance: {fileID: 1457992580}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2019427440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f7e888c9b7420e49886d83ad7d1c332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
 --- !u!1001 &2082342323
 PrefabInstance:
   m_ObjectHideFlags: 0
