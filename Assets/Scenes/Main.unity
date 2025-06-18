@@ -3378,6 +3378,55 @@ MonoBehaviour:
   - {fileID: 555542457}
   RedPins: []
   BlackPins: []
+--- !u!1 &935153827
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 935153828}
+  - component: {fileID: 935153829}
+  m_Layer: 0
+  m_Name: FrameMoveCameraManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &935153828
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935153827}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1141264079}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &935153829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935153827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685b68484a891a241a70663a6f7b8a52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 330585545}
+  menObject: {fileID: 1467896132}
+  positionOffset: {x: -68, y: 0, z: 0}
+  useMenObjectRotation: 0
+  fixedRotationEuler: {x: 0, y: 90, z: 0}
 --- !u!1 &996400670
 GameObject:
   m_ObjectHideFlags: 0
@@ -4034,6 +4083,7 @@ Transform:
   - {fileID: 108432477}
   - {fileID: 1256757065}
   - {fileID: 1089811294}
+  - {fileID: 935153828}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1147872060
@@ -4834,6 +4884,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cc7df844154e9441aa726d6fa7b84dd, type: 3}
+--- !u!4 &1467896132 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3858697863992995248, guid: e712efd27b25e024485510948a0408df, type: 3}
+  m_PrefabInstance: {fileID: 182748448}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1533848770
 PrefabInstance:
   m_ObjectHideFlags: 0
