@@ -16,11 +16,7 @@ public class SceneChangeManager : SingletonMonoBehaviour<SceneChangeManager>
     }
     private void Update()
     {
-        //デバッグ用
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneChange("Result");
-        }
+
     }
 
     void OnEnable()
