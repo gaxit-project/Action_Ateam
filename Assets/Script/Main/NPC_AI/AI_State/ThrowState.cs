@@ -30,14 +30,13 @@ namespace NPC.StateAI
             enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
             enemyAI.GetComponent<Rigidbody>();
             rb = enemyAI.GetComponent<Rigidbody>();
-
-            throwVelocity = enemyAI.transform.forward * enemyAI.ReturnSpeed() * enemyAI.ReturnThrowPower();
-            rb.linearVelocity = throwVelocity;
         }
 
         public void Update()
         {
-            if(throwTarget != null)
+            throwVelocity = enemyAI.transform.forward * enemyAI.ReturnSpeed() * enemyAI.ReturnThrowPower();
+            rb.linearVelocity = throwVelocity;
+            if (throwTarget != null)
             {
                 Vector3 directionToTarget = (throwTarget.position - enemyAI.transform.position).normalized;
 

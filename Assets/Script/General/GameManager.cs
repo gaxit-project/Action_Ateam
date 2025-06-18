@@ -32,6 +32,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public int[,] HumanScore;
     public int[,] BotScore;
 
+    [SerializeField] private Vector3 StartPoint = Vector3.zero;
+
     //private int[] NowFramePoint_0 = new int[11];
     //private int[] NowFramePoint_1 = new int[11];
     //private int[] NowFramePoint_2 = new int[11];
@@ -96,7 +98,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         for (int i = 0; i < totalPlayers; i++)
         {
             //現在はx座標を75fずつ左にずらしている状態
-            spawnPositions.Add(new Vector3(-250f, 0f, i * 2f)); //ここをいじって変えてください
+            spawnPositions.Add(StartPoint + new Vector3(0f, 0f, i * 2f)); //ここをいじって変えてください
         }
 
         spawnPositions = spawnPositions.OrderBy(x => Random.value).ToList(); //スポーン場所をランダムに

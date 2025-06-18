@@ -63,7 +63,7 @@ namespace NPC.StateAI
         {
             enemyStateMachine.Initialize(enemyStateMachine.idleState);
 
-            if(targetCandidates.Count > 0)
+            if (targetCandidates.Count > 0)
             {
                 targetSwitchCoroutine = StartCoroutine(RandomlySwitchTarget());
             }
@@ -72,8 +72,13 @@ namespace NPC.StateAI
         private void Update()
         {
             enemyStateMachine.Update();
-            if(!IsGrounded() && enemyAI.agent.enabled) enemyAI.agent.enabled = false;
-            else if(IsGrounded() && !enemyAI.agent.enabled)enemyAI.agent.enabled = true;
+            if (!IsGrounded() && enemyAI.agent.enabled) enemyAI.agent.enabled = false;
+            else if (IsGrounded() && !enemyAI.agent.enabled && enemyAI.EnemyStateMachine.CurrentState != enemyAI.EnemyStateMachine.throwState) enemyAI.agent.enabled = true;
+        }
+
+        private void FixedUpdate()
+        {
+            rb.AddForce(new Vector3(0f, -20f, 0f), ForceMode.Acceleration);
         }
 
         private void LateUpdate()
@@ -119,7 +124,7 @@ namespace NPC.StateAI
                 }
             }
 
-            if(nearestTarget != null)
+            if (nearestTarget != null)
             {
                 target = nearestTarget;
             }
@@ -156,7 +161,7 @@ namespace NPC.StateAI
             }
             return nearestTarget;
         }
-            
+
 
         // デバッグ用：検知エリアの可視化
         private void OnDrawGizmos()
@@ -182,8 +187,8 @@ namespace NPC.StateAI
             RaycastHit hit;
 
             Vector3[] rayDirections = { transform.forward, Quaternion.Euler(0, avoidAngle, 0) * transform.forward, Quaternion.Euler(0, -avoidAngle, 0) * transform.forward };
-            
-            foreach(Vector3 direction in rayDirections)
+
+            foreach (Vector3 direction in rayDirections)
             {
                 if (Physics.Raycast(transform.position, direction, out hit, rayDistance, obstacleLayer))
                 {
@@ -206,7 +211,7 @@ namespace NPC.StateAI
             while (true)
             {
                 yield return new WaitForSeconds(targetSwitchInterval);
-                if(targetCandidates.Count > 0 && enemyAI.agent.enabled)
+                if (targetCandidates.Count > 0 && enemyAI.agent.enabled)
                 {
                     int index = Random.Range(0, targetCandidates.Count);
                     target = targetCandidates[index];
@@ -217,15 +222,18 @@ namespace NPC.StateAI
 
         public async void Attacked(Vector3 vec, float power)
         {
-            rb.linearVelocity = vec * power;
-            await Task.Delay(300);
-            StartCoroutine(Decelerate());
+            if (enemyAI.EnemyStateMachine.CurrentState == enemyAI.EnemyStateMachine.runState)
+            {
+                rb.linearVelocity += vec * power;
+                await Task.Delay(300); StartCoroutine(Decelerate());
+            }
+            else if (enemyAI.EnemyStateMachine.CurrentState == enemyAI.EnemyStateMachine.throwState) rb.AddForce(vec * power);
         }
 
         private IEnumerator Decelerate()
         {
-            Vector3 v  = rb.linearVelocity;
-            while(rb.linearVelocity.magnitude > 0.5f)
+            Vector3 v = rb.linearVelocity;
+            while (rb.linearVelocity.magnitude > 0.5f)
             {
                 v *= 0.9f;
                 rb.linearVelocity = v;
