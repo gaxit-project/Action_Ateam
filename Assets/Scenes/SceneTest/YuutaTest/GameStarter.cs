@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -13,7 +14,7 @@ public class GameStarter : MonoBehaviour
 
     private GameManager gameManager;
 
-    void Start()
+    IEnumerator Start()
     {
         if(gameManager == null)
         {
@@ -21,8 +22,8 @@ public class GameStarter : MonoBehaviour
         }
         countText.enabled = true; 
         countText.SetText("3");
+        yield return new WaitForSeconds(1f);
         gameManager.IsStart = true;
-
         //if (!player) player = GameObject.FindFirstObjectByType<PlayerBase>();
         //if (!player) Debug.LogError("PlayerBaseがアタッチされたオブジェクトが見つかりません！");
         //else StartCoroutine("StartMove");

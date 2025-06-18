@@ -31,7 +31,7 @@ public class PointManager : MonoBehaviour
             gameManager.HumanScore = new int[gameManager.NumHumanPlayers, 11];
             gameManager.BotScore = new int[gameManager.NumBots, 11];
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
         PrintPoint();
     }
 

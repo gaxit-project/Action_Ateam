@@ -23,7 +23,7 @@ public class ScoreManager : MonoBehaviour
         {
             gameManager = FindFirstObjectByType<GameManager>();
         }
-        ResetStart();
+        ResetGame();
     }
     private void Update()
     {
@@ -34,19 +34,29 @@ public class ScoreManager : MonoBehaviour
         
         if (pinManager == null || resetArea == null || score_object == null)
         {
-            ResetStart();
+            ResetGame();
         }
     }
-    public void ResetStart()
+    public void ResetGame()
     {
-        Debug.Log("RESET");
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 144;
-        gameStarter = FindFirstObjectByType<GameStarter>();
-        pinManager = FindFirstObjectByType<PinManager>();
-        resetArea = FindFirstObjectByType<ResetArea>();
-        score_object = GameObject.Find("Canvas/Text (Legacy)");
-        gameManager.SetUpPlayers();
+        if (gameManager.Num_NowFrame == 11)
+        {
+            gameManager.IsStart = false;
+            gameManager.Num_NowFrame = 1;
+            SceneChangeManager.Instance.SceneChange("Result");
+        }
+        else
+        {
+            Debug.Log("RESET");
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 144;
+            gameStarter = FindFirstObjectByType<GameStarter>();
+            pinManager = FindFirstObjectByType<PinManager>();
+            resetArea = FindFirstObjectByType<ResetArea>();
+            score_object = GameObject.Find("Canvas/Text (Legacy)");
+            gameManager.SetUpPlayers();
+
+        }
     }
 
 
