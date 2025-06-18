@@ -11,11 +11,11 @@ public class ScoreManager : MonoBehaviour
     public PinManager pinManager;
     public ResetArea resetArea;
 
-    public GameObject score_object = null;
     public int totalScore;
 
     private GameManager gameManager;
     private GameStarter gameStarter;
+    [SerializeField] PointManager pointManager;
 
     private void Start()
     {
@@ -32,7 +32,7 @@ public class ScoreManager : MonoBehaviour
             gameManager = FindFirstObjectByType<GameManager>();
         }
         
-        if (pinManager == null || resetArea == null || score_object == null)
+        if (pinManager == null || resetArea == null)
         {
             ResetGame();
         }
@@ -53,9 +53,8 @@ public class ScoreManager : MonoBehaviour
             gameStarter = FindFirstObjectByType<GameStarter>();
             pinManager = FindFirstObjectByType<PinManager>();
             resetArea = FindFirstObjectByType<ResetArea>();
-            score_object = GameObject.Find("Canvas/Text (Legacy)");
             gameManager.SetUpPlayers();
-
+            
         }
     }
 
@@ -99,22 +98,15 @@ public class ScoreManager : MonoBehaviour
             }
         }
 
-
+        pointManager.PrintPoint();
         gameManager.Num_NowFrame++;
     }
 
-    public void ScoreText()
-    {
-        string strText;
-        Text score_text = score_object.GetComponent<Text>();
-        strText = pinManager.GetKnockedDownPinCount().ToString("0");
-        score_text.text = strText;
-    }
 
     public IEnumerator DelayAndResetCoroutine()
     {
         yield return new WaitForSeconds(displayScoreTime);
-        resetArea.ResetGame();
+        StartCoroutine(resetArea.ResetGame());
     }
 
     public PlayerScoreData GetPlayerScoreData(string playerID)

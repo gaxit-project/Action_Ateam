@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,17 +8,21 @@ public class ResetArea : MonoBehaviour
     [SerializeField] private ScoreManager scoreManager;
     [SerializeField] private string SceneName;
     private int BuildIndex;
+    private FrameMoveCameraScript frameMoveCameraScript;
     private void Update()
     {
         BuildIndex = SceneManager.GetActiveScene().buildIndex;
         if(BuildIndex == 1 || BuildIndex == 4)
         {
             scoreManager = FindFirstObjectByType<ScoreManager>();
+            frameMoveCameraScript = FindFirstObjectByType<FrameMoveCameraScript>();
         }
     }
-    public void ResetGame()
+    public IEnumerator ResetGame()
     {
         scoreManager.FrameSaveSystem();
+
+        yield return new WaitForSeconds(3f);
         foreach (var player in GameManager.Instance.players)
         {
             if (player != null)
@@ -34,6 +39,7 @@ public class ResetArea : MonoBehaviour
         {
             Debug.Log("エリア外に到達しました");
             isPlayerOut = true;
+            frameMoveCameraScript.WarpCameraToMenObject();
             GameManager.Instance.CurrentFrameResult();
         }
     }

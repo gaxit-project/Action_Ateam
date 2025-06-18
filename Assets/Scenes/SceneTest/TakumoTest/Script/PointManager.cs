@@ -37,7 +37,7 @@ public class PointManager : MonoBehaviour
 
 
 
-    void PrintPoint()
+    public void PrintPoint()
     {
         for (int i = 0; i < gameManager.NumHumanPlayers; i++)// TPL を4行作成
         {
@@ -47,9 +47,6 @@ public class PointManager : MonoBehaviour
             int wholescore = playerData.GetTotalScore();
             for(int j = 1; j < gameManager.Num_NowFrame; j++)
             {
-                Debug.Log(i);
-                Debug.Log(j);
-                Debug.Log(gameManager.HumanScore[i, j]);
                 PT[i].PL[j-1].text = gameManager.HumanScore[i, j].ToString();
             }
             if (PT == null)

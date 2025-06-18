@@ -60,7 +60,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     public void CurrentFrameResult()
     {
-        scoreManager.ScoreText();
         StartCoroutine(scoreManager.DelayAndResetCoroutine());
     }
 

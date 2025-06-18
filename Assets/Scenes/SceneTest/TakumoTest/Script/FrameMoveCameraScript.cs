@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CameraWarpToCenter : MonoBehaviour
+public class FrameMoveCameraScript : MonoBehaviour
 {
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Transform menObject;
@@ -27,7 +27,7 @@ public class CameraWarpToCenter : MonoBehaviour
     /// menobject‚É‚ÍTV‚Ì–Ê‚ğİ’è
     /// camera‚É‚ÍmainCamera‚ğİ’è
     /// </summary>
-    void WarpCameraToMenObject()
+    public void WarpCameraToMenObject()
     {
         if (mainCamera == null)
         {
