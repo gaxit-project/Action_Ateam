@@ -20,7 +20,7 @@ public class GameStarter : MonoBehaviour
         {
             gameManager = FindFirstObjectByType<GameManager>();
         }
-        countText.enabled = true; 
+        countText.enabled = true;
         countText.SetText("3");
         yield return new WaitForSeconds(1f);
         gameManager.IsStart = true;

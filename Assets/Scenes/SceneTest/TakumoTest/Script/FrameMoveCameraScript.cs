@@ -24,6 +24,8 @@ public class CameraWarpToCenter : MonoBehaviour
 
     /// <summary>
     /// カメラを menObject の位置と角度にワープさせる
+    /// menobjectにはTVの面を設定
+    /// cameraにはmainCameraを設定
     /// </summary>
     void WarpCameraToMenObject()
     {
