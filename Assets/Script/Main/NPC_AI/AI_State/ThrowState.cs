@@ -13,7 +13,7 @@ namespace NPC.StateAI
         private float throwPower = 10f;
         private float lateralSpeed = 5f;
         private EnemyAI enemyAI;
-        private Vector3 throwVelocity;
+        public Vector3 throwVelocity;
         private Rigidbody rb;
         private Transform throwTarget;
 
@@ -36,6 +36,7 @@ namespace NPC.StateAI
         {
             throwVelocity = enemyAI.transform.forward * enemyAI.ReturnSpeed() * enemyAI.ReturnThrowPower();
             rb.linearVelocity = throwVelocity;
+
             if (throwTarget != null)
             {
                 Vector3 directionToTarget = (throwTarget.position - enemyAI.transform.position).normalized;

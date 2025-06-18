@@ -292,6 +292,11 @@ namespace NPC.StateAI
                 rb.linearVelocity = throwVelocity;
 
             }
+
+            if(collision.gameObject.CompareTag("Player") && enemyAI.EnemyStateMachine.CurrentState == enemyAI.EnemyStateMachine.throwState)
+            {
+                enemyAI.transform.forward = ((enemyAI.EnemyStateMachine.throwState.throwVelocity.normalized + rb.linearVelocity) / 2).normalized;
+            }
         }
     }
 }

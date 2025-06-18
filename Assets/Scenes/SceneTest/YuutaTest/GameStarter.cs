@@ -12,6 +12,8 @@ public class GameStarter : MonoBehaviour
     private float time = 3f;
     private bool isCountStopped = false;
 
+    [SerializeField] private GameObject area;
+
     private GameManager gameManager;
 
     IEnumerator Start()
@@ -36,24 +38,26 @@ public class GameStarter : MonoBehaviour
             time -= Time.deltaTime;
             // ¬”“_ˆÈ‰º‚ğØ‚èÌ‚Ä‚Ä®”•\¦
             int displayTime = Mathf.CeilToInt(time);
-            countText.text = displayTime.ToString();
-        }
-        if(time <= 0)
-        {
-            isCountStopped = true;
-            countText.text = "GO!!";
-            Invoke("Disabled", 1f);
-            /*
-            foreach(var p in gameManager.players)
+            countText.text = displayTime.ToString(); 
+            if (time <= 0)
             {
-                Debug.Log(p);
+                isCountStopped = true;
+                countText.text = "GO!!";
+                Invoke("Disabled", 1f);
+                area.SetActive(true);
+                /*
+                foreach(var p in gameManager.players)
+                {
+                    Debug.Log(p);
+                }
+                foreach(var j in gameManager.playerScores)
+                {
+                    Debug.Log(j);
+                }
+                */
             }
-            foreach(var j in gameManager.playerScores)
-            {
-                Debug.Log(j);
-            }
-            */
         }
+        
         if(gameManager == null)
         {
             gameManager = FindFirstObjectByType<GameManager>();

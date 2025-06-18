@@ -301,7 +301,7 @@ public class PlayerBase : MonoBehaviour
     //投擲後に壁やNPCに衝突した際の処理
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("NPC"))
+        if ((collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("NPC")) && collision.contactCount > 0)
         {
             // 現在の進行方向（速度）
             Vector3 incomingVelocity = rigidbody.linearVelocity;
@@ -312,30 +312,27 @@ public class PlayerBase : MonoBehaviour
             // 反射ベクトルの計算
             Vector3 reflectVelocity = Vector3.Reflect(incomingVelocity, normal).normalized;
 
-            if (collision.gameObject.CompareTag("Wall") && collision.contactCount > 0)
-            {
-                // 法線方向に少し押し返しを加える
-                reflectVelocity += normal * 0.2f;
+            // 法線方向に少し押し返しを加える
+            reflectVelocity += normal * 0.2f;
 
-                reflectVelocity.Normalize();
-                if (currentState == PlayerState.Throwed)
-                {
-                    transform.forward = reflectVelocity;
-                    throwVelocity = reflectVelocity * speed * throwPower;
-                    rigidbody.linearVelocity = throwVelocity;
-                }
-                else if (currentState == PlayerState.Run)
-                {
-                    Reflect(reflectVelocity);
-                }
+            reflectVelocity.Normalize();
+            if (currentState == PlayerState.Throwed)
+            {
+                transform.forward = reflectVelocity;
+                throwVelocity = reflectVelocity * speed * throwPower;
+                rigidbody.linearVelocity = throwVelocity;
             }
-            else if (collision.gameObject.CompareTag("NPC"))
+            else if (currentState == PlayerState.Run)
+            {
+                Reflect(reflectVelocity);
+            }
+            
+            if (collision.gameObject.CompareTag("NPC"))
             {
                 EnemyAI enemy =  collision.gameObject.GetComponent<EnemyAI>();
                 if (enemy != null)
                 {
-                    if (currentState == PlayerState.Run) enemy.Attacked(Vector3.ClampMagnitude(reflectVelocity, 1f), 7f);
-                    else if (currentState == PlayerState.Throwed) enemy.Attacked(Vector3.ClampMagnitude(reflectVelocity, 1f), 10f);
+                    enemy.Attacked(Vector3.ClampMagnitude(reflectVelocity, 1f), 7f);
                 }
             }
         }
@@ -343,7 +340,7 @@ public class PlayerBase : MonoBehaviour
 
     public void StartMove()
     {
-        currentState = PlayerState.Run;
+        //currentState = PlayerState.Run;
         Debug.Log("スタート!");
     }
 
