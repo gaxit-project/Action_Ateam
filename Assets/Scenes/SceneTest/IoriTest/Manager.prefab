@@ -90,12 +90,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsStart: 0
+  isPaused: 0
   Num_NowFrame: 1
   players: []
   _playerPrefab: {fileID: 6162004822796889170, guid: c6cf9cdf0d3cded4ea3ce6694d67d924, type: 3}
-  _botPrefab: {fileID: 0}
+  _botPrefab: {fileID: 5193344650924659099, guid: d2aa21bae25bc9b4eadf0fb56c9e59b2, type: 3}
   NumHumanPlayers: 1
-  NumBots: 0
+  NumBots: 1
+  StartPoint: {x: -50, y: 0, z: 0}
+  testText: {fileID: 0}
 --- !u!82 &4600566453074975748
 AudioSource:
   m_ObjectHideFlags: 0

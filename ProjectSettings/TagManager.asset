@@ -9,6 +9,7 @@ TagManager:
   - DeathArea
   - NPC
   - ThrowArea
+  - Target
   layers:
   - Default
   - TransparentFX

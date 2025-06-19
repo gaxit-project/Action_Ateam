@@ -7,8 +7,8 @@ public class ReflectController : MonoBehaviour
         if(collision.gameObject.CompareTag("Player"))
         {
             Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
-            PlayerBase player = collision.gameObject.GetComponent<PlayerBase>();
-            if(rb != null && player != null && player.PlayerStateProperty == PlayerState.Run)
+            Player player = collision.gameObject.GetComponent<Player>();
+            if(rb != null && player != null && player.PlayerStateProperty == Player.PlayerState.Run)
             {
                 // 現在の進行方向（速度）
                 Vector3 incomingVelocity = rb.linearVelocity;

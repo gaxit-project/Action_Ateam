@@ -24,8 +24,8 @@ public class AttackAreaController : MonoBehaviour
     {
         if(other.gameObject != player && other.CompareTag("Player"))
         {
-            PlayerBase playerBase = other.GetComponent<PlayerBase>();
-            if (playerBase == null)
+            Player player = other.GetComponent<Player>();
+            if (player == null)
             {
                 rb = other.GetComponent<Rigidbody>();
                 if (rb != null)
@@ -33,7 +33,7 @@ public class AttackAreaController : MonoBehaviour
                     rb.linearVelocity += transform.right * 10f;
                 }
             }
-            else playerBase.Attacked(transform.right * 10f);
+            else player.Attacked(transform.right * 10f);
         }
     }
 }

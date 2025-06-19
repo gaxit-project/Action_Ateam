@@ -6,9 +6,9 @@ public class DeathZoneController : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            PlayerBase player = other.GetComponent<PlayerBase>();
-            if(player != null && player.PlayerStateProperty == PlayerState.Run)
-                player.PlayerStateProperty = PlayerState.Dead;
+            Player player = other.GetComponent<Player>();
+            if(player != null && player.PlayerStateProperty == Player.PlayerState.Run)
+                player.PlayerStateProperty = Player.PlayerState.Dead;
         }
     }
 }

@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    private GameObject player;
-    private PlayerBase playerBase;
+    private GameObject playerobj;
+    private Player player;
+    
     private float rotationY;
     private Vector3 targetPosition;
     private bool isChasingPlayer = true;
@@ -14,7 +15,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        /*player = GameObject.FindFirstObjectByType<PlayerBase>().gameObject; //PlayerBaseがアタッチされたオブジェクトを取得
+        /*playerobj = GameObject.FindFirstObjectByType<PlayerBase>().gameObject; //PlayerBaseがアタッチされたオブジェクトを取得
         if(player != null)
         {
             playerBase = GameObject.FindFirstObjectByType<PlayerBase>();
@@ -30,13 +31,13 @@ public class CameraController : MonoBehaviour
     {
         //位置の更新
 
-        if (player == null || playerBase == null) return;
+        if (playerobj == null ||  player == null) return;
 
         if(isChasingPlayer)
         {
-            transform.position += player.transform.position - targetPosition;
-            targetPosition = player.transform.position;
-            float RstickX = playerBase.GetRstickX; //左右回転
+            transform.position += playerobj.transform.position - targetPosition;
+            targetPosition = playerobj.transform.position;
+            float RstickX = player.GetRstickX; //左右回転
             if (!isModeChanged) transform.RotateAround(targetPosition, Vector3.up, RstickX);
         }
 
@@ -46,7 +47,7 @@ public class CameraController : MonoBehaviour
             switch(isChasingPlayer)
             {
                 case false:
-                    transform.rotation = Quaternion.Euler(transform.eulerAngles.x, player.transform.eulerAngles.y, transform.eulerAngles.z);
+                    transform.rotation = Quaternion.Euler(transform.eulerAngles.x, playerobj.transform.eulerAngles.y, transform.eulerAngles.z);
                     isChasingPlayer = true;
                     Debug.Log("カメラの追跡を有効化");
                     break;
@@ -83,17 +84,17 @@ public class CameraController : MonoBehaviour
         Debug.Log("カメラの向き変更");
         isModeChanged = true;
         this.transform.eulerAngles = InitialCameraDirection - new Vector3(InitialCameraDirection.x / 2f, 0f, 0f);
-        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, player.transform.position.z) - new Vector3(0f, this.transform.position.y / 2f, 0f);
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, playerobj.transform.position.z) - new Vector3(0f, this.transform.position.y / 2f, 0f);
     }
 
     /// <summary>
     /// GameManagerのStart関数側でPlayerBaseをアタッチ
     /// </summary>
     /// <param name="player">PlayerのPlayerBase</param>
-    public void SetTargetPlayer(PlayerBase player)
+    public void SetTargetPlayer(Player player)
     {
-        this.playerBase = player;
-        this.player = player.gameObject;
+        this.player = player;
+        this.playerobj = player.gameObject;
         targetPosition = player.transform.position;
         InitialCameraDirection = this.transform.eulerAngles;
     }
