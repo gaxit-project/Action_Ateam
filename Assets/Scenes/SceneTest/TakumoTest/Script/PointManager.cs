@@ -42,10 +42,10 @@ public class PointManager : MonoBehaviour
         for (int i = 0; i < gameManager.NumHumanPlayers; i++)// TPL を4行作成
         {
             var playerData = gameManager.GetPlayerScoreData("Player"+(i+1));
-            gameManager.HumanScore[i, gameManager.Num_NowFrame-1] = playerData.FrameScores[gameManager.Num_NowFrame-1];
-            Debug.Log(gameManager.HumanScore[i, gameManager.Num_NowFrame - 1]);
+            gameManager.HumanScore[i, gameManager.Num_NowFrame] = playerData.GetScore(gameManager.Num_NowFrame);
+            Debug.Log(gameManager.HumanScore[i, gameManager.Num_NowFrame]);
             int wholescore = playerData.GetTotalScore();
-            for(int j = 1; j < gameManager.Num_NowFrame; j++)
+            for(int j = 1; j < gameManager.Num_NowFrame+1; j++)
             {
                 PT[i].PL[j-1].text = gameManager.HumanScore[i, j].ToString();
             }
