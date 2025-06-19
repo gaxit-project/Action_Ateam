@@ -5,18 +5,18 @@ using UnityEngine.UI;
 public class FrameStarterScript : MonoBehaviour
 {
     [SerializeField] private Text FrameObjectUP;//ここに上に表示したいテキスト
-    [SerializeField] private Text FrameObjectUPLeft;//ここに右に表示したいテキスト
+    [SerializeField] private Text FrameObjectLeft;//ここに右に表示したいテキスト
     [SerializeField] private float speed = 50f;//これは移動スピード
-    [SerializeField] private GameManager gameManager;//げーまね読んだ
+    public GameManager gameManager;//げーまね読んだ
 
     private float timer = 0f;
     private Vector2 startPos;
     private bool isReturning = false;
     void Start()
     {
-        gameManager = GetComponent<GameManager>();
+        gameManager = FindFirstObjectByType<GameManager>();
         FrameObjectUP.text = gameManager.Num_NowFrame.ToString() + "f";
-        FrameObjectUPLeft.text = gameManager.Num_NowFrame.ToString() + "f";
+        FrameObjectLeft.text = gameManager.Num_NowFrame.ToString() + "f";
 
         if (FrameObjectUP != null)//初手の位置を把握
         {
@@ -58,10 +58,15 @@ public class FrameStarterScript : MonoBehaviour
                 isReturning = false;
                 this.enabled = false;
             }
-            
-           
+
+
         }
-        
-        
+
+
     }
+
+    public void FrameObjectLeftFalse(){
+        FrameObjectLeft.gameObject.SetActive(false);//右上に出てる数字を消す
+    }
+
 }
