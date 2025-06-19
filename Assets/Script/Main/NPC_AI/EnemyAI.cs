@@ -7,11 +7,11 @@ using UnityEngine.AI;
 
 namespace NPC.StateAI
 {
-    public class EnemyAI : MonoBehaviour
+    public class EnemyAI : PlayerBase
     {
-        [SerializeField] private float speed = 5f;
-        [SerializeField] private float weight = 10f;
-        [SerializeField] private float rayDistance = 2f;
+        //[SerializeField] private float speed = 5f;
+        //[SerializeField] private float weight = 10f;
+        //[SerializeField] private float rayDistance = 2f;
         [SerializeField] private float detectionRadius = 10f;
         [SerializeField] private float bounceSpeed = 30.0f;
         [SerializeField] private float bounceVectorMultiple = 2f;
@@ -22,13 +22,13 @@ namespace NPC.StateAI
         [SerializeField] private Transform throwTarget;
         [SerializeField] private Animator animator;
 
-        [SerializeField] public List<Transform> targetCandidates = new List<Transform>();
+        [SerializeField] public GameObject[] targetCandidates;
         [SerializeField] private float targetSwitchInterval = 3f;
         public Coroutine targetSwitchCoroutine;
 
         private StateMachine enemyStateMachine;
         private EnemyAI enemyAI;
-        private Vector3 throwVelocity;
+        //private Vector3 throwVelocity;
         private new Rigidbody rigidbody;
 
         public bool isGrounded => isGround;
@@ -45,10 +45,10 @@ namespace NPC.StateAI
         public float avoidAngle = 45.0f;
         public LayerMask obstacleLayer;
 
-        private float throwPower = 5f;
-        private float rotation = 0f;
+        //private float throwPower = 5f;
+        //private float rotation = 0f;
         private Transform attackTarget;
-        private Vector3 currentVelocity = Vector3.zero;
+        //private Vector3 currentVelocity = Vector3.zero;
         private Animator attackAnimator;
         Rigidbody rb;
 
@@ -63,7 +63,8 @@ namespace NPC.StateAI
         {
             enemyStateMachine.Initialize(enemyStateMachine.idleState);
 
-            if (targetCandidates.Count > 0)
+            targetCandidates = GameObject.FindGameObjectsWithTag("Target");
+            if (targetCandidates.Length > 0)
             {
                 targetSwitchCoroutine = StartCoroutine(RandomlySwitchTarget());
             }
@@ -211,10 +212,10 @@ namespace NPC.StateAI
             while (true)
             {
                 yield return new WaitForSeconds(targetSwitchInterval);
-                if (targetCandidates.Count > 0 && enemyAI.agent.enabled)
+                if (targetCandidates.Length > 0 && enemyAI.agent.enabled)
                 {
-                    int index = Random.Range(0, targetCandidates.Count);
-                    target = targetCandidates[index];
+                    int index = Random.Range(0, targetCandidates.Length);
+                    target = targetCandidates[index].transform;
                     Debug.Log("Targetを: " + Target.name + "に変更");
                 }
             }

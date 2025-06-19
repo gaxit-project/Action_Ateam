@@ -30,8 +30,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public int NumHumanPlayers;
     public int NumBots;
 
-    public int[,] HumanScore;
-    public int[,] BotScore;
+    public int[,] PlayerScore;
 
     [SerializeField] private Vector3 StartPoint = new Vector3(-50f, 0f, 0f);
     [SerializeField] private TextMeshProUGUI testText;
@@ -104,7 +103,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         for (int i = 0; i < totalPlayers; i++)
         {
             //現在はx座標を75fずつ左にずらしている状態
-            spawnPositions.Add(StartPoint + new Vector3(0f, 0f, i * 2f)); //ここをいじって変えてください
+            spawnPositions.Add(StartPoint + new Vector3(0f, 0f, i * 3.5f)); //ここをいじって変えてください
         }
 
         spawnPositions = spawnPositions.OrderBy(x => Random.value).ToList(); //スポーン場所をランダムに
@@ -114,7 +113,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         for (int i = 0; i < NumHumanPlayers; i++)
         {
             var playerobj = Instantiate(_playerPrefab, spawnPositions[spawnIndex++], Quaternion.identity);
-            var player = playerobj.GetComponent<PlayerBase>();
+            var player = playerobj.GetComponent<Player>();
             player.Init($"Player{i + 1}", false);
             players.Add(player);
             if (IsStart == false)
@@ -135,10 +134,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         {
             var botobj = Instantiate(_botPrefab, spawnPositions[spawnIndex++], Quaternion.identity);
             var bot = botobj.GetComponent<PlayerBase>();
+            bot.Init($"Bot{i + 1}", true);
+            players.Add(bot);
             if (IsStart == false)
             {
-                bot.Init($"Bot{i + 1}", true);
-                players.Add(bot);
                 playerScores.Add(new PlayerScoreData($"Bot{i + 1}", true));
             }
 

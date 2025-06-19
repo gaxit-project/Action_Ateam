@@ -39,12 +39,14 @@ public class ScoreManager : MonoBehaviour
     }
     public void ResetGame()
     {
+        //10フレーム目終了(ゲーム終了)
         if (gameManager.Num_NowFrame == 11)
         {
             gameManager.IsStart = false;
             gameManager.Num_NowFrame = 1;
             SceneChangeManager.Instance.SceneChange("Result");
         }
+        //10フレーム以外
         else
         {
             Debug.Log("RESET");
@@ -109,6 +111,11 @@ public class ScoreManager : MonoBehaviour
         StartCoroutine(resetArea.ResetGame());
     }
 
+    /// <summary>
+    /// ListからPlayerScoreDataを取得
+    /// </summary>
+    /// <param name="playerID">PlayerのID</param>
+    /// <returns>IDと一致したPlayerScoreData</returns>
     public PlayerScoreData GetPlayerScoreData(string playerID)
     {
         foreach (var p in gameManager.playerScores)

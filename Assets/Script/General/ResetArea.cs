@@ -18,6 +18,11 @@ public class ResetArea : MonoBehaviour
             frameMoveCameraScript = FindFirstObjectByType<FrameMoveCameraScript>();
         }
     }
+
+    /// <summary>
+    /// フレームリセット
+    /// </summary>
+    /// <returns>3秒待ってからリセット</returns>
     public IEnumerator ResetGame()
     {
         scoreManager.FrameSaveSystem();

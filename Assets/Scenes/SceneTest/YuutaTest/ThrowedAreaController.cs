@@ -7,7 +7,7 @@ public class ThrowedAreaController : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            PlayerBase player = other.GetComponent<PlayerBase>();
+            Player player = other.GetComponent<Player>();
             if (player) player.Throw();
         }
     }
