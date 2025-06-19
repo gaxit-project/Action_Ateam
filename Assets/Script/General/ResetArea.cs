@@ -9,11 +9,13 @@ public class ResetArea : MonoBehaviour
     [SerializeField] private string SceneName;
     private int BuildIndex;
     private FrameMoveCameraScript frameMoveCameraScript;
+    private FrameStarterScript frameStarterScript;
     private void Update()
     {
         BuildIndex = SceneManager.GetActiveScene().buildIndex;
         if(BuildIndex == 1 || BuildIndex == 4)
         {
+            frameStarterScript = FindFirstObjectByType<FrameStarterScript>();
             scoreManager = FindFirstObjectByType<ScoreManager>();
             frameMoveCameraScript = FindFirstObjectByType<FrameMoveCameraScript>();
         }
@@ -45,6 +47,8 @@ public class ResetArea : MonoBehaviour
             Debug.Log("エリア外に到達しました");
             isPlayerOut = true;
             frameMoveCameraScript.WarpCameraToMenObject();
+            frameStarterScript.FrameObjectLeftFalse();
+            //ここにFremeStarterの右上に表示されてるやつを消すコード書く
             GameManager.Instance.CurrentFrameResult();
         }
     }
