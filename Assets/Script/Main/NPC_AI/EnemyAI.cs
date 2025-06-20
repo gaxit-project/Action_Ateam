@@ -66,6 +66,7 @@ namespace NPC.StateAI
             targetCandidates = GameObject.FindGameObjectsWithTag("Target");
             if (targetCandidates.Length > 0)
             {
+                target = targetCandidates[0].transform;
                 targetSwitchCoroutine = StartCoroutine(RandomlySwitchTarget());
             }
         }
