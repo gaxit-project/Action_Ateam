@@ -1,11 +1,61 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class PinManager : MonoBehaviour
 {
-    [SerializeField] private PinBase[] WhitePins;
-    [SerializeField] private PinBase[] RedPins;
-    [SerializeField] private PinBase[] BlackPins;
+    [SerializeField] private List<PinBase> WhitePins = new List<PinBase>();
+    [SerializeField] private List<PinBase> GoldPins = new List<PinBase>();
+    [SerializeField] private List<PinBase> BlackPins = new List<PinBase>();
+
+    [Header("Pinの配置(Prefab)")]
+    [SerializeField] private GameObject[] _pinPrefab = new GameObject[3];
+
+    private GameManager gameManager;
+    private Vector3 Position = new Vector3(0, 0, 0);
+
+    public void InsertPin(int stageNum)
+    {
+        int rnd = UnityEngine.Random.Range(0, 3);
+        switch (stageNum)
+        {
+            case 0:
+                Position = new Vector3(42, -2, 5);
+                break;
+            case 1:
+                Position = new Vector3(33530, -2, (float)856.5);
+                break;
+            case 2:
+                Position = new Vector3(58, 4, 25494);
+                break;
+
+        }
+        GameObject parent = Instantiate(_pinPrefab[rnd], Position, Quaternion.identity);
+        
+        PinBase[] childPins = parent.GetComponentsInChildren<PinBase>();
+        foreach (PinBase pin in childPins)
+        {
+            string name = pin.gameObject.name;
+
+            if (name.StartsWith("WhitePin"))
+            {
+                WhitePins.Add(pin);
+            }
+            else if (name.StartsWith("GoldPin"))
+            {
+                GoldPins.Add(pin);
+            }
+            else if (name.StartsWith("BlackPin"))
+            {
+                BlackPins.Add(pin);
+            }
+            else
+            {
+                Debug.LogWarning($"未分類のピンオブジェクト名: {name}");
+            }
+        }
+    }
 
     public int GetKnockedDownPinCount(string PlayerID)
     {
@@ -18,7 +68,7 @@ public class PinManager : MonoBehaviour
             }
         }
 
-        foreach (PinBase pin in RedPins)//赤色のピンは多めに加点
+        foreach (PinBase pin in GoldPins)//赤色のピンは多めに加点
         {
             if (pin.IsKnockedDownPin(PlayerID))
             {
@@ -39,6 +89,6 @@ public class PinManager : MonoBehaviour
 
     public PinBase[] GetAllPins()
     {
-        return WhitePins.Concat(RedPins).Concat(BlackPins).ToArray();
+        return WhitePins.Concat(GoldPins).Concat(BlackPins).ToArray();
     }
 }

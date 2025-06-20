@@ -29,6 +29,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public GameObject _botPrefab;
     public int NumHumanPlayers;
     public int NumBots;
+    [Header("ステージ番号")]
+    public int StageNum;
 
     public int[,] PlayerScore;
 
@@ -36,6 +38,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     [SerializeField] private TextMeshProUGUI testText;
 
     private PointManager pointManager;
+    private PinManager pinManager;
 
     //private int[] NowFramePoint_0 = new int[11];
     //private int[] NowFramePoint_1 = new int[11];
@@ -46,6 +49,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private void Start()
     {
         pointManager = FindFirstObjectByType<PointManager>();
+        pinManager = FindFirstObjectByType<PinManager>();
 
     }
 
@@ -101,6 +105,25 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         //合計人数
         int totalPlayers = NumHumanPlayers + NumBots;
+
+        //ステージをランダムに選択
+        StageNum = UnityEngine.Random.Range(0, 3);
+        switch (StageNum)
+        {
+            case 0:
+                StartPoint = new Vector3(-50, -1, 5);
+                pinManager.InsertPin(0);
+                break;
+            case 1:
+                StartPoint = new Vector3(33425, -1, (float)856.5);
+                pinManager.InsertPin(1);
+                break;
+            case 2:
+                StartPoint = new Vector3(-50, 4, 25494);
+                pinManager.InsertPin(2);
+                break;
+                
+        }
 
         //スポーン地点をリストに保存
         List<Vector3> spawnPositions = new List<Vector3>();

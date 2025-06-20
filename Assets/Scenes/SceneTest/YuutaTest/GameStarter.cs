@@ -12,7 +12,7 @@ public class GameStarter : MonoBehaviour
     private float time = 3f;
     private bool isCountStopped = false;
 
-    [SerializeField] private GameObject area;
+    [SerializeField] private GameObject[] area = new GameObject[3];
 
     private GameManager gameManager;
 
@@ -44,7 +44,16 @@ public class GameStarter : MonoBehaviour
                 isCountStopped = true;
                 countText.text = "GO!!";
                 Invoke("Disabled", 1f);
-                area.SetActive(true);
+                for(int i = 0; i <  area.Length; i++)
+                {
+                    if (area[i] == null)
+                    {
+                        Debug.LogWarning($"area[{i}] is null");
+                        continue;
+                    }
+
+                    area[i].SetActive(true);
+                }
                 /*
                 foreach(var p in gameManager.players)
                 {
