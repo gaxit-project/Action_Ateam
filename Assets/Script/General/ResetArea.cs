@@ -46,9 +46,9 @@ public class ResetArea : MonoBehaviour
         {
             Debug.Log("エリア外に到達しました");
             isPlayerOut = true;
+            AudioManager.Instance.PlayBGM(2);
             frameMoveCameraScript.WarpCameraToMenObject();
             frameStarterScript.FrameObjectLeftFalse();
-            //ここにFremeStarterの右上に表示されてるやつを消すコード書く
             GameManager.Instance.CurrentFrameResult();
         }
     }
