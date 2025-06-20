@@ -6,7 +6,9 @@ public class FrameStarterScript : MonoBehaviour
 {
     [SerializeField] private Text FrameObjectUP;//ここに上に表示したいテキスト
     [SerializeField] private Text FrameObjectLeft;//ここに右に表示したいテキスト
+    [SerializeField] private Image FrameObjectTV;//これはTVpng
     [SerializeField] private float speed = 50f;//これは移動スピード
+    
     public GameManager gameManager;//げーまね読んだ
 
     private float timer = 0f;
@@ -18,22 +20,22 @@ public class FrameStarterScript : MonoBehaviour
         FrameObjectUP.text = gameManager.Num_NowFrame.ToString() + "f";
         FrameObjectLeft.text = gameManager.Num_NowFrame.ToString() + "f";
 
-        if (FrameObjectUP != null)//初手の位置を把握
+        if (FrameObjectTV != null)//初手の位置を把握
         {
-            startPos = FrameObjectUP.rectTransform.anchoredPosition;
+            startPos = FrameObjectTV.rectTransform.anchoredPosition;
         }
     }
 
     void Update()
     {
-        if (FrameObjectUP == null) return;
+        if (FrameObjectTV == null) return;
 
         timer += Time.deltaTime;
 
         if (timer < 1f)//１秒間は動く
         {
             // 0～1秒: 上に移動
-            FrameObjectUP.rectTransform.anchoredPosition += Vector2.up * speed * Time.deltaTime;
+            FrameObjectTV.rectTransform.anchoredPosition += Vector2.up * speed * Time.deltaTime;
         }
         else if (timer >= 2f && !isReturning)
         {
@@ -45,7 +47,7 @@ public class FrameStarterScript : MonoBehaviour
         {
             // 元の位置へ線形補間で戻る（1秒間かけて）
             float t = (timer - 2f) / 1f; // 0〜1 に正規化
-            FrameObjectUP.rectTransform.anchoredPosition = Vector2.Lerp(
+            FrameObjectTV.rectTransform.anchoredPosition = Vector2.Lerp(
                 startPos + Vector2.up * speed, // 上がった先
                 startPos,                      // 元の位置
                 t
