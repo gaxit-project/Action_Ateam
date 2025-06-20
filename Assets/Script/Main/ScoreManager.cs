@@ -56,7 +56,8 @@ public class ScoreManager : MonoBehaviour
             pinManager = FindFirstObjectByType<PinManager>();
             resetArea = FindFirstObjectByType<ResetArea>();
             gameManager.SetUpPlayers();
-            
+            if (pointManager == null) Debug.LogError("ERROR");
+            pointManager.PrintPoint();
         }
     }
 
@@ -90,9 +91,18 @@ public class ScoreManager : MonoBehaviour
 
             if (scoreData != null)
             {
-                int pins = pinManager.GetKnockedDownPinCount();
-                scoreData.Addscore(gameManager.Num_NowFrame, pins);
-                Debug.Log($"{scoreData.PlayerID}: {pins} 点（合計 {scoreData.GetTotalScore()}）");
+                int playerKnockedPins = 0;
+
+                foreach(var pin in pinManager.GetAllPins())
+                {
+                    if(pin.IsKnockedDownPin(id) == true)
+                    {
+                        playerKnockedPins++;
+                    }
+                }
+
+                scoreData.Addscore(gameManager.Num_NowFrame, playerKnockedPins);
+                Debug.Log($"{scoreData.PlayerID}: {playerKnockedPins}点(合計{scoreData.GetTotalScore()}) ");
             }
             else
             {

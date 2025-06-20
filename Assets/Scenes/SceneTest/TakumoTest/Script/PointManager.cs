@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,15 +15,17 @@ public class PointManager : MonoBehaviour
     }
 
     [SerializeField] private List<TPL> PT= new List<TPL>();
+    [SerializeField] private List<Text> Name = new List<Text>();
     private int TotalPlayer;
+    private string[] PlayerName;
 
 
     public GameManager gameManager;
 
 
-    IEnumerator Start()
+    void Awake()
     {
-        gameManager = FindFirstObjectByType<GameManager>();
+        gameManager = GameManager.Instance;
         if(gameManager == null)
         {
             Debug.LogError("gameManagerがnull");
@@ -32,17 +35,44 @@ public class PointManager : MonoBehaviour
             TotalPlayer = gameManager.NumHumanPlayers + gameManager.NumBots;
             gameManager.PlayerScore = new int[TotalPlayer, 11];
         }
-        yield return new WaitForSeconds(1.5f);
-        PrintPoint();
+        TotalPlayer = gameManager.NumHumanPlayers + gameManager.NumBots;
     }
 
 
 
     public void PrintPoint()
     {
+        foreach(var p in gameManager.players)
+        {
+            Debug.Log(p);
+        }
+        foreach(var n in gameManager.playerScores)
+        {
+            Debug.Log(n);
+        }
+        
+        PlayerName = new string[4];
+        int num = 0;
+        foreach (var player in gameManager.players)
+        {
+            string id = player.GetPlayerID();
+            PlayerName[num] = id;
+            num++;
+        }
+        
+
+
+        for (int i = 0; i < TotalPlayer; i++)
+        {
+            Debug.Log(Name[i] + "が名前登録");
+            Name[i].text = PlayerName[i]; // 安全に代入
+        }
+
+
         for (int i = 0; i < gameManager.NumHumanPlayers; i++)// TPL を4行作成
         {
             var playerData = gameManager.GetPlayerScoreData("Player"+(i+1));
+            if (gameManager == null) Debug.LogError("GameManagerNULL");
             gameManager.PlayerScore[i, gameManager.Num_NowFrame] = playerData.GetScore(gameManager.Num_NowFrame);
             Debug.Log(gameManager.PlayerScore[i, gameManager.Num_NowFrame]);
             int wholescore = playerData.GetTotalScore();

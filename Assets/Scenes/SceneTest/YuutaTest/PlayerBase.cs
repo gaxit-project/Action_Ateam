@@ -13,7 +13,7 @@ public class PlayerBase : MonoBehaviour
     protected new CameraController camera;
     protected Player player = new Player();
     public bool IsBot { get; private set; } = false;
-    private string PlayerID = "UnKnown";
+    public string PlayerID = "UnKnown";
     protected ScoreManager scoreManager;
 
     //ステータス

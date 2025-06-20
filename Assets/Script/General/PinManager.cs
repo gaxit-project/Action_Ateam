@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class PinManager : MonoBehaviour
@@ -6,20 +7,12 @@ public class PinManager : MonoBehaviour
     [SerializeField] private PinBase[] RedPins;
     [SerializeField] private PinBase[] BlackPins;
 
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.Return))
-        {
-            Debug.Log($"現在の倒したピンの数: {GetKnockedDownPinCount()}");
-        }
-    }
-
-    public int GetKnockedDownPinCount()
+    public int GetKnockedDownPinCount(string PlayerID)
     {
         int count = 0;
         foreach(PinBase pin in WhitePins)//白色のピンは加点
         {
-            if (pin.IsKnockedDownPin())
+            if (pin.IsKnockedDownPin(PlayerID))
             {
                 count++;
             }
@@ -27,7 +20,7 @@ public class PinManager : MonoBehaviour
 
         foreach (PinBase pin in RedPins)//赤色のピンは多めに加点
         {
-            if (pin.IsKnockedDownPin())
+            if (pin.IsKnockedDownPin(PlayerID))
             {
                 count += 3;
             }
@@ -36,11 +29,16 @@ public class PinManager : MonoBehaviour
 
         foreach (PinBase pin in BlackPins)//黒色のピンは減点
         {
-            if (pin.IsKnockedDownPin())
+            if (pin.IsKnockedDownPin(PlayerID))
             {
                 count -= 3;
             }
         }
         return count;
+    }
+
+    public PinBase[] GetAllPins()
+    {
+        return WhitePins.Concat(RedPins).Concat(BlackPins).ToArray();
     }
 }

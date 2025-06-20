@@ -12,7 +12,8 @@ public class PinBase : MonoBehaviour
     private Quaternion initialRotation;
     private bool isFallDown = false;
 
-
+    public string KnockedByPlayerID = null;
+    private GameManager gameManager;
 
     private void Start()
     {
@@ -23,6 +24,10 @@ public class PinBase : MonoBehaviour
         {
             rb.centerOfMass = center;
         }
+        if(gameManager == null)
+        {
+            gameManager = FindFirstObjectByType<GameManager>();
+        }
     }
 
     void OnCollisionEnter(Collision other)
@@ -31,6 +36,16 @@ public class PinBase : MonoBehaviour
         {
             AudioManager.Instance.PlaySound(1);
         }
+
+        PlayerBase playerID = other.gameObject.GetComponent<PlayerBase>();
+        if (playerID != null && string.IsNullOrEmpty(KnockedByPlayerID) && isFallDown == false){
+            KnockedByPlayerID = playerID.GetPlayerID();
+        }
+        PinBase otherPin = other.gameObject.GetComponent<PinBase>();
+        if ((otherPin != null && string.IsNullOrEmpty(KnockedByPlayerID) && !string.IsNullOrEmpty(otherPin.KnockedByPlayerID)) && isFallDown == false)
+        {
+            KnockedByPlayerID = otherPin.KnockedByPlayerID;
+        }
     }
 
     private void OnTriggerEnter(Collider outAreaObj)
@@ -38,15 +53,15 @@ public class PinBase : MonoBehaviour
         isFallDown = true;
     }
 
-    public bool IsKnockedDownPin()
+    public bool IsKnockedDownPin(string playerID)
     {
-        if (isFallDown)
+        if (isFallDown && KnockedByPlayerID == playerID)
         {
             return true;
         }
 
         float angle = Quaternion.Angle(initialRotation, transform.rotation);
-        if(angle > knockDownAngleThreshold)
+        if(angle > knockDownAngleThreshold && KnockedByPlayerID == playerID)
         {
             isFallDown = true;
             return true;

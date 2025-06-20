@@ -35,6 +35,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     [SerializeField] private Vector3 StartPoint = new Vector3(-50f, 0f, 0f);
     [SerializeField] private TextMeshProUGUI testText;
 
+    private PointManager pointManager;
+
     //private int[] NowFramePoint_0 = new int[11];
     //private int[] NowFramePoint_1 = new int[11];
     //private int[] NowFramePoint_2 = new int[11];
@@ -43,7 +45,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private void Start()
     {
-        //testText.text = StartPoint.x.ToString();
+        pointManager = FindFirstObjectByType<PointManager>();
+
     }
 
     private void Update()
@@ -53,6 +56,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         if (buildIndex == 1 || buildIndex == 4)
         {
             scoreManager = FindFirstObjectByType<ScoreManager>();
+            pointManager = FindFirstObjectByType<PointManager>();
         }
     }
 
@@ -126,7 +130,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             var starter = FindFirstObjectByType<GameStarter>();
             if (starter == null) Debug.LogError("starternull");
             starter.SetPlayer(player);
-
         }
 
         //Bot
@@ -142,6 +145,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             }
 
         }
+
+        Debug.Log("èâä˙âªplayer");
     }
 }
 
