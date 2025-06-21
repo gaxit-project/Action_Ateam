@@ -61,6 +61,7 @@ MonoBehaviour:
   _bgmLists:
   - {fileID: 8300000, guid: 5aea1eb8e494546ccb52c0d547cb54c6, type: 3}
   - {fileID: 8300000, guid: a4157eac71a524d5e85d2fb6f4649506, type: 3}
+  - {fileID: 8300000, guid: 2488b10757c7e5d418f95ece46cac58e, type: 3}
   _audioSourceSE: {fileID: 4600566453074975748}
   _audioSourceBGM: {fileID: 5922074557707150540}
   SESlider: {fileID: 0}

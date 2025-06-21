@@ -3503,7 +3503,7 @@ Transform:
   m_GameObject: {fileID: 301045598}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 44, y: -1, z: 3}
+  m_LocalPosition: {x: 44, y: -2, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11207,8 +11207,10 @@ MonoBehaviour:
   - {fileID: 1830694110}
   - {fileID: 1030202315}
   - {fileID: 555542457}
-  GoldPins: []
-  BlackPins: []
+  GoldPins:
+  - {fileID: 6103272964692883607, guid: 620dbf4c05f1cef459aadfaa4383e850, type: 3}
+  BlackPins:
+  - {fileID: 6103272964692883607, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
   _pinPrefab:
   - {fileID: 7662751867388878894, guid: 8010c24b086390e4dbe9c7195a7ce8a2, type: 3}
   - {fileID: 3205348367549273636, guid: 700cbee024368574fa793062ada0f69e, type: 3}
@@ -16361,7 +16363,7 @@ Transform:
   m_GameObject: {fileID: 1351010016}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 44, y: -1, z: -3}
+  m_LocalPosition: {x: 44, y: -2, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18457,7 +18459,7 @@ Transform:
   m_GameObject: {fileID: 1544484677}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 40, y: -1, z: 0}
+  m_LocalPosition: {x: 40, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
