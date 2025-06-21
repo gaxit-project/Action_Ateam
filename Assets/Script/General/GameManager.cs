@@ -105,9 +105,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         //合計人数
         int totalPlayers = NumHumanPlayers + NumBots;
+        pinManager = FindFirstObjectByType<PinManager>();
 
         //ステージをランダムに選択
-        StageNum = UnityEngine.Random.Range(0, 3);
+        StageNum = Random.Range(0, 3);
         switch (StageNum)
         {
             case 0:

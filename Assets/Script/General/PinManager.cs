@@ -17,7 +17,7 @@ public class PinManager : MonoBehaviour
 
     public void InsertPin(int stageNum)
     {
-        int rnd = UnityEngine.Random.Range(0, 3);
+        int rnd = Random.Range(0, 3);
         switch (stageNum)
         {
             case 0:

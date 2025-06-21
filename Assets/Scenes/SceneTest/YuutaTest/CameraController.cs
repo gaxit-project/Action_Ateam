@@ -84,7 +84,7 @@ public class CameraController : MonoBehaviour
         Debug.Log("ÉJÉÅÉâÇÃå¸Ç´ïœçX");
         isModeChanged = true;
         this.transform.eulerAngles = InitialCameraDirection - new Vector3(InitialCameraDirection.x / 2f, 0f, 0f);
-        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, playerobj.transform.position.z) - new Vector3(0f, this.transform.position.y / 2f, 0f);
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, playerobj.transform.position.z) - new Vector3(0f, 3f, 0f);
     }
 
     /// <summary>
@@ -97,5 +97,7 @@ public class CameraController : MonoBehaviour
         this.playerobj = player.gameObject;
         targetPosition = player.transform.position;
         InitialCameraDirection = this.transform.eulerAngles;
+
+        transform.position = targetPosition + new Vector3(-12f, 6f, 0f);
     }
 }

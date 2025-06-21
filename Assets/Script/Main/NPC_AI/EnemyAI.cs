@@ -317,7 +317,7 @@ namespace NPC.StateAI
                     transform.forward = rb.linearVelocity;
                     throwVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, -rb.linearVelocity.z);
                 }
-                rigidbody.linearVelocity = throwVelocity;
+                rb.linearVelocity = throwVelocity;
             }
         }
     }
