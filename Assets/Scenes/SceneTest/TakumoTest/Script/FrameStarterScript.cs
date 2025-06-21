@@ -28,6 +28,8 @@ public class FrameStarterScript : MonoBehaviour
 
     void Update()
     {
+
+        //while () { 
         if (FrameObjectTV == null) return;
 
         timer += Time.deltaTime;
@@ -43,23 +45,25 @@ public class FrameStarterScript : MonoBehaviour
             isReturning = true;
         }
 
-        if (isReturning)
-        {
-            // 元の位置へ線形補間で戻る（1秒間かけて）
-            float t = (timer - 2f) / 1f; // 0〜1 に正規化
-            FrameObjectTV.rectTransform.anchoredPosition = Vector2.Lerp(
-                startPos + Vector2.up * speed, // 上がった先
-                startPos,                      // 元の位置
-                t
-            );
-
-            // 戻り終わったら止める
-            if (t >= 1f)
+            if (isReturning)
             {
-                //ここに特定のGameStarterから持って来る
-                isReturning = false;
-                this.enabled = false;
-            }
+                // 元の位置へ線形補間で戻る（1秒間かけて）
+                float t = (timer - 2f) / 1f; // 0〜1 に正規化
+                FrameObjectTV.rectTransform.anchoredPosition = Vector2.Lerp(
+                    startPos + Vector2.up * speed, // 上がった先
+                    startPos,                      // 元の位置
+                    t
+                );
+                
+                // 戻り終わったら止める
+                if (t >= 1f)
+                {
+                    //ここに特定のGameStarterから持って来る
+                    isReturning = false;
+                    this.enabled = false;
+                }
+                
+            //}
 
 
         }
