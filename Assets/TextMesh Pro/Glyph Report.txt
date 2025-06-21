@@ -1,7 +1,7 @@
 Font: HelloHello  Style: H
-Point Size: 455   Padding: 40   SP/PD Ratio: 8.8%
+Point Size: 1602   Padding: 144   SP/PD Ratio: 9.0%
 
-Characters included: 298/298
+Characters included: 7/7
 Missing characters: 0
 Excluded characters: 0
 
