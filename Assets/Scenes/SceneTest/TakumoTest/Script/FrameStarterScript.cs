@@ -8,6 +8,7 @@ public class FrameStarterScript : MonoBehaviour
     [SerializeField] private Text FrameObjectLeft;//ここに右に表示したいテキスト
     [SerializeField] private Image FrameObjectTV;//これはTVpng
     [SerializeField] private float speed = 50f;//これは移動スピード
+    public bool isFinshed = false;
     
     public GameManager gameManager;//げーまね読んだ
 
@@ -60,6 +61,7 @@ public class FrameStarterScript : MonoBehaviour
                 {
                     //ここに特定のGameStarterから持って来る
                     isReturning = false;
+                    isFinshed = true;
                     this.enabled = false;
                 }
                 
@@ -74,5 +76,7 @@ public class FrameStarterScript : MonoBehaviour
     public void FrameObjectLeftFalse(){
         FrameObjectLeft.gameObject.SetActive(false);//右上に出てる数字を消す
     }
+
+  
 
 }

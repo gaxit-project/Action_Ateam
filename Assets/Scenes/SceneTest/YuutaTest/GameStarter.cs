@@ -15,17 +15,19 @@ public class GameStarter : MonoBehaviour
     [SerializeField] private GameObject[] area = new GameObject[3];
 
     private GameManager gameManager;
+    private FrameStarterScript frameStarterScript;
 
     IEnumerator Start()
     {
-        if(gameManager == null)
+        if (gameManager == null)
         {
             gameManager = FindFirstObjectByType<GameManager>();
         }
         countText.enabled = true;
-        countText.SetText("3");
+        countText.SetText("");
         yield return new WaitForSeconds(1f);
         gameManager.IsStart = true;
+        frameStarterScript = GameObject.FindFirstObjectByType<FrameStarterScript>();
         //if (!player) player = GameObject.FindFirstObjectByType<PlayerBase>();
         //if (!player) Debug.LogError("PlayerBaseがアタッチされたオブジェクトが見つかりません！");
         //else StartCoroutine("StartMove");
@@ -33,33 +35,37 @@ public class GameStarter : MonoBehaviour
 
     void Update()
     {
-        if (!isCountStopped)
-        {
-            time -= Time.deltaTime;
-            // 小数点以下を切り捨てて整数表示
-            int displayTime = Mathf.CeilToInt(time);
-            countText.text = displayTime.ToString(); 
-            if (time <= 0)
-            {
-                isCountStopped = true;
-                countText.text = "GO!!";
-                Invoke("Disabled", 1f);
-                for(int i = 0; i <  area.Length; i++)
-                {
-                    if (area[i] == null)
-                    {
-                        Debug.LogWarning($"area[{i}] is null");
-                        continue;
-                    }
 
-                    area[i].SetActive(true);
+        if (frameStarterScript != null && frameStarterScript.isFinshed/*frameStarterScriptがfalseの時*/)
+        {//frameStarterScriptがfalseの時真となる
+            if (!isCountStopped)
+            {
+                time -= Time.deltaTime;
+                // 小数点以下を切り捨てて整数表示
+                int displayTime = Mathf.CeilToInt(time);
+                countText.text = displayTime.ToString();
+                if (time <= 0)
+                {
+                    isCountStopped = true;
+                    countText.text = "GO!!";
+                    Invoke("Disabled", 1f);
+                    for (int i = 0; i < area.Length; i++)
+                    {
+                        if (area[i] == null)
+                        {
+                            Debug.LogWarning($"area[{i}] is null");
+                            continue;
+                        }
+
+                        area[i].SetActive(true);
+                    }
                 }
             }
-        }
-        
-        if(gameManager == null)
-        {
-            gameManager = FindFirstObjectByType<GameManager>();
+
+            if (gameManager == null)
+            {
+                gameManager = FindFirstObjectByType<GameManager>();
+            }
         }
     }
 
