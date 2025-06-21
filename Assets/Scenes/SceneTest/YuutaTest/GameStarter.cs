@@ -15,7 +15,7 @@ public class GameStarter : MonoBehaviour
     [SerializeField] private GameObject[] area = new GameObject[3];
 
     private GameManager gameManager;
-    private FrameStarterScript frameStarterScript;
+    private FrameStarterScript_2 frameStarterScript_2;
 
     IEnumerator Start()
     {
@@ -27,7 +27,7 @@ public class GameStarter : MonoBehaviour
         countText.SetText("");
         yield return new WaitForSeconds(1f);
         gameManager.IsStart = true;
-        frameStarterScript = GameObject.FindFirstObjectByType<FrameStarterScript>();
+        frameStarterScript_2 = GameObject.FindFirstObjectByType<FrameStarterScript_2>();
         //if (!player) player = GameObject.FindFirstObjectByType<PlayerBase>();
         //if (!player) Debug.LogError("PlayerBaseがアタッチされたオブジェクトが見つかりません！");
         //else StartCoroutine("StartMove");
@@ -36,7 +36,7 @@ public class GameStarter : MonoBehaviour
     void Update()
     {
 
-        if (frameStarterScript != null && frameStarterScript.isFinshed/*frameStarterScriptがfalseの時*/)
+        if (frameStarterScript_2 != null && frameStarterScript_2.isFinshed/*frameStarterScriptがfalseの時*/)
         {//frameStarterScriptがfalseの時真となる
             if (!isCountStopped)
             {
