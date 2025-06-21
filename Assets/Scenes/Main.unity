@@ -9100,6 +9100,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 649160349653155207, guid: 2bb11323e30a9b74bb78df719053ef49, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 649160349653155207, guid: 2bb11323e30a9b74bb78df719053ef49, type: 3}
       propertyPath: m_LocalScale.z
       value: 2.75
       objectReference: {fileID: 0}
@@ -10413,7 +10417,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.2, g: 1, b: 0.2, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -13818,12 +13822,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: _seLists.Array.size
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
+      propertyPath: _bgmLists.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: '_seLists.Array.data[2]'
       value: 
-      objectReference: {fileID: 8300000, guid: 1678de29736ff7342b0e94e800f643b0, type: 3}
+      objectReference: {fileID: 8300000, guid: 72307ef6ad573914a9042f0f497530fa, type: 3}
+    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
+      propertyPath: '_bgmLists.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 2488b10757c7e5d418f95ece46cac58e, type: 3}
     - target: {fileID: 7546423158512417502, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -16818,7 +16830,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.2, g: 1, b: 0.2, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -20242,7 +20254,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 649160349653155207, guid: 2bb11323e30a9b74bb78df719053ef49, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 649160349653155207, guid: 2bb11323e30a9b74bb78df719053ef49, type: 3}
       propertyPath: m_LocalScale.y
@@ -25098,6 +25110,10 @@ PrefabInstance:
       propertyPath: countText
       value: 
       objectReference: {fileID: 1662738255}
+    - target: {fileID: 1948206308019119970, guid: c2c9ecb224eebca46bc50ee196c8859a, type: 3}
+      propertyPath: area.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1948206308019119970, guid: c2c9ecb224eebca46bc50ee196c8859a, type: 3}
       propertyPath: 'area.Array.data[0]'
       value: 
