@@ -1434,6 +1434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PT: []
+  Name: []
   gameManager: {fileID: 0}
 --- !u!114 &1254192259
 MonoBehaviour:
@@ -1465,8 +1466,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrameObjectUP: {fileID: 1903066366}
-  FrameObjectUPLeft: {fileID: 64119479}
+  FrameObjectLeft: {fileID: 0}
+  FrameObjectTV: {fileID: 0}
   speed: -400
+  isFinshed: 0
   gameManager: {fileID: 0}
 --- !u!1 &1257096986
 GameObject:
@@ -2948,6 +2951,7 @@ MonoBehaviour:
     - {fileID: 6743958220423606656}
     - {fileID: 1522323391951977177}
     - {fileID: 6315113648217579726}
+  Name: []
   gameManager: {fileID: 0}
 --- !u!1001 &2082342323
 PrefabInstance:
