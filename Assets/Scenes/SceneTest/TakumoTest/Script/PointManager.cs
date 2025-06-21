@@ -41,16 +41,7 @@ public class PointManager : MonoBehaviour
 
 
     public void PrintPoint()
-    {
-        foreach(var p in gameManager.players)
-        {
-            Debug.Log(p);
-        }
-        foreach(var n in gameManager.playerScores)
-        {
-            Debug.Log(n);
-        }
-        
+    {   
         PlayerName = new string[4];
         int num = 0;
         foreach (var player in gameManager.players)
@@ -64,7 +55,7 @@ public class PointManager : MonoBehaviour
 
         for (int i = 0; i < TotalPlayer; i++)
         {
-            Debug.Log(Name[i] + "が名前登録");
+            //Debug.Log(Name[i] + "が名前登録");
             Name[i].text = PlayerName[i]; // 安全に代入
         }
 
@@ -161,10 +152,30 @@ public class PointManager : MonoBehaviour
             idNum++;
         }
        
-       
     }
 
+    /// <summary>
+    /// リザルトシーンで点数をプリント
+    /// </summary>
+    public void ResultPrint()
+    {
 
+        for (int i = 0; i < TotalPlayer; i++)
+        {
+            //Debug.Log(Name[i] + "が名前登録");
+            Name[i].text = PlayerName[i]; // 安全に代入
+        }
+
+        for (int i = 0; i < TotalPlayer; i++)
+        {
+            
+            for(int j = 1; j < 11; j++)
+            {
+                PT[i].PL[j-1].text = gameManager.PlayerScore[i, j].ToString();
+            }
+        }
+
+    }
 
 
 

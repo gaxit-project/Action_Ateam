@@ -54,16 +54,6 @@ public class GameStarter : MonoBehaviour
 
                     area[i].SetActive(true);
                 }
-                /*
-                foreach(var p in gameManager.players)
-                {
-                    Debug.Log(p);
-                }
-                foreach(var j in gameManager.playerScores)
-                {
-                    Debug.Log(j);
-                }
-                */
             }
         }
         

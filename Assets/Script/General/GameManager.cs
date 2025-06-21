@@ -168,8 +168,15 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             }
 
         }
+    }
 
-        Debug.Log("‰Šú‰»player");
+    public void ResetGame()
+    {
+        IsStart = false;
+        players.Clear();
+        playerScores.Clear();
+        Num_NowFrame = 1;
+        PlayerScore = new int[NumHumanPlayers + NumBots, 11];
     }
 }
 

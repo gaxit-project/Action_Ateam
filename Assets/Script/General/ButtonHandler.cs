@@ -28,7 +28,7 @@ public class ButtonHandler : MonoBehaviour
     /// </summary>
     public void ButtonOnClicked()
     {
-        Debug.Log(gameManager.isPaused);
+        //Debug.Log(gameManager.isPaused);
         if (_stopBGM)
         {
             AudioManager.Instance.StopBGM();
@@ -65,6 +65,7 @@ public class ButtonHandler : MonoBehaviour
             AudioManager.Instance.StopBGM();
         }
 
+        GameManager.Instance.ResetGame();
         AudioManager.Instance.PlaySound(_SENumber);
         SceneChangeManager.Instance.LoadNextScene(_sceneName);
     }
@@ -74,10 +75,10 @@ public class ButtonHandler : MonoBehaviour
     /// </summary>
     public void ApplicationExit()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
             Application.Quit();
-#endif
+        #endif
     }
 }
