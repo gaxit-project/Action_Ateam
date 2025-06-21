@@ -13,9 +13,15 @@ public class PauseMenu : MonoBehaviour
     private GameInput input;
     private GameManager gameManager;
 
+    private Button ResumeButton;
+    private Button TitleButton;
+
     private void Awake()
     {
         gameManager = FindFirstObjectByType<GameManager>();
+        ResumeButton = GameObject.Find("Canvas/PausePanel/ResumeButton").GetComponent<Button>();
+        TitleButton = GameObject.Find("Canvas/PausePanel/TitleButton").GetComponent<Button>();
+
         input = new GameInput();
         input.GamePlay.Pause.performed += OnPause;
     }
@@ -31,6 +37,7 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
+        ResumeButton.Select();
         pausePanel.SetActive(false);
         InitializeButtons();
     }
