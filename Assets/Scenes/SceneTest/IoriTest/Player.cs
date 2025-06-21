@@ -41,166 +41,185 @@ public class Player : PlayerBase
         //固有の重力
         rigidbody.AddForce(new Vector3(0f, -gravity, 0f), ForceMode.Acceleration);
 
-        //現在のステートによって行動を変える
-        switch (currentState)
+        //反射準備
+        Ray ray = new Ray(transform.position, transform.forward);
+        Debug.DrawRay(ray.origin, ray.direction * 3f, Color.black, 1f, false);
+        if (Physics.Raycast(ray, out RaycastHit hit, 3f))
         {
-            case PlayerState.Idle:
+            if (hit.collider.tag == "Wall" || hit.collider.tag == "Player" || hit.collider.tag == "NPC")
+            {
+                if(targetTag == null) Debug.Log("標的に接近");
+                else if(targetTag != hit.collider.tag) Debug.Log("標的を" + hit.collider.name + "に変更");
+                targetTag = hit.collider.tag;
+                // 現在の進行方向（速度）
+                incomingVelocity = rigidbody.linearVelocity;
+                //Debug.DrawRay(transform.position, Vector3.ClampMagnitude(incomingVelocity, 3f), Color.yellow, 3f, false);
+            }
+        }
+        else if (!Physics.Raycast(ray, 3f))
+        {
+            targetTag = null;
+        }
+            //現在のステートによって行動を変える
+            switch (currentState)
+            {
+                case PlayerState.Idle:
 
-                break;
+                    break;
 
-            case PlayerState.Run:
+                case PlayerState.Run:
 
-                //移動関係
-                if (rigidbody)
-                {
+                    //移動関係
+                    if (rigidbody)
+                    {
 
-                    //地面についている場合のみスティックまたはWASD,矢印キーの入力を受付
+                        //地面についている場合のみスティックまたはWASD,矢印キーの入力を受付
+                        if (player.IsGrounded(transform.position, rayDistance))
+                        {
+                            //カメラ基準の方向
+                            x = camera.transform.right * Input.GetAxis("Horizontal");
+                            z = camera.transform.forward * Input.GetAxis("Vertical");
+
+                            x.y = 0f;
+                            z.y = 0f;
+                            x.Normalize();
+                            z.Normalize();
+                        }
+
+                        //方向決定
+                        targetVelocity = Vector3.ClampMagnitude(x + z, 1f) * speed;
+                        //加減速処理
+                        float lerpRate = (targetVelocity.magnitude > 0.1f) ? acceleration : deceleration;
+                        currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, lerpRate * Time.fixedDeltaTime);
+                        if (isDecelerating)
+                        {
+                            reflection = Vector3.Lerp(reflection, Vector3.zero, lerpRate * Time.fixedDeltaTime);
+
+                            // 減速が十分に小さくなったら解除
+                            if (reflection.magnitude < 0.05f)
+                            {
+                                reflection = Vector3.zero;
+                                isDecelerating = false;
+                            }
+                        }
+                        //移動
+                        if (reflection.magnitude > 0.5f) rigidbody.MovePosition(rigidbody.position + reflection * Time.fixedDeltaTime);
+                        else if (!isModeChanged && !isAttacking && !isAttacked) rigidbody.MovePosition(rigidbody.position + currentVelocity * Time.fixedDeltaTime);
+                        else if (!isAttacked) rigidbody.linearVelocity = Vector3.zero;
+
+                    }
+
+                    //Enterキーで状態を変化
+                    /*
+                    if (Input.GetKeyDown(KeyCode.Return))
+                    {
+                        ChangeMode();
+                    }
+                    */
+                    /*
+                    //ゲージの増減
+                    if (isModeChanged)
+                    {
+                        if (isGaugeIncreasing)
+                        {
+                            currentGaugeValue += currentGaugeSpeed * Time.fixedDeltaTime;
+                        }
+                        else if (!isGaugeIncreasing)
+                        {
+                            currentGaugeValue -= currentGaugeSpeed * Time.fixedDeltaTime;
+                        }
+
+                        if (currentGaugeValue < 0f)
+                        {
+                            currentGaugeValue = 0f;
+                            isGaugeIncreasing = true;
+                        }
+                        else if (currentGaugeValue > maxGaugeValue)
+                        {
+                            currentGaugeValue = maxGaugeValue;
+                            isGaugeIncreasing = false;
+                        }
+
+                        gauge.value = currentGaugeValue;
+                        throwPower = (maxThrowPower * (currentGaugeValue / maxGaugeValue) / 2f) + maxThrowPower / 2f;
+                    }
+                    //スペースキーで投擲
+                    if (isModeChanged && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0)))
+                    {
+                        Throw();
+                    }
+                    */
+
+                    //スペースキーまたはAボタンで攻撃
+                    if (!isAttacking && player.IsGrounded(transform.position, rayDistance) && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0)))
+                    {
+                        //Attack();
+                    }
+
+                    break;
+
+                case PlayerState.Throwed:
+
+                    //Enterキーで状態を変化
+                    /*
+                    if (Input.GetKeyDown(KeyCode.Return))
+                    {
+                        ChangeMode();
+                    }
+                    */
+
                     if (player.IsGrounded(transform.position, rayDistance))
                     {
-                        //カメラ基準の方向
-                        x = camera.transform.right * Input.GetAxis("Horizontal");
-                        z = camera.transform.forward * Input.GetAxis("Vertical");
+                        //プレイヤー基準の方向
+                        x = this.transform.right * Input.GetAxis("Horizontal");
 
                         x.y = 0f;
-                        z.y = 0f;
                         x.Normalize();
-                        z.Normalize();
+
+                        targetVelocity = Vector3.ClampMagnitude(x, 1f) * speed;
+                        //加減速処理
+                        float lerpRate = (targetVelocity.magnitude > 0.1f) ? acceleration : deceleration;
+                        currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, lerpRate * Time.fixedDeltaTime);
+
+                        rigidbody.linearVelocity = throwVelocity + currentVelocity / 3f;
+                        //Debug.DrawRay(transform.position, Vector3.ClampMagnitude(rigidbody.linearVelocity, 3f), Color.black, 3f, false);
                     }
 
-                    //方向決定
-                    targetVelocity = Vector3.ClampMagnitude(x + z, 1f) * speed;
-                    //加減速処理
-                    float lerpRate = (targetVelocity.magnitude > 0.1f) ? acceleration : deceleration;
-                    currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, lerpRate * Time.fixedDeltaTime);
-                    if (isDecelerating)
+
+                    break;
+
+                case PlayerState.Dead:
+
+                    camera.StopCameraMove();
+                    this.gameObject.SetActive(false);
+                    scoreManager.FrameSaveSystem();
+                    foreach (var player in GameManager.Instance.players)
                     {
-                        reflection = Vector3.Lerp(reflection, Vector3.zero, lerpRate * Time.fixedDeltaTime);
-
-                        // 減速が十分に小さくなったら解除
-                        if (reflection.magnitude < 0.05f)
-                        {
-                            reflection = Vector3.zero;
-                            isDecelerating = false;
-                        }
+                        if (player != null)
+                            Destroy(player.gameObject);
                     }
-                    //移動
-                    if (reflection.magnitude > 0.5f) rigidbody.MovePosition(rigidbody.position + reflection * Time.fixedDeltaTime);
-                    else if (!isModeChanged && !isAttacking && !isAttacked) rigidbody.MovePosition(rigidbody.position + currentVelocity * Time.fixedDeltaTime);
-                    else if (!isAttacked) rigidbody.linearVelocity = Vector3.zero;
+                    GameManager.Instance.players.Clear();
+                    SceneChangeManager.Instance.ResetScene("Main");
+                    break;
 
-                }
-
-                //Enterキーで状態を変化
-                /*
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    ChangeMode();
-                }
-                */
-                /*
-                //ゲージの増減
-                if (isModeChanged)
-                {
-                    if (isGaugeIncreasing)
-                    {
-                        currentGaugeValue += currentGaugeSpeed * Time.fixedDeltaTime;
-                    }
-                    else if (!isGaugeIncreasing)
-                    {
-                        currentGaugeValue -= currentGaugeSpeed * Time.fixedDeltaTime;
-                    }
-
-                    if (currentGaugeValue < 0f)
-                    {
-                        currentGaugeValue = 0f;
-                        isGaugeIncreasing = true;
-                    }
-                    else if (currentGaugeValue > maxGaugeValue)
-                    {
-                        currentGaugeValue = maxGaugeValue;
-                        isGaugeIncreasing = false;
-                    }
-
-                    gauge.value = currentGaugeValue;
-                    throwPower = (maxThrowPower * (currentGaugeValue / maxGaugeValue) / 2f) + maxThrowPower / 2f;
-                }
-                //スペースキーで投擲
-                if (isModeChanged && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0)))
-                {
-                    Throw();
-                }
-                */
-
-                //スペースキーまたはAボタンで攻撃
-                if (!isAttacking && player.IsGrounded(transform.position, rayDistance) && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0)))
-                {
-                    Attack();
-                }
-
-                break;
-
-            case PlayerState.Throwed:
-
-                //Enterキーで状態を変化
-                /*
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    ChangeMode();
-                }
-                */
-
-                if (player.IsGrounded(transform.position, rayDistance))
-                {
-                    //プレイヤー基準の方向
-                    x = this.transform.right * Input.GetAxis("Horizontal");
-
-                    x.y = 0f;
-                    x.Normalize();
-
-                    targetVelocity = Vector3.ClampMagnitude(x, 1f) * speed;
-                    //加減速処理
-                    float lerpRate = (targetVelocity.magnitude > 0.1f) ? acceleration : deceleration;
-                    currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, lerpRate * Time.fixedDeltaTime);
-
-                    rigidbody.linearVelocity = throwVelocity + currentVelocity / 10f;
-                }
-
-
-                break;
-
-            case PlayerState.Dead:
-
-                camera.StopCameraMove();
-                this.gameObject.SetActive(false);
-                scoreManager.FrameSaveSystem();
-                foreach (var player in GameManager.Instance.players)
-                {
-                    if (player != null)
-                        Destroy(player.gameObject);
-                }
-                GameManager.Instance.players.Clear();
-                SceneChangeManager.Instance.ResetScene("Main");
-                break;
-
-        }
+            }
     }
 
     //投擲後に壁やNPCに衝突した際の処理
     protected void OnCollisionEnter(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("NPC")) && collision.contactCount > 0)
+        if (collision.gameObject.CompareTag("Wall") && collision.contactCount > 0 && targetTag == "Wall")
         {
-            // 現在の進行方向（速度）
-            Vector3 incomingVelocity = rigidbody.linearVelocity;
-
             // 衝突面の法線
             Vector3 normal = collision.contacts[0].normal;
+            //Debug.DrawRay(transform.position, Vector3.ClampMagnitude(normal, 3f), Color.magenta, 3f, false);
 
             // 反射ベクトルの計算
             Vector3 reflectVelocity = Vector3.Reflect(incomingVelocity, normal).normalized;
+            //Debug.DrawRay(transform.position, Vector3.ClampMagnitude(reflectVelocity, 3f), Color.cyan, 3f, false);
 
             // 法線方向に少し押し返しを加える
-            reflectVelocity += normal * 0.2f;
+            //reflectVelocity += normal * 0.2f;
 
             reflectVelocity.Normalize();
             if (currentState == PlayerState.Throwed)
@@ -213,15 +232,21 @@ public class Player : PlayerBase
             {
                 Reflect(reflectVelocity);
             }
-
-            if (collision.gameObject.CompareTag("NPC"))
+        }
+        else if ((collision.gameObject.CompareTag("NPC") || collision.gameObject.CompareTag("Player") && collision.contactCount > 0))
+        {
+            if (incomingVelocity != Vector3.zero)
             {
-                EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
-                if (enemy != null)
-                {
-                    enemy.Attacked(Vector3.ClampMagnitude(reflectVelocity, 1f), 7f);
-                }
+                transform.forward = incomingVelocity;
+                throwVelocity = new Vector3(incomingVelocity.x, incomingVelocity.y, -incomingVelocity.z);
             }
+            else
+            {
+                Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
+                transform.forward = rb.linearVelocity;
+                throwVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, -rb.linearVelocity.z);
+            }
+                rigidbody.linearVelocity = throwVelocity;
         }
     }
 

@@ -33,12 +33,14 @@ public class PlayerBase : MonoBehaviour
     protected float rotation = 0f;
     protected Vector3 currentVelocity = Vector3.zero;
     protected Vector3 throwVelocity;
+    protected Vector3 incomingVelocity;
     protected bool isModeChanged = false;
     protected bool isGaugeIncreasing = true;
     protected bool isThrowTimerStarted = false;
     [SerializeField] protected float throwPower = 5f;
     protected bool isReflecting = false;
     protected bool isDecelerating = false;
+    protected string targetTag = null;
 
     //攻撃関係
     protected bool isAttacking = false;

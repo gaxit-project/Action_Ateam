@@ -21,7 +21,7 @@ namespace NPC.StateAI
         {
             this.enemyAI = enemyAI;
             this.throwTarget = throwTarget;
-            MeshColor = Color.yellow;
+            //MeshColor = Color.yellow;
         }
 
         public void Enter()

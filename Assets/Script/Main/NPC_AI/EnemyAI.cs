@@ -76,6 +76,25 @@ namespace NPC.StateAI
             enemyStateMachine.Update();
             if (!IsGrounded() && enemyAI.agent.enabled) enemyAI.agent.enabled = false;
             else if (IsGrounded() && !enemyAI.agent.enabled && enemyAI.EnemyStateMachine.CurrentState != enemyAI.EnemyStateMachine.throwState) enemyAI.agent.enabled = true;
+
+            //反射準備
+            Ray ray = new Ray(transform.position, transform.forward);
+            Debug.DrawRay(ray.origin, ray.direction * 3f, Color.white, 1f, false);
+            if (Physics.Raycast(ray, out RaycastHit hit, 3f))
+            {
+                if (hit.collider.tag == "Wall")
+                {
+                    Debug.Log("壁に接近");
+                    targetTag = hit.collider.tag;
+                    // 現在の進行方向（速度）
+                    incomingVelocity = rb.linearVelocity;
+                    //Debug.DrawRay(transform.position, Vector3.ClampMagnitude(incomingVelocity, 3f), Color.yellow, 3f, false);
+                }
+            }
+            else if (!Physics.Raycast(ray, 3f))
+            {
+                targetTag = null;
+            }
         }
 
         private void FixedUpdate()
@@ -263,20 +282,12 @@ namespace NPC.StateAI
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "NPC")
-            {
-                Vector3 normal = collision.contacts[0].normal;
-                Vector3 velocity = collision.rigidbody.linearVelocity.normalized;
-                velocity += new Vector3(-normal.x * bounceVectorMultiple, 0f, -normal.z * bounceVectorMultiple);
-                collision.rigidbody.AddForce(velocity * bounceSpeed, ForceMode.Impulse);
-            }
-
-            if (collision.gameObject.CompareTag("Wall"))
+            if (collision.gameObject.CompareTag("Wall") && collision.contactCount > 0)
             {
                 Debug.Log("当たった");
 
                 // 現在の進行方向（速度）
-                Vector3 incomingVelocity = rb.linearVelocity;
+                incomingVelocity = rb.linearVelocity;
 
                 // 衝突面の法線
                 Vector3 normal = collision.contacts[0].normal;
@@ -285,19 +296,28 @@ namespace NPC.StateAI
                 Vector3 reflectVelocity = Vector3.Reflect(incomingVelocity, normal).normalized;
 
                 // 法線方向に少し押し返しを加える
-                reflectVelocity += normal * 0.2f;
+                //reflectVelocity += normal * 0.2f;
 
                 reflectVelocity.Normalize();
 
                 transform.forward = reflectVelocity;
                 throwVelocity = reflectVelocity * speed * throwPower;
                 rb.linearVelocity = throwVelocity;
-
             }
-
-            if(collision.gameObject.CompareTag("Player") && enemyAI.EnemyStateMachine.CurrentState == enemyAI.EnemyStateMachine.throwState)
+            else if ((collision.gameObject.CompareTag("NPC") || collision.gameObject.CompareTag("Player") && collision.contactCount > 0))
             {
-                enemyAI.transform.forward = ((enemyAI.EnemyStateMachine.throwState.throwVelocity.normalized + rb.linearVelocity) / 2).normalized;
+                if (incomingVelocity != Vector3.zero)
+                {
+                    transform.forward = incomingVelocity;
+                    throwVelocity = new Vector3(incomingVelocity.x, incomingVelocity.y, -incomingVelocity.z);
+                }
+                else
+                {
+                    Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
+                    transform.forward = rb.linearVelocity;
+                    throwVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, -rb.linearVelocity.z);
+                }
+                rigidbody.linearVelocity = throwVelocity;
             }
         }
     }

@@ -16,7 +16,7 @@ namespace NPC.StateAI
         public RunState(EnemyAI enemyAI)
         {
             this.enemyAI = enemyAI;
-            MeshColor = Color.green;
+            //MeshColor = Color.green;
         }
 
         public void Enter()
@@ -31,7 +31,7 @@ namespace NPC.StateAI
             if (enemyAI.Agent.enabled && enemyAI.Agent.isOnNavMesh) enemyAI.Agent.SetDestination(enemyAI.Target.position);
             if (enemyAI.DetectPlayer())
             {
-                enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.chaseState);
+                //enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.chaseState);
                 Debug.Log("ChaseState�Ɉڍs");
             }
             /*if (avoidDirection != Vector3.zero)

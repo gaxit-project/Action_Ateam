@@ -15,7 +15,7 @@ namespace NPC.StateAI
         {
             this.enemyAI = enemyAI;
             this.gameStarter = gameStarter /*?? throw new ArgumentNullException(nameof(gameStarter))*/;
-            MeshColor = Color.blue;
+            //MeshColor = Color.blue;
         }
 
         public void Enter()
