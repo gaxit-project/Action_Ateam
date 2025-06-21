@@ -108,7 +108,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         pinManager = FindFirstObjectByType<PinManager>();
 
         //ステージをランダムに選択
-        StageNum = Random.Range(0, 3);
+        StageNum = Random.Range(0, 1);
         switch (StageNum)
         {
             case 0:

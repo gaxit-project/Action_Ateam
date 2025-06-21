@@ -13822,18 +13822,42 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: _seLists.Array.size
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: _bgmLists.Array.size
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: '_seLists.Array.data[2]'
       value: 
       objectReference: {fileID: 8300000, guid: 72307ef6ad573914a9042f0f497530fa, type: 3}
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
+      propertyPath: '_seLists.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 72307ef6ad573914a9042f0f497530fa, type: 3}
+    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
+      propertyPath: '_seLists.Array.data[4]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 72307ef6ad573914a9042f0f497530fa, type: 3}
+    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
+      propertyPath: '_seLists.Array.data[5]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 72307ef6ad573914a9042f0f497530fa, type: 3}
+    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: '_bgmLists.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 2488b10757c7e5d418f95ece46cac58e, type: 3}
+    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
+      propertyPath: '_bgmLists.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 2488b10757c7e5d418f95ece46cac58e, type: 3}
+    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
+      propertyPath: '_bgmLists.Array.data[4]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 2488b10757c7e5d418f95ece46cac58e, type: 3}
+    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
+      propertyPath: '_bgmLists.Array.data[5]'
       value: 
       objectReference: {fileID: 8300000, guid: 2488b10757c7e5d418f95ece46cac58e, type: 3}
     - target: {fileID: 7546423158512417502, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
