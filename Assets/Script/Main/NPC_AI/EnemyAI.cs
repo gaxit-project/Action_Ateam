@@ -78,23 +78,18 @@ namespace NPC.StateAI
             else if (IsGrounded() && !enemyAI.agent.enabled && enemyAI.EnemyStateMachine.CurrentState != enemyAI.EnemyStateMachine.throwState) enemyAI.agent.enabled = true;
 
             //反射準備
+            bool isApproaching = false;
             Ray ray = new Ray(transform.position, transform.forward);
-            Debug.DrawRay(ray.origin, ray.direction * 3f, Color.white, 1f, false);
-            if (Physics.Raycast(ray, out RaycastHit hit, 3f))
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 5f))
             {
-                if (hit.collider.tag == "Wall")
-                {
-                    Debug.Log("壁に接近");
-                    targetTag = hit.collider.tag;
-                    // 現在の進行方向（速度）
-                    incomingVelocity = rb.linearVelocity;
-                    //Debug.DrawRay(transform.position, Vector3.ClampMagnitude(incomingVelocity, 3f), Color.yellow, 3f, false);
-                }
+                if (hit.collider.CompareTag("Wall")) isApproaching = true;
             }
-            else if (!Physics.Raycast(ray, 3f))
-            {
-                targetTag = null;
-            }
+
+            Collider[] obj = Physics.OverlapSphere(transform.position, 2f, LayerMask.GetMask("Player"));
+            if (obj.Length > 1) isApproaching = true;
+
+            if (!isApproaching) incomingVelocity = rb.linearVelocity;
         }
 
         private void FixedUpdate()
@@ -304,20 +299,18 @@ namespace NPC.StateAI
                 throwVelocity = reflectVelocity * speed * throwPower;
                 rb.linearVelocity = throwVelocity;
             }
-            else if ((collision.gameObject.CompareTag("NPC") || collision.gameObject.CompareTag("Player") && collision.contactCount > 0))
+            else if (collision.gameObject.CompareTag("NPC") || collision.gameObject.CompareTag("Player"))
             {
-                if (incomingVelocity != Vector3.zero)
+                if (collision.gameObject.CompareTag("NPC"))
                 {
-                    transform.forward = incomingVelocity;
-                    throwVelocity = new Vector3(incomingVelocity.x, incomingVelocity.y, -incomingVelocity.z);
+                    EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
+                    rigidbody.linearVelocity = Vector3.ClampMagnitude(incomingVelocity + enemy.incomingVelocity * 2f, incomingVelocity.magnitude);
                 }
-                else
+                else if (collision.gameObject.CompareTag("Player"))
                 {
-                    Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
-                    transform.forward = rb.linearVelocity;
-                    throwVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, -rb.linearVelocity.z);
+                    Player player = collision.gameObject.GetComponent<Player>();
+                    rb.linearVelocity = Vector3.ClampMagnitude(incomingVelocity + player.incomingVelocity * 2f, incomingVelocity.magnitude);
                 }
-                rb.linearVelocity = throwVelocity;
             }
         }
     }

@@ -48,7 +48,7 @@ public class ResetArea : MonoBehaviour
             isPlayerOut = true;
             AudioManager.Instance.PlayBGM(2);
             frameMoveCameraScript.WarpCameraToMenObject();
-            frameStarterScript.FrameObjectLeftFalse();
+            //frameStarterScript.FrameObjectLeftFalse();
             GameManager.Instance.CurrentFrameResult();
         }
     }

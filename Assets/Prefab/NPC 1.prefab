@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3058030073249538274}
   - component: {fileID: 8566808692652923501}
   - component: {fileID: 5829692272381626354}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: NPC 1
   m_TagString: NPC
   m_Icon: {fileID: 0}
@@ -119,6 +119,7 @@ MonoBehaviour:
   speed: 10
   weight: 10
   initialRotation: 0
+  incomingVelocity: {x: 0, y: 0, z: 0}
   throwPower: 5
   attackArea: {fileID: 0}
   rotateSpeed: 100
