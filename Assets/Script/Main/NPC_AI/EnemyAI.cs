@@ -280,9 +280,6 @@ namespace NPC.StateAI
             {
                 Debug.Log("当たった");
 
-                // 現在の進行方向（速度）
-                incomingVelocity = rb.linearVelocity;
-
                 // 衝突面の法線
                 Vector3 normal = collision.contacts[0].normal;
 
