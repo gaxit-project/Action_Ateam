@@ -18,6 +18,7 @@ public class ColorAssigner : MonoBehaviour
 
     private List<Color> shuffledPalette;
     private int currentColorIndex = 0;
+    private Dictionary<GameObject, Color> assignedColors = new Dictionary<GameObject, Color>();
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class ColorAssigner : MonoBehaviour
     {
         shuffledPalette = colorPalette.OrderBy(x => Random.value).ToList();
         currentColorIndex = 0;
+        assignedColors.Clear();
     }
 
     public void ResetPalette()
@@ -58,6 +60,7 @@ public class ColorAssigner : MonoBehaviour
 
         Color assignedColor = shuffledPalette[currentColorIndex];
         renderer.material.color = assignedColor;
+        assignedColors[obj] = assignedColor;
         currentColorIndex++;
 
         return assignedColor;
@@ -71,14 +74,29 @@ public class ColorAssigner : MonoBehaviour
 
         foreach (GameObject player in playerObjects)
         {
-            Debug.Log($"Assigning color to Player: {player.name}");
             AssignColorToObject(player);
         }
 
         foreach (GameObject npc in npcObjects)
         {
-            Debug.Log($"Assigning color to NPC: {npc.name}");
             AssignColorToObject(npc);
+        }
+    }
+
+    /// <summary>
+    /// キャラクターの色取得
+    /// </summary>
+    /// <param name="obj">キャラクター</param>
+    /// <returns>適応されている色</returns>
+    public Color GetAssignedColor(GameObject obj)
+    {
+        if (assignedColors.ContainsKey(obj))
+        {
+            return assignedColors[obj];
+        }
+        else
+        {
+            return Color.white;
         }
     }
 }
