@@ -9,7 +9,7 @@ namespace NPC.StateAI
 {
     public class RunState : IState
     {
-        public Color MeshColor {  get; set; }
+        //public Color MeshColor {  get; set; }
         
         private EnemyAI enemyAI;
 
@@ -22,7 +22,7 @@ namespace NPC.StateAI
         public void Enter()
         {
             enemyAI.Agent.enabled = true;
-            enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
+            //enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
         }
 
         public void Update()

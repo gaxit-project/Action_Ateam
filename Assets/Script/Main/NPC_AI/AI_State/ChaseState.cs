@@ -6,7 +6,7 @@ using UnityEngine;
 namespace NPC.StateAI{
     public class ChaseState : IState
     {
-        public Color MeshColor { get; set; }
+        //public Color MeshColor { get; set; }
 
         private GameObject target;
         private EnemyAI enemyAI;
@@ -20,7 +20,7 @@ namespace NPC.StateAI{
         public ChaseState(EnemyAI enemyAI)
         {
             this.enemyAI = enemyAI;
-            MeshColor = Color.red;
+            //MeshColor = Color.red;
         }
 
         public void Enter()

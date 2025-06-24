@@ -135,9 +135,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &5893953705359030968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +166,7 @@ MonoBehaviour:
   speed: 10
   weight: 10
   initialRotation: 0
+  incomingVelocity: {x: 0, y: 0, z: 0}
   throwPower: 5
   attackArea: {fileID: 3383491664163692774, guid: 918fb0176259ca548950215d2c660c4d, type: 3}
   rotateSpeed: 100

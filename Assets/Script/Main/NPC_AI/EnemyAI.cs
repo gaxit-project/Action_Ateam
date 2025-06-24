@@ -29,7 +29,6 @@ namespace NPC.StateAI
         private StateMachine enemyStateMachine;
         private EnemyAI enemyAI;
         //private Vector3 throwVelocity;
-        private new Rigidbody rigidbody;
 
         public bool isGrounded => isGround;
         public NavMeshAgent Agent => agent;
@@ -86,7 +85,7 @@ namespace NPC.StateAI
                 if (hit.collider.CompareTag("Wall")) isApproaching = true;
             }
 
-            Collider[] obj = Physics.OverlapSphere(transform.position, 2f, LayerMask.GetMask("Player"));
+            Collider[] obj = Physics.OverlapSphere(transform.position, 1.5f, LayerMask.GetMask("Player"));
             if (obj.Length > 1) isApproaching = true;
 
             if (!isApproaching) incomingVelocity = rb.linearVelocity;
@@ -289,6 +288,7 @@ namespace NPC.StateAI
 
                 // 反射ベクトルの計算
                 Vector3 reflectVelocity = Vector3.Reflect(incomingVelocity, normal).normalized;
+                Debug.DrawRay(transform.position, Vector3.ClampMagnitude(reflectVelocity, 3f), Color.cyan, 3f, false);
 
                 // 法線方向に少し押し返しを加える
                 //reflectVelocity += normal * 0.2f;
@@ -301,17 +301,26 @@ namespace NPC.StateAI
             }
             else if (collision.gameObject.CompareTag("NPC") || collision.gameObject.CompareTag("Player"))
             {
+                Vector3 v = Vector3.zero;
                 if (collision.gameObject.CompareTag("NPC"))
                 {
                     EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
-                    rigidbody.linearVelocity = Vector3.ClampMagnitude(incomingVelocity + enemy.incomingVelocity * 2f, incomingVelocity.magnitude);
+                    v = enemy.GetIncomingVelocity();
                 }
                 else if (collision.gameObject.CompareTag("Player"))
                 {
                     Player player = collision.gameObject.GetComponent<Player>();
-                    rb.linearVelocity = Vector3.ClampMagnitude(incomingVelocity + player.incomingVelocity * 2f, incomingVelocity.magnitude);
+                    v = player.GetIncomingVelocity();
                 }
+                //Debug.DrawRay(transform.position, incomingVelocity + new Vector3(v.x, 0f, v.z * 5f), Color.cyan, (incomingVelocity + new Vector3(v.x, 0f, v.z * 5f)).magnitude);
+                transform.forward = Vector3.ClampMagnitude(incomingVelocity + new Vector3(v.x, 0f, v.z * 5f - incomingVelocity.z), 1f);
+                rb.linearVelocity = transform.forward * speed * throwPower;
             }
+        }
+
+        public Vector3 GetIncomingVelocity()
+        {
+            return incomingVelocity;
         }
     }
 }

@@ -13972,7 +13972,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2130485150559971973, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1507666378}
   m_SourcePrefab: {fileID: 100100000, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
 --- !u!1001 &1148538174
 PrefabInstance:
@@ -15487,6 +15490,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2871358298617479974, guid: ebe11924f10991b49a816b3fb7f52b39, type: 3}
   m_PrefabInstance: {fileID: 1279017890}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1279953983 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2130485150559971973, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
+  m_PrefabInstance: {fileID: 1147872060}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1282593374
 PrefabInstance:
@@ -17702,10 +17710,22 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8915725821885507200, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
   m_PrefabInstance: {fileID: 1147872060}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1279953983}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f7e888c9b7420e49886d83ad7d1c332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1507666378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279953983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e021cc9c7d5bb9e46b0788151730a696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1521566298
@@ -18778,6 +18798,7 @@ MonoBehaviour:
   speed: 10
   weight: 10
   initialRotation: 0
+  incomingVelocity: {x: 0, y: 0, z: 0}
   throwPower: 2
   attackArea: {fileID: 0}
   rotateSpeed: 100
@@ -23886,6 +23907,7 @@ MonoBehaviour:
   speed: 5
   weight: 10
   initialRotation: 0
+  incomingVelocity: {x: 0, y: 0, z: 0}
   throwPower: 5
   attackArea: {fileID: 0}
   rotateSpeed: 100
@@ -25178,7 +25200,7 @@ PrefabInstance:
       objectReference: {fileID: 1662738255}
     - target: {fileID: 1948206308019119970, guid: c2c9ecb224eebca46bc50ee196c8859a, type: 3}
       propertyPath: area.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1948206308019119970, guid: c2c9ecb224eebca46bc50ee196c8859a, type: 3}
       propertyPath: 'area.Array.data[0]'

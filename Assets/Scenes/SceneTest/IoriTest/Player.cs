@@ -50,7 +50,7 @@ public class Player : PlayerBase
             if (hit.collider.CompareTag("Wall")) isApproaching = true;
         }
 
-        Collider[] obj = Physics.OverlapSphere(transform.position, 2f, LayerMask.GetMask("Player"));
+        Collider[] obj = Physics.OverlapSphere(transform.position, 1.5f, LayerMask.GetMask("Player"));
         if (obj.Length > 1) isApproaching = true;
 
         if (!isApproaching) incomingVelocity = rigidbody.linearVelocity; 
@@ -211,7 +211,7 @@ public class Player : PlayerBase
 
             // 反射ベクトルの計算
             Vector3 reflectVelocity = Vector3.Reflect(incomingVelocity, normal).normalized;
-            //Debug.DrawRay(transform.position, Vector3.ClampMagnitude(reflectVelocity, 3f), Color.cyan, 3f, false);
+            Debug.DrawRay(transform.position, Vector3.ClampMagnitude(reflectVelocity, 3f), Color.magenta, 3f, false);
 
             // 法線方向に少し押し返しを加える
             //reflectVelocity += normal * 0.2f;
@@ -230,17 +230,28 @@ public class Player : PlayerBase
         }
         else if (collision.gameObject.CompareTag("NPC") || collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("当たった");
+            Vector3 v = Vector3.zero;
             if (collision.gameObject.CompareTag("NPC"))
             {
                 EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
-                rigidbody.linearVelocity = Vector3.ClampMagnitude(incomingVelocity + enemy.incomingVelocity * 2f, incomingVelocity.magnitude);
+                v = enemy.GetIncomingVelocity();
             }
-            else if(collision.gameObject.CompareTag("Player"))
+            else if (collision.gameObject.CompareTag("Player"))
             {
                 Player player = collision.gameObject.GetComponent<Player>();
-                rigidbody.linearVelocity = Vector3.ClampMagnitude(incomingVelocity + player.incomingVelocity * 2f, incomingVelocity.magnitude);
+                v = player.GetIncomingVelocity();
             }
+            //Debug.DrawRay(transform.position, incomingVelocity + new Vector3(v.x, 0f, v.z * 5f), Color.magenta, (incomingVelocity + new Vector3(v.x, 0f, v.z * 5f)).magnitude);
+            transform.forward = Vector3.ClampMagnitude(incomingVelocity + new Vector3(v.x, 0f, v.z * 5f - incomingVelocity.z), 1f);
+            throwVelocity = transform.forward * speed * throwPower;
+            rigidbody.linearVelocity = throwVelocity;
         }
+    }
+
+    public Vector3 GetIncomingVelocity()
+    {
+        return incomingVelocity;
     }
 
     /// <summary>
@@ -300,8 +311,5 @@ public class Player : PlayerBase
         isReflecting = false;
         isDecelerating = true;
     }
-
-
-
 
 }

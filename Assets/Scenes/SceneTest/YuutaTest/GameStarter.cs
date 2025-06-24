@@ -9,7 +9,7 @@ public class GameStarter : MonoBehaviour
 
     private PlayerBase player;
     [SerializeField] private TextMeshProUGUI countText;
-    private float time = 0f;
+    private float time = 3f;
     private bool isCountStopped = false;
 
     [SerializeField] private GameObject[] area = new GameObject[3];
@@ -44,7 +44,7 @@ public class GameStarter : MonoBehaviour
                 // ¬”“_ˆÈ‰º‚ğØ‚èÌ‚Ä‚Ä®”•\¦
                 int displayTime = Mathf.CeilToInt(time);
                 countText.text = displayTime.ToString();
-                if (time < 0)
+                if (time <= 0)
                 {
                     isCountStopped = true;
                     countText.text = "GO!!";

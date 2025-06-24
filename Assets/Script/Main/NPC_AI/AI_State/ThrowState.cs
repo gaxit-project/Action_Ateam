@@ -8,7 +8,7 @@ namespace NPC.StateAI
 {
     public class ThrowState : IState
     {
-        public Color MeshColor {  get; set; }
+        //public Color MeshColor {  get; set; }
 
         private float throwPower = 10f;
         private float lateralSpeed = 5f;
@@ -27,7 +27,7 @@ namespace NPC.StateAI
         public void Enter()
         {
             //enemyAI.Agent.enabled = false;
-            enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
+            //enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
             enemyAI.GetComponent<Rigidbody>();
             rb = enemyAI.GetComponent<Rigidbody>();
             enemyAI.transform.LookAt(enemyAI.Target);

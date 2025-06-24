@@ -6,19 +6,19 @@ namespace NPC.StateAI
 {
     public class AttackState : IState
     {
-        public Color MeshColor { get; set; }
+        //public Color MeshColor { get; set; }
         private EnemyAI enemyAI;
         private bool isAnimationFinished;
 
         public AttackState(EnemyAI enemyAI)
         {
             this.enemyAI = enemyAI;
-            MeshColor = Color.cyan;
+            //MeshColor = Color.cyan;
         }
 
         void Enter()
         {
-            enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
+            //enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
             enemyAI.Agent.isStopped = true;
             isAnimationFinished = false;
 

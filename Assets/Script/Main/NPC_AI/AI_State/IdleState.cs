@@ -7,7 +7,7 @@ namespace NPC.StateAI
 {
     public class IdleState : IState
     {
-        public Color MeshColor {  get; set; }
+        //public Color MeshColor {  get; set; }
         private EnemyAI enemyAI;
         private GameStarter gameStarter;
         
@@ -20,7 +20,7 @@ namespace NPC.StateAI
 
         public void Enter()
         {
-             enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
+             //enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
         }
 
         public void Update()
