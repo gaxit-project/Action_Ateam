@@ -19,6 +19,18 @@ public class FrameStarterScript_2 : MonoBehaviour
 
     private bool isMoving = false; // ← 1秒後に true にする
 
+    /// <summary>
+    /// FrameObjectUP;は移動したいobjectである。
+    ///  WarpObject;は FrameObjectUPの移動先である。
+    ///  speedは FrameObjectUP;の移動速度である。
+    ///  scaleSpeedはFrameObjectUP;が小さくなるまでの速度である
+    ///  
+    /// 基本的にFrameObjectUPーWarpObjectの移動をspeed系で調整する。
+    /// FrameObjectUPがWarpObjectと重なったらこのスクリプトは止まりカウントダウンが開始する。
+    /// </summary>
+
+
+
     void Start()
     {
         gameManager = FindFirstObjectByType<GameManager>();
@@ -61,4 +73,11 @@ public class FrameStarterScript_2 : MonoBehaviour
             this.enabled = false;
         }
     }
+    public void FrameObjectUPFalse()
+    {
+        FrameObjectUP.gameObject.SetActive(false);//右上に出てる数字を消す
+    }
+
 }
+
+

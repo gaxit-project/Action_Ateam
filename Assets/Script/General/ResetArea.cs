@@ -9,13 +9,13 @@ public class ResetArea : MonoBehaviour
     [SerializeField] private string SceneName;
     private int BuildIndex;
     private FrameMoveCameraScript frameMoveCameraScript;
-    private FrameStarterScript frameStarterScript;
+    private FrameStarterScript_2 frameStarterScript_2;
     private void Update()
     {
         BuildIndex = SceneManager.GetActiveScene().buildIndex;
         if(BuildIndex == 1 || BuildIndex == 4)
         {
-            frameStarterScript = FindFirstObjectByType<FrameStarterScript>();
+            frameStarterScript_2 = FindFirstObjectByType<FrameStarterScript_2>();
             scoreManager = FindFirstObjectByType<ScoreManager>();
             frameMoveCameraScript = FindFirstObjectByType<FrameMoveCameraScript>();
         }
@@ -48,7 +48,7 @@ public class ResetArea : MonoBehaviour
             isPlayerOut = true;
             AudioManager.Instance.PlayBGM(2);
             frameMoveCameraScript.WarpCameraToMenObject();
-            //frameStarterScript.FrameObjectLeftFalse();
+            frameStarterScript_2.FrameObjectUPFalse();
             GameManager.Instance.CurrentFrameResult();
         }
     }
