@@ -1,13 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
 using System.Linq;
 
 public class ColorAssigner : MonoBehaviour
-{ 
-    public GameObject[] objects;
-
-    private GameManager gameManager;
+{
+    public static ColorAssigner Instance { get; private set; }
 
     private List<Color> colorPalette = new List<Color>
     {
@@ -19,29 +16,69 @@ public class ColorAssigner : MonoBehaviour
         Color.magenta,
     };
 
-    void Start()
-    {
+    private List<Color> shuffledPalette;
+    private int currentColorIndex = 0;
 
-        if ((gameManager.NumHumanPlayers + gameManager.NumBots) > 4)
+    private void Awake()
+    {
+        if (Instance == null)
         {
-            Debug.LogWarning("最大オブジェクト数は4つです。");
-            return;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            InitializePalette();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void InitializePalette()
+    {
+        shuffledPalette = colorPalette.OrderBy(x => Random.value).ToList();
+        currentColorIndex = 0;
+    }
+
+    public void ResetPalette()
+    {
+        InitializePalette();
+    }
+
+    public Color AssignColorToObject(GameObject obj)
+    {
+        if (obj == null) return Color.white;
+
+        Renderer renderer = obj.GetComponent<Renderer>();
+        if (renderer == null) return Color.white;
+
+        if (currentColorIndex >= shuffledPalette.Count)
+        {
+            currentColorIndex = 0;
         }
 
-        List<Color> availableColors = colorPalette.OrderBy(x => Random.value).ToList();
+        Color assignedColor = shuffledPalette[currentColorIndex];
+        renderer.material.color = assignedColor;
+        currentColorIndex++;
 
-        for (int i = 0; i < objects.Length; i++)
+        return assignedColor;
+    }
+
+    public void AssignColors()
+    {
+        currentColorIndex = 0;
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] npcObjects = GameObject.FindGameObjectsWithTag("NPC");
+
+        foreach (GameObject player in playerObjects)
         {
-            if (objects[i] != null)
-            {
-                Renderer renderer = objects[i].GetComponent<Renderer>();
-                if (renderer != null)
-                {
-                    Material newMaterial = new Material(renderer.material);
-                    newMaterial.color = availableColors[i];
-                    renderer.material = newMaterial;
-                }
-            }
+            Debug.Log($"Assigning color to Player: {player.name}");
+            AssignColorToObject(player);
+        }
+
+        foreach (GameObject npc in npcObjects)
+        {
+            Debug.Log($"Assigning color to NPC: {npc.name}");
+            AssignColorToObject(npc);
         }
     }
 }

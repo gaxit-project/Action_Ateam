@@ -40,6 +40,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private PointManager pointManager;
     private PinManager pinManager;
 
+    public ColorAssigner colorAssigner;
+
     //private int[] NowFramePoint_0 = new int[11];
     //private int[] NowFramePoint_1 = new int[11];
     //private int[] NowFramePoint_2 = new int[11];
@@ -50,7 +52,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         pointManager = FindFirstObjectByType<PointManager>();
         pinManager = FindFirstObjectByType<PinManager>();
-
+        colorAssigner = FindFirstObjectByType<ColorAssigner>();
     }
 
     private void Update()
@@ -169,6 +171,18 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             }
 
         }
+
+        if (colorAssigner == null)
+        {
+            colorAssigner = FindFirstObjectByType<ColorAssigner>();
+            if (colorAssigner == null)
+            {
+                Debug.LogError("ColorAssigner Ç™ÉVÅ[Éìì‡Ç…ë∂ç›ÇµÇ‹ÇπÇÒÅI");
+                return;
+            }
+        }
+
+        colorAssigner.AssignColors();
     }
 
     public void ResetGame()
@@ -181,3 +195,15 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     }
 }
 
+public static class GlobalColorData
+{
+    public static readonly List<Color> ColorPalette = new List<Color>
+    {
+        Color.red,
+        Color.blue,
+        Color.green,
+        Color.yellow,
+        Color.cyan,
+        Color.magenta,
+    };
+}
