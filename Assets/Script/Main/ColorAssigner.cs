@@ -96,7 +96,8 @@ public class ColorAssigner : MonoBehaviour
         }
         else
         {
-            return Color.white;
+            return Color.clear;
         }
     }
+
 }

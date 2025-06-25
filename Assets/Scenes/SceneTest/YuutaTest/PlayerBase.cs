@@ -14,7 +14,9 @@ public class PlayerBase : MonoBehaviour
     protected PlayerClass player = new PlayerClass();
     public bool IsBot { get; private set; } = false;
     public string PlayerID = "UnKnown";
+    public Color PlayerColor;
     protected ScoreManager scoreManager;
+    private ColorAssigner colorAssigner;
 
     //ステータス
     [SerializeField] protected float speed = 5f;
@@ -66,15 +68,19 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] protected GameObject collisionEffectPrefab;
     [SerializeField] protected float effectDuration = 2.0f;
 
-    void Start()
+    protected virtual void Start()
     {
         //Rigidbodyを取得
         rigidbody = GetComponent<Rigidbody>();
         resetArea = GameObject.FindFirstObjectByType<ResetArea>();
         gameManager = GameObject.FindFirstObjectByType<GameManager>();
         scoreManager = GameObject.FindFirstObjectByType<ScoreManager>();
+        colorAssigner = FindFirstObjectByType<ColorAssigner>();
         //クラス内のステータスを初期化する
         player.InitializeStatus(speed, weight);
+        PlayerColor = colorAssigner.AssignColorToObject(gameObject);
+        Debug.Log($"Bot 初期カラー: {PlayerColor}, renderer.material.color: {GetComponent<Renderer>().material.color}");
+
 
         if (rigidbody)
         {
@@ -109,6 +115,7 @@ public class PlayerBase : MonoBehaviour
         //currentGaugeSpeed = initialGaugeSpeed;
 
     }
+
 
     private void Update()
     {
@@ -221,6 +228,9 @@ public class PlayerBase : MonoBehaviour
     }
 
     public string GetPlayerID() => PlayerID;
+    public Color GetPlayerColor() => PlayerColor;
+
+    
     public class PlayerClass : Character
     {
 

@@ -68,7 +68,7 @@ public class PinManager : MonoBehaviour
             }
         }
 
-        foreach (PinBase pin in GoldPins)//赤色のピンは多めに加点
+        foreach (PinBase pin in GoldPins)//金色のピンは多めに加点
         {
             if (pin.IsKnockedDownPin(PlayerID))
             {
