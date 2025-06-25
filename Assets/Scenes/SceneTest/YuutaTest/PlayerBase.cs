@@ -131,7 +131,7 @@ public class PlayerBase : MonoBehaviour
         */
     }
 
-    protected void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Pin") || collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("NPC"))
         {

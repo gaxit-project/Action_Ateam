@@ -58,7 +58,7 @@ namespace NPC.StateAI
             enemyStateMachine = new StateMachine(this, gameStarter, throwTarget);
         }
 
-        private void Start()
+        protected override void Start()
         {
             enemyStateMachine.Initialize(enemyStateMachine.idleState);
 
@@ -73,8 +73,8 @@ namespace NPC.StateAI
         private void Update()
         {
             enemyStateMachine.Update();
-            if (!IsGrounded() && enemyAI.agent.enabled) enemyAI.agent.enabled = false;
-            else if (IsGrounded() && !enemyAI.agent.enabled && enemyAI.EnemyStateMachine.CurrentState != enemyAI.EnemyStateMachine.throwState) enemyAI.agent.enabled = true;
+            //if (!IsGrounded() && enemyAI.agent.enabled) enemyAI.agent.enabled = false;
+            //else if (IsGrounded() && !enemyAI.agent.enabled && enemyAI.EnemyStateMachine.CurrentState != enemyAI.EnemyStateMachine.throwState) enemyAI.agent.enabled = true;
 
             //反射準備
             bool isApproaching = false;
@@ -274,7 +274,7 @@ namespace NPC.StateAI
             }
         }
 
-        private void OnCollisionEnter(Collision collision)
+        protected override void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.CompareTag("Wall") && collision.contactCount > 0)
             {
