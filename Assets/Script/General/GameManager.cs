@@ -39,6 +39,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private PointManager pointManager;
     private PinManager pinManager;
+    private CameraController cameraController;
 
     public ColorAssigner colorAssigner;
 
@@ -48,11 +49,14 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     //private int[] NowFramePoint_3 = new int[11];
     //int pp0,pp1,pp2,pp3;//a-dは仮置き,スコアを表す
 
+    private float timer = 0f;
+
     private void Start()
     {
         pointManager = FindFirstObjectByType<PointManager>();
         pinManager = FindFirstObjectByType<PinManager>();
         colorAssigner = FindFirstObjectByType<ColorAssigner>();
+        cameraController = GameObject.FindFirstObjectByType<CameraController>();
     }
 
     private void Update()
@@ -114,18 +118,24 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         switch (StageNum)
         {
             case 0:
-                StartPoint = new Vector3(-50, -1, 5);
+                StartPoint = new Vector3(-50, -1.25f, 5);
                 pinManager.InsertPin(0);
+                if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
+                cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
                 break;
             case 1:
-                StartPoint = new Vector3(33425, -1, (float)856.5);
+                StartPoint = new Vector3(33425, -2, 857.75f);
                 pinManager.InsertPin(1);
+                if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
+                cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
                 break;
             case 2:
-                StartPoint = new Vector3(-50, 4, 25494);
+                StartPoint = new Vector3(-50, 4, 25499);
                 pinManager.InsertPin(2);
+                if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
+                cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
                 break;
-                
+
         }
 
         //スポーン地点をリストに保存
@@ -133,7 +143,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         for (int i = 0; i < totalPlayers; i++)
         {
             //現在はx座標を75fずつ左にずらしている状態
-            spawnPositions.Add(StartPoint + new Vector3(0f, 0f, i * 3.5f)); //ここをいじって変えてください
+            spawnPositions.Add(StartPoint + new Vector3(0f, 0f, -i * 13.5f)); //ここをいじって変えてください
         }
 
         spawnPositions = spawnPositions.OrderBy(x => Random.value).ToList(); //スポーン場所をランダムに

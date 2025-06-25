@@ -2,6 +2,7 @@ using NPC.StateAI;
 using UnityEngine;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class Player : PlayerBase
 {
@@ -14,7 +15,10 @@ public class Player : PlayerBase
     }
 
     protected PlayerState currentState = PlayerState.Idle;
-
+    private GameObject arrowUI;
+    private bool a = false;
+    [SerializeField] private string arrowUIName = "Arrow1"; 
+    
     //プロパティ
     public PlayerState PlayerStateProperty
     {
@@ -23,8 +27,15 @@ public class Player : PlayerBase
     }
     public float GetRstickX => RstickX;
 
-    void FixedUpdate()
+    override protected void Start()
     {
+        base.Start();
+        arrowUI = transform.Find(arrowUIName).gameObject;
+        if (arrowUI == null) Debug.LogError("UIが見つかりません！");
+    }
+
+    void FixedUpdate()
+    {   
         //プレイヤーの進む方向
         Vector3 targetVelocity;
 
@@ -248,6 +259,11 @@ public class Player : PlayerBase
             rigidbody.linearVelocity = throwVelocity;
         }
     }
+    public void StartMove()
+    {
+        //currentState = PlayerState.Run;
+        Debug.Log("スタート!");
+    }
 
     public Vector3 GetIncomingVelocity()
     {
@@ -260,9 +276,11 @@ public class Player : PlayerBase
     public void Throw()
     {
         //transform.rotation = Quaternion.Euler(transform.eulerAngles.x, camera.GetCameraRotationY(), transform.eulerAngles.z);
+        /*
         Vector3 forward = camera.transform.forward;
         forward.y = 0f;
         transform.rotation = Quaternion.LookRotation(forward);
+        */
         throwVelocity = transform.forward * speed * throwPower;
         rigidbody.linearVelocity = throwVelocity;
         //camera.StopCameraMove();
@@ -310,6 +328,22 @@ public class Player : PlayerBase
         await Task.Delay(300);
         isReflecting = false;
         isDecelerating = true;
+    }
+
+    //矢印の表示・非表示変更
+    public void ChangeArrowMode()
+    {
+        switch(a)
+        {
+            case false:
+                a = true;
+                arrowUI.SetActive(true);
+                break;
+            case true:
+                a = false;
+                arrowUI.SetActive(false);
+                break;
+        }
     }
 
 }

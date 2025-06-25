@@ -1110,11 +1110,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: _seLists.Array.size
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: _bgmLists.Array.size
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: '_seLists.Array.data[2]'
@@ -1123,15 +1123,23 @@ PrefabInstance:
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: '_seLists.Array.data[3]'
       value: 
-      objectReference: {fileID: 8300000, guid: 72307ef6ad573914a9042f0f497530fa, type: 3}
+      objectReference: {fileID: 8300000, guid: 4aab229baf3eb464eb7898d619f9d354, type: 3}
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: '_seLists.Array.data[4]'
       value: 
-      objectReference: {fileID: 8300000, guid: 72307ef6ad573914a9042f0f497530fa, type: 3}
+      objectReference: {fileID: 8300000, guid: be8156c109ee41b4fa033d3f71dbac76, type: 3}
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: '_seLists.Array.data[5]'
       value: 
-      objectReference: {fileID: 8300000, guid: 72307ef6ad573914a9042f0f497530fa, type: 3}
+      objectReference: {fileID: 8300000, guid: 58b2890d1d879bf4b8a6ee7a57a67e1e, type: 3}
+    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
+      propertyPath: '_seLists.Array.data[6]'
+      value: 
+      objectReference: {fileID: 8300000, guid: d04814541f7ae2449acdc71d1fdbaa87, type: 3}
+    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
+      propertyPath: '_seLists.Array.data[7]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 18e638596d0b61546a5795249b6a3192, type: 3}
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: '_bgmLists.Array.data[2]'
       value: 

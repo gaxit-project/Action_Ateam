@@ -7,10 +7,12 @@ using UnityEngine;
 public class GameStarter : MonoBehaviour
 {
 
-    private PlayerBase player;
+    private Player player;
     [SerializeField] private TextMeshProUGUI countText;
     private float time = 3f;
     private bool isCountStopped = false;
+    private int count = 3;
+    private bool isCountStarted = false;
 
     [SerializeField] private GameObject[] area = new GameObject[3];
 
@@ -44,11 +46,13 @@ public class GameStarter : MonoBehaviour
                 // 小数点以下を切り捨てて整数表示
                 int displayTime = Mathf.CeilToInt(time);
                 countText.text = displayTime.ToString();
+                StartCount();
                 if (time <= 0)
                 {
                     isCountStopped = true;
                     countText.text = "GO!!";
-                    Invoke("Disabled", 1f);
+                    AudioManager.Instance.PlaySound(6);
+                    Invoke("Disabled", 0.5f);
                     for (int i = 0; i < area.Length; i++)
                     {
                         if (area[i] == null)
@@ -59,6 +63,7 @@ public class GameStarter : MonoBehaviour
 
                         area[i].SetActive(true);
                     }
+                    player.ChangeArrowMode();
                 }
             }
 
@@ -84,11 +89,30 @@ public class GameStarter : MonoBehaviour
         return isCountStopped;
     }
 
+    private void StartCount()
+    {
+        if(!isCountStarted)
+        {
+            isCountStarted = true;
+            Invoke("PlayCountSound", 0f);
+        }
+    }
+
+    private void PlayCountSound()
+    {
+        if (count > 0)
+        {
+            count--;
+            AudioManager.Instance.PlaySound(5);
+            Invoke("PlayCountSound", 1f);
+        }
+    }
+
     /// <summary>
     /// GameManagerのStart関数側でPlayerBaseをアタッチ
     /// </summary>
     /// <param name="player">PlayerのPlayerBase</param>
-    public void SetPlayer(PlayerBase player)
+    public void SetPlayer(Player player)
     {
         this.player = player;
         StartCoroutine("StartMove");

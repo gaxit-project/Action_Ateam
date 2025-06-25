@@ -55,9 +55,12 @@ MonoBehaviour:
   _seLists:
   - {fileID: 8300000, guid: 66aa1d4182834d046a289ffe1453e4b5, type: 3}
   - {fileID: 8300000, guid: df4e5d414c383a1448f62a8de8e82c48, type: 3}
-  - {fileID: 8300000, guid: df4e5d414c383a1448f62a8de8e82c48, type: 3}
+  - {fileID: 8300000, guid: 72307ef6ad573914a9042f0f497530fa, type: 3}
   - {fileID: 8300000, guid: 4aab229baf3eb464eb7898d619f9d354, type: 3}
   - {fileID: 8300000, guid: be8156c109ee41b4fa033d3f71dbac76, type: 3}
+  - {fileID: 8300000, guid: 58b2890d1d879bf4b8a6ee7a57a67e1e, type: 3}
+  - {fileID: 8300000, guid: d04814541f7ae2449acdc71d1fdbaa87, type: 3}
+  - {fileID: 8300000, guid: 18e638596d0b61546a5795249b6a3192, type: 3}
   _bgmLists:
   - {fileID: 8300000, guid: 5aea1eb8e494546ccb52c0d547cb54c6, type: 3}
   - {fileID: 8300000, guid: a4157eac71a524d5e85d2fb6f4649506, type: 3}
@@ -104,6 +107,7 @@ MonoBehaviour:
   StageNum: 0
   StartPoint: {x: -50, y: 0, z: 0}
   testText: {fileID: 0}
+  colorAssigner: {fileID: 0}
 --- !u!82 &4600566453074975748
 AudioSource:
   m_ObjectHideFlags: 0
