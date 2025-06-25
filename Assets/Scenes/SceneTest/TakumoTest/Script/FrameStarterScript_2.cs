@@ -1,34 +1,34 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Collections; // ← Coroutineに必要
+using System.Collections;
 
 public class FrameStarterScript_2 : MonoBehaviour
 {
     [SerializeField] private Text FrameObjectUP;
     [SerializeField] private Transform WarpObject;
-    [SerializeField] private float speed = 5f;
-    [SerializeField] private float scaleSpeed = 1f;
-    public bool isFinshed = false;
 
+    [SerializeField] private float moveDuration = 1.5f;     // 移動にかける秒数
+    [SerializeField] private float scaleDuration = 1.5f;    // 縮小にかける秒数
+
+    public bool isFinshed = false;
     public GameManager gameManager;
 
     private Vector3 startPos;
     private Vector3 initialScale;
-    private Vector3 targetScale = Vector3.zero;//FrameObjectUPが消えるまで縮小
+    private Vector3 targetScale = new Vector3(0.9f, 0.9f, 0.9f); // 最小スケール（消えない程度）
 
-    private bool isMoving = false; // ← 1秒後に true にする
+    private Vector3 targetPos;
+    private float elapsedTime = 0f;
+    private bool isMoving = false;
 
     /// <summary>
     /// FrameObjectUP;は移動したいobjectである。
     ///  WarpObject;は FrameObjectUPの移動先である。
-    ///  speedは FrameObjectUP;の移動速度である。
-    ///  scaleSpeedはFrameObjectUP;が小さくなるまでの速度である
     ///  
-    /// 基本的にFrameObjectUPーWarpObjectの移動をspeed系で調整する。
-    /// FrameObjectUPがWarpObjectと重なったらこのスクリプトは止まりカウントダウンが開始する。
+    ///  Durationは移動完了までの速度である。
+    ///  
     /// </summary>
-
 
 
     void Start()
@@ -42,42 +42,43 @@ public class FrameStarterScript_2 : MonoBehaviour
             initialScale = FrameObjectUP.transform.localScale;
         }
 
-        // 1秒待ってから移動開始
+        if (WarpObject != null)
+        {
+            targetPos = WarpObject.position;
+        }
+
         StartCoroutine(DelayedStart());
     }
 
     private IEnumerator DelayedStart()
     {
         yield return new WaitForSeconds(1f);
-        isMoving = true;//一秒立ったからここでフラグを立てる
+        isMoving = true;
     }
 
     void Update()
     {
-        if (!isMoving || FrameObjectUP == null || WarpObject == null || isFinshed) return;
+        if (!isMoving || FrameObjectUP == null || WarpObject == null || isFinshed) return;//ヌルチェック
 
-        Vector3 currentPos = FrameObjectUP.transform.position;
-        Vector3 currentScale = FrameObjectUP.transform.localScale;
-        Vector3 targetPos = WarpObject.position;
+        elapsedTime += Time.deltaTime;
 
-        float moveStep = speed * Time.deltaTime;
-        FrameObjectUP.transform.position = Vector3.MoveTowards(currentPos, targetPos, moveStep);
+        float moveT = Mathf.Clamp01(elapsedTime / moveDuration);
+        float scaleT = Mathf.Clamp01(elapsedTime / scaleDuration);
 
-        float scaleStep = scaleSpeed * Time.deltaTime;
-        FrameObjectUP.transform.localScale = Vector3.MoveTowards(currentScale, targetScale, scaleStep);
+        // 移動と縮小を時間ベースで補間
+        FrameObjectUP.transform.position = Vector3.Lerp(startPos, targetPos, moveT);
+        FrameObjectUP.transform.localScale = Vector3.Lerp(initialScale, targetScale, scaleT);
 
-        if (Vector3.Distance(FrameObjectUP.transform.position, targetPos) < 0.01f)
+        if (moveT >= 1f && scaleT >= 1f)
         {
             isFinshed = true;
             Debug.Log("目的地に到達＆縮小完了！");
             this.enabled = false;
         }
     }
+
     public void FrameObjectUPFalse()
     {
-        FrameObjectUP.gameObject.SetActive(false);//右上に出てる数字を消す
+        FrameObjectUP.gameObject.SetActive(false); // 数字を非表示にする
     }
-
 }
-
-
