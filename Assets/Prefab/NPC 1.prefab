@@ -126,6 +126,8 @@ MonoBehaviour:
   acceleration: 5
   deceleration: 5
   gravity: 20
+  collisionEffectPrefab: {fileID: 3438779817493709827, guid: 971e612e87a6a9b4896843a5ea4824c2, type: 3}
+  effectDuration: 1
   detectionRadius: 5
   bounceSpeed: 5
   bounceVectorMultiple: 2
