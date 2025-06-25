@@ -21,10 +21,10 @@ public class PinManager : MonoBehaviour
         switch (stageNum)
         {
             case 0:
-                Position = new Vector3(42, -2, 5);
+                Position = new Vector3(42, -2, 0);
                 break;
             case 1:
-                Position = new Vector3(33530, -2, (float)856.5);
+                Position = new Vector3(33530, -2, 863);
                 break;
             case 2:
                 Position = new Vector3(58, 4, 25494);

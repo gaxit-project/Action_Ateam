@@ -49,8 +49,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     //private int[] NowFramePoint_3 = new int[11];
     //int pp0,pp1,pp2,pp3;//a-dは仮置き,スコアを表す
 
-    private float timer = 0f;
-
     private void Start()
     {
         pointManager = FindFirstObjectByType<PointManager>();
@@ -114,7 +112,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         pinManager = FindFirstObjectByType<PinManager>();
 
         //ステージをランダムに選択
-        StageNum = Random.Range(0, 1);
+        StageNum = Random.Range(0, 2);
         switch (StageNum)
         {
             case 0:
@@ -124,7 +122,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
                 break;
             case 1:
-                StartPoint = new Vector3(33425, -2, 857.75f);
+                StartPoint = new Vector3(33425, -2, 868f);
                 pinManager.InsertPin(1);
                 if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
                 cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);

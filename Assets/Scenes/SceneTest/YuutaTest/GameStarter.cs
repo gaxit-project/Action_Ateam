@@ -8,7 +8,7 @@ public class GameStarter : MonoBehaviour
 {
 
     private Player player;
-    [SerializeField] private TextMeshProUGUI countText;
+    [SerializeField] private TextMeshProUGUI[] countTexts = new TextMeshProUGUI[3];
     private float time = 3f;
     private bool isCountStopped = false;
     private int count = 3;
@@ -25,8 +25,11 @@ public class GameStarter : MonoBehaviour
         {
             gameManager = FindFirstObjectByType<GameManager>();
         }
-        countText.enabled = true;
-        countText.SetText("");
+        foreach (TextMeshProUGUI t in countTexts)
+        {
+            t.enabled = true;
+            t.SetText("");
+        }
         yield return new WaitForSeconds(1f);
         gameManager.IsStart = true;
         frameStarterScript_2 = GameObject.FindFirstObjectByType<FrameStarterScript_2>();
@@ -45,12 +48,12 @@ public class GameStarter : MonoBehaviour
                 time -= Time.deltaTime;
                 // ¬”“_ˆÈ‰º‚ğØ‚èÌ‚Ä‚Ä®”•\¦
                 int displayTime = Mathf.CeilToInt(time);
-                countText.text = displayTime.ToString();
+                foreach (TextMeshProUGUI t in countTexts) t.text = displayTime.ToString();
                 StartCount();
                 if (time <= 0)
                 {
                     isCountStopped = true;
-                    countText.text = "GO!!";
+                    foreach (TextMeshProUGUI t in countTexts) t.text = "GO!!";
                     AudioManager.Instance.PlaySound(6);
                     Invoke("Disabled", 0.5f);
                     for (int i = 0; i < area.Length; i++)
@@ -81,7 +84,7 @@ public class GameStarter : MonoBehaviour
 
     private void Disabled()
     {
-        countText.enabled = false;
+        foreach (TextMeshProUGUI t in countTexts) t.enabled = false;
     }
 
     public bool IsCountStopped()
