@@ -49,6 +49,7 @@ public class FrameStarterScript_2 : MonoBehaviour
         }
 
         StartCoroutine(DelayedStart());
+        AudioManager.Instance.PlaySound(7);
     }
 
     private IEnumerator DelayedStart()
