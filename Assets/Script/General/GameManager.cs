@@ -139,6 +139,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         spawnPositions = spawnPositions.OrderBy(x => Random.value).ToList(); //スポーン場所をランダムに
 
         int spawnIndex = 0; //人数
+
         //Player
         for (int i = 0; i < NumHumanPlayers; i++)
         {

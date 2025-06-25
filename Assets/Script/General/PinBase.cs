@@ -13,6 +13,7 @@ public class PinBase : MonoBehaviour
     private bool isFallDown = false;
 
     public string KnockedByPlayerID = null;
+    public Color KnockedByPlayerColor;
     private GameManager gameManager;
 
     private void Start()
@@ -28,6 +29,8 @@ public class PinBase : MonoBehaviour
         {
             gameManager = FindFirstObjectByType<GameManager>();
         }
+
+        SetPinBodyWhite();
     }
 
     void OnCollisionEnter(Collision other)
@@ -44,11 +47,36 @@ public class PinBase : MonoBehaviour
         PlayerBase playerID = other.gameObject.GetComponent<PlayerBase>();
         if (playerID != null && string.IsNullOrEmpty(KnockedByPlayerID) && isFallDown == false){
             KnockedByPlayerID = playerID.GetPlayerID();
+            KnockedByPlayerColor = playerID.GetPlayerColor();
+            Renderer renderer = GetComponent<Renderer>();
+            if (renderer == null) return;
+
+            Material[] materials = renderer.materials;
+            for (int i = 0; i < materials.Length; i++)
+            {
+
+                if (materials[i].name.Contains("Body") || materials[i].name.Contains("White"))
+                {
+                    materials[i].color = KnockedByPlayerColor;
+                }
+            }
         }
         PinBase otherPin = other.gameObject.GetComponent<PinBase>();
         if ((otherPin != null && string.IsNullOrEmpty(KnockedByPlayerID) && !string.IsNullOrEmpty(otherPin.KnockedByPlayerID)) && isFallDown == false)
         {
             KnockedByPlayerID = otherPin.KnockedByPlayerID;
+            Renderer renderer = GetComponent<Renderer>();
+            if (renderer == null) return;
+
+            Material[] materials = renderer.materials;
+            for (int i = 0; i < materials.Length; i++)
+            {
+
+                if (materials[i].name.Contains("Body") || materials[i].name.Contains("White"))
+                {
+                    materials[i].color = otherPin.KnockedByPlayerColor;
+                }
+            }
         }
     }
 
@@ -71,5 +99,21 @@ public class PinBase : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void SetPinBodyWhite()
+    {
+        Renderer renderer = GetComponent<Renderer>();
+        if (renderer == null) return;
+
+        Material[] materials = renderer.materials;
+        for (int i = 0; i < materials.Length; i++)
+        {
+            
+            if (materials[i].name.Contains("Body") || materials[i].name.Contains("White"))
+            {
+                materials[i].color = Color.white;
+            }
+        }
     }
 }
