@@ -61,7 +61,10 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] protected float deceleration = 5f;
     [SerializeField] protected float gravity = 20f; //
     protected Vector3 reflection = Vector3.zero;
-    
+
+    //衝突エフェクト
+    [SerializeField] protected GameObject collisionEffectPrefab;
+    [SerializeField] protected float effectDuration = 2.0f;
 
     void Start()
     {
@@ -119,6 +122,20 @@ public class PlayerBase : MonoBehaviour
             gameManager.currentFrameResult();
         }
         */
+    }
+
+    protected void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Pin") || collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("NPC"))
+        {
+            SpawnEffect(collision.contacts[0].point);
+        }
+    }
+
+    protected void SpawnEffect(Vector3 position)
+    {
+        GameObject effect = Instantiate(collisionEffectPrefab, position, Quaternion.identity);
+        Destroy(effect, effectDuration);
     }
 
     public void StartMove()

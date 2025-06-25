@@ -36,6 +36,10 @@ public class PinBase : MonoBehaviour
         {
             AudioManager.Instance.PlaySound(1);
         }
+        if (other.gameObject.tag == "Pin")
+        {
+            
+        }
 
         PlayerBase playerID = other.gameObject.GetComponent<PlayerBase>();
         if (playerID != null && string.IsNullOrEmpty(KnockedByPlayerID) && isFallDown == false){
