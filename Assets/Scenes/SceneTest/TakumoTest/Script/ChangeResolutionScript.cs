@@ -1,14 +1,52 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class ResolutionChanger : MonoBehaviour
 {
 
-    /// <summary>
-    /// ボタンにオンclickして使ってください。
-    /// </summary>
-    /// 
+    [SerializeField] private TMP_Dropdown dropdownResolution;
 
-    
+    /// <summary>
+    /// ドロップダウンに設定して使ってください
+    /// dropdownResolution.valueは上から順に0.1.2と返すので該当するスクリプトを貼り付けてください。
+    /// </summary>
+
+    private void Update()
+    {
+        /*if (dropdownResolution.value == 0)
+        {
+            SetResolution360x548();
+           
+        }*/
+
+        if (dropdownResolution.value == 0)
+        {
+            SetResolution960x540();
+           
+        }
+
+        if (dropdownResolution.value == 1)
+        {
+            SetResolution1280x720();
+          
+        }
+
+        if (dropdownResolution.value == 2)
+        {
+            SetResolution1920x1080();
+            
+        }
+    }
+
+
+
+
+    /*public void SetResolution360x548()
+    {
+        SetResolution(360, 548);
+    }*/
+
     public void SetResolution960x540()
     {
         SetResolution(960, 540);
@@ -42,7 +80,7 @@ public class ResolutionChanger : MonoBehaviour
         Debug.Log($"解像度を {width}x{height} に変更します");
 
         // 新形式：RefreshRateを渡すオーバーロード
-        Screen.SetResolution(width, height, FullScreenMode.ExclusiveFullScreen, refreshRate);
-        //引数は順番に横の長さ、縦の長さ、Windowsの種類、画面を切り替える回数(fps)
+        Screen.SetResolution(width, height, FullScreenMode.FullScreenWindow, refreshRate);
+        //引数は順番に横の長さ、縦の長さ、Windowsの種類、画面を切り替える回数(notfps)
     }
 }
