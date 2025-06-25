@@ -35,8 +35,13 @@ namespace NPC.StateAI
 
         public void Update()
         {
-            throwVelocity = enemyAI.transform.forward * enemyAI.ReturnSpeed() * enemyAI.ReturnThrowPower();
-            rb.linearVelocity = throwVelocity;
+            Ray ray = new Ray(enemyAI.gameObject.transform.position + Vector3.up * 0.1f, Vector3.down);
+
+            if (Physics.Raycast(ray, 1.2f))
+            {
+                throwVelocity = enemyAI.transform.forward * enemyAI.ReturnSpeed() * enemyAI.ReturnThrowPower();
+                rb.linearVelocity = throwVelocity;
+            }
 
             if (throwTarget != null)
             {

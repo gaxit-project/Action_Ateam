@@ -13,6 +13,7 @@ public class FrameStarterScript_2 : MonoBehaviour
 
     public bool isFinshed = false;
     public GameManager gameManager;
+    private Player player;
 
     private Vector3 startPos;
     private Vector3 initialScale;
@@ -60,6 +61,8 @@ public class FrameStarterScript_2 : MonoBehaviour
     {
         if (!isMoving || FrameObjectUP == null || WarpObject == null || isFinshed) return;//ヌルチェック
 
+        if(player == null) player = GameObject.FindFirstObjectByType<Player>();
+
         elapsedTime += Time.deltaTime;
 
         float moveT = Mathf.Clamp01(elapsedTime / moveDuration);
@@ -72,6 +75,7 @@ public class FrameStarterScript_2 : MonoBehaviour
         if (moveT >= 1f && scaleT >= 1f)
         {
             isFinshed = true;
+            player.ChangeArrowMode();
             Debug.Log("目的地に到達＆縮小完了！");
             this.enabled = false;
         }

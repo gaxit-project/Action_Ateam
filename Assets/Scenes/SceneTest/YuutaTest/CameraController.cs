@@ -8,10 +8,12 @@ public class CameraController : MonoBehaviour
     
     private float rotationY;
     private Vector3 targetPosition;
+    public Vector3 throwingCameraPosition { private get;  set; }
     private bool isChasingPlayer = true;
     //[SerializeField] private float rotateSpeed = 200f;
     private Vector3 InitialCameraDirection;
     private bool isModeChanged = false;
+    private bool canMoveLaterally = true;
 
     void Start()
     {
@@ -35,8 +37,9 @@ public class CameraController : MonoBehaviour
 
         if(isChasingPlayer)
         {
-            transform.position += playerobj.transform.position - targetPosition;
-            targetPosition = playerobj.transform.position;
+            if (canMoveLaterally) transform.position += playerobj.transform.position - targetPosition;
+            else transform.position += new Vector3(playerobj.transform.position.x - targetPosition.x, 0f, 0f);
+                targetPosition = playerobj.transform.position;
             float RstickX = player.GetRstickX; //ç∂âEâÒì]
             if (!isModeChanged) transform.RotateAround(targetPosition, Vector3.up, RstickX);
         }
@@ -83,8 +86,9 @@ public class CameraController : MonoBehaviour
     {
         Debug.Log("ÉJÉÅÉâÇÃå¸Ç´ïœçX");
         isModeChanged = true;
-        this.transform.eulerAngles = InitialCameraDirection - new Vector3(InitialCameraDirection.x / 2f, 0f, 0f);
-        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, playerobj.transform.position.z) - new Vector3(0f, 3f, 0f);
+        this.transform.eulerAngles = InitialCameraDirection/* - new Vector3(InitialCameraDirection.x / 2f, 0f, 0f)*/;
+        this.transform.position = throwingCameraPosition + new Vector3(-18f, 12f, 0f);/*new Vector3(this.transform.position.x, this.transform.position.y, playerobj.transform.position.z) - new Vector3(0f, 3f, 0f)*/;
+        canMoveLaterally = false;
     }
 
     /// <summary>
@@ -98,6 +102,6 @@ public class CameraController : MonoBehaviour
         targetPosition = player.transform.position;
         InitialCameraDirection = this.transform.eulerAngles;
 
-        transform.position = targetPosition + new Vector3(-12f, 6f, 0f);
+        transform.position = targetPosition + new Vector3(-18f, 12f, 0f);
     }
 }
