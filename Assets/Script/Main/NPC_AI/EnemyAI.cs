@@ -68,6 +68,7 @@ namespace NPC.StateAI
                 target = targetCandidates[0].transform;
                 targetSwitchCoroutine = StartCoroutine(RandomlySwitchTarget());
             }
+            PlayerColor = ColorAssigner.Instance.GetAssignedColor(gameObject);
         }
 
         private void Update()

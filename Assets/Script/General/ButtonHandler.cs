@@ -28,30 +28,14 @@ public class ButtonHandler : MonoBehaviour
     /// </summary>
     public void ButtonOnClicked()
     {
-        //Debug.Log(gameManager.isPaused);
         if (_stopBGM)
         {
             AudioManager.Instance.StopBGM();
         }
 
         AudioManager.Instance.PlaySound(_SENumber);
-        if (gameManager.isPaused == true)
-        {
-            Debug.Log("PauseTrue");
-            if (PlayerPrefs.HasKey("Main"))
-            {
-                SceneChangeManager.Instance.SceneChange("Main");
-            }
-            else
-            {
-                Debug.LogError("•Û‘¶‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("PauseFalse");
-            SceneChangeManager.Instance.SceneChange(_sceneName);
-        }
+        SceneChangeManager.Instance.SceneChange(_sceneName);
+        
         
     }
 
