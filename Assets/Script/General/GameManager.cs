@@ -112,7 +112,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         pinManager = FindFirstObjectByType<PinManager>();
 
         //ステージをランダムに選択
-        StageNum = Random.Range(0, 2);
+        StageNum = Random.Range(0, 3);
         switch (StageNum)
         {
             case 0:
@@ -128,7 +128,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
                 break;
             case 2:
-                StartPoint = new Vector3(-50, 4, 25499);
+                StartPoint = new Vector3(-50, 4.5f, 4982);
                 pinManager.InsertPin(2);
                 if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
                 cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);

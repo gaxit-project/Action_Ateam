@@ -27,7 +27,7 @@ public class PinManager : MonoBehaviour
                 Position = new Vector3(33530, -2, 863);
                 break;
             case 2:
-                Position = new Vector3(58, 4, 25494);
+                Position = new Vector3(58, 4, 4977);
                 break;
 
         }
