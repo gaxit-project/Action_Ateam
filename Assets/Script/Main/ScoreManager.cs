@@ -95,10 +95,7 @@ public class ScoreManager : MonoBehaviour
 
                 foreach(var pin in pinManager.GetAllPins())
                 {
-                    if(pin.IsKnockedDownPin(id) == true)
-                    {
-                        playerKnockedPins++;
-                    }
+                    playerKnockedPins = pinManager.GetKnockedDownPinCount(id);
                 }
 
                 scoreData.Addscore(gameManager.Num_NowFrame, playerKnockedPins);
