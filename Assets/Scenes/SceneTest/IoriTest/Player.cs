@@ -45,7 +45,7 @@ public class Player : PlayerBase
         rotation = player.Rotation;
 
         //右スティックで回転
-        if (!isAttacking && !isAttacked) RstickX = Input.GetAxis("Horizontal2") * rotateSpeed * 2f * Time.fixedDeltaTime;
+        if (!isAttacking && !isAttacked) RstickX = (Input.GetAxis("Horizontal2") + Input.mousePositionDelta.x * 0.03f) * rotateSpeed * 2f * Time.fixedDeltaTime;
         else RstickX = 0f;
         transform.Rotate(0f, RstickX, 0f);
 

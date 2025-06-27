@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
+  PlayerColor: {r: 0, g: 0, b: 0, a: 0}
   speed: 10
   weight: 10
   initialRotation: 0
@@ -126,7 +127,8 @@ MonoBehaviour:
   acceleration: 5
   deceleration: 5
   gravity: 20
-  collisionEffectPrefab: {fileID: 3438779817493709827, guid: 971e612e87a6a9b4896843a5ea4824c2, type: 3}
+  collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
+  collisionEffectPrefab2: {fileID: 4021103657954561961, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
   effectDuration: 1
   detectionRadius: 5
   bounceSpeed: 5

@@ -1,4 +1,5 @@
 using NPC.StateAI;
+using System.Collections;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -66,6 +67,7 @@ public class PlayerBase : MonoBehaviour
 
     //衝突エフェクト
     [SerializeField] protected GameObject collisionEffectPrefab;
+    [SerializeField] protected GameObject collisionEffectPrefab2;
     [SerializeField] protected float effectDuration = 2.0f;
 
     protected virtual void Start()
@@ -133,16 +135,30 @@ public class PlayerBase : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Pin") || collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("NPC"))
+        if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("NPC") || collision.gameObject.CompareTag("Wall"))
         {
-            SpawnEffect(collision.contacts[0].point);
+            SpawnEffect(collision.contacts[0].point, 1);
+        }
+        else if(collision.gameObject.CompareTag("Pin"))
+        {
+            SpawnEffect(collision.contacts[0].point, 2);
         }
     }
 
-    protected void SpawnEffect(Vector3 position)
+    protected void SpawnEffect(Vector3 position, int type)
     {
-        GameObject effect = Instantiate(collisionEffectPrefab, position, Quaternion.identity);
-        Destroy(effect, effectDuration);
+        switch (type)
+        {
+            case 1:
+                GameObject effect = Instantiate(collisionEffectPrefab, position, Quaternion.identity);
+                Destroy(effect, effectDuration);
+                break;
+            case 2:
+                GameObject effect2 = Instantiate(collisionEffectPrefab2, position, Quaternion.identity);
+                Destroy(effect2, effectDuration);
+                break;
+
+        }
     }
 
     /*

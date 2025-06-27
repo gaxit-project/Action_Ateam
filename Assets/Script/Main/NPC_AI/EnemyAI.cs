@@ -277,6 +277,7 @@ namespace NPC.StateAI
 
         protected override void OnCollisionEnter(Collision collision)
         {
+            base.OnCollisionEnter(collision);
             if (collision.gameObject.CompareTag("Wall") && collision.contactCount > 0)
             {
                 Debug.Log("当たった");
