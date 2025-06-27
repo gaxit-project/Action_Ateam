@@ -83,8 +83,8 @@ public class Player : PlayerBase
                     if (player.IsGrounded(transform.position, rayDistance))
                     {
                         //カメラ基準の方向
-                        x = camera.transform.right * Input.GetAxis("Horizontal");
-                        z = camera.transform.forward * Input.GetAxis("Vertical");
+                        x = camera.transform.forward * Input.GetAxis("Vertical");
+                        z = camera.transform.right * Input.GetAxis("Horizontal");
 
                         x.y = 0f;
                         z.y = 0f;
@@ -177,18 +177,19 @@ public class Player : PlayerBase
                 if (player.IsGrounded(transform.position, rayDistance))
                 {
                     //プレイヤー基準の方向
-                    x = this.transform.right * Input.GetAxis("Horizontal");
+                    z = this.transform.right * Input.GetAxis("Horizontal");
 
-                    x.y = 0f;
-                    x.Normalize();
+                    z.y = 0f;
+                    z.Normalize();
 
-                    targetVelocity = Vector3.ClampMagnitude(x, 1f) * speed;
+                    targetVelocity = Vector3.ClampMagnitude(z, 1f) * speed;
                     //加減速処理
                     float lerpRate = (targetVelocity.magnitude > 0.1f) ? acceleration : deceleration;
                     currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, lerpRate * Time.fixedDeltaTime);
 
                     rigidbody.linearVelocity = throwVelocity + currentVelocity / 3f;
                     //Debug.DrawRay(transform.position, Vector3.ClampMagnitude(rigidbody.linearVelocity, 3f), Color.black, 3f, false);
+                    //if (Input.GetKeyDown(KeyCode.Space)) Debug.Log("a");
                 }
 
 
@@ -212,8 +213,9 @@ public class Player : PlayerBase
     }
 
     //投擲後に壁やNPCに衝突した際の処理
-    protected void OnCollisionEnter(Collision collision)
+    protected override void OnCollisionEnter(Collision collision)
     {
+        base.OnCollisionEnter(collision);
         if (collision.gameObject.CompareTag("Wall") && collision.contactCount > 0)
         {
             // 衝突面の法線

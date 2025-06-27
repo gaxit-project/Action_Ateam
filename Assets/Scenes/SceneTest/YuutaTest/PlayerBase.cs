@@ -145,12 +145,6 @@ public class PlayerBase : MonoBehaviour
         Destroy(effect, effectDuration);
     }
 
-    public void StartMove()
-    {
-        //currentState = PlayerState.Run;
-        Debug.Log("スタート!");
-    }
-
     /*
     /// <summary>
     /// 投擲待機
