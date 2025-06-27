@@ -35,7 +35,7 @@ public class PinBase : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Pin" || other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Pin" || other.gameObject.tag == "Player" || other.gameObject.tag == "NPC")
         {
             AudioManager.Instance.PlaySound(1);
         }
@@ -61,23 +61,32 @@ public class PinBase : MonoBehaviour
                 }
             }
         }
-        PinBase otherPin = other.gameObject.GetComponent<PinBase>();
-        if ((otherPin != null && string.IsNullOrEmpty(KnockedByPlayerID) && !string.IsNullOrEmpty(otherPin.KnockedByPlayerID)) && isFallDown == false)
+        var otherPin = other.gameObject.GetComponent<PinBase>();
+        if (otherPin != null && !string.IsNullOrEmpty(otherPin.KnockedByPlayerID))
         {
             KnockedByPlayerID = otherPin.KnockedByPlayerID;
-            Renderer renderer = GetComponent<Renderer>();
-            if (renderer == null) return;
 
-            Material[] materials = renderer.materials;
-            for (int i = 0; i < materials.Length; i++)
+            if (otherPin.KnockedByPlayerColor != default)
             {
+                KnockedByPlayerColor = otherPin.KnockedByPlayerColor;
 
-                if (materials[i].name.Contains("Body") || materials[i].name.Contains("White"))
+                Renderer renderer = GetComponent<Renderer>();
+                if (renderer != null)
                 {
-                    materials[i].color = otherPin.KnockedByPlayerColor;
+                    Material[] materials = renderer.materials;
+                    for (int i = 0; i < materials.Length; i++)
+                    {
+                        if (materials[i].name.Contains("Body") || materials[i].name.Contains("White"))
+                        {
+                            materials[i].color = KnockedByPlayerColor;
+                        }
+                    }
                 }
             }
         }
+
+
+
     }
 
     private void OnTriggerEnter(Collider outAreaObj)
