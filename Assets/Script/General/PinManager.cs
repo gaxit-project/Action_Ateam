@@ -31,7 +31,7 @@ public class PinManager : MonoBehaviour
                 break;
 
         }
-        GameObject parent = Instantiate(_pinPrefab[0], Position, Quaternion.identity);
+        GameObject parent = Instantiate(_pinPrefab[rnd], Position, Quaternion.identity);
         
         PinBase[] childPins = parent.GetComponentsInChildren<PinBase>();
         foreach (PinBase pin in childPins)
