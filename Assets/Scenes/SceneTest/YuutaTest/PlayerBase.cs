@@ -70,6 +70,8 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] protected GameObject collisionEffectPrefab2;
     [SerializeField] protected float effectDuration = 2.0f;
 
+    [SerializeField] protected GameObject crown;
+
     protected virtual void Start()
     {
         //Rigidbodyを取得
@@ -159,6 +161,12 @@ public class PlayerBase : MonoBehaviour
                 break;
 
         }
+    }
+
+    //ここに王冠を出すスクリプトを描く
+    public void Crowned()
+    {
+        crown.SetActive(true);
     }
 
     /*
