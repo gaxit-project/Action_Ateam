@@ -6,18 +6,13 @@ public class CrownScript : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    [SerializeField] private GameObject Crown0;//Player0のClown
-    [SerializeField] private GameObject Crown1;//Player1のClown
-    [SerializeField] private GameObject Crown2;//Player2のClown
-    [SerializeField] private GameObject Crown3;//Player3のClown
-
     private GameManager gameManager;
     //Scoreの取得が必要なスクリプトを持ってくる
 
     void Start()
     {
        gameManager = FindFirstObjectByType<GameManager>();
-        GameObject[] clowns = new GameObject[] { Crown0, Crown1, Crown2, Crown3 };
+        
 
 
         
@@ -59,7 +54,13 @@ public class CrownScript : MonoBehaviour
             }
         }
 
+        /*if(maxIndex+1 <= player)
+        {
+            ID=("Player" + (maxIndex+1))
+        else ID = ("bot" +(maxIndex+1-player))
+        }*/
+
         // 該当するClownだけを有効化
-        clowns[maxIndex].SetActive(true);
+        
     }
 }
