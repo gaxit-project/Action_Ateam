@@ -141,7 +141,7 @@ public class PlayerBase : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("Pin"))
         {
-            SpawnEffect(collision.contacts[0].point, 2);
+            SpawnEffect(collision.transform.position - new Vector3(0, 1, 0), 2);
         }
     }
 
@@ -154,7 +154,7 @@ public class PlayerBase : MonoBehaviour
                 Destroy(effect, effectDuration);
                 break;
             case 2:
-                GameObject effect2 = Instantiate(collisionEffectPrefab2, position, Quaternion.identity);
+                GameObject effect2 = Instantiate(collisionEffectPrefab2, position, Quaternion.Euler(new Vector3(-90, 0, 0)));
                 Destroy(effect2, effectDuration);
                 break;
 
