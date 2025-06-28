@@ -105,6 +105,7 @@ public class PauseMenu : MonoBehaviour
     public void GoToTitle()
     {
         Time.timeScale = 1f;
+        GameManager.Instance.ResetGame();
         SceneManager.LoadScene("Title");
     }
 
