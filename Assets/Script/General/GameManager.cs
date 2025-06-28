@@ -51,6 +51,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private void Start()
     {
+        Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow, Screen.currentResolution.refreshRateRatio);//‰ð‘œ“x‚ð1980*1080‚É‚·‚é
         pointManager = FindFirstObjectByType<PointManager>();
         pinManager = FindFirstObjectByType<PinManager>();
         colorAssigner = FindFirstObjectByType<ColorAssigner>();
