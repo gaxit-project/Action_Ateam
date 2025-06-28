@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mail;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -30,7 +31,7 @@ public class PointManager : MonoBehaviour
         {
             Debug.LogError("gameManagerがnull");
         }
-        if (gameManager.IsStart == false)
+        if (gameManager.IsStart == false && gameManager.Num_NowFrame == 1)
         {
             TotalPlayer = gameManager.NumHumanPlayers + gameManager.NumBots;
             gameManager.PlayerScore = new int[TotalPlayer, 11];
@@ -42,14 +43,15 @@ public class PointManager : MonoBehaviour
 
     public void PrintPoint()
     {   
-        PlayerName = new string[4];
-        int num = 0;
-        foreach (var player in gameManager.players)
-        {
-            string id = player.GetPlayerID();
-            PlayerName[num] = id;
-            num++;
-        }
+        
+            PlayerName = new string[4];
+            int num = 0;
+            foreach (var player in gameManager.players)
+            {
+                string id = player.GetPlayerID();
+                PlayerName[num] = id;
+                num++;
+            }
         
 
 
@@ -67,38 +69,10 @@ public class PointManager : MonoBehaviour
             gameManager.PlayerScore[i, gameManager.Num_NowFrame] = playerData.GetScore(gameManager.Num_NowFrame);
             Debug.Log(gameManager.PlayerScore[i, gameManager.Num_NowFrame]);
             int wholescore = playerData.GetTotalScore();
-            for(int j = 1; j < gameManager.Num_NowFrame+1; j++)
+            gameManager.PlayerScore[i, 0] = wholescore;
+            for (int j = 1; j < gameManager.Num_NowFrame+1; j++)
             {
                 PT[i].PL[j-1].text = gameManager.PlayerScore[i, j].ToString();
-            }
-            if (PT == null)
-            {
-                Debug.LogError("PTがnullです！");
-                return;
-            }
-
-            if (i >= PT.Count)
-            {
-                Debug.LogError($"PTのインデックス{i}が範囲外です！ Count={PT.Count}");
-                return;
-            }
-
-            if (PT[i].PL == null)
-            {
-                Debug.LogError($"PT[{i}].PL が null です！");
-                return;
-            }
-
-            if (PT[i].PL.Count <= 10)
-            {
-                Debug.LogError($"PT[{i}].PL に十分な Text 要素がありません（Count={PT[i].PL.Count}）");
-                return;
-            }
-
-            if (PT[i].PL[10] == null)
-            {
-                Debug.LogError($"PT[{i}].PL[10] が null です（Textコンポーネントが見つからなかった可能性）");
-                return;
             }
 
             // 安全に代入
@@ -113,40 +87,11 @@ public class PointManager : MonoBehaviour
             var botData = gameManager.GetPlayerScoreData("Bot" + (idNum+1));
             gameManager.PlayerScore[i, gameManager.Num_NowFrame] = botData.GetScore(gameManager.Num_NowFrame);
             int wholescore = botData.GetTotalScore();
+            gameManager.PlayerScore[i, 0] = wholescore;
             for (int j = 1; j < gameManager.Num_NowFrame + 1; j++)
             {
                 PT[i].PL[j - 1].text = gameManager.PlayerScore[i, j].ToString();
             }
-            if (PT == null)
-            {
-                Debug.LogError("PTがnullです！");
-                return;
-            }
-
-            if (i >= PT.Count)
-            {
-                Debug.LogError($"PTのインデックス{i}が範囲外です！ Count={PT.Count}");
-                return;
-            }
-
-            if (PT[i].PL == null)
-            {
-                Debug.LogError($"PT[{i}].PL が null です！");
-                return;
-            }
-
-            if (PT[i].PL.Count <= 10)
-            {
-                Debug.LogError($"PT[{i}].PL に十分な Text 要素がありません（Count={PT[i].PL.Count}）");
-                return;
-            }
-
-            if (PT[i].PL[10] == null)
-            {
-                Debug.LogError($"PT[{i}].PL[10] が null です（Textコンポーネントが見つからなかった可能性）");
-                return;
-            }
-
             // 安全に代入
             PT[i].PL[10].text = wholescore.ToString();
             idNum++;
@@ -159,9 +104,19 @@ public class PointManager : MonoBehaviour
     /// </summary>
     public void ResultPrint()
     {
+        PlayerName = new string[4];
+        int num = 0;
+        foreach (var player in gameManager.players)
+        {
+            string id = player.GetPlayerID();
+            PlayerName[num] = id;
+            num++;
+        }
 
         for (int i = 0; i < TotalPlayer; i++)
         {
+            if (PlayerName == null) Debug.LogError("PlayerNameError");
+            if (Name[i] == null) Debug.LogError("NameError");
             //Debug.Log(Name[i] + "が名前登録");
             Name[i].text = PlayerName[i]; // 安全に代入
         }
@@ -173,6 +128,7 @@ public class PointManager : MonoBehaviour
             {
                 PT[i].PL[j-1].text = gameManager.PlayerScore[i, j].ToString();
             }
+            PT[i].PL[10].text = gameManager.PlayerScore[i, 0].ToString();
         }
 
     }

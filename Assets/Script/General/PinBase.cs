@@ -1,5 +1,6 @@
 using System.Threading;
 using UnityEngine;
+using static Player2;
 
 public class PinBase : MonoBehaviour
 {
@@ -33,6 +34,35 @@ public class PinBase : MonoBehaviour
         SetPinBodyWhite();
     }
 
+    private void Update()
+    {
+        float angle = Quaternion.Angle(initialRotation, transform.rotation);
+        if (angle > knockDownAngleThreshold)
+        {
+            isFallDown = true;
+        }
+
+        Renderer renderer = GetComponent<Renderer>();
+        if (renderer == null) return;
+
+        Material[] materials = renderer.materials;
+        for (int i = 0; i < materials.Length; i++)
+        {
+            if (materials[i].name.Contains("Body"))
+            {
+                if (isFallDown && KnockedByPlayerColor != default)
+                {
+                    materials[i].color = KnockedByPlayerColor;
+                }
+                else
+                {
+                    materials[i].color = Color.white;
+                }
+            }
+        }
+    }
+
+
     void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "Pin" || other.gameObject.tag == "Player" || other.gameObject.tag == "NPC")
@@ -48,18 +78,6 @@ public class PinBase : MonoBehaviour
         if (playerID != null && string.IsNullOrEmpty(KnockedByPlayerID) && isFallDown == false){
             KnockedByPlayerID = playerID.GetPlayerID();
             KnockedByPlayerColor = playerID.GetPlayerColor();
-            Renderer renderer = GetComponent<Renderer>();
-            if (renderer == null) return;
-
-            Material[] materials = renderer.materials;
-            for (int i = 0; i < materials.Length; i++)
-            {
-
-                if (materials[i].name.Contains("Body") || materials[i].name.Contains("White"))
-                {
-                    materials[i].color = KnockedByPlayerColor;
-                }
-            }
         }
         var otherPin = other.gameObject.GetComponent<PinBase>();
         if (otherPin != null && !string.IsNullOrEmpty(otherPin.KnockedByPlayerID))
@@ -69,19 +87,6 @@ public class PinBase : MonoBehaviour
             if (otherPin.KnockedByPlayerColor != default)
             {
                 KnockedByPlayerColor = otherPin.KnockedByPlayerColor;
-
-                Renderer renderer = GetComponent<Renderer>();
-                if (renderer != null)
-                {
-                    Material[] materials = renderer.materials;
-                    for (int i = 0; i < materials.Length; i++)
-                    {
-                        if (materials[i].name.Contains("Body") || materials[i].name.Contains("White"))
-                        {
-                            materials[i].color = KnockedByPlayerColor;
-                        }
-                    }
-                }
             }
         }
 
