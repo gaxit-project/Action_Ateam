@@ -26,9 +26,9 @@ Transform:
   m_GameObject: {fileID: 4659822622089567767}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.5, z: 1.5}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 0, y: 0, z: 6}
+  m_LocalScale: {x: 0.25, y: 1, z: 0.25}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5649711023051917593}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -263,6 +263,6 @@ MonoBehaviour:
   deceleration: 5
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
-  collisionEffectPrefab2: {fileID: 4021103657954561961, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
+  collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
   effectDuration: 2
   arrowUIName: Arrow1

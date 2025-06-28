@@ -2248,7 +2248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: _seLists.Array.size
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: _bgmLists.Array.size
@@ -2278,6 +2278,14 @@ PrefabInstance:
       propertyPath: '_seLists.Array.data[7]'
       value: 
       objectReference: {fileID: 8300000, guid: 18e638596d0b61546a5795249b6a3192, type: 3}
+    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
+      propertyPath: '_seLists.Array.data[8]'
+      value: 
+      objectReference: {fileID: 8300000, guid: b2cc8e569ea327c43be0c541c55a8d53, type: 3}
+    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
+      propertyPath: '_seLists.Array.data[9]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 5eed6a8899f2aaa4b9f8ddc019277830, type: 3}
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: '_bgmLists.Array.data[2]'
       value: 
