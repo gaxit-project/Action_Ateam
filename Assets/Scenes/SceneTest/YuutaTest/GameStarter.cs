@@ -54,7 +54,7 @@ public class GameStarter : MonoBehaviour
                 {
                     isCountStopped = true;
                     foreach (TextMeshProUGUI t in countTexts) t.text = "GO!!";
-                    AudioManager.Instance.PlaySound(6);
+                    AudioManager.Instance.PlaySound(9);
                     Invoke("Disabled", 0.5f);
                     for (int i = 0; i < area.Length; i++)
                     {
@@ -106,7 +106,7 @@ public class GameStarter : MonoBehaviour
         if (count > 0)
         {
             count--;
-            AudioManager.Instance.PlaySound(5);
+            AudioManager.Instance.PlaySound(8);
             Invoke("PlayCountSound", 1f);
         }
     }
