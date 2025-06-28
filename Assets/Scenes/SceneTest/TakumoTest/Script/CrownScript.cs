@@ -2,14 +2,14 @@ using UnityEngine;
 using UnityEngine.TextCore;
 using static Player;
 
-public class ClownScript : MonoBehaviour
+public class CrownScript : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    [SerializeField] private GameObject Clown0;//Player0のClown
-    [SerializeField] private GameObject Clown1;//Player1のClown
-    [SerializeField] private GameObject Clown2;//Player2のClown
-    [SerializeField] private GameObject Clown3;//Player3のClown
+    [SerializeField] private GameObject Crown0;//Player0のClown
+    [SerializeField] private GameObject Crown1;//Player1のClown
+    [SerializeField] private GameObject Crown2;//Player2のClown
+    [SerializeField] private GameObject Crown3;//Player3のClown
 
     private GameManager gameManager;
     //Scoreの取得が必要なスクリプトを持ってくる
@@ -17,7 +17,7 @@ public class ClownScript : MonoBehaviour
     void Start()
     {
        gameManager = FindFirstObjectByType<GameManager>();
-        GameObject[] clowns = new GameObject[] { Clown0, Clown1, Clown2, Clown3 };
+        GameObject[] clowns = new GameObject[] { Crown0, Crown1, Crown2, Crown3 };
 
 
         
