@@ -84,3 +84,4 @@ public class ResolutionChanger : MonoBehaviour
         //ˆø”‚Í‡”Ô‚É‰¡‚Ì’·‚³Ac‚Ì’·‚³AWindows‚Ìí—ŞA‰æ–Ê‚ğØ‚è‘Ö‚¦‚é‰ñ”(notfps)
     }
 }
+/*Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow, refreshRate);*/

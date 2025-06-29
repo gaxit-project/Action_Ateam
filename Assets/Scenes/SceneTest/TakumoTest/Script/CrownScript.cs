@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using NPC.StateAI;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.TextCore;
 using static Player;
 
@@ -6,36 +9,31 @@ public class CrownScript : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    [SerializeField] private GameObject Crown0;//Player0のClown
-    [SerializeField] private GameObject Crown1;//Player1のClown
-    [SerializeField] private GameObject Crown2;//Player2のClown
-    [SerializeField] private GameObject Crown3;//Player3のClown
-
     private GameManager gameManager;
     //Scoreの取得が必要なスクリプトを持ってくる
 
     void Start()
     {
-       gameManager = FindFirstObjectByType<GameManager>();
-        GameObject[] clowns = new GameObject[] { Crown0, Crown1, Crown2, Crown3 };
+        gameManager = FindFirstObjectByType<GameManager>();
 
 
-        
+
+
         int player = gameManager.NumHumanPlayers, bot = gameManager.NumBots;
         int[] scores = new int[player + bot];
-        int i=0, j=0, isNum = 0;
+        int i = 0, j = 0, isNum = 0;
 
 
-        
-        /*ScoreをPlayerーbotの順で順番に取得する*/    
-        while(i < player )
+
+        /*ScoreをPlayerーbotの順で順番に取得する*/
+        while (i < player)
         {
-            var playerdata = gameManager.GetPlayerScoreData("Player" + i+1);
+            var playerdata = gameManager.GetPlayerScoreData("Player" + i + 1);
             scores[i] = playerdata.GetTotalScore();
             i++;
         }
 
-        while  (j < bot)
+        while (j < bot)
         {
             var botdata = gameManager.GetPlayerScoreData("Bot" + (isNum + 1));
             scores[i] = botdata.GetTotalScore();/*botjのScore*/ ;
@@ -50,16 +48,58 @@ public class CrownScript : MonoBehaviour
 
         // 最大スコアのインデックスを取得
         int maxIndex = 0;
-        for (i = 1; i <player+bot; i++)
+        for (i = 1; i < player + bot; i++)
         {
-            
+
             if (scores[i] > scores[maxIndex])
             {
                 maxIndex = i;
             }
         }
+        string ID;
+        bool isPlayer;
+        if (maxIndex + 1 <= player)
+        {
+            ID = ("Player" + (maxIndex + 1));
+            isPlayer = true;
+        }
+        else
+        {
+            ID = ("bot" + (maxIndex + 1 - player));
+            isPlayer = false;
+        }
 
-        // 該当するClownだけを有効化
-        clowns[maxIndex].SetActive(true);
+
+        // 該当するClownだけを有効化,GetPlayerID()
+        GameObject[] chara;
+        if (isPlayer)
+        {
+            chara = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject Aris in chara)
+            {
+                Player player1 = Aris.GetComponent<Player>();
+                if (player1 != null && player1.GetPlayerID() == ID)
+                {
+                    player1.Crowned();
+                    break;
+                }
+            }
+        }
+        else
+        {
+            chara = GameObject.FindGameObjectsWithTag("EnemyAI");
+            foreach (GameObject Aris in chara)
+            {
+                EnemyAI player1 = Aris.GetComponent<EnemyAI>();
+                if (player1 != null && player1.GetPlayerID() == ID)
+                {
+                    player1.Crowned();
+                    break;
+                }
+            }
+
+        }
+
     }
+
 }
