@@ -23,7 +23,7 @@ public class ScoreManager : MonoBehaviour
         {
             gameManager = FindFirstObjectByType<GameManager>();
         }
-        ResetGame();
+        ResetFrame();
     }
     private void Update()
     {
@@ -34,16 +34,15 @@ public class ScoreManager : MonoBehaviour
         
         if (pinManager == null || resetArea == null)
         {
-            ResetGame();
+            ResetFrame();
         }
     }
-    public void ResetGame()
+    public void ResetFrame()
     {
         //10フレーム目終了(ゲーム終了)
         if (gameManager.Num_NowFrame == 11)
         {
             gameManager.IsStart = false;
-            gameManager.Num_NowFrame = 1;
             SceneChangeManager.Instance.SceneChange("Result");
         }
         //10フレーム以外
