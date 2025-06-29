@@ -74,6 +74,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             pointManager = FindFirstObjectByType<PointManager>();
         }
 
+        if(buildIndex == 1 && timerUI == null) timerUI = GameObject.Find("CountDown").GetComponent<TextMeshProUGUI>();
+
         if (isCounting && timer > -1f)
         {
             timer -= Time.deltaTime;
