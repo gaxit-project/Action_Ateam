@@ -3384,9 +3384,8 @@ MonoBehaviour:
   BlackPins:
   - {fileID: 6103272964692883607, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
   _pinPrefab:
-  - {fileID: 7662751867388878894, guid: 8010c24b086390e4dbe9c7195a7ce8a2, type: 3}
-  - {fileID: 3205348367549273636, guid: 700cbee024368574fa793062ada0f69e, type: 3}
-  - {fileID: 3356785806122617643, guid: f8c60c4e27dfb41498257c8a0f4a6995, type: 3}
+  - {fileID: 7662751867388878894, guid: 95b7339692ca6b04690d9a9a11c01670, type: 3}
+  - {fileID: 7662751867388878894, guid: 95b7339692ca6b04690d9a9a11c01670, type: 3}
 --- !u!4 &271860860
 Transform:
   m_ObjectHideFlags: 0
@@ -10925,6 +10924,7 @@ MonoBehaviour:
   collisionEffectPrefab: {fileID: 0}
   collisionEffectPrefab2: {fileID: 0}
   effectDuration: 2
+  crown: {fileID: 0}
   detectionRadius: 2
   bounceSpeed: 10
   bounceVectorMultiple: 2
@@ -11869,6 +11869,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 984488017}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &987853726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 987853727}
+  - component: {fileID: 987853728}
+  m_Layer: 0
+  m_Name: CrownScript
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &987853727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987853726}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1410677817}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &987853728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987853726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7c73e7a8fd05f4f9cdeabdf87a4110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &992255590
 GameObject:
   m_ObjectHideFlags: 0
@@ -16996,6 +17040,7 @@ Transform:
   - {fileID: 1734872514}
   - {fileID: 865824622}
   - {fileID: 259796917}
+  - {fileID: 987853727}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1411419311 stripped
@@ -19468,6 +19513,7 @@ MonoBehaviour:
   collisionEffectPrefab: {fileID: 0}
   collisionEffectPrefab2: {fileID: 0}
   effectDuration: 2
+  crown: {fileID: 0}
 --- !u!54 &1648784725
 Rigidbody:
   m_ObjectHideFlags: 0
