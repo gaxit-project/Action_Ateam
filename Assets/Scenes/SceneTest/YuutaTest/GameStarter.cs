@@ -46,7 +46,7 @@ public class GameStarter : MonoBehaviour
             if (!isCountStopped)
             {
                 time -= Time.deltaTime;
-                // 小数点以下を切り捨てて整数表示
+                // 小数点以下を切り上げて整数表示
                 int displayTime = Mathf.CeilToInt(time);
                 foreach (TextMeshProUGUI t in countTexts) t.text = displayTime.ToString();
                 StartCount();
@@ -55,6 +55,7 @@ public class GameStarter : MonoBehaviour
                     isCountStopped = true;
                     foreach (TextMeshProUGUI t in countTexts) t.text = "GO!!";
                     AudioManager.Instance.PlaySound(9);
+                    gameManager.StartCount();
                     Invoke("Disabled", 0.5f);
                     for (int i = 0; i < area.Length; i++)
                     {

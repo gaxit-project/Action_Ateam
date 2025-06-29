@@ -16,6 +16,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private int buildIndex;
     public bool IsStart = false;
     public bool isPaused = false;
+    public bool isCounting { private get; set; } = false;
 
     //現在のフレーム
     public int Num_NowFrame = 1;
@@ -40,6 +41,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private PointManager pointManager;
     private PinManager pinManager;
     private CameraController cameraController;
+    private ResetArea resetArea;
 
     public ColorAssigner colorAssigner;
 
@@ -49,12 +51,16 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     //private int[] NowFramePoint_3 = new int[11];
     //int pp0,pp1,pp2,pp3;//a-dは仮置き,スコアを表す
 
+    private float timer = 10f;
+    [SerializeField] private TextMeshProUGUI timerUI;
+
     private void Start()
     {
         pointManager = FindFirstObjectByType<PointManager>();
         pinManager = FindFirstObjectByType<PinManager>();
         colorAssigner = FindFirstObjectByType<ColorAssigner>();
         cameraController = GameObject.FindFirstObjectByType<CameraController>();
+        resetArea = GameObject.FindFirstObjectByType<ResetArea>();
     }
 
     private void Update()
@@ -65,6 +71,23 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         {
             scoreManager = FindFirstObjectByType<ScoreManager>();
             pointManager = FindFirstObjectByType<PointManager>();
+        }
+
+        if (isCounting && timer > -1f)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= -1f)
+            {
+                timerUI.enabled = false;
+                resetArea.TimeOver();
+                isCounting = false;
+            }
+            else
+            {
+                // 小数点以下を切り上げて整数表示
+                int displayTime = Mathf.CeilToInt(timer);
+                timerUI.text = displayTime.ToString();
+            }
         }
     }
 
@@ -201,6 +224,23 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         playerScores.Clear();
         Num_NowFrame = 1;
         PlayerScore = new int[NumHumanPlayers + NumBots, 11];
+    }
+
+    /// <summary>
+    /// カウントダウン開始
+    /// </summary>
+    public void StartCount()
+    {
+        Debug.Log("カウントスタート!");
+        timer = 10f;
+        timerUI.enabled = true;
+        isCounting = true;
+    }
+
+    public void StopTimer()
+    {
+        timerUI.enabled = false;
+        isCounting = false;
     }
 }
 
