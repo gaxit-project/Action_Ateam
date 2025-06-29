@@ -82,7 +82,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             if (timer <= -1f)
             {
                 timerUI.enabled = false;
-                resetArea.TimeOver();
+                //resetArea.TimeOver();
                 isCounting = false;
             }
             else

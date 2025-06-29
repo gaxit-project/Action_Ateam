@@ -48,8 +48,8 @@ public class ResetArea : MonoBehaviour
     {
         Debug.Log("éûä‘êÿÇÍÇ≈Ç∑");
         cameraController.StopCameraMove();
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (var player in players) Destroy(player.gameObject);
+        GameObject[] areas = GameObject.FindGameObjectsWithTag("ThrowArea");
+        foreach (var area in areas) area.gameObject.SetActive(false);
         DisplayScore();
     }
 
