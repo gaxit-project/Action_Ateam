@@ -17,7 +17,7 @@ public class PinManager : MonoBehaviour
 
     public void InsertPin(int stageNum)
     {
-        int rnd = Random.Range(0, 8);
+        int rnd = Random.Range(0, 7);
         switch (stageNum)
         {
             case 0:

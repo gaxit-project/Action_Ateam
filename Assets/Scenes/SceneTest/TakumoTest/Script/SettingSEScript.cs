@@ -18,7 +18,7 @@ public class SettingSEScript : MonoBehaviour
         UpdateArrowPositionResult();
     }
 
-    void UpdateArrowPositionResult()
+    void UpdateArrowPositionResult()//ã‰ºˆÚ“®‚Ì‚É‰¹‚ª–Â‚é‚æ
     {
         GameObject selected = EventSystem.current.currentSelectedGameObject;
 
