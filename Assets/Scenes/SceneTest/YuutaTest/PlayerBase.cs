@@ -16,6 +16,7 @@ public class PlayerBase : MonoBehaviour
     public bool IsBot { get; private set; } = false;
     public string PlayerID = "UnKnown";
     public Color PlayerColor;
+    public int Rank { get; private set; } = 0;
     protected ScoreManager scoreManager;
     private ColorAssigner colorAssigner;
 
@@ -248,7 +249,10 @@ public class PlayerBase : MonoBehaviour
     public string GetPlayerID() => PlayerID;
     public Color GetPlayerColor() => PlayerColor;
 
-    
+    public void SetRank(int rank)
+    {
+        Rank = rank;
+    }
     public class PlayerClass : Character
     {
 

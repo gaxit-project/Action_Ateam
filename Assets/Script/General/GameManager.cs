@@ -245,7 +245,61 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         timerUI.enabled = false;
         isCounting = false;
     }
+
+    public int GetRankByID(string playerID)
+    {
+        var player = players.Find(p => p.PlayerID == playerID);
+        if(player != null)
+        {
+            return player.Rank;
+        }
+        else
+        {
+            Debug.Log($"{playerID}‚ÌƒvƒŒƒCƒ„[‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½!");
+            return -1;
+        }
+    }
+
+    public void RankSort()
+    {
+        var sorted = players.OrderByDescending(p =>
+        {
+            var scoreData = GetPlayerScoreData(p.PlayerID);
+            return scoreData != null ? scoreData.GetTotalScore() : 0;
+        }).ToList();
+
+        int rank = 1;
+        int sameRankCount = 1;
+        int prevScore = -1;
+        for(int i = 0; i < sorted.Count; i++)
+        {
+            var p = sorted[i];
+            var scoreData = GetPlayerScoreData(p.PlayerID);
+            int score = scoreData != null ? scoreData.GetTotalScore() : 0;
+
+            if(i == 0)
+            {
+                p.SetRank(rank);
+            }
+            else
+            {
+                if(score == prevScore)
+                {
+                    p.SetRank(rank);
+                    sameRankCount++;
+                }
+                else
+                {
+                    rank += sameRankCount;
+                    p.SetRank(rank);
+                    sameRankCount = 1;
+                }
+            }
+            prevScore = score;
+        }
+    }
 }
+
 
 public static class GlobalColorData
 {
