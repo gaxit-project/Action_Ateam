@@ -66,6 +66,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private void Update()
     {
+        if (resetArea == null) resetArea = GameObject.FindFirstObjectByType<ResetArea>();
+
         buildIndex = SceneManager.GetActiveScene().buildIndex;
         //Debug.Log(buildIndex);
         if (buildIndex == 1 || buildIndex == 4)
@@ -82,7 +84,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             if (timer <= -1f)
             {
                 timerUI.enabled = false;
-                //resetArea.TimeOver();
+                resetArea.TimeOver();
                 isCounting = false;
             }
             else
