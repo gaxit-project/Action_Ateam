@@ -104,4 +104,12 @@ public class CameraController : MonoBehaviour
 
         transform.position = targetPosition + new Vector3(-18f, 12f, 0f);
     }
+
+    public void ResultCamera(Vector3 position, Vector3 rotation)
+    {
+        isChasingPlayer = false;
+        targetPosition = position;
+        InitialCameraDirection = rotation;
+
+    }
 }
