@@ -37,7 +37,7 @@ public class PlayerBase : MonoBehaviour
     protected float rotation = 0f;
     protected Vector3 currentVelocity = Vector3.zero;
     protected Vector3 throwVelocity;
-    public Vector3 incomingVelocity;
+    protected Vector3 incomingVelocity;
     protected bool isModeChanged = false;
     protected bool isGaugeIncreasing = true;
     protected bool isThrowTimerStarted = false;

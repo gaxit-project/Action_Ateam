@@ -280,7 +280,7 @@ namespace NPC.StateAI
             base.OnCollisionEnter(collision);
             if (collision.gameObject.CompareTag("Wall") && collision.contactCount > 0)
             {
-                Debug.Log("当たった");
+                //Debug.Log("当たった");
 
                 // 衝突面の法線
                 Vector3 normal = collision.contacts[0].normal;
@@ -297,6 +297,7 @@ namespace NPC.StateAI
                 transform.forward = reflectVelocity;
                 throwVelocity = reflectVelocity * speed * throwPower;
                 rb.linearVelocity = throwVelocity;
+                Invoke(nameof(ChangeIncomingVelocity), 0.01f);
             }
             else if (collision.gameObject.CompareTag("NPC") || collision.gameObject.CompareTag("Player"))
             {
@@ -314,12 +315,18 @@ namespace NPC.StateAI
                 //Debug.DrawRay(transform.position, incomingVelocity + new Vector3(v.x, 0f, v.z * 5f), Color.cyan, (incomingVelocity + new Vector3(v.x, 0f, v.z * 5f)).magnitude);
                 transform.forward = Vector3.ClampMagnitude(incomingVelocity + new Vector3(v.x, 0f, v.z * 5f - incomingVelocity.z), 1f);
                 rb.linearVelocity = transform.forward * speed * throwPower;
+                Invoke(nameof(ChangeIncomingVelocity), 0.01f);
             }
         }
 
         public Vector3 GetIncomingVelocity()
         {
             return incomingVelocity;
+        }
+
+        private void ChangeIncomingVelocity()
+        {
+            incomingVelocity = rb.linearVelocity;
         }
     }
 }

@@ -17,7 +17,7 @@ public class Player : PlayerBase
     protected PlayerState currentState = PlayerState.Idle;
     private GameObject arrowUI;
     private bool a = false;
-    [SerializeField] private string arrowUIName = "Arrow1"; 
+    [SerializeField] private string arrowUIName = "Arrow1";
     
     //プロパティ
     public PlayerState PlayerStateProperty
@@ -218,6 +218,7 @@ public class Player : PlayerBase
         base.OnCollisionEnter(collision);
         if (collision.gameObject.CompareTag("Wall") && collision.contactCount > 0)
         {
+            Debug.Log("hit:wall");
             // 衝突面の法線
             Vector3 normal = collision.contacts[0].normal;
             //Debug.DrawRay(transform.position, Vector3.ClampMagnitude(normal, 3f), Color.magenta, 3f, false);
@@ -235,6 +236,7 @@ public class Player : PlayerBase
                 transform.forward = reflectVelocity;
                 throwVelocity = reflectVelocity * speed * throwPower;
                 rigidbody.linearVelocity = throwVelocity;
+                Invoke(nameof(ChangeIncomingVelocity), 0.01f);
             }
             else if (currentState == PlayerState.Run)
             {
@@ -243,7 +245,7 @@ public class Player : PlayerBase
         }
         else if (collision.gameObject.CompareTag("NPC") || collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("当たった");
+            Debug.Log("hit:npc");
             Vector3 v = Vector3.zero;
             if (collision.gameObject.CompareTag("NPC"))
             {
@@ -259,6 +261,7 @@ public class Player : PlayerBase
             transform.forward = Vector3.ClampMagnitude(incomingVelocity + new Vector3(v.x, 0f, v.z * 5f - incomingVelocity.z), 1f);
             throwVelocity = transform.forward * speed * throwPower;
             rigidbody.linearVelocity = throwVelocity;
+            Invoke(nameof(ChangeIncomingVelocity), 0.01f);
         }
     }
     public void StartMove()
@@ -270,6 +273,11 @@ public class Player : PlayerBase
     public Vector3 GetIncomingVelocity()
     {
         return incomingVelocity;
+    }
+
+    private void ChangeIncomingVelocity()
+    {
+        incomingVelocity = rigidbody.linearVelocity;
     }
 
     /// <summary>
