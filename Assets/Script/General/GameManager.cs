@@ -220,57 +220,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
 
         colorAssigner.AssignColors();
-
-        CrownScript crownScript = FindFirstObjectByType<CrownScript>();
-        crownScript.GetScore();
     }
 
-    public void ResultSetting()
-    {
-        for (int i = 0; i < NumHumanPlayers; i++)
-        {
-            var playerobj = Instantiate(_playerPrefab,new Vector3(), Quaternion.identity);
-            var player = playerobj.GetComponent<Player>();
-            player.Init($"Player{i + 1}", false);
-            players.Add(player);
-            if (IsStart == false)
-            {
-                playerScores.Add(new PlayerScoreData($"Player{i + 1}", false));
-            }
-            var cam = FindFirstObjectByType<CameraController>();
-            if (cam == null) Debug.LogError("nullだよ");
-            cam.SetTargetPlayer(player); // Instantiate後に必ず設定！
-            /*var starter = FindFirstObjectByType<GameStarter>();
-            if (starter == null) Debug.LogError("starternull");
-            starter.SetPlayer(player);*/
-        }
-
-        //Bot
-        for (int i = 0; i < NumBots; i++)
-        {
-            var botobj = Instantiate(_botPrefab, new Vector3(), Quaternion.identity);
-            var bot = botobj.GetComponent<PlayerBase>();
-            bot.Init($"Bot{i + 1}", true);
-            players.Add(bot);
-            if (IsStart == false)
-            {
-                playerScores.Add(new PlayerScoreData($"Bot{i + 1}", true));
-            }
-
-        }
-
-        if (colorAssigner == null)
-        {
-            colorAssigner = FindFirstObjectByType<ColorAssigner>();
-            if (colorAssigner == null)
-            {
-                Debug.LogError("ColorAssigner がシーン内に存在しません！");
-                return;
-            }
-        }
-
-        colorAssigner.AssignColors();
-    }
     public void ResetGame()
     {
         IsStart = false;
@@ -334,7 +285,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             }
             else
             {
-                if(score == prevScore || prevScore == -1)
+                if(score == prevScore)
                 {
                     p.SetRank(rank);
                     sameRankCount++;

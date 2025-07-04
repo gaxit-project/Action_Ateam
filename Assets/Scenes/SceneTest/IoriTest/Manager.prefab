@@ -108,7 +108,6 @@ MonoBehaviour:
   StartPoint: {x: -50, y: 0, z: 0}
   testText: {fileID: 0}
   colorAssigner: {fileID: 0}
-  timerUI: {fileID: 0}
 --- !u!82 &4600566453074975748
 AudioSource:
   m_ObjectHideFlags: 0

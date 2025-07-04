@@ -12,7 +12,7 @@ public class CrownScript : MonoBehaviour
     private GameManager gameManager;
     //Scoreの取得が必要なスクリプトを持ってくる
 
-    public void GetScore()
+    void Start()
     {
         gameManager = FindFirstObjectByType<GameManager>();
 
@@ -28,7 +28,7 @@ public class CrownScript : MonoBehaviour
         /*ScoreをPlayerーbotの順で順番に取得する*/
         while (i < player)
         {
-            var playerdata = gameManager.GetPlayerScoreData("Player" + (i+1));
+            var playerdata = gameManager.GetPlayerScoreData("Player" + i + 1);
             scores[i] = playerdata.GetTotalScore();
             i++;
         }
@@ -87,7 +87,7 @@ public class CrownScript : MonoBehaviour
         }
         else
         {
-            chara = GameObject.FindGameObjectsWithTag("NPC");
+            chara = GameObject.FindGameObjectsWithTag("EnemyAI");
             foreach (GameObject Aris in chara)
             {
                 EnemyAI player1 = Aris.GetComponent<EnemyAI>();
