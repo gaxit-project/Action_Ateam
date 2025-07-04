@@ -169,7 +169,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         for (int i = 0; i < totalPlayers; i++)
         {
             //現在はx座標を75fずつ左にずらしている状態
-            spawnPositions.Add(StartPoint + new Vector3(0f, 0f, -i * 3.5f)); //ここをいじって変えてください
+            spawnPositions.Add(StartPoint + new Vector3(0f, 0f, -i * 5f)); //ここをいじって変えてください
         }
 
         spawnPositions = spawnPositions.OrderBy(x => Random.value).ToList(); //スポーン場所をランダムに
