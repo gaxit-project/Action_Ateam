@@ -30,7 +30,7 @@ namespace NPC.StateAI
             //enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
             enemyAI.GetComponent<Rigidbody>();
             rb = enemyAI.GetComponent<Rigidbody>();
-            enemyAI.transform.LookAt(enemyAI.Target);
+            //enemyAI.transform.LookAt(enemyAI.Target);
         }
 
         public void Update()

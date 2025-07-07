@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -23,7 +24,7 @@ namespace NPC.StateAI
         [SerializeField] private Animator animator;
 
         [SerializeField] public GameObject[] targetCandidates;
-        [SerializeField] private float targetSwitchInterval = 3f;
+        [SerializeField] private float targetSwitchInterval = 1f;
         public Coroutine targetSwitchCoroutine;
 
         private StateMachine enemyStateMachine;
@@ -48,6 +49,7 @@ namespace NPC.StateAI
         //private float rotation = 0f;
         private Transform attackTarget;
         //private Vector3 currentVelocity = Vector3.zero;
+        private Vector3 targetDirection = Vector3.zero;
         private Animator attackAnimator;
         Rigidbody rb;
 
@@ -61,13 +63,7 @@ namespace NPC.StateAI
         protected override void Start()
         {
             enemyStateMachine.Initialize(enemyStateMachine.idleState);
-
-            targetCandidates = GameObject.FindGameObjectsWithTag("Target");
-            if (targetCandidates.Length > 0)
-            {
-                target = targetCandidates[0].transform;
-                targetSwitchCoroutine = StartCoroutine(RandomlySwitchTarget());
-            }
+            StartCoroutine("GetTargets");
             PlayerColor = ColorAssigner.Instance.GetAssignedColor(gameObject);
         }
 
@@ -94,7 +90,13 @@ namespace NPC.StateAI
 
         private void FixedUpdate()
         {
-            rb.AddForce(new Vector3(0f, -20f, 0f), ForceMode.Acceleration);
+            rb.AddForce(new Vector3(0f, -20f, 0f), ForceMode.Acceleration); 
+
+            if (targetDirection != Vector3.zero && enemyAI.EnemyStateMachine.CurrentState != enemyAI.EnemyStateMachine.throwState)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(targetDirection);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, 50f * Time.fixedDeltaTime);
+            }
         }
 
         private void LateUpdate()
@@ -227,10 +229,14 @@ namespace NPC.StateAI
             while (true)
             {
                 yield return new WaitForSeconds(targetSwitchInterval);
-                if (targetCandidates.Length > 0 && enemyAI.agent.enabled)
+                if (targetCandidates.Length > 0 && enemyAI.EnemyStateMachine.CurrentState != enemyAI.EnemyStateMachine.throwState)
                 {
                     int index = Random.Range(0, targetCandidates.Length);
                     target = targetCandidates[index].transform;
+                    Vector3 toTarget = (target.position - transform.position).normalized;
+                    toTarget.y = 0f;
+                    Quaternion rndQuat = Quaternion.Euler(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
+                    targetDirection = rndQuat * toTarget;
                     Debug.Log("Targetを: " + Target.name + "に変更");
                 }
             }
@@ -264,6 +270,30 @@ namespace NPC.StateAI
             Ray ray = new Ray(transform.position + Vector3.up * 0.1f, Vector3.down);
 
             return Physics.Raycast(ray, 1.2f);
+        }
+
+        private void GetTargets()
+        {
+            int i = 0;
+            GameObject[] tar = GameObject.FindGameObjectsWithTag("Target");
+            if (tar.Length > 0)
+            {
+                foreach (GameObject t in tar)
+                {
+                    Debug.Log("par");
+                    Vector3 dis = t.transform.position - transform.position;
+                    dis.y = 0;
+                    if (dis.magnitude <= 300f) targetCandidates[i++] = t;
+                }
+                if (targetCandidates.Length > 0)
+                {
+                    target = targetCandidates[0].transform;
+                    transform.LookAt(target);
+                    targetSwitchCoroutine = StartCoroutine(RandomlySwitchTarget());
+                }
+                else Debug.LogError("範囲内にtargetタグを持つオブジェクトが存在しません！");
+            }
+            else StartCoroutine("GetTargets");
         }
 
         public void OnTriggerEnter(Collider other)

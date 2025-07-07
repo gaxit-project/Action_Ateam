@@ -48,14 +48,18 @@ public class ResetArea : MonoBehaviour
     {
         Debug.Log("éûä‘êÿÇÍÇ≈Ç∑");
         cameraController.StopCameraMove();
-        GameObject[] areas = GameObject.FindGameObjectsWithTag("ThrowArea");
-        foreach (var area in areas) area.gameObject.SetActive(false);
         DisplayScore();
     }
 
     private void DisplayScore()
     {
         isPlayerOut = true;
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var p in players) p.gameObject.SetActive(false);
+        GameObject[] npcs = GameObject.FindGameObjectsWithTag("NPC");
+        foreach (var n in npcs) n.gameObject.SetActive(false);
+        GameObject[] pins = GameObject.FindGameObjectsWithTag("Pin");
+        foreach (var pin in pins) pin.gameObject.SetActive(false);
         gameManager.StopTimer();
         AudioManager.Instance.PlayBGM(2);
         frameMoveCameraScript.WarpCameraToMenObject();
