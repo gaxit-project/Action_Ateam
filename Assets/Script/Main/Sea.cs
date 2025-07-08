@@ -6,7 +6,7 @@ public class Sea : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("NPC") || collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("NPC") || collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Pin"))
         {
             if (effectPrefab != null)
             {
