@@ -84,7 +84,7 @@ public class PlayerBase : MonoBehaviour
         //クラス内のステータスを初期化する
         player.InitializeStatus(speed, weight);
         PlayerColor = colorAssigner.AssignColorToObject(gameObject);
-        Debug.Log($"Bot 初期カラー: {PlayerColor}, renderer.material.color: {GetComponent<Renderer>().material.color}");
+        //Debug.Log($"Bot 初期カラー: {PlayerColor}, renderer.material.color: {GetComponent<Renderer>().material.color}");
 
 
         if (rigidbody)

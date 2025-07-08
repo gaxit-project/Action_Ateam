@@ -76,7 +76,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             pointManager = FindFirstObjectByType<PointManager>();
         }
 
-        if(buildIndex == 1 && timerUI == null) timerUI = GameObject.Find("CountDown").GetComponent<TextMeshProUGUI>();
+        if (buildIndex == 1 && timerUI == null) timerUI = GameObject.Find("CountDown").GetComponent<TextMeshProUGUI>();
 
         if (isCounting && timer > -1f)
         {
@@ -99,6 +99,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     public void CurrentFrameResult()
     {
+        pointManager.PrintName();
         StartCoroutine(scoreManager.DelayAndResetCoroutine());
     }
 
@@ -189,7 +190,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             }
             var cam = FindFirstObjectByType<CameraController>();
             if (cam == null) Debug.LogError("nullだよ");
-            cam.SetTargetPlayer(player); // Instantiate後に必ず設定！
+            cam.SetTargetPlayer(player, StartPoint); // Instantiate後に必ず設定！
             var starter = FindFirstObjectByType<GameStarter>();
             if (starter == null) Debug.LogError("starternull");
             starter.SetPlayer(player);
@@ -220,6 +221,44 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
 
         colorAssigner.AssignColors();
+        CrownScript crownScript = FindFirstObjectByType<CrownScript>();
+        crownScript.CrownMove();
+    }
+
+    public void ResultSetting()
+    {
+        //Player
+        for (int i = 0; i < NumHumanPlayers; i++)
+        {
+            var playerobj = Instantiate(_playerPrefab, new Vector3(), Quaternion.identity);
+            var player = playerobj.GetComponent<Player>();
+            player.Init($"Player{i + 1}", false);
+            players.Add(player);
+            var cam = FindFirstObjectByType<CameraController>();
+            if (cam == null) Debug.LogError("nullだよ");
+            cam.SetTargetPlayer(player, StartPoint); // Instantiate後に必ず設定！
+        }
+        //Bot
+        for (int i = 0; i < NumBots; i++)
+        {
+            var botobj = Instantiate(_botPrefab, new Vector3(), Quaternion.identity);
+            var bot = botobj.GetComponent<PlayerBase>();
+            bot.Init($"Bot{i + 1}", true);
+            players.Add(bot);
+
+        }
+
+        if (colorAssigner == null)
+        {
+            colorAssigner = FindFirstObjectByType<ColorAssigner>();
+            if (colorAssigner == null)
+            {
+                Debug.LogError("ColorAssigner がシーン内に存在しません！");
+                return;
+            }
+        }
+        colorAssigner.AssignColors();
+        RankSort();
     }
 
     public void ResetGame()
@@ -251,7 +290,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public int GetRankByID(string playerID)
     {
         var player = players.Find(p => p.PlayerID == playerID);
-        if(player != null)
+        if (player != null)
         {
             return player.Rank;
         }
@@ -264,54 +303,51 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     public void RankSort()
     {
+        // プレイヤーをスコアの降順でソート
         var sorted = players.OrderByDescending(p =>
         {
             var scoreData = GetPlayerScoreData(p.PlayerID);
+            // scoreDataが見つからない場合は0点として扱う（エラーログは別途出すべき）
             return scoreData != null ? scoreData.GetTotalScore() : 0;
         }).ToList();
 
-        int rank = 1;
-        int sameRankCount = 1;
-        int prevScore = -1;
-        for(int i = 0; i < sorted.Count; i++)
-        {
-            var p = sorted[i];
-            var scoreData = GetPlayerScoreData(p.PlayerID);
-            int score = scoreData != null ? scoreData.GetTotalScore() : 0;
+        int currentRank = 1;
+        int previousScore = -1; // 前のプレイヤーのスコアを保持
 
-            if(i == 0)
+        for (int i = 0; i < sorted.Count; i++)
+        {
+            var currentPlayer = sorted[i];
+            var currentPlayerScoreData = GetPlayerScoreData(currentPlayer.PlayerID);
+            int currentPlayerTotalScore = currentPlayerScoreData != null ? currentPlayerScoreData.GetTotalScore() : 0;
+
+            // 最初のプレイヤー、または前のプレイヤーとスコアが異なる場合
+            if (i == 0 || currentPlayerTotalScore < previousScore)
             {
-                p.SetRank(rank);
+                currentRank = i + 1; // 順位を更新
             }
-            else
-            {
-                if(score == prevScore)
-                {
-                    p.SetRank(rank);
-                    sameRankCount++;
-                }
-                else
-                {
-                    rank += sameRankCount;
-                    p.SetRank(rank);
-                    sameRankCount = 1;
-                }
-            }
-            prevScore = score;
+            // スコアが同じ場合は同じ順位を適用
+            // else if (currentPlayerTotalScore == previousScore) {
+            //   // 何もしない。currentRankは前のプレイヤーと同じ。
+            // }
+
+            currentPlayer.SetRank(currentRank); // プレイヤーにランクを設定
+            Debug.Log($"Player: {currentPlayer.PlayerID}, Score: {currentPlayerTotalScore}, Rank: {currentPlayer.Rank}"); // デバッグログ
+
+            previousScore = currentPlayerTotalScore; // 現在のスコアを次のループのために保存
         }
     }
-}
 
 
-public static class GlobalColorData
-{
-    public static readonly List<Color> ColorPalette = new List<Color>
+    public static class GlobalColorData
     {
-        Color.red,
-        Color.blue,
-        Color.green,
-        Color.yellow,
-        Color.cyan,
-        Color.magenta,
-    };
+        public static readonly List<Color> ColorPalette = new List<Color>
+        {
+            Color.red,
+            Color.blue,
+            Color.green,
+            Color.yellow,
+            Color.cyan,
+            Color.magenta,
+        };
+    }
 }

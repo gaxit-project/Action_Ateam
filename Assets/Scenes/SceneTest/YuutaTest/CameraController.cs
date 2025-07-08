@@ -91,6 +91,12 @@ public class CameraController : MonoBehaviour
         canMoveLaterally = false;
     }
 
+    public void ResultCameraMode(Vector3 position, Vector3 rotation)
+    {
+        targetPosition = position;
+        InitialCameraDirection = rotation;
+    }
+
     /// <summary>
     /// GameManagerのStart関数側でPlayerBaseをアタッチ
     /// </summary>
