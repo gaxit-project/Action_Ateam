@@ -249,6 +249,22 @@ public class PlayerBase : MonoBehaviour
     public string GetPlayerID() => PlayerID;
     public Color GetPlayerColor() => PlayerColor;
 
+    /// <summary>
+    /// PlayerのColorの名前を返す
+    /// </summary>
+    /// <returns>PlayerColorの名前</returns>
+    public string GetColorName()
+    {
+        if (PlayerColor == Color.red) return "Red";
+        if (PlayerColor == Color.blue) return "Blue";
+        if (PlayerColor == Color.green) return "Green";
+        if (PlayerColor == Color.yellow) return "Yellow";
+        if (PlayerColor == Color.magenta) return "Magenta"; // 紫に近い
+        if (PlayerColor == Color.cyan) return "Cyan"; // 水色に近い
+
+        return "その他";
+    }
+
     public void SetRank(int rank)
     {
         Rank = rank;

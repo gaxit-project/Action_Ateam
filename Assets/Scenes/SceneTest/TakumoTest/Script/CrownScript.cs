@@ -1,9 +1,11 @@
-using System.Collections.Generic;
 using NPC.StateAI;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.TextCore;
+using UnityEngine.UIElements;
 using static Player;
+using static Player2;
 
 public class CrownScript : MonoBehaviour
 {
@@ -15,10 +17,10 @@ public class CrownScript : MonoBehaviour
     void Start()
     {
         gameManager = FindFirstObjectByType<GameManager>();
+    }
 
-
-
-
+    public void CrownMove()
+    {
         int player = gameManager.NumHumanPlayers, bot = gameManager.NumBots;
         int[] scores = new int[player + bot];
         int i = 0, j = 0, isNum = 0;
@@ -26,11 +28,18 @@ public class CrownScript : MonoBehaviour
 
 
         /*Score‚ğPlayer[bot‚Ì‡‚Å‡”Ô‚Éæ“¾‚·‚é*/
-        while (i < player)
+        while (i<player)
         {
-            var playerdata = gameManager.GetPlayerScoreData("Player" + i + 1);
-            scores[i] = playerdata.GetTotalScore();
-            i++;
+            var playerdata = gameManager.GetPlayerScoreData("Player" + (i + 1));
+            if (playerdata != null)
+            {
+                scores[i] = playerdata.GetTotalScore();
+            }
+            else
+            {
+                Debug.LogError("ERROR");
+            }
+        i++;
         }
 
         while (j < bot)
@@ -87,7 +96,7 @@ public class CrownScript : MonoBehaviour
         }
         else
         {
-            chara = GameObject.FindGameObjectsWithTag("EnemyAI");
+            chara = GameObject.FindGameObjectsWithTag("NPC");
             foreach (GameObject Aris in chara)
             {
                 EnemyAI player1 = Aris.GetComponent<EnemyAI>();
@@ -97,9 +106,6 @@ public class CrownScript : MonoBehaviour
                     break;
                 }
             }
-
-        }
-
+        }       
     }
-
 }

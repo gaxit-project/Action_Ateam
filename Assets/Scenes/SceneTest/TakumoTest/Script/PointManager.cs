@@ -39,20 +39,17 @@ public class PointManager : MonoBehaviour
         TotalPlayer = gameManager.NumHumanPlayers + gameManager.NumBots;
     }
 
+    public void PrintName()
+    {
+        PlayerName = new string[4];
+        int num = 0;
+        foreach (var player in gameManager.players)
+        {
+            string colorName = player.GetColorName();
+            PlayerName[num] = colorName;
+            num++;
+        }
 
-
-    public void PrintPoint()
-    {   
-        
-            PlayerName = new string[4];
-            int num = 0;
-            foreach (var player in gameManager.players)
-            {
-                string id = player.GetPlayerID();
-                PlayerName[num] = id;
-                num++;
-            }
-        
 
 
         for (int i = 0; i < TotalPlayer; i++)
@@ -60,7 +57,11 @@ public class PointManager : MonoBehaviour
             //Debug.Log(Name[i] + "が名前登録");
             Name[i].text = PlayerName[i]; // 安全に代入
         }
+    }
 
+    public void PrintPoint()
+    {   
+        
 
         for (int i = 0; i < gameManager.NumHumanPlayers; i++)// TPL を4行作成
         {

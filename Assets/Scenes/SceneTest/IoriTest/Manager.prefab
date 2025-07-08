@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8915725821885507200}
   - component: {fileID: 4600566453074975748}
   - component: {fileID: 5922074557707150540}
+  - component: {fileID: 6529811719378806487}
   m_Layer: 5
   m_Name: Manager
   m_TagString: Untagged
@@ -103,11 +104,12 @@ MonoBehaviour:
   _playerPrefab: {fileID: 6162004822796889170, guid: c6cf9cdf0d3cded4ea3ce6694d67d924, type: 3}
   _botPrefab: {fileID: 5193344650924659099, guid: d2aa21bae25bc9b4eadf0fb56c9e59b2, type: 3}
   NumHumanPlayers: 1
-  NumBots: 1
+  NumBots: 3
   StageNum: 0
   StartPoint: {x: -50, y: 0, z: 0}
   testText: {fileID: 0}
   colorAssigner: {fileID: 0}
+  timerUI: {fileID: 0}
 --- !u!82 &4600566453074975748
 AudioSource:
   m_ObjectHideFlags: 0
@@ -302,3 +304,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6529811719378806487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130485150559971973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e021cc9c7d5bb9e46b0788151730a696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
