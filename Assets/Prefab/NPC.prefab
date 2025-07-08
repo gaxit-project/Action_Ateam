@@ -454,7 +454,6 @@ MonoBehaviour:
   speed: 10
   weight: 10
   initialRotation: 0
-  incomingVelocity: {x: 0, y: 0, z: 0}
   throwPower: 5
   attackArea: {fileID: 0}
   rotateSpeed: 100
