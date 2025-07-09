@@ -8,6 +8,9 @@ public class ResultBGM : MonoBehaviour
         PointManager pointManager = GameObject.FindFirstObjectByType<PointManager>();
         if (pointManager == null) Debug.LogError("PointManager‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ!");
         else pointManager.ResultPrint();
-        AudioManager.Instance.PlaySound(2);   
+        AudioManager audioManager = AudioManager.Instance;
+        audioManager._audioSourceBGM.loop = false;
+        audioManager.PlayBGM(6);
+
     }
 }

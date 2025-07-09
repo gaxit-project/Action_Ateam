@@ -36,6 +36,7 @@ public class ButtonHandler : MonoBehaviour
         }
 
         AudioManager.Instance.PlaySound(_SENumber);
+        AudioManager.Instance._audioSourceBGM.loop = true;
         SceneChangeManager.Instance.SceneChange(_sceneName);
         
         
@@ -53,6 +54,7 @@ public class ButtonHandler : MonoBehaviour
 
         GameManager.Instance.ResetGame();
         AudioManager.Instance.PlaySound(_SENumber);
+        AudioManager.Instance._audioSourceBGM.loop = true;
         SceneChangeManager.Instance.LoadNextScene(_sceneName);
     }
 

@@ -153,18 +153,21 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 pinManager.InsertPin(0);
                 if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
                 cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
+                AudioManager.Instance.PlayBGM(3);
                 break;
             case 1:
                 StartPoint = new Vector3(33425, -2, 863);
                 pinManager.InsertPin(1);
                 if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
                 cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
+                AudioManager.Instance.PlayBGM(4);
                 break;
             case 2:
                 StartPoint = new Vector3(-50, 4, 4977);
                 pinManager.InsertPin(2);
                 if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
                 cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
+                AudioManager.Instance.PlayBGM(5);
                 break;
 
         }

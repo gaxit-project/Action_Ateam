@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _seLists:
-  - {fileID: 8300000, guid: 66aa1d4182834d046a289ffe1453e4b5, type: 3}
+  - {fileID: 8300000, guid: e27e4f09466160a488ecf3f72670de0e, type: 3}
   - {fileID: 8300000, guid: df4e5d414c383a1448f62a8de8e82c48, type: 3}
   - {fileID: 8300000, guid: 72307ef6ad573914a9042f0f497530fa, type: 3}
   - {fileID: 8300000, guid: 4aab229baf3eb464eb7898d619f9d354, type: 3}
@@ -68,6 +68,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5aea1eb8e494546ccb52c0d547cb54c6, type: 3}
   - {fileID: 8300000, guid: a4157eac71a524d5e85d2fb6f4649506, type: 3}
   - {fileID: 8300000, guid: 2488b10757c7e5d418f95ece46cac58e, type: 3}
+  - {fileID: 8300000, guid: 8d29d62e8d81143b59a5ebdb824bb6a6, type: 3}
+  - {fileID: 8300000, guid: 20d47a4d10e7241a7a1e2aa6b5f2cabf, type: 3}
+  - {fileID: 8300000, guid: 82bf2334c19b8492497cf2953404f3ff, type: 3}
+  - {fileID: 8300000, guid: 3919a0b67237941da93c671f55dbb7b5, type: 3}
   _audioSourceSE: {fileID: 4600566453074975748}
   _audioSourceBGM: {fileID: 5922074557707150540}
   SESlider: {fileID: 0}
@@ -111,7 +115,6 @@ MonoBehaviour:
   StartPoint: {x: -50, y: 0, z: 0}
   testText: {fileID: 0}
   colorAssigner: {fileID: 0}
-  timerUI: {fileID: 0}
 --- !u!82 &4600566453074975748
 AudioSource:
   m_ObjectHideFlags: 0

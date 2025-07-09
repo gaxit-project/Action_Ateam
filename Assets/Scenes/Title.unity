@@ -2264,57 +2264,9 @@ PrefabInstance:
       value: Manager
       objectReference: {fileID: 0}
     - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-      propertyPath: _seLists.Array.size
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-      propertyPath: _bgmLists.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: '_seLists.Array.data[0]'
       value: 
       objectReference: {fileID: 8300000, guid: e27e4f09466160a488ecf3f72670de0e, type: 3}
-    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-      propertyPath: '_seLists.Array.data[3]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 4aab229baf3eb464eb7898d619f9d354, type: 3}
-    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-      propertyPath: '_seLists.Array.data[4]'
-      value: 
-      objectReference: {fileID: 8300000, guid: be8156c109ee41b4fa033d3f71dbac76, type: 3}
-    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-      propertyPath: '_seLists.Array.data[5]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 58b2890d1d879bf4b8a6ee7a57a67e1e, type: 3}
-    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-      propertyPath: '_seLists.Array.data[6]'
-      value: 
-      objectReference: {fileID: 8300000, guid: d04814541f7ae2449acdc71d1fdbaa87, type: 3}
-    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-      propertyPath: '_seLists.Array.data[7]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 18e638596d0b61546a5795249b6a3192, type: 3}
-    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-      propertyPath: '_seLists.Array.data[8]'
-      value: 
-      objectReference: {fileID: 8300000, guid: b2cc8e569ea327c43be0c541c55a8d53, type: 3}
-    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-      propertyPath: '_seLists.Array.data[9]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 5eed6a8899f2aaa4b9f8ddc019277830, type: 3}
-    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-      propertyPath: '_bgmLists.Array.data[2]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 2488b10757c7e5d418f95ece46cac58e, type: 3}
-    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-      propertyPath: '_bgmLists.Array.data[3]'
-      value: 
-      objectReference: {fileID: 8300000, guid: a4157eac71a524d5e85d2fb6f4649506, type: 3}
-    - target: {fileID: 5938775075321726909, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-      propertyPath: '_bgmLists.Array.data[4]'
-      value: 
-      objectReference: {fileID: 8300000, guid: a4157eac71a524d5e85d2fb6f4649506, type: 3}
     - target: {fileID: 7546423158512417502, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2396,21 +2348,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8629183568665788304, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-      propertyPath: canvas
-      value: 
-      objectReference: {fileID: 710459999}
-    - target: {fileID: 8629183568665788304, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-      propertyPath: loadingUI
-      value: 
-      objectReference: {fileID: 843782867}
-    - target: {fileID: 8629183568665788304, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: _loadingUI
       value: 
       objectReference: {fileID: 843782867}
-    - target: {fileID: 8629183568665788304, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
-      propertyPath: _loadSlider
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
