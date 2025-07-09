@@ -231,7 +231,7 @@ public class PlayerBase : MonoBehaviour
         {
             Ray ray = new Ray(pos + Vector3.up * 0.1f, Vector3.down);
 
-            return Physics.Raycast(ray, distance);
+            return Physics.Raycast(ray, distance, ~0, QueryTriggerInteraction.Ignore);
         }
     }
 
