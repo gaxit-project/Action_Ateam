@@ -1863,8 +1863,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eefde1ead905efe43832046216ebeaaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resultCameraPosition: {x: -45, y: 31, z: 43}
-  _resultCameraRotation: {x: 0, y: 90, z: 0}
+  _resultCameraPosition: {x: -80, y: 92, z: 35}
+  _resultCameraRotation: {x: 4, y: 90, z: 0}
   _posRank1: {x: 75, y: 115, z: 112}
   _rotRank1: {x: 0, y: 270, z: 0}
   _posRank2: {x: 75, y: 85, z: 60}
@@ -6624,13 +6624,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1641527609}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.028555682, y: 0.70653, z: -0.028555691, w: 0.70653003}
+  m_LocalRotation: {x: 0.02467767, y: 0.70667607, z: -0.02467767, w: 0.70667607}
   m_LocalPosition: {x: -80, y: 92, z: 35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 4.629, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 4, y: 90, z: 0}
 --- !u!114 &1641527614
 MonoBehaviour:
   m_ObjectHideFlags: 0
