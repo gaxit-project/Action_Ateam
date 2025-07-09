@@ -130,7 +130,7 @@ public class ResultSceneManager : MonoBehaviour
             // プレイヤーのTransformを更新
             player.transform.position = newPosition;
             player.transform.rotation = newRotation;
-
+            player.transform.localScale = new Vector3(30f, 30f, 30f);
             // Rigidbodyの設定（既存のコードを維持）
             var rb = player.GetComponent<Rigidbody>();
             if (rb != null)

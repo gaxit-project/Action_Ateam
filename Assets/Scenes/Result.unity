@@ -1865,6 +1865,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resultCameraPosition: {x: -45, y: 31, z: 43}
   _resultCameraRotation: {x: 0, y: 90, z: 0}
+  _posRank1: {x: 75, y: 115, z: 112}
+  _rotRank1: {x: 0, y: 270, z: 0}
+  _posRank2: {x: 75, y: 85, z: 60}
+  _rotRank2: {x: 0, y: 270, z: 0}
+  _posRank3: {x: 75, y: 54, z: 12}
+  _rotRank3: {x: 0, y: 270, z: 0}
+  _posRank4: {x: 171, y: 13, z: -105}
+  _rotRank4: {x: 20, y: 270, z: 0}
 --- !u!1 &452236098
 GameObject:
   m_ObjectHideFlags: 0

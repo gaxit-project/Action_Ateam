@@ -75,6 +75,7 @@ public class CrownScript : MonoBehaviour
         else
         {
             ID = ("Bot" + (maxIndex + 1 - player));
+            Debug.Log("ID:Bot" + (maxIndex + 1 - player));
             isPlayer = false;
         }
 
@@ -100,12 +101,13 @@ public class CrownScript : MonoBehaviour
             foreach (GameObject Aris in chara)
             {
                 EnemyAI player1 = Aris.GetComponent<EnemyAI>();
+                Debug.Log(player1.GetPlayerID());
                 if (player1 != null && player1.GetPlayerID() == ID)
                 {
                     player1.Crowned();
                     break;
                 }
-                Debug.LogError("1ˆÊ‚ÌNPC‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ!");
+                //Debug.LogError("1ˆÊ‚ÌNPC‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ!");
             }
         }       
     }
