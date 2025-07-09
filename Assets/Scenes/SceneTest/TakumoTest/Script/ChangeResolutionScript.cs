@@ -20,7 +20,7 @@ public class ResolutionChanger : MonoBehaviour
            
         }*/
 
-        if (dropdownResolution.value == 0)
+        if (dropdownResolution.value == 2)
         {
             SetResolution960x540();
            
@@ -32,7 +32,7 @@ public class ResolutionChanger : MonoBehaviour
           
         }
 
-        if (dropdownResolution.value == 2)
+        if (dropdownResolution.value == 1)
         {
             SetResolution1920x1080();
             
