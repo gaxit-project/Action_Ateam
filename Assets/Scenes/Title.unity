@@ -447,6 +447,7 @@ MonoBehaviour:
   _sceneName: Setting
   _SENumber: 0
   _stopBGM: 0
+  _isStartButtonClicked: 0
 --- !u!114 &415601408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1024,6 +1025,7 @@ MonoBehaviour:
   _sceneName: Main
   _SENumber: 4
   _stopBGM: 1
+  _isStartButtonClicked: 0
 --- !u!114 &719780563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1070,7 +1072,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 719780562}
         m_TargetAssemblyTypeName: ButtonHandler, Assembly-CSharp
-        m_MethodName: ButtonOnClicked
+        m_MethodName: ButtonOnClickedAsync
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1168,6 +1170,9 @@ MonoBehaviour:
   _loadingPanel: {fileID: 708237339}
   _loadingSlider: {fileID: 554108283}
   _activeText: {fileID: 39736661}
+  startButton: {fileID: 719780563}
+  settingsButton: {fileID: 415601408}
+  quitButton: {fileID: 1344903081}
 --- !u!114 &843782868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2205,6 +2210,7 @@ MonoBehaviour:
   _sceneName: 
   _SENumber: 0
   _stopBGM: 0
+  _isStartButtonClicked: 0
 --- !u!114 &1344903081
 MonoBehaviour:
   m_ObjectHideFlags: 0
