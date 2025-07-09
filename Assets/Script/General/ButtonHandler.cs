@@ -7,6 +7,8 @@ public class ButtonHandler : MonoBehaviour
 
     [Header("BGM‚ð’âŽ~‚·‚é‚©‚Ç‚¤‚©")]
     [SerializeField] private bool _stopBGM;
+
+    public bool _isStartButtonClicked;
     
     private PauseMenu pauseMenu;
     private GameManager gameManager;
