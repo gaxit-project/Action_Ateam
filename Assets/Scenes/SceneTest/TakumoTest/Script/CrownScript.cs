@@ -74,7 +74,7 @@ public class CrownScript : MonoBehaviour
         }
         else
         {
-            ID = ("bot" + (maxIndex + 1 - player));
+            ID = ("Bot" + (maxIndex + 1 - player));
             isPlayer = false;
         }
 
