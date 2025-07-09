@@ -45,7 +45,7 @@ public class CrownScript : MonoBehaviour
         while (j < bot)
         {
             var botdata = gameManager.GetPlayerScoreData("Bot" + (isNum + 1));
-            scores[i] = botdata.GetTotalScore();/*botj‚ÌScore*/ ;
+            scores[i++] = botdata.GetTotalScore();/*botj‚ÌScore*/ ;
             isNum++;
             j++;
         }
@@ -105,6 +105,7 @@ public class CrownScript : MonoBehaviour
                     player1.Crowned();
                     break;
                 }
+                Debug.LogError("1ˆÊ‚ÌNPC‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ!");
             }
         }       
     }

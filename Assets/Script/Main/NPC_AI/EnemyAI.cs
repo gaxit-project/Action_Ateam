@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 namespace NPC.StateAI
 {
@@ -280,7 +281,6 @@ namespace NPC.StateAI
             {
                 foreach (GameObject t in tar)
                 {
-                    Debug.Log("par");
                     Vector3 dis = t.transform.position - transform.position;
                     dis.y = 0;
                     if (dis.magnitude <= 300f) targetCandidates[i++] = t;
@@ -293,7 +293,7 @@ namespace NPC.StateAI
                 }
                 else Debug.LogError("範囲内にtargetタグを持つオブジェクトが存在しません！");
             }
-            else StartCoroutine("GetTargets");
+            else if(SceneManager.GetActiveScene().buildIndex == 1) StartCoroutine("GetTargets");
         }
 
         public void OnTriggerEnter(Collider other)
