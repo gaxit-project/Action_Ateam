@@ -13,6 +13,18 @@ public class ResultSceneManager : MonoBehaviour
     [SerializeField] private Vector3 _resultCameraPosition = new Vector3();
     [SerializeField] private Vector3 _resultCameraRotation = new Vector3();
 
+    [Header("Rank")]
+    [SerializeField] private Vector3 _posRank1 = new Vector3();
+    [SerializeField]private Vector3 _rotRank1 = new Vector3();
+    [SerializeField] private Vector3 _posRank2 = new Vector3();
+    [SerializeField] private Vector3 _rotRank2 = new Vector3();
+    [SerializeField] private Vector3 _posRank3 = new Vector3();
+    [SerializeField] private Vector3 _rotRank3 = new Vector3();
+    [SerializeField] private Vector3 _posRank4 = new Vector3();
+    [SerializeField] private Vector3 _rotRank4 = new Vector3();
+
+    private Vector3 newPosition;
+    private Quaternion newRotation;
     private void Start()
     {
         cameraController = FindFirstObjectByType<CameraController>();
@@ -86,34 +98,40 @@ public class ResultSceneManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("PlayerSet");
-        // リザルト表示用に、playersリストをランク順にソートします。
-        // GameManagerのRankSort()はPlayerBaseオブジェクトのRankプロパティを更新しますが、
-        // playersリスト自体の順序はソートしません。
-        var sortedPlayersForDisplay = gameManager.players.OrderBy(p => p.Rank).ToList();
-
-
-        float baseHeight = 10f; // 1位の高さ
-        float baseWidth = -20f;
-        float stepY = 2f;        // 順位ごとの高さの差
-        float stepX = 10f;
-
-
-        foreach (var player in sortedPlayersForDisplay) // ソートされたリストを順に処理
+        var sortedPlayers = gameManager.players.OrderBy(p => p.Rank).ToList();
+        foreach ( var player in sortedPlayers)
         {
             int rank = player.Rank;
+            
 
-            // Debug.Log($"Player: {player.name}, Rank: {rank}"); // デバッグ用に出力
+            switch (rank)
+            {
+                case 1:
+                    newPosition = _posRank1;
+                    newRotation = Quaternion.Euler(_rotRank1);
+                    break;
+                case 2:
+                    newPosition = _posRank2;
+                    newRotation = Quaternion.Euler(_rotRank2);
+                    break;
+                case 3:
+                    newPosition = _posRank3;
+                    newRotation = Quaternion.Euler(_rotRank3);
+                    break;
+                case 4:
+                    newPosition = _posRank4;
+                    newRotation = Quaternion.Euler(_rotRank4);
+                    break;
+                default:
+                    Debug.LogError("順位が定まっていません");
+                    break;
+            }
+            
+            // プレイヤーのTransformを更新
+            player.transform.position = newPosition;
+            player.transform.rotation = newRotation;
 
-            float y = baseHeight - (rank - 1) * stepY;
-            if (y < 1f) y = 1f; // 最低の高さを設定（地面に埋まらないように）
-
-            float x = baseWidth + (rank - 1) * stepX;
-
-            Vector3 pos = player.transform.position;
-
-            player.transform.position = new Vector3(x, y, pos.z);
-
+            // Rigidbodyの設定（既存のコードを維持）
             var rb = player.GetComponent<Rigidbody>();
             if (rb != null)
             {

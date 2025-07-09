@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class LoadingUIController : MonoBehaviour
 {
     [SerializeField] private GameObject _loadingPanel;
-    [SerializeField] private Slider _loadingSlider;
+    //[SerializeField] private Slider _loadingSlider;
     [SerializeField] private TextMeshProUGUI _activeText;
     [SerializeField] private Button startButton;
     [SerializeField] private Button settingsButton;
@@ -29,18 +29,18 @@ public class LoadingUIController : MonoBehaviour
 
     public void ShowLoadingSlider()
     {
-        if(_loadingSlider != null)
+        /*if(_loadingSlider != null)
         {
             _loadingSlider.gameObject.SetActive(true);
-        }
+        }*/
     }
 
     public void HideLoadingSlider()
     {
-        if (_loadingSlider != null)
+        /*if (_loadingSlider != null)
         {
             _loadingSlider.gameObject.SetActive(false);
-        }
+        }*/
     }
 
     /// <summary>
@@ -49,10 +49,10 @@ public class LoadingUIController : MonoBehaviour
     /// <param name="value">ロードがどこまで進んでいるかの値</param>
     public void UpdateProgress(float progress)
     {
-        if (_loadingSlider != null)
+       /* if (_loadingSlider != null)
         {
             _loadingSlider.value = progress;
-        }
+        }*/
     }
 
     /// <summary>

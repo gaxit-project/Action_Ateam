@@ -13,7 +13,7 @@ public class MutedBGM : MonoBehaviour
     private void Start()
     {
         bgmImage = GetComponent<Image>();
-
+        audioManager = AudioManager.Instance;
     }
 
     private void Update()
