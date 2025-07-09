@@ -62,6 +62,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 58b2890d1d879bf4b8a6ee7a57a67e1e, type: 3}
   - {fileID: 8300000, guid: d04814541f7ae2449acdc71d1fdbaa87, type: 3}
   - {fileID: 8300000, guid: 18e638596d0b61546a5795249b6a3192, type: 3}
+  - {fileID: 8300000, guid: b2cc8e569ea327c43be0c541c55a8d53, type: 3}
+  - {fileID: 8300000, guid: 5eed6a8899f2aaa4b9f8ddc019277830, type: 3}
   _bgmLists:
   - {fileID: 8300000, guid: 5aea1eb8e494546ccb52c0d547cb54c6, type: 3}
   - {fileID: 8300000, guid: a4157eac71a524d5e85d2fb6f4649506, type: 3}
@@ -316,3 +318,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e021cc9c7d5bb9e46b0788151730a696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shuffledPalette: []

@@ -145,19 +145,19 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         switch (StageNum)
         {
             case 0:
-                StartPoint = new Vector3(-50, -1.25f, 5);
+                StartPoint = new Vector3(-50, -1.25f, 0);
                 pinManager.InsertPin(0);
                 if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
                 cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
                 break;
             case 1:
-                StartPoint = new Vector3(33425, -2, 868f);
+                StartPoint = new Vector3(33425, -2, 863);
                 pinManager.InsertPin(1);
                 if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
                 cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
                 break;
             case 2:
-                StartPoint = new Vector3(-50, 4, 4982);
+                StartPoint = new Vector3(-50, 4, 4977);
                 pinManager.InsertPin(2);
                 if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
                 cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
@@ -169,8 +169,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         List<Vector3> spawnPositions = new List<Vector3>();
         for (int i = 0; i < totalPlayers; i++)
         {
-            //現在はx座標を75fずつ左にずらしている状態
-            spawnPositions.Add(StartPoint + new Vector3(0f, 0f, -i * 5f)); //ここをいじって変えてください
+            spawnPositions.Add(StartPoint + new Vector3(0f, 0f, (2 - i) * 5f - 2.5f));
         }
 
         spawnPositions = spawnPositions.OrderBy(x => Random.value).ToList(); //スポーン場所をランダムに
