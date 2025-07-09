@@ -229,7 +229,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         //Player
         for (int i = 0; i < NumHumanPlayers; i++)
         {
-            var playerobj = Instantiate(_playerPrefab, new Vector3(), Quaternion.identity);
+            var playerobj = Instantiate(_playerPrefab, new Vector3(), Quaternion.Euler(0f, 270f, 0f));
             var player = playerobj.GetComponent<Player>();
             player.Init($"Player{i + 1}", false);
             players.Add(player);
@@ -240,7 +240,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         //Bot
         for (int i = 0; i < NumBots; i++)
         {
-            var botobj = Instantiate(_botPrefab, new Vector3(), Quaternion.identity);
+            var botobj = Instantiate(_botPrefab, new Vector3(), Quaternion.Euler(0f, 270f, 0f));
             var bot = botobj.GetComponent<PlayerBase>();
             bot.Init($"Bot{i + 1}", true);
             players.Add(bot);

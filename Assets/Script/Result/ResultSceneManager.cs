@@ -95,7 +95,10 @@ public class ResultSceneManager : MonoBehaviour
 
 
         float baseHeight = 10f; // 1位の高さ
-        float step = 2f;        // 順位ごとの高さの差
+        float baseWidth = -20f;
+        float stepY = 2f;        // 順位ごとの高さの差
+        float stepX = 10f;
+
 
         foreach (var player in sortedPlayersForDisplay) // ソートされたリストを順に処理
         {
@@ -103,12 +106,14 @@ public class ResultSceneManager : MonoBehaviour
 
             // Debug.Log($"Player: {player.name}, Rank: {rank}"); // デバッグ用に出力
 
-            float y = baseHeight - (rank - 1) * step;
+            float y = baseHeight - (rank - 1) * stepY;
             if (y < 1f) y = 1f; // 最低の高さを設定（地面に埋まらないように）
 
-            Vector3 pos = player.transform.position; // GameManagerで既に設定されたX, Z座標を維持
+            float x = baseWidth + (rank - 1) * stepX;
 
-            player.transform.position = new Vector3(pos.x, y, pos.z);
+            Vector3 pos = player.transform.position;
+
+            player.transform.position = new Vector3(x, y, pos.z);
 
             // Rigidbodyがある場合は、重力と物理演算を停止（GameManagerでも行っていますが、念のため）
             var rb = player.GetComponent<Rigidbody>();
