@@ -51,8 +51,13 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     //private int[] NowFramePoint_3 = new int[11];
     //int pp0,pp1,pp2,pp3;//a-dは仮置き,スコアを表す
 
-    private float timer = 10f;
-    [SerializeField] private TextMeshProUGUI timerUI;
+    //Timer関連
+    private float maxTime = 11f;
+    private float remainingTime = 10f;
+    private GameObject timerUI;
+    private TextMeshProUGUI timer;
+    private Image image;
+    private bool isGettingTimer = false;
 
     private void Start()
     {
@@ -76,22 +81,21 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             pointManager = FindFirstObjectByType<PointManager>();
         }
 
-        if (buildIndex == 1 && timerUI == null) timerUI = GameObject.Find("CountDown").GetComponent<TextMeshProUGUI>();
-
-        if (isCounting && timer > -1f)
+        if (isCounting && remainingTime > -1f)
         {
-            timer -= Time.deltaTime;
-            if (timer <= -1f)
+            remainingTime -= Time.deltaTime;
+            image.fillAmount = (remainingTime + 1) / maxTime > 0f ? (remainingTime + 1) / maxTime : 0f;
+            if (remainingTime <= -1f)
             {
-                timerUI.enabled = false;
+                timerUI.SetActive(false);
                 resetArea.TimeOver();
                 isCounting = false;
             }
             else
             {
                 // 小数点以下を切り上げて整数表示
-                int displayTime = Mathf.CeilToInt(timer);
-                timerUI.text = displayTime.ToString();
+                int displayTime = Mathf.CeilToInt(remainingTime);
+                timer.text = displayTime.ToString();
             }
         }
     }
@@ -222,6 +226,16 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         colorAssigner.AssignColors();
         CrownScript crownScript = FindFirstObjectByType<CrownScript>();
         crownScript.CrownMove();
+
+        timerUI = GameObject.Find("Timer");
+        timer = GameObject.Find("CountDown").GetComponent<TextMeshProUGUI>();
+        image = GameObject.Find("Ring").GetComponent<Image>();
+        if (timerUI != null && timer != null && image != null)
+        {
+            isGettingTimer = true;
+            timerUI.SetActive(false);
+        }
+        else Debug.LogError("1つあるいは複数のタイマー関連のオブジェクトが取得できませんでした");
     }
 
     public void ResultSetting()
@@ -266,7 +280,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         players.Clear();
         playerScores.Clear();
         Num_NowFrame = 1;
-        PlayerScore = new int[NumHumanPlayers + NumBots, 11];
+        PlayerScore = new int[NumHumanPlayers + NumBots, 11]; 
     }
 
     /// <summary>
@@ -275,14 +289,14 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public void StartCount()
     {
         Debug.Log("カウントスタート!");
-        timer = 10f;
-        timerUI.enabled = true;
+        timerUI.SetActive(true);
+        remainingTime = 10f;
         isCounting = true;
     }
 
     public void StopTimer()
     {
-        timerUI.enabled = false;
+        timerUI.SetActive(false);
         isCounting = false;
     }
 
