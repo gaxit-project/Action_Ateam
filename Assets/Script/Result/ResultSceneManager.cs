@@ -76,8 +76,7 @@ public class ResultSceneManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ランクに応じてプレイヤー（ボール）のY座標を設定
-    /// GameManagerのplayersリストに、リザルト用に生成されたボールが入っていることを前提とします。
+    /// ランクに応じてプレイヤー（ボール）のXY座標を設定
     /// </summary>
     public void SetPlayerHeightsByRank()
     {
@@ -115,7 +114,6 @@ public class ResultSceneManager : MonoBehaviour
 
             player.transform.position = new Vector3(x, y, pos.z);
 
-            // Rigidbodyがある場合は、重力と物理演算を停止（GameManagerでも行っていますが、念のため）
             var rb = player.GetComponent<Rigidbody>();
             if (rb != null)
             {

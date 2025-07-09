@@ -93,8 +93,8 @@ public class CameraController : MonoBehaviour
 
     public void ResultCameraMode(Vector3 position, Vector3 rotation)
     {
-        targetPosition = position;
-        InitialCameraDirection = rotation;
+        transform.position= position;
+        transform.rotation =Quaternion.Euler(rotation);
     }
 
     /// <summary>

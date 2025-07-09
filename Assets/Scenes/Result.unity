@@ -1066,6 +1066,7 @@ MonoBehaviour:
   _sceneName: Title
   _SENumber: 3
   _stopBGM: 0
+  _isStartButtonClicked: 0
 --- !u!114 &317772430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1570,8 +1571,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eefde1ead905efe43832046216ebeaaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resultCameraPosition: {x: 0, y: 0, z: 0}
-  _resultCameraRotation: {x: 0, y: 0, z: 0}
+  _resultCameraPosition: {x: -45, y: 31, z: 43}
+  _resultCameraRotation: {x: 0, y: 90, z: 0}
 --- !u!1 &452236098
 GameObject:
   m_ObjectHideFlags: 0
@@ -2835,6 +2836,7 @@ MonoBehaviour:
   _sceneName: Main
   _SENumber: 4
   _stopBGM: 1
+  _isStartButtonClicked: 0
 --- !u!114 &833171690
 MonoBehaviour:
   m_ObjectHideFlags: 0
