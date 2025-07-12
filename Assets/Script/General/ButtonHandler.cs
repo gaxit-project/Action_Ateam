@@ -37,9 +37,23 @@ public class ButtonHandler : MonoBehaviour
 
         AudioManager.Instance.PlaySound(_SENumber);
         AudioManager.Instance._audioSourceBGM.loop = true;
+        SceneChangeManager.Instance.SceneChange(_sceneName);  
+    }
+
+    /// <summary>
+    /// リスタート
+    /// </summary>
+    public void RestartGame()
+    {
+        if (_stopBGM)
+        {
+            AudioManager.Instance.StopBGM();
+        }
+
+        GameManager.Instance.ResetGame();
+        AudioManager.Instance.PlaySound(_SENumber);
+        AudioManager.Instance._audioSourceBGM.loop = true;
         SceneChangeManager.Instance.SceneChange(_sceneName);
-        
-        
     }
 
     /// <summary>
