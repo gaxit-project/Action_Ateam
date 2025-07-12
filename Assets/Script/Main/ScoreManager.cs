@@ -17,6 +17,8 @@ public class ScoreManager : MonoBehaviour
     private GameStarter gameStarter;
     [SerializeField] PointManager pointManager;
 
+    public bool isFinish = false;
+
     private void Start()
     {
         if (gameManager == null)
@@ -40,7 +42,7 @@ public class ScoreManager : MonoBehaviour
     public void ResetFrame()
     {
         //10フレーム目終了(ゲーム終了)
-        if (gameManager.Num_NowFrame == 11)
+        if (isFinish == true)
         {
             gameManager.IsStart = false;
             SceneChangeManager.Instance.SceneChange("Result");
@@ -48,6 +50,10 @@ public class ScoreManager : MonoBehaviour
         //10フレーム以外
         else
         {
+            if(gameManager.Num_NowFrame == 10)
+            {
+                isFinish = true;
+            }
             Debug.Log("RESET");
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 144;
@@ -59,8 +65,6 @@ public class ScoreManager : MonoBehaviour
             pointManager.PrintAwake();
         }
     }
-
-
 
     /// <summary>
     /// スコアをリストに保存

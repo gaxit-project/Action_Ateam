@@ -40,7 +40,15 @@ public class ResetArea : MonoBehaviour
                 Destroy(player.gameObject);
         }
         GameManager.Instance.players.Clear();
-        SceneChangeManager.Instance.ResetScene(SceneName);
+        if(scoreManager.isFinish == true)
+        {
+            SceneChangeManager.Instance.SceneChange("Result");
+        }
+        else
+        {
+            SceneChangeManager.Instance.ResetScene(SceneName);
+        }
+
         
     }
 
