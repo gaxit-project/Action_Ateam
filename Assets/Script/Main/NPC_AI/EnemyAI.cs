@@ -73,6 +73,7 @@ namespace NPC.StateAI
 
         private void Update()
         {
+            transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
             enemyStateMachine.Update();
             //if (!IsGrounded() && enemyAI.agent.enabled) enemyAI.agent.enabled = false;
             //else if (IsGrounded() && !enemyAI.agent.enabled && enemyAI.EnemyStateMachine.CurrentState != enemyAI.EnemyStateMachine.throwState) enemyAI.agent.enabled = true;
@@ -100,6 +101,7 @@ namespace NPC.StateAI
             {
                 Quaternion targetRot = Quaternion.LookRotation(targetDirection);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, 50f * Time.fixedDeltaTime);
+                transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
             }
         }
 
