@@ -21,7 +21,7 @@ public class ButtonHandler : MonoBehaviour
     {
         if(gameManager == null)
         {
-            Debug.LogWarning("GameManagerNULL");
+            //Debug.LogWarning("GameManagerNULL");
             gameManager = FindFirstObjectByType<GameManager>();
         }
     }
@@ -68,5 +68,10 @@ public class ButtonHandler : MonoBehaviour
         #else
             Application.Quit();
         #endif
+    }
+
+    public void ButtonSelected()
+    {
+        AudioManager.Instance.PlaySound(0);
     }
 }
