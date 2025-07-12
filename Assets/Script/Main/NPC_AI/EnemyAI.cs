@@ -66,6 +66,9 @@ namespace NPC.StateAI
             enemyStateMachine.Initialize(enemyStateMachine.idleState);
             StartCoroutine("GetTargets");
             PlayerColor = ColorAssigner.Instance.GetAssignedColor(gameObject);
+            arrowUIName = "Arrow4";
+            arrowUI = transform.Find(arrowUIName).gameObject;
+            if (arrowUI == null) Debug.LogError("UIが見つかりません！");
         }
 
         private void Update()

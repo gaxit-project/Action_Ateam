@@ -73,6 +73,10 @@ public class PlayerBase : MonoBehaviour
 
     [SerializeField] protected GameObject crown;
 
+    protected GameObject arrowUI;
+    private bool arrowDisplay = false;
+    [SerializeField] protected string arrowUIName;
+
     protected virtual void Start()
     {
         //Rigidbodyを取得
@@ -202,6 +206,21 @@ public class PlayerBase : MonoBehaviour
         }
     }
     */
+    //矢印の表示・非表示変更
+    public void ChangeArrowMode()
+    {
+        switch (arrowDisplay)
+        {
+            case false:
+                arrowDisplay = true;
+                arrowUI.SetActive(true);
+                break;
+            case true:
+                arrowDisplay = false;
+                arrowUI.SetActive(false);
+                break;
+        }
+    }
 
     public class Character
     {

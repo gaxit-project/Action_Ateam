@@ -15,9 +15,6 @@ public class Player : PlayerBase
     }
 
     protected PlayerState currentState = PlayerState.Idle;
-    private GameObject arrowUI;
-    private bool a = false;
-    [SerializeField] private string arrowUIName = "Arrow1";
     
     //プロパティ
     public PlayerState PlayerStateProperty
@@ -30,6 +27,7 @@ public class Player : PlayerBase
     override protected void Start()
     {
         base.Start();
+        arrowUIName = "Arrow3";
         arrowUI = transform.Find(arrowUIName).gameObject;
         if (arrowUI == null) Debug.LogError("UIが見つかりません！");
     }
@@ -340,21 +338,4 @@ public class Player : PlayerBase
         isReflecting = false;
         isDecelerating = true;
     }
-
-    //矢印の表示・非表示変更
-    public void ChangeArrowMode()
-    {
-        switch(a)
-        {
-            case false:
-                a = true;
-                arrowUI.SetActive(true);
-                break;
-            case true:
-                a = false;
-                arrowUI.SetActive(false);
-                break;
-        }
-    }
-
 }

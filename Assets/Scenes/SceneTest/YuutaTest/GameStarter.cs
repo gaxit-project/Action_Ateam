@@ -1,3 +1,4 @@
+using NPC.StateAI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,6 +69,13 @@ public class GameStarter : MonoBehaviour
                         area[i].SetActive(true);
                     }
                     player.ChangeArrowMode();
+                    GameObject[] npc = GameObject.FindGameObjectsWithTag("NPC");
+                    foreach (GameObject n in npc)
+                    {
+                        EnemyAI enemyAI = n.GetComponent<EnemyAI>();
+                        enemyAI.ChangeArrowMode();
+                    }
+                    
                 }
             }
 
