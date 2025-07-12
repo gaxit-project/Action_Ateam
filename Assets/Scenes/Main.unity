@@ -3184,7 +3184,7 @@ MonoBehaviour:
   - {fileID: 7662751867388878894, guid: 4cd9eb3a9b411e0408cffc49588dac8b, type: 3}
   - {fileID: 7662751867388878894, guid: f5f38a5a758e120429fe7dc6f501211c, type: 3}
   - {fileID: 7662751867388878894, guid: 95b7339692ca6b04690d9a9a11c01670, type: 3}
-  - {fileID: 7662751867388878894, guid: 5aa3e4f4b44dc9041a519947c1768b7a, type: 3}
+  - {fileID: 7662751867388878894, guid: de845b1b18cb63040a5e0a14df4a3294, type: 3}
 --- !u!4 &271860860
 Transform:
   m_ObjectHideFlags: 0
@@ -11067,6 +11067,7 @@ MonoBehaviour:
   collisionEffectPrefab2: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 0}
+  arrowUIName: 
   detectionRadius: 2
   bounceSpeed: 10
   bounceVectorMultiple: 2
@@ -17647,6 +17648,7 @@ MonoBehaviour:
   resetArea: {fileID: 0}
   totalScore: 0
   pointManager: {fileID: 1734872515}
+  isFinish: 0
 --- !u!1001 &1452521764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19865,6 +19867,7 @@ MonoBehaviour:
   collisionEffectPrefab2: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 0}
+  arrowUIName: 
 --- !u!54 &1648784725
 Rigidbody:
   m_ObjectHideFlags: 0
