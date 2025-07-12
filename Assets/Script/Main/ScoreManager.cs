@@ -56,7 +56,7 @@ public class ScoreManager : MonoBehaviour
             resetArea = FindFirstObjectByType<ResetArea>();
             gameManager.SetUpPlayers();
             if (pointManager == null) Debug.LogError("ERROR");
-            pointManager.PrintPoint();
+            pointManager.PrintAwake();
         }
     }
 
