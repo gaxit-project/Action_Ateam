@@ -10,6 +10,8 @@ public class ResetArea : MonoBehaviour
     private int BuildIndex;
     private FrameMoveCameraScript frameMoveCameraScript;
     private FrameStarterScript_2 frameStarterScript_2;
+    private GameManager gameManager;
+    private CameraController cameraController;
     private void Update()
     {
         BuildIndex = SceneManager.GetActiveScene().buildIndex;
@@ -18,6 +20,8 @@ public class ResetArea : MonoBehaviour
             frameStarterScript_2 = FindFirstObjectByType<FrameStarterScript_2>();
             scoreManager = FindFirstObjectByType<ScoreManager>();
             frameMoveCameraScript = FindFirstObjectByType<FrameMoveCameraScript>();
+            gameManager = FindFirstObjectByType<GameManager>();
+            cameraController = FindFirstObjectByType<CameraController>();
         }
     }
 
@@ -36,8 +40,39 @@ public class ResetArea : MonoBehaviour
                 Destroy(player.gameObject);
         }
         GameManager.Instance.players.Clear();
-        SceneChangeManager.Instance.ResetScene(SceneName);
+        if(scoreManager.isFinish == true)
+        {
+            SceneChangeManager.Instance.SceneChange("Result");
+        }
+        else
+        {
+            SceneChangeManager.Instance.ResetScene(SceneName);
+        }
+
         
+    }
+
+    public void TimeOver()
+    {
+        Debug.Log("時間切れです");
+        cameraController.StopCameraMove();
+        DisplayScore();
+    }
+
+    private void DisplayScore()
+    {
+        isPlayerOut = true;
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var p in players) p.gameObject.SetActive(false);
+        GameObject[] npcs = GameObject.FindGameObjectsWithTag("NPC");
+        foreach (var n in npcs) n.gameObject.SetActive(false);
+        GameObject[] pins = GameObject.FindGameObjectsWithTag("Pin");
+        foreach (var pin in pins) pin.gameObject.SetActive(false);
+        gameManager.StopTimer();
+        AudioManager.Instance.PlayBGM(2);
+        frameMoveCameraScript.WarpCameraToMenObject();
+        frameStarterScript_2.FrameObjectUPFalse();
+        GameManager.Instance.CurrentFrameResult();
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -45,11 +80,7 @@ public class ResetArea : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Debug.Log("エリア外に到達しました");
-            isPlayerOut = true;
-            AudioManager.Instance.PlayBGM(2);
-            frameMoveCameraScript.WarpCameraToMenObject();
-            frameStarterScript_2.FrameObjectUPFalse();
-            GameManager.Instance.CurrentFrameResult();
+            DisplayScore();
         }
     }
 }

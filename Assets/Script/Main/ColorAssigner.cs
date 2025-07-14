@@ -16,7 +16,7 @@ public class ColorAssigner : MonoBehaviour
         Color.magenta,
     };
 
-    private List<Color> shuffledPalette;
+    [SerializeField]private List<Color> shuffledPalette;
     private int currentColorIndex = 0;
     private Dictionary<GameObject, Color> assignedColors = new Dictionary<GameObject, Color>();
 
@@ -53,11 +53,17 @@ public class ColorAssigner : MonoBehaviour
         Renderer renderer = obj.GetComponent<Renderer>();
         if (renderer == null) return Color.white;
 
+        if(shuffledPalette == null)
+        {
+            Debug.LogError("ERROR");
+        }
+
         if (currentColorIndex >= shuffledPalette.Count)
         {
             currentColorIndex = 0;
         }
 
+        Debug.Log("Assigncolorindex = " +  currentColorIndex);
         Color assignedColor = shuffledPalette[currentColorIndex];
         renderer.material.color = assignedColor;
         assignedColors[obj] = assignedColor;

@@ -20,7 +20,7 @@ public class ResolutionChanger : MonoBehaviour
            
         }*/
 
-        if (dropdownResolution.value == 0)
+        if (dropdownResolution.value == 2)
         {
             SetResolution960x540();
            
@@ -32,7 +32,7 @@ public class ResolutionChanger : MonoBehaviour
           
         }
 
-        if (dropdownResolution.value == 2)
+        if (dropdownResolution.value == 1)
         {
             SetResolution1920x1080();
             
@@ -84,3 +84,4 @@ public class ResolutionChanger : MonoBehaviour
         //ˆø”‚Í‡”Ô‚É‰¡‚Ì’·‚³Ac‚Ì’·‚³AWindows‚Ìí—ŞA‰æ–Ê‚ğØ‚è‘Ö‚¦‚é‰ñ”(notfps)
     }
 }
+/*Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow, refreshRate);*/

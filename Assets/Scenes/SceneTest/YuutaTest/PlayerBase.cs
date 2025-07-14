@@ -16,6 +16,7 @@ public class PlayerBase : MonoBehaviour
     public bool IsBot { get; private set; } = false;
     public string PlayerID = "UnKnown";
     public Color PlayerColor;
+    public int Rank { get; private set; } = 0;
     protected ScoreManager scoreManager;
     private ColorAssigner colorAssigner;
 
@@ -36,7 +37,7 @@ public class PlayerBase : MonoBehaviour
     protected float rotation = 0f;
     protected Vector3 currentVelocity = Vector3.zero;
     protected Vector3 throwVelocity;
-    public Vector3 incomingVelocity;
+    protected Vector3 incomingVelocity;
     protected bool isModeChanged = false;
     protected bool isGaugeIncreasing = true;
     protected bool isThrowTimerStarted = false;
@@ -70,6 +71,12 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] protected GameObject collisionEffectPrefab2;
     [SerializeField] protected float effectDuration = 2.0f;
 
+    [SerializeField] protected GameObject crown;
+
+    protected GameObject arrowUI;
+    private bool arrowDisplay = false;
+    [SerializeField] protected string arrowUIName;
+
     protected virtual void Start()
     {
         //Rigidbodyを取得
@@ -81,7 +88,7 @@ public class PlayerBase : MonoBehaviour
         //クラス内のステータスを初期化する
         player.InitializeStatus(speed, weight);
         PlayerColor = colorAssigner.AssignColorToObject(gameObject);
-        Debug.Log($"Bot 初期カラー: {PlayerColor}, renderer.material.color: {GetComponent<Renderer>().material.color}");
+        //Debug.Log($"Bot 初期カラー: {PlayerColor}, renderer.material.color: {GetComponent<Renderer>().material.color}");
 
 
         if (rigidbody)
@@ -161,6 +168,12 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    //ここに王冠を出すスクリプトを描く
+    public void Crowned()
+    {
+        crown.SetActive(true);
+    }
+
     /*
     /// <summary>
     /// 投擲待機
@@ -193,6 +206,21 @@ public class PlayerBase : MonoBehaviour
         }
     }
     */
+    //矢印の表示・非表示変更
+    public void ChangeArrowMode()
+    {
+        switch (arrowDisplay)
+        {
+            case false:
+                arrowDisplay = true;
+                arrowUI.SetActive(true);
+                break;
+            case true:
+                arrowDisplay = false;
+                arrowUI.SetActive(false);
+                break;
+        }
+    }
 
     public class Character
     {
@@ -222,7 +250,7 @@ public class PlayerBase : MonoBehaviour
         {
             Ray ray = new Ray(pos + Vector3.up * 0.1f, Vector3.down);
 
-            return Physics.Raycast(ray, distance);
+            return Physics.Raycast(ray, distance, ~0, QueryTriggerInteraction.Ignore);
         }
     }
 
@@ -240,7 +268,26 @@ public class PlayerBase : MonoBehaviour
     public string GetPlayerID() => PlayerID;
     public Color GetPlayerColor() => PlayerColor;
 
-    
+    /// <summary>
+    /// PlayerのColorの名前を返す
+    /// </summary>
+    /// <returns>PlayerColorの名前</returns>
+    public string GetColorName()
+    {
+        if (PlayerColor == Color.red) return "Red";
+        if (PlayerColor == Color.blue) return "Blue";
+        if (PlayerColor == Color.green) return "Green";
+        if (PlayerColor == Color.yellow) return "Yellow";
+        if (PlayerColor == Color.magenta) return "Magenta"; // 紫に近い
+        if (PlayerColor == Color.cyan) return "Cyan"; // 水色に近い
+
+        return "その他";
+    }
+
+    public void SetRank(int rank)
+    {
+        Rank = rank;
+    }
     public class PlayerClass : Character
     {
 

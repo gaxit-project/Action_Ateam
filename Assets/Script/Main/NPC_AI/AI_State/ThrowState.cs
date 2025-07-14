@@ -30,14 +30,14 @@ namespace NPC.StateAI
             //enemyAI.GetComponent<MeshRenderer>().material.color = MeshColor;
             enemyAI.GetComponent<Rigidbody>();
             rb = enemyAI.GetComponent<Rigidbody>();
-            enemyAI.transform.LookAt(enemyAI.Target);
+            //enemyAI.transform.LookAt(enemyAI.Target);
         }
 
         public void Update()
         {
             Ray ray = new Ray(enemyAI.gameObject.transform.position + Vector3.up * 0.1f, Vector3.down);
 
-            if (Physics.Raycast(ray, 1.2f))
+            if (Physics.Raycast(ray, 1.2f, ~0, QueryTriggerInteraction.Ignore))
             {
                 throwVelocity = enemyAI.transform.forward * enemyAI.ReturnSpeed() * enemyAI.ReturnThrowPower();
                 rb.linearVelocity = throwVelocity;

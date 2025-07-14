@@ -1,3 +1,4 @@
+using NPC.StateAI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,7 @@ public class GameStarter : MonoBehaviour
             if (!isCountStopped)
             {
                 time -= Time.deltaTime;
-                // 小数点以下を切り捨てて整数表示
+                // 小数点以下を切り上げて整数表示
                 int displayTime = Mathf.CeilToInt(time);
                 foreach (TextMeshProUGUI t in countTexts) t.text = displayTime.ToString();
                 StartCount();
@@ -55,6 +56,7 @@ public class GameStarter : MonoBehaviour
                     isCountStopped = true;
                     foreach (TextMeshProUGUI t in countTexts) t.text = "GO!!";
                     AudioManager.Instance.PlaySound(9);
+                    gameManager.StartCount();
                     Invoke("Disabled", 0.5f);
                     for (int i = 0; i < area.Length; i++)
                     {
@@ -67,6 +69,13 @@ public class GameStarter : MonoBehaviour
                         area[i].SetActive(true);
                     }
                     player.ChangeArrowMode();
+                    GameObject[] npc = GameObject.FindGameObjectsWithTag("NPC");
+                    foreach (GameObject n in npc)
+                    {
+                        EnemyAI enemyAI = n.GetComponent<EnemyAI>();
+                        enemyAI.ChangeArrowMode();
+                    }
+                    
                 }
             }
 

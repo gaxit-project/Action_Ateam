@@ -16,6 +16,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private int buildIndex;
     public bool IsStart = false;
     public bool isPaused = false;
+    public bool isCounting { private get; set; } = false;
 
     //現在のフレーム
     public int Num_NowFrame = 1;
@@ -40,6 +41,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private PointManager pointManager;
     private PinManager pinManager;
     private CameraController cameraController;
+    private ResetArea resetArea;
 
     public ColorAssigner colorAssigner;
 
@@ -49,16 +51,28 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     //private int[] NowFramePoint_3 = new int[11];
     //int pp0,pp1,pp2,pp3;//a-dは仮置き,スコアを表す
 
+    //Timer関連
+    private float maxTime = 11f;
+    private float remainingTime = 10f;
+    private GameObject timerUI;
+    private TextMeshProUGUI timer;
+    private Image image;
+    private bool isGettingTimer = false;
+
     private void Start()
     {
+        Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow, Screen.currentResolution.refreshRateRatio);//解像度を1980*1080にする
         pointManager = FindFirstObjectByType<PointManager>();
         pinManager = FindFirstObjectByType<PinManager>();
         colorAssigner = FindFirstObjectByType<ColorAssigner>();
         cameraController = GameObject.FindFirstObjectByType<CameraController>();
+        resetArea = GameObject.FindFirstObjectByType<ResetArea>();
     }
 
     private void Update()
     {
+        if (resetArea == null) resetArea = GameObject.FindFirstObjectByType<ResetArea>();
+
         buildIndex = SceneManager.GetActiveScene().buildIndex;
         //Debug.Log(buildIndex);
         if (buildIndex == 1 || buildIndex == 4)
@@ -66,11 +80,30 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             scoreManager = FindFirstObjectByType<ScoreManager>();
             pointManager = FindFirstObjectByType<PointManager>();
         }
+
+        if (isCounting && remainingTime > -1f)
+        {
+            remainingTime -= Time.deltaTime;
+            image.fillAmount = (remainingTime + 1) / maxTime > 0f ? (remainingTime + 1) / maxTime : 0f;
+            if (remainingTime <= -1f)
+            {
+                timerUI.SetActive(false);
+                resetArea.TimeOver();
+                isCounting = false;
+            }
+            else
+            {
+                // 小数点以下を切り上げて整数表示
+                int displayTime = Mathf.CeilToInt(remainingTime);
+                timer.text = displayTime.ToString();
+            }
+        }
     }
 
 
     public void CurrentFrameResult()
     {
+        pointManager.PrintName();
         StartCoroutine(scoreManager.DelayAndResetCoroutine());
     }
 
@@ -116,22 +149,25 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         switch (StageNum)
         {
             case 0:
-                StartPoint = new Vector3(-50, -1.25f, 5);
+                StartPoint = new Vector3(-50, -1.25f, 0);
                 pinManager.InsertPin(0);
                 if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
                 cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
+                AudioManager.Instance.PlayBGM(3);
                 break;
             case 1:
-                StartPoint = new Vector3(33425, -2, 868f);
+                StartPoint = new Vector3(33425, -2, 863);
                 pinManager.InsertPin(1);
                 if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
                 cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
+                AudioManager.Instance.PlayBGM(4);
                 break;
             case 2:
-                StartPoint = new Vector3(-50, 4.5f, 4982);
+                StartPoint = new Vector3(-50, 4, 4977);
                 pinManager.InsertPin(2);
                 if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
                 cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
+                AudioManager.Instance.PlayBGM(5);
                 break;
 
         }
@@ -140,8 +176,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         List<Vector3> spawnPositions = new List<Vector3>();
         for (int i = 0; i < totalPlayers; i++)
         {
-            //現在はx座標を75fずつ左にずらしている状態
-            spawnPositions.Add(StartPoint + new Vector3(0f, 0f, -i * 13.5f)); //ここをいじって変えてください
+            spawnPositions.Add(StartPoint + new Vector3(0f, 0f, (2 - i) * 5f - 2.5f));
         }
 
         spawnPositions = spawnPositions.OrderBy(x => Random.value).ToList(); //スポーン場所をランダムに
@@ -161,7 +196,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             }
             var cam = FindFirstObjectByType<CameraController>();
             if (cam == null) Debug.LogError("nullだよ");
-            cam.SetTargetPlayer(player); // Instantiate後に必ず設定！
+            cam.SetTargetPlayer(player, StartPoint); // Instantiate後に必ず設定！
             var starter = FindFirstObjectByType<GameStarter>();
             if (starter == null) Debug.LogError("starternull");
             starter.SetPlayer(player);
@@ -192,6 +227,54 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
 
         colorAssigner.AssignColors();
+        CrownScript crownScript = FindFirstObjectByType<CrownScript>();
+        crownScript.CrownMove();
+
+        timerUI = GameObject.Find("Timer");
+        timer = GameObject.Find("CountDown").GetComponent<TextMeshProUGUI>();
+        image = GameObject.Find("Ring").GetComponent<Image>();
+        if (timerUI != null && timer != null && image != null)
+        {
+            isGettingTimer = true;
+            timerUI.SetActive(false);
+        }
+        else Debug.LogError("1つあるいは複数のタイマー関連のオブジェクトが取得できませんでした");
+    }
+
+    public void ResultSetting()
+    {
+        //Player
+        for (int i = 0; i < NumHumanPlayers; i++)
+        {
+            var playerobj = Instantiate(_playerPrefab, new Vector3(), Quaternion.Euler(0f, 270f, 0f));
+            var player = playerobj.GetComponent<Player>();
+            player.Init($"Player{i + 1}", false);
+            players.Add(player);
+            var cam = FindFirstObjectByType<CameraController>();
+            if (cam == null) Debug.LogError("nullだよ");
+            cam.SetTargetPlayer(player, StartPoint); // Instantiate後に必ず設定！
+        }
+        //Bot
+        for (int i = 0; i < NumBots; i++)
+        {
+            var botobj = Instantiate(_botPrefab, new Vector3(), Quaternion.Euler(0f, 270f, 0f));
+            var bot = botobj.GetComponent<PlayerBase>();
+            bot.Init($"Bot{i + 1}", true);
+            players.Add(bot);
+
+        }
+
+        if (colorAssigner == null)
+        {
+            colorAssigner = FindFirstObjectByType<ColorAssigner>();
+            if (colorAssigner == null)
+            {
+                Debug.LogError("ColorAssigner がシーン内に存在しません！");
+                return;
+            }
+        }
+        colorAssigner.AssignColors();
+        RankSort();
     }
 
     public void ResetGame()
@@ -200,19 +283,87 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         players.Clear();
         playerScores.Clear();
         Num_NowFrame = 1;
-        PlayerScore = new int[NumHumanPlayers + NumBots, 11];
+        PlayerScore = new int[NumHumanPlayers + NumBots, 11]; 
     }
-}
 
-public static class GlobalColorData
-{
-    public static readonly List<Color> ColorPalette = new List<Color>
+    /// <summary>
+    /// カウントダウン開始
+    /// </summary>
+    public void StartCount()
     {
-        Color.red,
-        Color.blue,
-        Color.green,
-        Color.yellow,
-        Color.cyan,
-        Color.magenta,
-    };
+        Debug.Log("カウントスタート!");
+        timerUI.SetActive(true);
+        remainingTime = 10f;
+        isCounting = true;
+    }
+
+    public void StopTimer()
+    {
+        timerUI.SetActive(false);
+        isCounting = false;
+    }
+
+    public int GetRankByID(string playerID)
+    {
+        var player = players.Find(p => p.PlayerID == playerID);
+        if (player != null)
+        {
+            return player.Rank;
+        }
+        else
+        {
+            Debug.Log($"{playerID}のプレイヤーが見つかりませんでした!");
+            return -1;
+        }
+    }
+
+    public void RankSort()
+    {
+        // プレイヤーをスコアの降順でソート
+        var sorted = players.OrderByDescending(p =>
+        {
+            var scoreData = GetPlayerScoreData(p.PlayerID);
+            // scoreDataが見つからない場合は0点として扱う（エラーログは別途出すべき）
+            return scoreData != null ? scoreData.GetTotalScore() : 0;
+        }).ToList();
+
+        int currentRank = 1;
+        int previousScore = -1; // 前のプレイヤーのスコアを保持
+
+        for (int i = 0; i < sorted.Count; i++)
+        {
+            var currentPlayer = sorted[i];
+            var currentPlayerScoreData = GetPlayerScoreData(currentPlayer.PlayerID);
+            int currentPlayerTotalScore = currentPlayerScoreData != null ? currentPlayerScoreData.GetTotalScore() : 0;
+
+            // 最初のプレイヤー、または前のプレイヤーとスコアが異なる場合
+            if (i == 0 || currentPlayerTotalScore < previousScore)
+            {
+                currentRank = i + 1; // 順位を更新
+            }
+            // スコアが同じ場合は同じ順位を適用
+            // else if (currentPlayerTotalScore == previousScore) {
+            //   // 何もしない。currentRankは前のプレイヤーと同じ。
+            // }
+
+            currentPlayer.SetRank(currentRank); // プレイヤーにランクを設定
+            Debug.Log($"Player: {currentPlayer.PlayerID}, Score: {currentPlayerTotalScore}, Rank: {currentPlayer.Rank}"); // デバッグログ
+
+            previousScore = currentPlayerTotalScore; // 現在のスコアを次のループのために保存
+        }
+    }
+
+
+    public static class GlobalColorData
+    {
+        public static readonly List<Color> ColorPalette = new List<Color>
+        {
+            Color.red,
+            Color.blue,
+            Color.green,
+            Color.yellow,
+            Color.cyan,
+            Color.magenta,
+        };
+    }
 }

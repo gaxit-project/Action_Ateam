@@ -74,24 +74,27 @@ public class PinBase : MonoBehaviour
             
         }
 
-        PlayerBase playerID = other.gameObject.GetComponent<PlayerBase>();
-        if (playerID != null && string.IsNullOrEmpty(KnockedByPlayerID) && isFallDown == false){
-            KnockedByPlayerID = playerID.GetPlayerID();
-            KnockedByPlayerColor = playerID.GetPlayerColor();
-        }
-        var otherPin = other.gameObject.GetComponent<PinBase>();
-        if (otherPin != null && !string.IsNullOrEmpty(otherPin.KnockedByPlayerID))
+        if(other.gameObject.tag == "Player" || other.gameObject.tag == "NPC")
         {
-            KnockedByPlayerID = otherPin.KnockedByPlayerID;
-
-            if (otherPin.KnockedByPlayerColor != default)
-            {
-                KnockedByPlayerColor = otherPin.KnockedByPlayerColor;
+            PlayerBase playerID = other.gameObject.GetComponent<PlayerBase>();
+            if (isFallDown == false){
+                KnockedByPlayerID = playerID.GetPlayerID();
+                KnockedByPlayerColor = playerID.GetPlayerColor();
             }
         }
 
-
-
+        if(other.gameObject.tag == "Pin")
+        {
+            var otherPin = other.gameObject.GetComponent<PinBase>();
+            if (!string.IsNullOrEmpty(otherPin.KnockedByPlayerID))
+            {
+                if (!isFallDown)
+                {
+                    KnockedByPlayerID = otherPin.KnockedByPlayerID;
+                    KnockedByPlayerColor = otherPin.KnockedByPlayerColor;
+                }
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider outAreaObj)

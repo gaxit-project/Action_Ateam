@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8915725821885507200}
   - component: {fileID: 4600566453074975748}
   - component: {fileID: 5922074557707150540}
+  - component: {fileID: 6529811719378806487}
   m_Layer: 5
   m_Name: Manager
   m_TagString: Untagged
@@ -53,7 +54,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _seLists:
-  - {fileID: 8300000, guid: 66aa1d4182834d046a289ffe1453e4b5, type: 3}
+  - {fileID: 8300000, guid: e27e4f09466160a488ecf3f72670de0e, type: 3}
   - {fileID: 8300000, guid: df4e5d414c383a1448f62a8de8e82c48, type: 3}
   - {fileID: 8300000, guid: 72307ef6ad573914a9042f0f497530fa, type: 3}
   - {fileID: 8300000, guid: 4aab229baf3eb464eb7898d619f9d354, type: 3}
@@ -61,10 +62,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 58b2890d1d879bf4b8a6ee7a57a67e1e, type: 3}
   - {fileID: 8300000, guid: d04814541f7ae2449acdc71d1fdbaa87, type: 3}
   - {fileID: 8300000, guid: 18e638596d0b61546a5795249b6a3192, type: 3}
+  - {fileID: 8300000, guid: b2cc8e569ea327c43be0c541c55a8d53, type: 3}
+  - {fileID: 8300000, guid: 5eed6a8899f2aaa4b9f8ddc019277830, type: 3}
   _bgmLists:
   - {fileID: 8300000, guid: 5aea1eb8e494546ccb52c0d547cb54c6, type: 3}
   - {fileID: 8300000, guid: a4157eac71a524d5e85d2fb6f4649506, type: 3}
   - {fileID: 8300000, guid: 2488b10757c7e5d418f95ece46cac58e, type: 3}
+  - {fileID: 8300000, guid: 8d29d62e8d81143b59a5ebdb824bb6a6, type: 3}
+  - {fileID: 8300000, guid: 20d47a4d10e7241a7a1e2aa6b5f2cabf, type: 3}
+  - {fileID: 8300000, guid: 82bf2334c19b8492497cf2953404f3ff, type: 3}
+  - {fileID: 8300000, guid: 3919a0b67237941da93c671f55dbb7b5, type: 3}
   _audioSourceSE: {fileID: 4600566453074975748}
   _audioSourceBGM: {fileID: 5922074557707150540}
   SESlider: {fileID: 0}
@@ -103,7 +110,7 @@ MonoBehaviour:
   _playerPrefab: {fileID: 6162004822796889170, guid: c6cf9cdf0d3cded4ea3ce6694d67d924, type: 3}
   _botPrefab: {fileID: 5193344650924659099, guid: d2aa21bae25bc9b4eadf0fb56c9e59b2, type: 3}
   NumHumanPlayers: 1
-  NumBots: 1
+  NumBots: 3
   StageNum: 0
   StartPoint: {x: -50, y: 0, z: 0}
   testText: {fileID: 0}
@@ -302,3 +309,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6529811719378806487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130485150559971973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e021cc9c7d5bb9e46b0788151730a696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shuffledPalette: []

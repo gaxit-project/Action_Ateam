@@ -7,6 +7,8 @@ public class ButtonHandler : MonoBehaviour
 
     [Header("BGMを停止するかどうか")]
     [SerializeField] private bool _stopBGM;
+
+    public bool _isStartButtonClicked;
     
     private PauseMenu pauseMenu;
     private GameManager gameManager;
@@ -19,7 +21,7 @@ public class ButtonHandler : MonoBehaviour
     {
         if(gameManager == null)
         {
-            Debug.LogWarning("GameManagerNULL");
+            //Debug.LogWarning("GameManagerNULL");
             gameManager = FindFirstObjectByType<GameManager>();
         }
     }
@@ -34,9 +36,24 @@ public class ButtonHandler : MonoBehaviour
         }
 
         AudioManager.Instance.PlaySound(_SENumber);
+        AudioManager.Instance._audioSourceBGM.loop = true;
+        SceneChangeManager.Instance.SceneChange(_sceneName);  
+    }
+
+    /// <summary>
+    /// リスタート
+    /// </summary>
+    public void RestartGame()
+    {
+        if (_stopBGM)
+        {
+            AudioManager.Instance.StopBGM();
+        }
+
+        GameManager.Instance.ResetGame();
+        AudioManager.Instance.PlaySound(_SENumber);
+        AudioManager.Instance._audioSourceBGM.loop = true;
         SceneChangeManager.Instance.SceneChange(_sceneName);
-        
-        
     }
 
     /// <summary>
@@ -51,6 +68,7 @@ public class ButtonHandler : MonoBehaviour
 
         GameManager.Instance.ResetGame();
         AudioManager.Instance.PlaySound(_SENumber);
+        AudioManager.Instance._audioSourceBGM.loop = true;
         SceneChangeManager.Instance.LoadNextScene(_sceneName);
     }
 
@@ -64,5 +82,10 @@ public class ButtonHandler : MonoBehaviour
         #else
             Application.Quit();
         #endif
+    }
+
+    public void ButtonSelected()
+    {
+        AudioManager.Instance.PlaySound(0);
     }
 }

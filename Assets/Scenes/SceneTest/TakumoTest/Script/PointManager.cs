@@ -39,20 +39,17 @@ public class PointManager : MonoBehaviour
         TotalPlayer = gameManager.NumHumanPlayers + gameManager.NumBots;
     }
 
+    public void PrintName()
+    {
+        PlayerName = new string[4];
+        int num = 0;
+        foreach (var player in gameManager.players)
+        {
+            string colorName = player.GetColorName();
+            PlayerName[num] = colorName;
+            num++;
+        }
 
-
-    public void PrintPoint()
-    {   
-        
-            PlayerName = new string[4];
-            int num = 0;
-            foreach (var player in gameManager.players)
-            {
-                string id = player.GetPlayerID();
-                PlayerName[num] = id;
-                num++;
-            }
-        
 
 
         for (int i = 0; i < TotalPlayer; i++)
@@ -60,7 +57,51 @@ public class PointManager : MonoBehaviour
             //Debug.Log(Name[i] + "が名前登録");
             Name[i].text = PlayerName[i]; // 安全に代入
         }
+    }
 
+    public void PrintAwake()
+    {
+
+
+        for (int i = 0; i < gameManager.NumHumanPlayers; i++)// TPL を4行作成
+        {
+            var playerData = gameManager.GetPlayerScoreData("Player" + (i + 1));
+            if (gameManager == null) Debug.LogError("GameManagerNULL");
+            gameManager.PlayerScore[i, gameManager.Num_NowFrame] = playerData.GetScore(gameManager.Num_NowFrame);
+            //Debug.Log(gameManager.PlayerScore[i, gameManager.Num_NowFrame]);
+            int wholescore = playerData.GetTotalScore();
+            gameManager.PlayerScore[i, 0] = wholescore;
+            for (int j = 1; j < gameManager.Num_NowFrame; j++)
+            {
+                PT[i].PL[j - 1].text = gameManager.PlayerScore[i, j].ToString();
+            }
+
+            // 安全に代入
+            PT[i].PL[10].text = wholescore.ToString();
+
+        }
+
+        int idNum = 0;
+
+        for (int i = gameManager.NumHumanPlayers; i < TotalPlayer; i++)
+        {
+            var botData = gameManager.GetPlayerScoreData("Bot" + (idNum + 1));
+            gameManager.PlayerScore[i, gameManager.Num_NowFrame] = botData.GetScore(gameManager.Num_NowFrame);
+            int wholescore = botData.GetTotalScore();
+            gameManager.PlayerScore[i, 0] = wholescore;
+            for (int j = 1; j < gameManager.Num_NowFrame; j++)
+            {
+                PT[i].PL[j - 1].text = gameManager.PlayerScore[i, j].ToString();
+            }
+            // 安全に代入
+            PT[i].PL[10].text = wholescore.ToString();
+            idNum++;
+        }
+
+    }
+    public void PrintPoint()
+    {   
+        
 
         for (int i = 0; i < gameManager.NumHumanPlayers; i++)// TPL を4行作成
         {

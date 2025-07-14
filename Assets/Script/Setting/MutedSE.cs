@@ -13,7 +13,7 @@ public class MutedSE : MonoBehaviour
     private void Start()
     {
         seImage = GetComponent<Image>();
-
+        audioManager = AudioManager.Instance;
     }
 
     private void Update()

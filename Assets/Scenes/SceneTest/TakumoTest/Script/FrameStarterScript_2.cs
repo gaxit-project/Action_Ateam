@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
+using NPC.StateAI;
 
 public class FrameStarterScript_2 : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class FrameStarterScript_2 : MonoBehaviour
 
     public bool isFinshed = false;
     public GameManager gameManager;
-    private Player player;
+    private Player[] players;
+    private EnemyAI[] npcs;
 
     private Vector3 startPos;
     private Vector3 initialScale;
@@ -62,7 +64,18 @@ public class FrameStarterScript_2 : MonoBehaviour
     {
         if (!isMoving || FrameObjectUP == null || WarpObject == null || isFinshed) return;//ヌルチェック
 
-        if(player == null) player = GameObject.FindFirstObjectByType<Player>();
+        if (players == null)
+        {
+            GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+            players = new Player[playerObjects.Length];
+            if(playerObjects != null) for(int i = 0; i < playerObjects.Length; i++) players[i] = playerObjects[i].GetComponent<Player>();
+        }
+        if (npcs == null)
+        {
+            GameObject[] npcObjects = GameObject.FindGameObjectsWithTag("NPC");
+            npcs = new EnemyAI[npcObjects.Length];
+            if (npcObjects != null) for (int i = 0; i < npcObjects.Length; i++) npcs[i] = npcObjects[i].GetComponent<EnemyAI>();
+        }
 
         elapsedTime += Time.deltaTime;
 
@@ -76,7 +89,8 @@ public class FrameStarterScript_2 : MonoBehaviour
         if (moveT >= 1f && scaleT >= 1f)
         {
             isFinshed = true;
-            player.ChangeArrowMode();
+            foreach (Player player in players) player.ChangeArrowMode();
+            foreach (EnemyAI enemyAI in npcs) enemyAI.ChangeArrowMode();
             Debug.Log("目的地に到達＆縮小完了！");
             this.enabled = false;
         }

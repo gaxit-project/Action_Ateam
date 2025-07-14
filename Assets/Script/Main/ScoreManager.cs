@@ -17,13 +17,15 @@ public class ScoreManager : MonoBehaviour
     private GameStarter gameStarter;
     [SerializeField] PointManager pointManager;
 
+    public bool isFinish = false;
+
     private void Start()
     {
         if (gameManager == null)
         {
             gameManager = FindFirstObjectByType<GameManager>();
         }
-        ResetGame();
+        ResetFrame();
     }
     private void Update()
     {
@@ -34,21 +36,24 @@ public class ScoreManager : MonoBehaviour
         
         if (pinManager == null || resetArea == null)
         {
-            ResetGame();
+            ResetFrame();
         }
     }
-    public void ResetGame()
+    public void ResetFrame()
     {
         //10フレーム目終了(ゲーム終了)
-        if (gameManager.Num_NowFrame == 11)
+        if (isFinish == true)
         {
             gameManager.IsStart = false;
-            gameManager.Num_NowFrame = 1;
             SceneChangeManager.Instance.SceneChange("Result");
         }
         //10フレーム以外
         else
         {
+            if(gameManager.Num_NowFrame == 10)
+            {
+                isFinish = true;
+            }
             Debug.Log("RESET");
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 144;
@@ -57,11 +62,9 @@ public class ScoreManager : MonoBehaviour
             resetArea = FindFirstObjectByType<ResetArea>();
             gameManager.SetUpPlayers();
             if (pointManager == null) Debug.LogError("ERROR");
-            pointManager.PrintPoint();
+            pointManager.PrintAwake();
         }
     }
-
-
 
     /// <summary>
     /// スコアをリストに保存

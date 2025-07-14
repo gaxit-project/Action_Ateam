@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 namespace NPC.StateAI
 {
@@ -23,7 +25,7 @@ namespace NPC.StateAI
         [SerializeField] private Animator animator;
 
         [SerializeField] public GameObject[] targetCandidates;
-        [SerializeField] private float targetSwitchInterval = 3f;
+        [SerializeField] private float targetSwitchInterval = 1f;
         public Coroutine targetSwitchCoroutine;
 
         private StateMachine enemyStateMachine;
@@ -48,6 +50,7 @@ namespace NPC.StateAI
         //private float rotation = 0f;
         private Transform attackTarget;
         //private Vector3 currentVelocity = Vector3.zero;
+        private Vector3 targetDirection = Vector3.zero;
         private Animator attackAnimator;
         Rigidbody rb;
 
@@ -61,18 +64,16 @@ namespace NPC.StateAI
         protected override void Start()
         {
             enemyStateMachine.Initialize(enemyStateMachine.idleState);
-
-            targetCandidates = GameObject.FindGameObjectsWithTag("Target");
-            if (targetCandidates.Length > 0)
-            {
-                target = targetCandidates[0].transform;
-                targetSwitchCoroutine = StartCoroutine(RandomlySwitchTarget());
-            }
+            StartCoroutine("GetTargets");
             PlayerColor = ColorAssigner.Instance.GetAssignedColor(gameObject);
+            arrowUIName = "Arrow4";
+            arrowUI = transform.Find(arrowUIName).gameObject;
+            if (arrowUI == null) Debug.LogError("UIが見つかりません！");
         }
 
         private void Update()
         {
+            transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
             enemyStateMachine.Update();
             //if (!IsGrounded() && enemyAI.agent.enabled) enemyAI.agent.enabled = false;
             //else if (IsGrounded() && !enemyAI.agent.enabled && enemyAI.EnemyStateMachine.CurrentState != enemyAI.EnemyStateMachine.throwState) enemyAI.agent.enabled = true;
@@ -94,7 +95,14 @@ namespace NPC.StateAI
 
         private void FixedUpdate()
         {
-            rb.AddForce(new Vector3(0f, -20f, 0f), ForceMode.Acceleration);
+            rb.AddForce(new Vector3(0f, -20f, 0f), ForceMode.Acceleration); 
+
+            if (targetDirection != Vector3.zero && enemyAI.EnemyStateMachine.CurrentState != enemyAI.EnemyStateMachine.throwState)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(targetDirection);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, 50f * Time.fixedDeltaTime);
+                transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
+            }
         }
 
         private void LateUpdate()
@@ -227,10 +235,14 @@ namespace NPC.StateAI
             while (true)
             {
                 yield return new WaitForSeconds(targetSwitchInterval);
-                if (targetCandidates.Length > 0 && enemyAI.agent.enabled)
+                if (targetCandidates.Length > 0 && enemyAI.EnemyStateMachine.CurrentState != enemyAI.EnemyStateMachine.throwState)
                 {
                     int index = Random.Range(0, targetCandidates.Length);
                     target = targetCandidates[index].transform;
+                    Vector3 toTarget = (target.position - transform.position).normalized;
+                    toTarget.y = 0f;
+                    Quaternion rndQuat = Quaternion.Euler(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
+                    targetDirection = rndQuat * toTarget;
                     Debug.Log("Targetを: " + Target.name + "に変更");
                 }
             }
@@ -266,6 +278,29 @@ namespace NPC.StateAI
             return Physics.Raycast(ray, 1.2f);
         }
 
+        private void GetTargets()
+        {
+            int i = 0;
+            GameObject[] tar = GameObject.FindGameObjectsWithTag("Target");
+            if (tar.Length > 0)
+            {
+                foreach (GameObject t in tar)
+                {
+                    Vector3 dis = t.transform.position - transform.position;
+                    dis.y = 0;
+                    if (dis.magnitude <= 300f) targetCandidates[i++] = t;
+                }
+                if (targetCandidates.Length > 0)
+                {
+                    target = targetCandidates[0].transform;
+                    transform.LookAt(target);
+                    targetSwitchCoroutine = StartCoroutine(RandomlySwitchTarget());
+                }
+                else Debug.LogError("範囲内にtargetタグを持つオブジェクトが存在しません！");
+            }
+            else if(SceneManager.GetActiveScene().buildIndex == 1) StartCoroutine("GetTargets");
+        }
+
         public void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("ThrowArea"))
@@ -280,7 +315,7 @@ namespace NPC.StateAI
             base.OnCollisionEnter(collision);
             if (collision.gameObject.CompareTag("Wall") && collision.contactCount > 0)
             {
-                Debug.Log("当たった");
+                //Debug.Log("当たった");
 
                 // 衝突面の法線
                 Vector3 normal = collision.contacts[0].normal;
@@ -297,6 +332,7 @@ namespace NPC.StateAI
                 transform.forward = reflectVelocity;
                 throwVelocity = reflectVelocity * speed * throwPower;
                 rb.linearVelocity = throwVelocity;
+                Invoke(nameof(ChangeIncomingVelocity), 0.01f);
             }
             else if (collision.gameObject.CompareTag("NPC") || collision.gameObject.CompareTag("Player"))
             {
@@ -314,12 +350,18 @@ namespace NPC.StateAI
                 //Debug.DrawRay(transform.position, incomingVelocity + new Vector3(v.x, 0f, v.z * 5f), Color.cyan, (incomingVelocity + new Vector3(v.x, 0f, v.z * 5f)).magnitude);
                 transform.forward = Vector3.ClampMagnitude(incomingVelocity + new Vector3(v.x, 0f, v.z * 5f - incomingVelocity.z), 1f);
                 rb.linearVelocity = transform.forward * speed * throwPower;
+                Invoke(nameof(ChangeIncomingVelocity), 0.01f);
             }
         }
 
         public Vector3 GetIncomingVelocity()
         {
             return incomingVelocity;
+        }
+
+        private void ChangeIncomingVelocity()
+        {
+            incomingVelocity = rb.linearVelocity;
         }
     }
 }

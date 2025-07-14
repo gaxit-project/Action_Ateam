@@ -41,7 +41,7 @@ public class CameraController : MonoBehaviour
             else transform.position += new Vector3(playerobj.transform.position.x - targetPosition.x, 0f, 0f);
                 targetPosition = playerobj.transform.position;
             float RstickX = player.GetRstickX; //左右回転
-            if (!isModeChanged) transform.RotateAround(targetPosition, Vector3.up, RstickX);
+            //if (!isModeChanged) transform.RotateAround(targetPosition, Vector3.up, RstickX);
         }
 
         //Oキーを押すとカメラがその場で停止
@@ -86,22 +86,29 @@ public class CameraController : MonoBehaviour
     {
         Debug.Log("カメラの向き変更");
         isModeChanged = true;
-        this.transform.eulerAngles = InitialCameraDirection/* - new Vector3(InitialCameraDirection.x / 2f, 0f, 0f)*/;
-        this.transform.position = throwingCameraPosition + new Vector3(-18f, 12f, 0f);/*new Vector3(this.transform.position.x, this.transform.position.y, playerobj.transform.position.z) - new Vector3(0f, 3f, 0f)*/;
+        //this.transform.eulerAngles = InitialCameraDirection- new Vector3(InitialCameraDirection.x / 2f, 0f, 0f);
+        //this.transform.position = throwingCameraPosition + new Vector3(-18f, 12f, 0f);/*new Vector3(this.transform.position.x, this.transform.position.y, playerobj.transform.position.z) - new Vector3(0f, 3f, 0f)*/;
         canMoveLaterally = false;
+    }
+
+    public void ResultCameraMode(Vector3 position, Vector3 rotation)
+    {
+        transform.position= position;
+        transform.rotation =Quaternion.Euler(rotation);
     }
 
     /// <summary>
     /// GameManagerのStart関数側でPlayerBaseをアタッチ
     /// </summary>
     /// <param name="player">PlayerのPlayerBase</param>
-    public void SetTargetPlayer(Player player)
+    public void SetTargetPlayer(Player player, Vector3 start)
     {
         this.player = player;
         this.playerobj = player.gameObject;
         targetPosition = player.transform.position;
         InitialCameraDirection = this.transform.eulerAngles;
 
-        transform.position = targetPosition + new Vector3(-18f, 12f, 0f);
+        //transform.position = targetPosition + new Vector3(-18f, 12f, 0f);
+        transform.position = start + new Vector3(-18f, 12f, 0f);
     }
 }
