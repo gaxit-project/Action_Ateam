@@ -51,8 +51,6 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] protected GameObject attackArea;
     protected GameObject AttackZone;
 
-    ResetArea resetArea;
-    GameManager gameManager;
 
     //移動関係
     Vector3 throwPosition;
@@ -81,8 +79,6 @@ public class PlayerBase : MonoBehaviour
     {
         //Rigidbodyを取得
         rigidbody = GetComponent<Rigidbody>();
-        resetArea = GameObject.FindFirstObjectByType<ResetArea>();
-        gameManager = GameObject.FindFirstObjectByType<GameManager>();
         scoreManager = GameObject.FindFirstObjectByType<ScoreManager>();
         colorAssigner = FindFirstObjectByType<ColorAssigner>();
         //クラス内のステータスを初期化する

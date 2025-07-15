@@ -80,34 +80,37 @@ public class CrownScript : MonoBehaviour
         }
 
 
-        // ŠY“–‚·‚éClown‚¾‚¯‚ð—LŒø‰»,GetPlayerID()
+        // ŠY“–‚·‚écrown‚¾‚¯‚ð—LŒø‰»,GetPlayerID()
         GameObject[] chara;
-        if (isPlayer)
+        if (scores[maxIndex] > 0)
         {
-            chara = GameObject.FindGameObjectsWithTag("Player");
-            foreach (GameObject Aris in chara)
+            if (isPlayer)
             {
-                Player player1 = Aris.GetComponent<Player>();
-                if (player1 != null && player1.GetPlayerID() == ID)
+                chara = GameObject.FindGameObjectsWithTag("Player");
+                foreach (GameObject Aris in chara)
                 {
-                    player1.Crowned();
-                    break;
+                    Player player1 = Aris.GetComponent<Player>();
+                    if (player1 != null && player1.GetPlayerID() == ID)
+                    {
+                        player1.Crowned();
+                        break;
+                    }
                 }
             }
-        }
-        else
-        {
-            chara = GameObject.FindGameObjectsWithTag("NPC");
-            foreach (GameObject Aris in chara)
+            else
             {
-                EnemyAI player1 = Aris.GetComponent<EnemyAI>();
-                Debug.Log(player1.GetPlayerID());
-                if (player1 != null && player1.GetPlayerID() == ID)
+                chara = GameObject.FindGameObjectsWithTag("NPC");
+                foreach (GameObject Aris in chara)
                 {
-                    player1.Crowned();
-                    break;
+                    EnemyAI player1 = Aris.GetComponent<EnemyAI>();
+                    Debug.Log(player1.GetPlayerID());
+                    if (player1 != null && player1.GetPlayerID() == ID)
+                    {
+                        player1.Crowned();
+                        break;
+                    }
+                    //Debug.LogError("1ˆÊ‚ÌNPC‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ!");
                 }
-                //Debug.LogError("1ˆÊ‚ÌNPC‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ!");
             }
         }       
     }

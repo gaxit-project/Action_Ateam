@@ -257,7 +257,7 @@ public class Player : PlayerBase
                 v = player.GetIncomingVelocity();
             }
             //Debug.DrawRay(transform.position, incomingVelocity + new Vector3(v.x, 0f, v.z * 5f), Color.magenta, (incomingVelocity + new Vector3(v.x, 0f, v.z * 5f)).magnitude);
-            transform.forward = Vector3.ClampMagnitude(incomingVelocity + new Vector3(v.x, 0f, v.z * 5f - incomingVelocity.z), 1f);
+            transform.forward = Vector3.ClampMagnitude(incomingVelocity + new Vector3((v.x + incomingVelocity.x) * 2f, 0f, v.z * 5f), 1f);
             throwVelocity = transform.forward * speed * throwPower;
             rigidbody.linearVelocity = throwVelocity;
             Invoke(nameof(ChangeIncomingVelocity), 0.01f);

@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private float displayScoreTime = 3;
 
     public PinManager pinManager;
-    public ResetArea resetArea;
+    public DisplayScore DS;
 
     public int totalScore;
 
@@ -34,7 +34,7 @@ public class ScoreManager : MonoBehaviour
             gameManager = FindFirstObjectByType<GameManager>();
         }
         
-        if (pinManager == null || resetArea == null)
+        if (pinManager == null || DS == null)
         {
             ResetFrame();
         }
@@ -59,7 +59,7 @@ public class ScoreManager : MonoBehaviour
             Application.targetFrameRate = 144;
             gameStarter = FindFirstObjectByType<GameStarter>();
             pinManager = FindFirstObjectByType<PinManager>();
-            resetArea = FindFirstObjectByType<ResetArea>();
+            DS = FindFirstObjectByType<DisplayScore>();
             gameManager.SetUpPlayers();
             if (pointManager == null) Debug.LogError("ERROR");
             pointManager.PrintAwake();
@@ -118,7 +118,7 @@ public class ScoreManager : MonoBehaviour
     public IEnumerator DelayAndResetCoroutine()
     {
         yield return new WaitForSeconds(displayScoreTime);
-        StartCoroutine(resetArea.ResetGame());
+        StartCoroutine(DS.ResetGame());
     }
 
     /// <summary>

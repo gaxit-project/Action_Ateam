@@ -41,7 +41,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private PointManager pointManager;
     private PinManager pinManager;
     private CameraController cameraController;
-    private ResetArea resetArea;
+    private DisplayScore DS;
 
     public ColorAssigner colorAssigner;
 
@@ -66,12 +66,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         pinManager = FindFirstObjectByType<PinManager>();
         colorAssigner = FindFirstObjectByType<ColorAssigner>();
         cameraController = GameObject.FindFirstObjectByType<CameraController>();
-        resetArea = GameObject.FindFirstObjectByType<ResetArea>();
+        DS = GameObject.FindFirstObjectByType<DisplayScore>();
     }
 
     private void Update()
     {
-        if (resetArea == null) resetArea = GameObject.FindFirstObjectByType<ResetArea>();
+        if (DS == null && buildIndex == 1) DS = GameObject.FindFirstObjectByType<DisplayScore>();
 
         buildIndex = SceneManager.GetActiveScene().buildIndex;
         //Debug.Log(buildIndex);
@@ -88,7 +88,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             if (remainingTime <= -1f)
             {
                 timerUI.SetActive(false);
-                resetArea.TimeOver();
+                DS.TimeOver();
                 isCounting = false;
             }
             else
