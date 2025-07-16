@@ -187,6 +187,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1251688309}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1005033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2720,6 +2721,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1156855350}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &121442085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4048,6 +4050,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 298325495}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &173988274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6762,6 +6765,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1779260742}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &288589069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8409,6 +8413,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1815308640}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &328676132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8656,6 +8661,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1844971261}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &344288617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9972,6 +9978,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1750873705}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &421283613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10543,6 +10550,7 @@ GameObject:
   - component: {fileID: 428280095}
   - component: {fileID: 428280094}
   - component: {fileID: 428280097}
+  - component: {fileID: 428280098}
   m_Layer: 0
   m_Name: ResultAdmin
   m_TagString: Untagged
@@ -10666,6 +10674,18 @@ MonoBehaviour:
   _rotRank3: {x: 0, y: 270, z: 0}
   _posRank4: {x: 171, y: 13, z: -105}
   _rotRank4: {x: 20, y: 270, z: 0}
+--- !u!114 &428280098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428280093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7c73e7a8fd05f4f9cdeabdf87a4110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &430967706
 GameObject:
   m_ObjectHideFlags: 0
@@ -11043,6 +11063,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 486781124}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &458058674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12001,6 +12022,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1391032490}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &469996853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12761,6 +12783,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 631860997}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &505144485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12974,6 +12997,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1981421550}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &523325950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14544,6 +14568,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 245251309}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &600069500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15059,6 +15084,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1583304694}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &613189772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15960,6 +15986,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 134481435}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &677685212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16285,6 +16312,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1009626708}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &684507223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18035,6 +18063,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 183854628}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &788192317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18736,6 +18765,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 2090677402}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &836001931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19181,6 +19211,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 228358789}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &868432729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19574,6 +19605,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 99238268}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &897826072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19866,6 +19898,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 821691946}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &919354592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21265,6 +21298,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1274792417}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &977913329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22766,6 +22800,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1935606216}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1057288975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23169,6 +23204,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 307811523}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1073598858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23700,6 +23736,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 387977461}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1117608690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24694,6 +24731,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 786109188}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1184746597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25322,6 +25360,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1958817921}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1214957455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29038,6 +29077,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 701207667}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1439386528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29946,6 +29986,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 422445239}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1504387198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32767,6 +32808,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1546297722}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1616015141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32948,6 +32990,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 142414686}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1628235440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33129,6 +33172,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 186693675}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1631883231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34996,6 +35040,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 419604248}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1735883029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35683,6 +35728,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1583097604}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1757540323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36066,6 +36112,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 961695791}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1778045315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38481,6 +38528,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 754572618}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1873110154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39380,6 +39428,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 977550431}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1911398043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40174,6 +40223,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1320472109}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1936789605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41204,6 +41254,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 195398705}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &1965032045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43143,6 +43194,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1026085135}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &2018558649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44160,6 +44212,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 42786685}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &2078717051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44538,6 +44591,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 197604202}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &2108530086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44719,6 +44773,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 281728911}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &2113868087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44956,6 +45011,7 @@ MonoBehaviour:
   effectDuration: 2
   crown: {fileID: 1468491863}
   arrowUIName: Arrow3
+  icon: {fileID: 0}
 --- !u!114 &2118729963
 MonoBehaviour:
   m_ObjectHideFlags: 0
