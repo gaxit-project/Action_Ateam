@@ -68,6 +68,9 @@ public class ResultSceneManager : MonoBehaviour
 
         // カメラをリザルトモードに設定
         SetResultCameraMode();
+
+        CrownScript crownScript = FindFirstObjectByType<CrownScript>();
+        crownScript.CrownMove();
     }
 
     /// <summary>

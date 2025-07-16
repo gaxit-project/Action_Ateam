@@ -21,6 +21,10 @@ public class CrownScript : MonoBehaviour
 
     public void CrownMove()
     {
+        if(gameManager == null)
+        {
+            gameManager = GameManager.Instance;
+        }
         int player = gameManager.NumHumanPlayers, bot = gameManager.NumBots;
         int[] scores = new int[player + bot];
         int i = 0, j = 0, isNum = 0;
