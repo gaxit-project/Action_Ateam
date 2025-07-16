@@ -71,10 +71,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private void Update()
     {
-        if (DS == null && buildIndex == 1) DS = GameObject.FindFirstObjectByType<DisplayScore>();
-
         buildIndex = SceneManager.GetActiveScene().buildIndex;
         //Debug.Log(buildIndex);
+        if (DS == null && buildIndex == 1) DS = GameObject.FindFirstObjectByType<DisplayScore>();
+
         if (buildIndex == 1 || buildIndex == 4)
         {
             scoreManager = FindFirstObjectByType<ScoreManager>();

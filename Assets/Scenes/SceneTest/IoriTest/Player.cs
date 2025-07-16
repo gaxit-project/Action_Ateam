@@ -6,6 +6,10 @@ using Unity.VisualScripting;
 
 public class Player : PlayerBase
 {
+    private GameManager gameManager;
+    private int buildIndex;
+    [SerializeField] private GameObject icon;
+
     public enum PlayerState
     {
         Idle,
@@ -30,6 +34,9 @@ public class Player : PlayerBase
         arrowUIName = "Arrow3";
         arrowUI = transform.Find(arrowUIName).gameObject;
         if (arrowUI == null) Debug.LogError("UIÇ™å©Ç¬Ç©ÇËÇ‹ÇπÇÒÅI");
+        buildIndex = SceneManager.GetActiveScene().buildIndex;
+        gameManager = GameObject.FindFirstObjectByType<GameManager>();
+        if(buildIndex == 1 && gameManager.Num_NowFrame == 1) icon.SetActive(true);
     }
 
     void FixedUpdate()
@@ -172,6 +179,8 @@ public class Player : PlayerBase
                     ChangeMode();
                 }
                 */
+
+                if(buildIndex == 1 && gameManager.Num_NowFrame == 1) icon.SetActive(false);
 
                 if (player.IsGrounded(transform.position, rayDistance))
                 {
