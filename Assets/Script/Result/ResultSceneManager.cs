@@ -93,47 +93,71 @@ public class ResultSceneManager : MonoBehaviour
     /// <summary>
     /// ランクに応じてプレイヤー（ボール）のXY座標を設定
     /// </summary>
-    public void SetPlayerHeightsByRank()
+
+public void SetPlayerHeightsByRank()
+{
+    if (gameManager.players == null || gameManager.players.Count == 0)
     {
-        if (gameManager.players == null || gameManager.players.Count == 0)
+        Debug.LogWarning("GameManagerのplayersリストが空です。リザルトボールが生成されていません。");
+        return;
+    }
+
+    var sortedPlayers = gameManager.players.OrderBy(p => p.Rank).ToList();
+
+    // プレイヤーを順位ごとにグループ化します
+    var playersGroupedByRank = sortedPlayers.GroupBy(p => p.Rank);
+
+    foreach (var group in playersGroupedByRank)
+    {
+        int rank = group.Key; // 現在の順位
+        List<PlayerBase> playersInRank = group.ToList(); // この順位の全プレイヤー
+
+        Vector3 basePosition;
+        Quaternion baseRotation;
+
+        switch (rank)
         {
-            Debug.LogWarning("GameManagerのplayersリストが空です。リザルトボールが生成されていません。");
-            return;
+            case 1:
+                basePosition = _posRank1;
+                baseRotation = Quaternion.Euler(_rotRank1);
+                break;
+            case 2:
+                basePosition = _posRank2;
+                baseRotation = Quaternion.Euler(_rotRank2);
+                break;
+            case 3:
+                basePosition = _posRank3;
+                baseRotation = Quaternion.Euler(_rotRank3);
+                break;
+            case 4:
+                basePosition = _posRank4;
+                baseRotation = Quaternion.Euler(_rotRank4);
+                break;
+            default:
+                Debug.LogError($"順位が定まっていません: {rank}");
+                continue; // 次の順位グループに進みます
         }
 
-        var sortedPlayers = gameManager.players.OrderBy(p => p.Rank).ToList();
-        foreach ( var player in sortedPlayers)
-        {
-            int rank = player.Rank;
-            
+        // 同一順位のプレイヤーをずらすためのオフセットを計算します
+        // 最初のプレイヤーは-10、そこから+5ずつずらします。
+        // 例えば、3人同率の場合： -10, -5, 0 (実際にはベース位置に+0, +5, +10されるので、基準点を考慮して調整します)
+        // ここでは、一番左のプレイヤーが基準位置から-10になるように調整します。
+        float startZOffset = -10f; // 最初のプレイヤーのオフセット
+        float spacing = 10f; // 各プレイヤー間の間隔
 
-            switch (rank)
-            {
-                case 1:
-                    newPosition = _posRank1;
-                    newRotation = Quaternion.Euler(_rotRank1);
-                    break;
-                case 2:
-                    newPosition = _posRank2;
-                    newRotation = Quaternion.Euler(_rotRank2);
-                    break;
-                case 3:
-                    newPosition = _posRank3;
-                    newRotation = Quaternion.Euler(_rotRank3);
-                    break;
-                case 4:
-                    newPosition = _posRank4;
-                    newRotation = Quaternion.Euler(_rotRank4);
-                    break;
-                default:
-                    Debug.LogError("順位が定まっていません");
-                    break;
-            }
-            
+        for (int i = 0; i < playersInRank.Count; i++)
+        {
+            PlayerBase player = playersInRank[i];
+
+            // 基準位置に、計算したXオフセットを追加します
+            Vector3 newPosition = basePosition + new Vector3(startZOffset + 0f, 0f, (i * spacing));
+            Quaternion newRotation = baseRotation; // 回転は共通
+
             // プレイヤーのTransformを更新
             player.transform.position = newPosition;
             player.transform.rotation = newRotation;
             player.transform.localScale = new Vector3(30f, 30f, 30f);
+
             // Rigidbodyの設定（既存のコードを維持）
             var rb = player.GetComponent<Rigidbody>();
             if (rb != null)
@@ -143,4 +167,5 @@ public class ResultSceneManager : MonoBehaviour
             }
         }
     }
+}
 }

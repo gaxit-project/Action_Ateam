@@ -31,7 +31,7 @@ public class PinBase : MonoBehaviour
             gameManager = FindFirstObjectByType<GameManager>();
         }
 
-        SetPinBodyWhite();
+        SetPinBody();
     }
 
     private void Update()
@@ -57,6 +57,28 @@ public class PinBase : MonoBehaviour
                 else
                 {
                     materials[i].color = Color.white;
+                }
+            }
+            else if (materials[i].name.Contains("Strip"))
+            {
+                if (isFallDown && KnockedByPlayerColor != default)
+                {
+                    materials[i].color = KnockedByPlayerColor;
+                }
+                else
+                {
+                    materials[i].color = Color.red;
+                }
+            }
+            else if (materials[i].name.Contains("Bline"))
+            {
+                if (isFallDown && KnockedByPlayerColor != default)
+                {
+                    materials[i].color = KnockedByPlayerColor;
+                }
+                else
+                {
+                    materials[i].color = Color.black;
                 }
             }
         }
@@ -118,7 +140,7 @@ public class PinBase : MonoBehaviour
         return false;
     }
 
-    public void SetPinBodyWhite()
+    public void SetPinBody()
     {
         Renderer renderer = GetComponent<Renderer>();
         if (renderer == null) return;
@@ -130,6 +152,14 @@ public class PinBase : MonoBehaviour
             if (materials[i].name.Contains("Body") || materials[i].name.Contains("White"))
             {
                 materials[i].color = Color.white;
+            }
+            else if (materials[i].name.Contains("Strip"))
+            {
+                materials[i].color = Color.red;
+            }
+            else if (materials[i].name.Contains("Bline"))
+            {
+                materials[i].color = Color.black;
             }
         }
     }

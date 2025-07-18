@@ -23,7 +23,7 @@ public class CrownScript : MonoBehaviour
     {
         if(gameManager == null)
         {
-            gameManager = GameManager.Instance;
+            gameManager = GameManager.Instance;     
         }
         int player = gameManager.NumHumanPlayers, bot = gameManager.NumBots;
         int[] scores = new int[player + bot];

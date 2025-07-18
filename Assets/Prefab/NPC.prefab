@@ -550,6 +550,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 5985634496115995773, guid: 463cf9f7af4680240898f6aeba3fe3e6, type: 3}
   effectDuration: 1
   crown: {fileID: 7474330199149223649}
   arrowUIName: Arrow4

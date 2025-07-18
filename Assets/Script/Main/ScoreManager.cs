@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField] private float displayScoreTime = 3;
+    [SerializeField] private float displayScoreTime = 0f;
 
     public PinManager pinManager;
     public DisplayScore DS;
@@ -77,12 +77,6 @@ public class ScoreManager : MonoBehaviour
         }
         foreach (var player in gameManager.players)
         {
-            if (player == null)
-            {
-                Debug.LogError("playerがnullです！");
-                continue;
-            }
-
             string id = player.GetPlayerID();
             if (string.IsNullOrEmpty(id))
             {
@@ -102,11 +96,11 @@ public class ScoreManager : MonoBehaviour
                 }
 
                 scoreData.Addscore(gameManager.Num_NowFrame, playerKnockedPins);
-                Debug.Log($"{scoreData.PlayerID}: {playerKnockedPins}点(合計{scoreData.GetTotalScore()}) ");
+                //Debug.Log($"{scoreData.PlayerID}: {playerKnockedPins}点(合計{scoreData.GetTotalScore()}) ");
             }
             else
             {
-                Debug.LogWarning($"スコアデータが見つかりません: {id}");
+                //Debug.LogWarning($"スコアデータが見つかりません: {id}");
             }
         }
 
@@ -115,9 +109,8 @@ public class ScoreManager : MonoBehaviour
     }
 
 
-    public IEnumerator DelayAndResetCoroutine()
+    public void DelayAndResetCoroutine()
     {
-        yield return new WaitForSeconds(displayScoreTime);
         StartCoroutine(DS.ResetGame());
     }
 

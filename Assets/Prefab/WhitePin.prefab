@@ -69,7 +69,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -9103484930961366303, guid: e42c29eeb3a10cc4bbdbba5074a2c15f, type: 3}
-  - {fileID: -4778022940908939834, guid: e42c29eeb3a10cc4bbdbba5074a2c15f, type: 3}
+  - {fileID: 2100000, guid: 76f3eb5f0a65850428a5eb32ddda7e25, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -177,3 +177,5 @@ MonoBehaviour:
   knockDownAngleThreshold: 45
   outAreaObj: {fileID: 6201076561418300839, guid: dc984a84fbe164844ab3418274f12880, type: 3}
   center: {x: 0, y: -0.6, z: 0}
+  KnockedByPlayerID: 
+  KnockedByPlayerColor: {r: 0, g: 0, b: 0, a: 0}

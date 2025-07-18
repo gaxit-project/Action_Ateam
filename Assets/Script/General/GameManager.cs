@@ -104,7 +104,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public void CurrentFrameResult()
     {
         pointManager.PrintName();
-        StartCoroutine(scoreManager.DelayAndResetCoroutine());
+        scoreManager.DelayAndResetCoroutine();
     }
 
     public PlayerScoreData GetPlayerScoreData(string playerID)

@@ -67,6 +67,7 @@ public class PlayerBase : MonoBehaviour
     //衝突エフェクト
     [SerializeField] protected GameObject collisionEffectPrefab;
     [SerializeField] protected GameObject collisionEffectPrefab2;
+    [SerializeField] protected GameObject collisionEffectPrefab3;
     [SerializeField] protected float effectDuration = 2.0f;
 
     [SerializeField] protected GameObject crown;
@@ -144,7 +145,15 @@ public class PlayerBase : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("Pin"))
         {
-            SpawnEffect(collision.transform.position - new Vector3(0, 1, 0), 2);
+            if (collision.gameObject.name.StartsWith("BlackPin"))
+            {
+                SpawnEffect(collision.transform.position - new Vector3(0, 0, 0), 3);
+            }
+            else if(collision.gameObject.name.StartsWith("GoldPin"))
+            {
+                SpawnEffect(collision.transform.position - new Vector3(0, 1, 0), 2);
+            }
+
         }
     }
 
@@ -157,8 +166,24 @@ public class PlayerBase : MonoBehaviour
                 Destroy(effect, effectDuration);
                 break;
             case 2:
+                ParticleSystem ps = collisionEffectPrefab2.GetComponent<ParticleSystem>();
+                if(ps != null)
+                {
+                    var main = ps.main;
+                    main.startColor = PlayerColor;
+                }
                 GameObject effect2 = Instantiate(collisionEffectPrefab2, position, Quaternion.Euler(new Vector3(-90, 0, 0)));
                 Destroy(effect2, effectDuration);
+                break;
+            case 3:
+                ParticleSystem psB = collisionEffectPrefab3.GetComponent<ParticleSystem>();
+                if (psB != null)
+                {
+                    var main = psB.main;
+                    main.startColor = PlayerColor;
+                }
+                GameObject effect3 = Instantiate(collisionEffectPrefab3, position, Quaternion.Euler(new Vector3(-90, 0, 0)));
+                Destroy(effect3, effectDuration);
                 break;
 
         }

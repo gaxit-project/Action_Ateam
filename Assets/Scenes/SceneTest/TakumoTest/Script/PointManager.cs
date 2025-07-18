@@ -54,7 +54,7 @@ public class PointManager : MonoBehaviour
 
         for (int i = 0; i < TotalPlayer; i++)
         {
-            //Debug.Log(Name[i] + "が名前登録");
+            //Debug.log(Name[i] + "が名前登録");
             Name[i].text = PlayerName[i]; // 安全に代入
         }
     }
@@ -68,7 +68,7 @@ public class PointManager : MonoBehaviour
             var playerData = gameManager.GetPlayerScoreData("Player" + (i + 1));
             if (gameManager == null) Debug.LogError("GameManagerNULL");
             gameManager.PlayerScore[i, gameManager.Num_NowFrame] = playerData.GetScore(gameManager.Num_NowFrame);
-            //Debug.Log(gameManager.PlayerScore[i, gameManager.Num_NowFrame]);
+            //Debug.log(gameManager.PlayerScore[i, gameManager.Num_NowFrame]);
             int wholescore = playerData.GetTotalScore();
             gameManager.PlayerScore[i, 0] = wholescore;
             for (int j = 1; j < gameManager.Num_NowFrame; j++)
@@ -108,7 +108,7 @@ public class PointManager : MonoBehaviour
             var playerData = gameManager.GetPlayerScoreData("Player"+(i+1));
             if (gameManager == null) Debug.LogError("GameManagerNULL");
             gameManager.PlayerScore[i, gameManager.Num_NowFrame] = playerData.GetScore(gameManager.Num_NowFrame);
-            Debug.Log(gameManager.PlayerScore[i, gameManager.Num_NowFrame]);
+            //Debug.log(gameManager.PlayerScore[i, gameManager.Num_NowFrame]);
             int wholescore = playerData.GetTotalScore();
             gameManager.PlayerScore[i, 0] = wholescore;
             for (int j = 1; j < gameManager.Num_NowFrame+1; j++)
@@ -158,7 +158,7 @@ public class PointManager : MonoBehaviour
         {
             if (PlayerName == null) Debug.LogError("PlayerNameError");
             if (Name[i] == null) Debug.LogError("NameError");
-            //Debug.Log(Name[i] + "が名前登録");
+            //Debug.log(Name[i] + "が名前登録");
             Name[i].text = PlayerName[i]; // 安全に代入
         }
 
