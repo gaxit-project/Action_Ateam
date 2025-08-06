@@ -44,6 +44,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8857841713176116020}
     m_Modifications:
+    - target: {fileID: 889317606958143355, guid: 17ba509e2e662134284b9e756f38ef70, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4174635136367434048, guid: 17ba509e2e662134284b9e756f38ef70, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -106,6 +110,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8857841713176116020}
     m_Modifications:
+    - target: {fileID: 889317606958143355, guid: 17ba509e2e662134284b9e756f38ef70, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4174635136367434048, guid: 17ba509e2e662134284b9e756f38ef70, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -150,6 +158,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WAKU
       objectReference: {fileID: 0}
+    - target: {fileID: 7198247867164359627, guid: 17ba509e2e662134284b9e756f38ef70, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1d6846e30975ec44a87383b9c4410618, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -168,6 +180,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8857841713176116020}
     m_Modifications:
+    - target: {fileID: 889317606958143355, guid: 17ba509e2e662134284b9e756f38ef70, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 889317606958143355, guid: 17ba509e2e662134284b9e756f38ef70, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.002
@@ -242,6 +258,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8857841713176116020}
     m_Modifications:
+    - target: {fileID: 889317606958143355, guid: 17ba509e2e662134284b9e756f38ef70, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4174635136367434048, guid: 17ba509e2e662134284b9e756f38ef70, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -286,6 +306,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WAKU (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7198247867164359627, guid: 17ba509e2e662134284b9e756f38ef70, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1d6846e30975ec44a87383b9c4410618, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -304,6 +328,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8857841713176116020}
     m_Modifications:
+    - target: {fileID: 889317606958143355, guid: 17ba509e2e662134284b9e756f38ef70, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4174635136367434048, guid: 17ba509e2e662134284b9e756f38ef70, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
