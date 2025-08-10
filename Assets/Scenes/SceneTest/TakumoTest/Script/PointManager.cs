@@ -45,17 +45,34 @@ public class PointManager : MonoBehaviour
         int num = 0;
         foreach (var player in gameManager.players)
         {
-            string colorName = player.GetColorName();
-            PlayerName[num] = colorName;
-            num++;
+            if(player.IsBot == false)
+            {
+                PlayerName[num] = "YOU";
+                num++;
+            }
+            else
+            {
+                string colorName = player.GetColorName();
+                PlayerName[num] = colorName;
+                num++;
+            }
+
         }
 
 
 
         for (int i = 0; i < TotalPlayer; i++)
         {
-            //Debug.log(Name[i] + "が名前登録");
-            Name[i].text = PlayerName[i]; // 安全に代入
+            if (PlayerName[i] == "YOU")
+            {
+                Name[i].text = PlayerName[i];
+                Name[i].color = Color.blue;
+            }
+            else
+            {
+                Name[i].text = PlayerName[i];
+            }
+
         }
     }
 

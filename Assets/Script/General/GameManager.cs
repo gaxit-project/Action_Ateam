@@ -200,6 +200,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             var starter = FindFirstObjectByType<GameStarter>();
             if (starter == null) Debug.LogError("starternull");
             starter.SetPlayer(player);
+            player.LoadScore();
         }
 
         //Bot
@@ -213,7 +214,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             {
                 playerScores.Add(new PlayerScoreData($"Bot{i + 1}", true));
             }
-
+            bot.LoadScore();
         }
 
         if (colorAssigner == null)

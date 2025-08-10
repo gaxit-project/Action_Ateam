@@ -35,7 +35,14 @@ public class PlayerScoreData{
     /// <returns>‡Œv“¾“_</returns>
     public int GetTotalScore()
     {
-        return FrameScores[0];
+        if (FrameScores[0] == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return FrameScores[0];
+        }
     }
 
     /// <summary>

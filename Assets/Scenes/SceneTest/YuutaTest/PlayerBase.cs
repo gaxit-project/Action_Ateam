@@ -17,6 +17,7 @@ public class PlayerBase : MonoBehaviour
     public string PlayerID = "UnKnown";
     public Color PlayerColor;
     public int Rank { get; private set; } = 0;
+    public int TotalScore = 0;
     protected ScoreManager scoreManager;
     private ColorAssigner colorAssigner;
 
@@ -288,6 +289,14 @@ public class PlayerBase : MonoBehaviour
 
     public string GetPlayerID() => PlayerID;
     public Color GetPlayerColor() => PlayerColor;
+
+    public void LoadScore()
+    {
+        var playerScore = GameManager.Instance.playerScores.Find(p => p != null && p.PlayerID == PlayerID);
+        TotalScore = playerScore.GetTotalScore();
+
+        Debug.Log(PlayerID + "の総スコアは" + TotalScore);
+    }
 
     /// <summary>
     /// PlayerのColorの名前を返す
