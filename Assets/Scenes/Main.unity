@@ -5315,7 +5315,7 @@ GameObject:
   - component: {fileID: 404172408}
   - component: {fileID: 404172407}
   m_Layer: 0
-  m_Name: Wall_R (1)
+  m_Name: Wall_Jamp
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5329,13 +5329,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 404172405}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.45451945, y: 0.54167527, z: -0.45451945, w: 0.54167527}
-  m_LocalPosition: {x: 14.8, y: 9.6, z: -2.3115}
+  m_LocalRotation: {x: 0.4777144, y: 0.5213339, z: -0.4777144, w: 0.5213339}
+  m_LocalPosition: {x: 14.5, y: 9.88, z: -2.3115}
   m_LocalScale: {x: 16.031563, y: 5, z: 3.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8402483}
-  m_LocalEulerAnglesHint: {x: 80, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 85, y: 90, z: 0}
 --- !u!65 &404172407
 BoxCollider:
   m_ObjectHideFlags: 0

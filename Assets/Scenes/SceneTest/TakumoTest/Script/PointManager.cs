@@ -19,6 +19,7 @@ public class PointManager : MonoBehaviour
     [SerializeField] private List<Text> Name = new List<Text>();
     private int TotalPlayer;
     private string[] PlayerName;
+    private Color[] PlayerColors;
 
 
     public GameManager gameManager;
@@ -42,18 +43,21 @@ public class PointManager : MonoBehaviour
     public void PrintName()
     {
         PlayerName = new string[4];
+        PlayerColors = new Color[4];
         int num = 0;
         foreach (var player in gameManager.players)
         {
             if(player.IsBot == false)
             {
                 PlayerName[num] = "YOU";
+                PlayerColors[num] = player.GetPlayerColor();
                 num++;
             }
             else
             {
                 string colorName = player.GetColorName();
                 PlayerName[num] = colorName;
+                PlayerColors[num] = player.GetPlayerColor();
                 num++;
             }
 
@@ -66,11 +70,12 @@ public class PointManager : MonoBehaviour
             if (PlayerName[i] == "YOU")
             {
                 Name[i].text = PlayerName[i];
-                Name[i].color = Color.blue;
+                Name[i].color = PlayerColors[i];
             }
             else
             {
                 Name[i].text = PlayerName[i];
+                Name[i].color = PlayerColors[i];
             }
 
         }

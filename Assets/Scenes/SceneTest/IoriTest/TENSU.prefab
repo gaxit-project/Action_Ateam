@@ -1661,6 +1661,7 @@ GameObject:
   - component: {fileID: 1359070331583814037}
   - component: {fileID: 6244570008120248252}
   - component: {fileID: 2605130182418281209}
+  - component: {fileID: 3213902607337131087}
   m_Layer: 5
   m_Name: name
   m_TagString: Untagged
@@ -1743,6 +1744,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &3213902607337131087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259802179130548157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 3, y: -3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &277090051430325631
 GameObject:
   m_ObjectHideFlags: 0
@@ -12660,6 +12676,7 @@ GameObject:
   - component: {fileID: 104669146885177042}
   - component: {fileID: 5755055693506941922}
   - component: {fileID: 9015661321436454763}
+  - component: {fileID: 4035906760174922546}
   m_Layer: 5
   m_Name: name
   m_TagString: Untagged
@@ -12744,6 +12761,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &4035906760174922546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2323484537823434555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 3, y: -3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &2342060138648616899
 GameObject:
   m_ObjectHideFlags: 0
@@ -26236,6 +26268,7 @@ GameObject:
   - component: {fileID: 6935101049811531942}
   - component: {fileID: 7452860786722268049}
   - component: {fileID: 1892800735304576667}
+  - component: {fileID: 2761325756659131928}
   m_Layer: 5
   m_Name: name
   m_TagString: Untagged
@@ -26320,6 +26353,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &2761325756659131928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4190895593198262416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 3, y: -3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &4195819091751675907
 GameObject:
   m_ObjectHideFlags: 0
@@ -51522,6 +51570,7 @@ GameObject:
   - component: {fileID: 4819257353731959524}
   - component: {fileID: 5088800885911871374}
   - component: {fileID: 8707826358723255002}
+  - component: {fileID: 7105963153540460499}
   m_Layer: 5
   m_Name: PlayerPoint0-1
   m_TagString: Untagged
@@ -51606,6 +51655,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &7105963153540460499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9204832979686751204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 3, y: -3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &9209223495557652450
 GameObject:
   m_ObjectHideFlags: 0
