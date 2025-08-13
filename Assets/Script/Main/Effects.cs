@@ -1,4 +1,4 @@
 class Effects
 {
-    public abstract void OnTurnEnd();
+    //public abstract void OnTurnEnd();
 }

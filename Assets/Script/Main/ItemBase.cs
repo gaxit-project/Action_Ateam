@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemBase : MonoBehaviour
 {
-    public List<Effects> Effect{ get; set;}
+    //public List<Effects> Effect{ get; set;}
 
     protected void OnTriggerEnter(Collider other)
     {
