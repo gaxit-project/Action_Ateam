@@ -1,15 +1,16 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemBase : MonoBehaviour
 {
-    
-    void Start()
-    {
-        
-    }
+    public List<Effects> Effect{ get; set;}
 
-    void Update()
+    protected void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Player") || other.CompareTag("NPC"))
+        {
+            
+        }
     }
 }
