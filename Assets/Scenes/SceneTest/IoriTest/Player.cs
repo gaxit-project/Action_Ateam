@@ -18,6 +18,7 @@ public class Player : PlayerBase
         Dead
     }
 
+    private float LstickX;
     protected PlayerState currentState = PlayerState.Idle;
     
     //プロパティ
@@ -36,7 +37,7 @@ public class Player : PlayerBase
         if (arrowUI == null) Debug.LogError("UIが見つかりません！");
         buildIndex = SceneManager.GetActiveScene().buildIndex;
         gameManager = GameObject.FindFirstObjectByType<GameManager>();
-        if(buildIndex == 1 && gameManager.Num_NowFrame == 1) icon.SetActive(true);
+        if(buildIndex == 1) icon.SetActive(true);
     }
 
     void FixedUpdate()
@@ -49,11 +50,15 @@ public class Player : PlayerBase
         weight = player.Weight;
         rotation = player.Rotation;
 
-        //右スティックで回転
+        //右スティックでカメラ回転(CamelaControllerに渡す)
+        float r = (Input.GetAxis("Horizontal2") + Input.mousePositionDelta.x * 0.03f) * rotateSpeed * 2f * Time.fixedDeltaTime;
+        RstickX = Mathf.Clamp(r, -30f, 30f);
+
+        //左スティックで向き変更
         if (!isAttacking && !isAttacked && currentState != PlayerState.Throwed)
-            RstickX = (Input.GetAxis("Horizontal2") + Input.mousePositionDelta.x * 0.03f) * rotateSpeed * 2f * Time.fixedDeltaTime;
-        else RstickX = 0f;
-        transform.Rotate(0f, RstickX, 0f);
+           LstickX = Input.GetAxis("Horizontal") * rotateSpeed * 2f * Time.fixedDeltaTime;
+        else LstickX = 0f;
+        transform.Rotate(0f, LstickX, 0f);
 
         //固有の重力
         rigidbody.AddForce(new Vector3(0f, -gravity, 0f), ForceMode.Acceleration);
@@ -180,12 +185,12 @@ public class Player : PlayerBase
                 }
                 */
 
-                if(buildIndex == 1 && gameManager.Num_NowFrame == 1) icon.SetActive(false);
+                if(buildIndex == 1) icon.SetActive(false);
 
                 if (player.IsGrounded(transform.position, rayDistance))
                 {
                     //プレイヤー基準の方向
-                    z = this.transform.right * Input.GetAxis("Horizontal");
+                    z = -new Vector3(0f, 0f, 1f) * Input.GetAxis("Horizontal");
 
                     z.y = 0f;
                     z.Normalize();
