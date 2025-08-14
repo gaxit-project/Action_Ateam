@@ -496,6 +496,8 @@ MonoBehaviour:
   - {fileID: 1766488774}
   - {fileID: 1052759495}
   highlightMaterial: {fileID: 2100000, guid: c76ee1a9ba35a934e84ab81df0e1ebd0, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: 90be0acb51b27734394d0ff9c8b09372, type: 2}
+  occupiedMaterial: {fileID: 2100000, guid: 90be0acb51b27734394d0ff9c8b09372, type: 2}
   isAllAreasFilled: 0
 --- !u!4 &831935788
 Transform:

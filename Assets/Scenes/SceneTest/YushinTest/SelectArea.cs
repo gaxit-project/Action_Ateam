@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class SelectArea : MonoBehaviour
 {
@@ -8,15 +9,17 @@ public class SelectArea : MonoBehaviour
 
     public GameObject[] spawnAreas;
     public Material highlightMaterial;
-    private Material[] defaultMaterials;
+    public Material defaultMaterial;
+    public Material occupiedMaterial;
     private int currentAreaIndex = 0;
     private PlayerInputActions inputActions;
     private float lastInputTime = 0f;
-    private float inputCooldown = 0.3f;
+    private float inputCooldown = 0.2f;
     private float lastSpawnTime = 0f;
     private float spawnCooldown = 0.5f;
     private bool[] areaOccupied;
     public bool isAllAreasFilled = false;
+    private List<GameObject> spawnedObjects;
 
     void Awake()
     {
@@ -26,12 +29,16 @@ public class SelectArea : MonoBehaviour
         inputActions.Player.Move.performed += OnMovePerformed;
         inputActions.Player.Spawn.performed += OnSpawnPerformed;
 
-        defaultMaterials = new Material[spawnAreas.Length];
         areaOccupied = new bool[spawnAreas.Length];
+        spawnedObjects = new List<GameObject>(new GameObject[spawnAreas.Length]);
         for(int i = 0; i < spawnAreas.Length; i++)
         {
-            defaultMaterials[i] = spawnAreas[i].GetComponent<Renderer>().material;
-            areaOccupied[i] = false;
+            if (spawnAreas[i] != null)
+            {
+                areaOccupied[i] = false;
+                spawnedObjects.Add(null);
+                spawnAreas[i].GetComponent<Renderer>().material = defaultMaterial;
+            }
         }
 
         SelectAreas(currentAreaIndex);
@@ -67,9 +74,9 @@ public class SelectArea : MonoBehaviour
                 } while (areaOccupied[currentAreaIndex] && currentAreaIndex != previousIndex);
             }
 
-            if (!areaOccupied[currentAreaIndex])
+            if (spawnAreas[currentAreaIndex] != null && !areaOccupied[currentAreaIndex])
             {
-                SelectAreas(currentAreaIndex); //選択更新
+                SelectAreas(currentAreaIndex);
             }
             lastInputTime = Time.time; //入力時刻更新
         }
@@ -79,9 +86,14 @@ public class SelectArea : MonoBehaviour
     {
         if (Time.time - lastSpawnTime < spawnCooldown || spawnObjects.Length == 0 || areaOccupied[currentAreaIndex]) return;
 
+        //オブジェクト生成
         Vector3 spawnPosition = GetSelectedSpawnPosition();
         GameObject spawnedObject = Instantiate(spawnObjects[currentObjectIndex], spawnPosition, Quaternion.identity);
-
+        spawnedObjects[currentObjectIndex] = spawnedObject;
+        
+        //エリア削除
+        Destroy(spawnAreas[currentAreaIndex]);
+        spawnAreas[currentAreaIndex] = null;
         areaOccupied[currentAreaIndex] = true;
 
         currentObjectIndex = (currentObjectIndex + 1) % spawnObjects.Length;
@@ -97,20 +109,27 @@ public class SelectArea : MonoBehaviour
     {
         for (int i = 0; i < spawnAreas.Length; i++)
         {
-            spawnAreas[i].GetComponent<Renderer>().material = defaultMaterials[i];
+            if (spawnAreas[i] != null)
+            {
+                //エリア選択済みかどうかでどのマテリアルを適応するか
+                spawnAreas[i].GetComponent<Renderer>().material = areaOccupied[i] && occupiedMaterial != null ? occupiedMaterial : defaultMaterial;
+            }
         }
 
         //選択エリアをハイライト
-        if (!areaOccupied[index])
+        if (spawnAreas[index] != null && !areaOccupied[index])
         {
             spawnAreas[index].GetComponent<Renderer>().material = highlightMaterial;
-            Debug.Log("Selected Area: " + spawnAreas[index].name + " at " + spawnAreas[index].transform.position);
-
+            Debug.Log("選択: " + spawnAreas[index].name);
         }
     }
 
     private Vector3 GetSelectedSpawnPosition()
     {
+        if(spawnAreas[currentAreaIndex] == null)
+        {
+            return Vector3.zero;
+        }
         return spawnAreas[currentAreaIndex].transform.position + new Vector3(0, spawnAreas[currentAreaIndex].transform.localScale.y / 2, 0);
     }
 
@@ -120,16 +139,19 @@ public class SelectArea : MonoBehaviour
         do
         {
             currentAreaIndex = (currentAreaIndex + 1) % spawnAreas.Length;
-            if (!areaOccupied[startIndex])
+            if (spawnAreas[currentAreaIndex] != null && !areaOccupied[currentAreaIndex])
             {
                 SelectAreas(currentAreaIndex);
                 return;
             }
         }while(currentAreaIndex !=  startIndex);
 
-        for(int i = 0; i < spawnAreas.Length; i++)
+        for (int i = 0; i < spawnAreas.Length; i++)
         {
-            spawnAreas[i].GetComponent<Renderer>().material = defaultMaterials[i];
+            if (spawnAreas[i] != null)
+            {
+                spawnAreas[i].GetComponent<Renderer>().material = areaOccupied[i] && occupiedMaterial != null ? occupiedMaterial : defaultMaterial;
+            }
         }
     }
 
@@ -138,7 +160,7 @@ public class SelectArea : MonoBehaviour
         isAllAreasFilled = true;
         for(int i = 0; i < areaOccupied.Length; i++)
         {
-            if (!areaOccupied[i])
+            if (spawnAreas[i] != null && !areaOccupied[i])
             {
                 isAllAreasFilled = false;
                 break;
