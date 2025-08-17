@@ -26,7 +26,8 @@ public class PrintName : MonoBehaviour
         }
         else
         {
-            _text.text = playerbase.PlayerID;
+            string tmp = playerbase.GetColorName();
+            _text.text = tmp;
             _text.color = playerbase.PlayerColor;
         }
     }
