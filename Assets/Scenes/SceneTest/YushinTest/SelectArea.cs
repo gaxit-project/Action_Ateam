@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System.Linq;
 
 public class SelectArea : MonoBehaviour
 {
@@ -20,15 +21,16 @@ public class SelectArea : MonoBehaviour
     private bool[] areaOccupied;
     public bool isAllAreasFilled = false;
     private List<GameObject> spawnedObjects;
+    private List<GameObject> availableSpawnObjects;
 
     void Awake()
     {
         inputActions = new PlayerInputActions();
         inputActions.Player.Enable();
-
         inputActions.Player.Move.performed += OnMovePerformed;
         inputActions.Player.Spawn.performed += OnSpawnPerformed;
 
+        //エリア初期化
         areaOccupied = new bool[spawnAreas.Length];
         spawnedObjects = new List<GameObject>(new GameObject[spawnAreas.Length]);
         for(int i = 0; i < spawnAreas.Length; i++)
@@ -41,9 +43,17 @@ public class SelectArea : MonoBehaviour
             }
         }
 
+        //スコアを低い順にソート
+        availableSpawnObjects = spawnObjects.OrderBy(obj =>
+        {
+            var spawnObj = obj.GetComponent<SpawnObject>();
+            return spawnObj != null ? spawnObj.score : float.MaxValue;
+        }).ToList();
+
         SelectAreas(currentAreaIndex);
 
         if (spawnObjects.Length == 0) Debug.LogWarning("SpawnObjects is empty");
+        foreach (var obj in availableSpawnObjects) Debug.Log($"Object: {obj.name}, Score: {obj.GetComponent<SpawnObject>()?.score}");
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)
@@ -52,8 +62,7 @@ public class SelectArea : MonoBehaviour
         if (Time.time - lastInputTime < inputCooldown) return;
 
         //スティック入力
-        float horizontalInput = inputActions.Player.Move.ReadValue<Vector2>().x;
-
+        float horizontalInput = context.ReadValue<Vector2>().x;
         if (Mathf.Abs(horizontalInput) > 0.5f)
         {
             int previousIndex = currentAreaIndex;
@@ -63,15 +72,15 @@ public class SelectArea : MonoBehaviour
                 do
                 {
                     currentAreaIndex = (currentAreaIndex - 1 + spawnAreas.Length) % spawnAreas.Length;
-                } while (areaOccupied[currentAreaIndex] && currentAreaIndex != previousIndex);
+                } while ((spawnAreas[currentAreaIndex] == null || areaOccupied[currentAreaIndex]) && currentAreaIndex != previousIndex);
             }
             //右入力
             else if (horizontalInput > 0)
             {
                 do
                 {
-                    currentAreaIndex = (currentAreaIndex + 1 + spawnAreas.Length) % spawnAreas.Length;
-                } while (areaOccupied[currentAreaIndex] && currentAreaIndex != previousIndex);
+                    currentAreaIndex = (currentAreaIndex + 1) % spawnAreas.Length;
+                } while ((spawnAreas[currentAreaIndex] == null || areaOccupied[currentAreaIndex]) && currentAreaIndex != previousIndex);
             }
 
             if (spawnAreas[currentAreaIndex] != null && !areaOccupied[currentAreaIndex])
@@ -87,16 +96,18 @@ public class SelectArea : MonoBehaviour
         if (Time.time - lastSpawnTime < spawnCooldown || spawnObjects.Length == 0 || areaOccupied[currentAreaIndex]) return;
 
         //オブジェクト生成
+        GameObject nextObject = availableSpawnObjects[0];
         Vector3 spawnPosition = GetSelectedSpawnPosition();
-        GameObject spawnedObject = Instantiate(spawnObjects[currentObjectIndex], spawnPosition, Quaternion.identity);
-        spawnedObjects[currentObjectIndex] = spawnedObject;
-        
+        GameObject spawnedObject = Instantiate(nextObject, spawnPosition, Quaternion.identity);
+        spawnedObjects[currentAreaIndex] = spawnedObject;
+
+        //オブジェクトをリストから削除
+        availableSpawnObjects.RemoveAt(0);
+
         //エリア削除
         Destroy(spawnAreas[currentAreaIndex]);
         spawnAreas[currentAreaIndex] = null;
         areaOccupied[currentAreaIndex] = true;
-
-        currentObjectIndex = (currentObjectIndex + 1) % spawnObjects.Length;
 
         CheckAllAreasFilled();
 
@@ -120,7 +131,6 @@ public class SelectArea : MonoBehaviour
         if (spawnAreas[index] != null && !areaOccupied[index])
         {
             spawnAreas[index].GetComponent<Renderer>().material = highlightMaterial;
-            Debug.Log("選択: " + spawnAreas[index].name);
         }
     }
 
