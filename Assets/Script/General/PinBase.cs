@@ -163,4 +163,8 @@ public class PinBase : MonoBehaviour
             }
         }
     }
+    public bool GiveIsFallDown()
+    {
+        return isFallDown;
+    }
 }
