@@ -41,11 +41,12 @@ public class CameraController : MonoBehaviour
             else transform.position += new Vector3(playerobj.transform.position.x - targetPosition.x, 0f, 0f);
                 targetPosition = playerobj.transform.position;
             float RstickX = player.GetRstickX; //左右回転
-            if (/*!isChasingPlayer*/true)
+            if (!isModeChanged)
             {
                 transform.eulerAngles = new Vector3(transform.eulerAngles.x, RstickX + 90f, transform.eulerAngles.z);
-                Debug.Log(RstickX);
+                //Debug.Log(RstickX);
             }
+            else transform.eulerAngles = new Vector3(transform.eulerAngles.x, 90f, transform.eulerAngles.z);
         }
 
         //Oキーを押すとカメラがその場で停止

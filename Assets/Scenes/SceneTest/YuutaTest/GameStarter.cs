@@ -86,11 +86,6 @@ public class GameStarter : MonoBehaviour
         }
     }
 
-    private void StartMove()
-    {
-        player.Invoke(nameof(player.StartMove), 3f);
-    }
-
     private void Disabled()
     {
         foreach (TextMeshProUGUI t in countTexts) t.enabled = false;
@@ -127,7 +122,7 @@ public class GameStarter : MonoBehaviour
     public void SetPlayer(Player player)
     {
         this.player = player;
-        StartCoroutine("StartMove");
+        player.SetInitialMousePosition();
     }
 
 }

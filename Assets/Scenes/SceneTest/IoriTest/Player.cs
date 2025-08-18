@@ -19,6 +19,8 @@ public class Player : PlayerBase
     }
 
     private float LstickX;
+    private float initialMousePositionX;
+    public bool isControllEasily { private get; set; } = false;
     protected PlayerState currentState = PlayerState.Idle;
     
     //プロパティ
@@ -51,8 +53,8 @@ public class Player : PlayerBase
         rotation = player.Rotation;
 
         //右スティックでカメラ回転(CamelaControllerに渡す)
-        float r = (Input.GetAxis("Horizontal2") + Input.mousePositionDelta.x * 0.03f) * rotateSpeed * 2f * Time.fixedDeltaTime;
-        RstickX = Mathf.Clamp(r, -30f, 30f);
+        float r = (Input.GetAxis("Horizontal2") + (Input.mousePosition.x - initialMousePositionX) * 0.01f) * rotateSpeed * 2f * Time.fixedDeltaTime;
+        RstickX = Mathf.Clamp(r, -10f, 10f);
 
         //左スティックで向き変更
         if (!isAttacking && !isAttacked && currentState != PlayerState.Throwed)
@@ -200,7 +202,8 @@ public class Player : PlayerBase
                     float lerpRate = (targetVelocity.magnitude > 0.1f) ? acceleration : deceleration;
                     currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, lerpRate * Time.fixedDeltaTime);
 
-                    rigidbody.linearVelocity = throwVelocity + currentVelocity / 3f;
+                    if (!isControllEasily) rigidbody.linearVelocity = throwVelocity + currentVelocity / 3f;
+                    else rigidbody.linearVelocity = throwVelocity + currentVelocity;
                     //Debug.DrawRay(transform.position, Vector3.ClampMagnitude(rigidbody.linearVelocity, 3f), Color.black, 3f, false);
                     //if (Input.GetKeyDown(KeyCode.Space)) Debug.Log("a");
                 }
@@ -277,11 +280,6 @@ public class Player : PlayerBase
             Invoke(nameof(ChangeIncomingVelocity), 0.01f);
         }
     }
-    public void StartMove()
-    {
-        //currentState = PlayerState.Run;
-        Debug.Log("スタート!");
-    }
 
     public Vector3 GetIncomingVelocity()
     {
@@ -293,30 +291,38 @@ public class Player : PlayerBase
         incomingVelocity = rigidbody.linearVelocity;
     }
 
+    public void SetInitialMousePosition()
+    {
+        initialMousePositionX = Input.mousePosition.x;
+    }
+
     /// <summary>
     /// 投擲
     /// </summary>
     public void Throw()
     {
-        //transform.rotation = Quaternion.Euler(transform.eulerAngles.x, camera.GetCameraRotationY(), transform.eulerAngles.z);
-        /*
-        Vector3 forward = camera.transform.forward;
-        forward.y = 0f;
-        transform.rotation = Quaternion.LookRotation(forward);
-        */
-        throwVelocity = transform.forward * speed * throwPower;
-        rigidbody.linearVelocity = throwVelocity;
-        //camera.StopCameraMove();
-        /*
-        if (!isThrowTimerStarted)
+        if (currentState != PlayerState.Throwed)
         {
-            isThrowTimerStarted = true;
-            throwTimer = 0f;
+            //transform.rotation = Quaternion.Euler(transform.eulerAngles.x, camera.GetCameraRotationY(), transform.eulerAngles.z);
+            /*
+            Vector3 forward = camera.transform.forward;
+            forward.y = 0f;
+            transform.rotation = Quaternion.LookRotation(forward);
+            */
+            throwVelocity = transform.forward * speed * throwPower;
+            rigidbody.linearVelocity = throwVelocity;
+            //camera.StopCameraMove();
+            /*
+            if (!isThrowTimerStarted)
+            {
+                isThrowTimerStarted = true;
+                throwTimer = 0f;
+            }
+            */
+            //Debug.Log("投擲");
+            camera.ChangeCameraMode();
+            currentState = PlayerState.Throwed;
         }
-        */
-        //Debug.Log("投擲");
-        camera.ChangeCameraMode();
-        currentState = PlayerState.Throwed;
     }
 
     protected async void Attack()
@@ -352,4 +358,5 @@ public class Player : PlayerBase
         isReflecting = false;
         isDecelerating = true;
     }
+
 }
