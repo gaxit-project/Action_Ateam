@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3187756432143892445}
   - component: {fileID: 5733641159632192532}
   m_Layer: 5
-  m_Name: WhitePin8_img
+  m_Name: GoldPin2_img
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ec7654a41c180cf4a8ec04c44bb7eaab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69a051796b74e7744aab83e5bf5d285d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -369,7 +369,7 @@ GameObject:
   - component: {fileID: 6525378227915582140}
   - component: {fileID: 4559893851723628626}
   m_Layer: 5
-  m_Name: WhitePin9_img
+  m_Name: GoldPin3_img
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -422,7 +422,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ec7654a41c180cf4a8ec04c44bb7eaab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69a051796b74e7744aab83e5bf5d285d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -458,7 +458,7 @@ GameObject:
   - component: {fileID: 1903708812270368235}
   - component: {fileID: 2509069134049983946}
   m_Layer: 5
-  m_Name: WhitePin10_img
+  m_Name: GoldPin4_img
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -511,7 +511,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ec7654a41c180cf4a8ec04c44bb7eaab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69a051796b74e7744aab83e5bf5d285d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -745,7 +745,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3078248233039989974}
   m_Layer: 0
-  m_Name: PinCircle1
+  m_Name: PinCircle4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -780,7 +780,7 @@ GameObject:
   - component: {fileID: 7712935685425642929}
   - component: {fileID: 3265869950272200066}
   m_Layer: 5
-  m_Name: WhitePin7_img
+  m_Name: GoldPin1_img
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -833,7 +833,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ec7654a41c180cf4a8ec04c44bb7eaab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69a051796b74e7744aab83e5bf5d285d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

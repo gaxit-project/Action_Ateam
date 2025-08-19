@@ -51,7 +51,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
       propertyPath: m_Name
-      value: BlackPin (1)
+      value: BlackPin2
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -113,7 +113,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: 620dbf4c05f1cef459aadfaa4383e850, type: 3}
       propertyPath: m_Name
-      value: GoldPin
+      value: GoldPin1
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: 620dbf4c05f1cef459aadfaa4383e850, type: 3}
       propertyPath: m_LocalPosition.x
@@ -175,7 +175,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
       propertyPath: m_Name
-      value: BlackPin (3)
+      value: BlackPin4
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -237,7 +237,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: 620dbf4c05f1cef459aadfaa4383e850, type: 3}
       propertyPath: m_Name
-      value: GoldPin (1)
+      value: GoldPin2
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: 620dbf4c05f1cef459aadfaa4383e850, type: 3}
       propertyPath: m_LocalPosition.x
@@ -299,7 +299,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: 620dbf4c05f1cef459aadfaa4383e850, type: 3}
       propertyPath: m_Name
-      value: GoldPin (5)
+      value: GoldPin6
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: 620dbf4c05f1cef459aadfaa4383e850, type: 3}
       propertyPath: m_LocalPosition.x
@@ -361,7 +361,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: 620dbf4c05f1cef459aadfaa4383e850, type: 3}
       propertyPath: m_Name
-      value: GoldPin (2)
+      value: GoldPin3
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: 620dbf4c05f1cef459aadfaa4383e850, type: 3}
       propertyPath: m_LocalPosition.x
@@ -423,7 +423,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: 620dbf4c05f1cef459aadfaa4383e850, type: 3}
       propertyPath: m_Name
-      value: GoldPin (3)
+      value: GoldPin4
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: 620dbf4c05f1cef459aadfaa4383e850, type: 3}
       propertyPath: m_LocalPosition.x
@@ -485,7 +485,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: 620dbf4c05f1cef459aadfaa4383e850, type: 3}
       propertyPath: m_Name
-      value: GoldPin (4)
+      value: GoldPin5
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: 620dbf4c05f1cef459aadfaa4383e850, type: 3}
       propertyPath: m_LocalPosition.x
@@ -547,7 +547,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
       propertyPath: m_Name
-      value: BlackPin
+      value: BlackPin1
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -609,7 +609,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
       propertyPath: m_Name
-      value: BlackPin (2)
+      value: BlackPin3
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
       propertyPath: m_LocalPosition.x

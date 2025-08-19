@@ -35,10 +35,10 @@ Transform:
   - {fileID: 6822337839068044196}
   - {fileID: 6968893021081151019}
   - {fileID: 8629552829291738728}
-  - {fileID: 340808002536870193}
-  - {fileID: 8270005434077248259}
-  - {fileID: 1075004324788366357}
   - {fileID: 7694012122646413734}
+  - {fileID: 340808002536870193}
+  - {fileID: 1075004324788366357}
+  - {fileID: 8270005434077248259}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &94028447889612394
@@ -51,7 +51,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
       propertyPath: m_Name
-      value: BlackPin (1)
+      value: BlackPin4
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -113,7 +113,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: d539c85146fd18341b4f5be16ed64380, type: 3}
       propertyPath: m_Name
-      value: WhitePin6
+      value: WhitePin5
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: d539c85146fd18341b4f5be16ed64380, type: 3}
       propertyPath: m_LocalPosition.x
@@ -175,7 +175,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: 620dbf4c05f1cef459aadfaa4383e850, type: 3}
       propertyPath: m_Name
-      value: GoldPin
+      value: GoldPin1
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: 620dbf4c05f1cef459aadfaa4383e850, type: 3}
       propertyPath: m_LocalPosition.x
@@ -237,7 +237,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: d539c85146fd18341b4f5be16ed64380, type: 3}
       propertyPath: m_Name
-      value: WhitePin2
+      value: WhitePin1
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: d539c85146fd18341b4f5be16ed64380, type: 3}
       propertyPath: m_LocalPosition.x
@@ -299,7 +299,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: d539c85146fd18341b4f5be16ed64380, type: 3}
       propertyPath: m_Name
-      value: WhitePin5
+      value: WhitePin4
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: d539c85146fd18341b4f5be16ed64380, type: 3}
       propertyPath: m_LocalPosition.x
@@ -361,7 +361,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
       propertyPath: m_Name
-      value: BlackPin (3)
+      value: BlackPin1
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -423,7 +423,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: d539c85146fd18341b4f5be16ed64380, type: 3}
       propertyPath: m_Name
-      value: WhitePin3
+      value: WhitePin2
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: d539c85146fd18341b4f5be16ed64380, type: 3}
       propertyPath: m_LocalPosition.x
@@ -485,7 +485,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: d539c85146fd18341b4f5be16ed64380, type: 3}
       propertyPath: m_Name
-      value: WhitePin4
+      value: WhitePin3
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: d539c85146fd18341b4f5be16ed64380, type: 3}
       propertyPath: m_LocalPosition.x
@@ -547,7 +547,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
       propertyPath: m_Name
-      value: BlackPin
+      value: BlackPin2
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -609,7 +609,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6711740875953914368, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
       propertyPath: m_Name
-      value: BlackPin (2)
+      value: BlackPin3
       objectReference: {fileID: 0}
     - target: {fileID: 8325739815840818537, guid: 4fe01a2abe141e84f80fe3ffafc73b2e, type: 3}
       propertyPath: m_LocalPosition.x
