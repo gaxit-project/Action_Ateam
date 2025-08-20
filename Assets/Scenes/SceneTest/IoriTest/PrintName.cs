@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PrintName : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class PrintName : MonoBehaviour
     void Start()
     {
         TextName();
+        int buildindex = SceneManager.GetActiveScene().buildIndex;
+        if(buildindex == 3)
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     private void TextName()

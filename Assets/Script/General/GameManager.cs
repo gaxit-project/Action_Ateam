@@ -35,7 +35,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     public int[,] PlayerScore;
 
-    [SerializeField] private Vector3 StartPoint = new Vector3(-50f, 0f, 0f);
+    [SerializeField] public Vector3 StartPoint = new Vector3(-50f, 0f, 0f);
     [SerializeField] private TextMeshProUGUI testText;
 
     private PointManager pointManager;
@@ -182,7 +182,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         spawnPositions = spawnPositions.OrderBy(x => Random.value).ToList(); //スポーン場所をランダムに
 
         int spawnIndex = 0; //人数
-
+        
         //Player
         for (int i = 0; i < NumHumanPlayers; i++)
         {
@@ -216,7 +216,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             }
             bot.LoadScore();
         }
-
+        
         if (colorAssigner == null)
         {
             colorAssigner = FindFirstObjectByType<ColorAssigner>();
@@ -240,6 +240,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             timerUI.SetActive(false);
         }
         else Debug.LogError("1つあるいは複数のタイマー関連のオブジェクトが取得できませんでした");
+
+        SelectArea selectArea = FindFirstObjectByType<SelectArea>();
+        //selectArea.AddList();
     }
 
     public void ResultSetting()

@@ -2,13 +2,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.SceneManagement;
 
 public class SelectArea : MonoBehaviour
 {
     public GameObject[] spawnObjects; //生成するプレイヤーの配列
     private int currentObjectIndex = 0; //次に生成するオブジェクトのインデックス
-
-    public GameObject[] spawnAreas;
+    [System.Serializable]
+    public class SpawnStages
+    {
+        public List<GameObject> Stages = new List<GameObject>();
+    }
+    public SpawnStages[] spawnAreas;
     public Material highlightMaterial;
     public Material defaultMaterial;
     public Material occupiedMaterial;
@@ -20,40 +25,43 @@ public class SelectArea : MonoBehaviour
     private float spawnCooldown = 0.5f;
     private bool[] areaOccupied;
     public bool isAllAreasFilled = false;
-    private List<GameObject> spawnedObjects;
+    [SerializeField]private List<GameObject> spawnedObjects;
     private List<GameObject> availableSpawnObjects;
 
-    void Awake()
+    private GameManager gameManager;
+    private int StageNumber;
+
+    private bool isSelect = true;
+
+    [SerializeField]private int PlayerNumber = 0;
+    void Start()
     {
+        PlayerNumber = 0;
+        
         inputActions = new PlayerInputActions();
         inputActions.Player.Enable();
         inputActions.Player.Move.performed += OnMovePerformed;
         inputActions.Player.Spawn.performed += OnSpawnPerformed;
 
+        gameManager = GameManager.Instance;
+
         //エリア初期化
-        areaOccupied = new bool[spawnAreas.Length];
-        spawnedObjects = new List<GameObject>(new GameObject[spawnAreas.Length]);
-        for(int i = 0; i < spawnAreas.Length; i++)
+        areaOccupied = new bool[spawnAreas[StageNumber].Stages.Count];
+        spawnedObjects = new List<GameObject>(new GameObject[spawnAreas[StageNumber].Stages.Count]);
+        spawnObjects = new GameObject[spawnAreas[StageNumber].Stages.Count];
+        
+        for(int i = 0; i < 3; i++)
         {
-            if (spawnAreas[i] != null)
+            for(int j = 0; j < 4; j++)
             {
-                areaOccupied[i] = false;
-                spawnedObjects.Add(null);
-                spawnAreas[i].GetComponent<Renderer>().material = defaultMaterial;
+                if (spawnAreas[i].Stages[j] != null)
+                {
+                    areaOccupied[j] = false;
+                    spawnedObjects.Add(null);
+                    spawnAreas[i].Stages[j].GetComponent<Renderer>().material = defaultMaterial;
+                }
             }
         }
-
-        //スコアを低い順にソート
-        availableSpawnObjects = spawnObjects.OrderBy(obj =>
-        {
-            var spawnObj = obj.GetComponent<SpawnObject>();
-            return spawnObj != null ? spawnObj.score : float.MaxValue;
-        }).ToList();
-
-        SelectAreas(currentAreaIndex);
-
-        if (spawnObjects.Length == 0) Debug.LogWarning("SpawnObjects is empty");
-        foreach (var obj in availableSpawnObjects) Debug.Log($"Object: {obj.name}, Score: {obj.GetComponent<SpawnObject>()?.score}");
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)
@@ -71,25 +79,29 @@ public class SelectArea : MonoBehaviour
             {
                 do
                 {
-                    currentAreaIndex = (currentAreaIndex - 1 + spawnAreas.Length) % spawnAreas.Length;
-                } while ((spawnAreas[currentAreaIndex] == null || areaOccupied[currentAreaIndex]) && currentAreaIndex != previousIndex);
+                    currentAreaIndex = (currentAreaIndex - 1 + spawnAreas[StageNumber].Stages.Count) % spawnAreas[StageNumber].Stages.Count;
+                } while (currentAreaIndex < areaOccupied.Length && (spawnAreas[StageNumber].Stages[currentAreaIndex] == null || areaOccupied[currentAreaIndex]) && currentAreaIndex != previousIndex);
             }
             //右入力
             else if (horizontalInput > 0)
             {
                 do
                 {
-                    currentAreaIndex = (currentAreaIndex + 1) % spawnAreas.Length;
-                } while ((spawnAreas[currentAreaIndex] == null || areaOccupied[currentAreaIndex]) && currentAreaIndex != previousIndex);
+                    currentAreaIndex = (currentAreaIndex + 1) % spawnAreas[StageNumber].Stages.Count;
+                } while (currentAreaIndex < areaOccupied.Length && (spawnAreas[StageNumber].Stages[currentAreaIndex] == null || areaOccupied[currentAreaIndex]) && currentAreaIndex != previousIndex);
             }
 
-            if (spawnAreas[currentAreaIndex] != null && !areaOccupied[currentAreaIndex])
+            if (currentAreaIndex < spawnAreas[StageNumber].Stages.Count && currentAreaIndex < areaOccupied.Length)
             {
-                SelectAreas(currentAreaIndex);
+                if (spawnAreas[StageNumber].Stages[currentAreaIndex] != null && !areaOccupied[currentAreaIndex])
+                {
+                    SelectAreas(currentAreaIndex);
+                }
             }
             lastInputTime = Time.time; //入力時刻更新
         }
     }
+
 
     private void OnSpawnPerformed(InputAction.CallbackContext context)
     {
@@ -98,15 +110,15 @@ public class SelectArea : MonoBehaviour
         //オブジェクト生成
         GameObject nextObject = availableSpawnObjects[0];
         Vector3 spawnPosition = GetSelectedSpawnPosition();
-        GameObject spawnedObject = Instantiate(nextObject, spawnPosition, Quaternion.identity);
-        spawnedObjects[currentAreaIndex] = spawnedObject;
+        nextObject.transform.position = spawnPosition + new Vector3(0f, 1f, 0f);
+        spawnedObjects[currentAreaIndex] = nextObject;
 
         //オブジェクトをリストから削除
         availableSpawnObjects.RemoveAt(0);
 
         //エリア削除
-        Destroy(spawnAreas[currentAreaIndex]);
-        spawnAreas[currentAreaIndex] = null;
+        Destroy(spawnAreas[StageNumber].Stages[currentAreaIndex]);
+        spawnAreas[StageNumber].Stages[currentAreaIndex] = null;
         areaOccupied[currentAreaIndex] = true;
 
         CheckAllAreasFilled();
@@ -114,33 +126,39 @@ public class SelectArea : MonoBehaviour
         SelectNextAvailableArea();
 
         lastSpawnTime = Time.time;
+
+        isSelect = false;
+
+        CameraController cameraController = FindFirstObjectByType<CameraController>();
+        cameraController.throwingCameraPosition = gameManager.StartPoint - new Vector3(0f, 0f, 5f);
+
     }
 
     private void SelectAreas(int index)
     {
-        for (int i = 0; i < spawnAreas.Length; i++)
+        for (int i = 0; i < spawnAreas[StageNumber].Stages.Count; i++)
         {
-            if (spawnAreas[i] != null)
+            if (spawnAreas[StageNumber].Stages[i] != null)
             {
                 //エリア選択済みかどうかでどのマテリアルを適応するか
-                spawnAreas[i].GetComponent<Renderer>().material = areaOccupied[i] && occupiedMaterial != null ? occupiedMaterial : defaultMaterial;
+                spawnAreas[StageNumber].Stages[i].GetComponent<Renderer>().material = areaOccupied[i] && occupiedMaterial != null ? occupiedMaterial : defaultMaterial;
             }
         }
 
         //選択エリアをハイライト
-        if (spawnAreas[index] != null && !areaOccupied[index])
+        if (spawnAreas[StageNumber].Stages[index] != null && !areaOccupied[index])
         {
-            spawnAreas[index].GetComponent<Renderer>().material = highlightMaterial;
+            spawnAreas[StageNumber].Stages[index].GetComponent<Renderer>().material = highlightMaterial;
         }
     }
 
     private Vector3 GetSelectedSpawnPosition()
     {
-        if(spawnAreas[currentAreaIndex] == null)
+        if(spawnAreas[StageNumber].Stages[currentAreaIndex] == null)
         {
             return Vector3.zero;
         }
-        return spawnAreas[currentAreaIndex].transform.position + new Vector3(0, spawnAreas[currentAreaIndex].transform.localScale.y / 2, 0);
+        return spawnAreas[StageNumber].Stages[currentAreaIndex].transform.position + new Vector3(0, spawnAreas[StageNumber].Stages[currentAreaIndex].transform.localScale.y / 2, 0);
     }
 
     private void SelectNextAvailableArea()
@@ -148,19 +166,19 @@ public class SelectArea : MonoBehaviour
         int startIndex = currentAreaIndex;
         do
         {
-            currentAreaIndex = (currentAreaIndex + 1) % spawnAreas.Length;
-            if (spawnAreas[currentAreaIndex] != null && !areaOccupied[currentAreaIndex])
+            currentAreaIndex = (currentAreaIndex + 1) % spawnAreas[StageNumber].Stages.Count;
+            if (spawnAreas[StageNumber].Stages[currentAreaIndex] != null && !areaOccupied[currentAreaIndex])
             {
                 SelectAreas(currentAreaIndex);
                 return;
             }
         }while(currentAreaIndex !=  startIndex);
 
-        for (int i = 0; i < spawnAreas.Length; i++)
+        for (int i = 0; i < spawnAreas[StageNumber].Stages.Count; i++)
         {
-            if (spawnAreas[i] != null)
+            if (spawnAreas[StageNumber].Stages[i] != null)
             {
-                spawnAreas[i].GetComponent<Renderer>().material = areaOccupied[i] && occupiedMaterial != null ? occupiedMaterial : defaultMaterial;
+                spawnAreas[StageNumber].Stages[i].GetComponent<Renderer>().material = areaOccupied[i] && occupiedMaterial != null ? occupiedMaterial : defaultMaterial;
             }
         }
     }
@@ -170,12 +188,41 @@ public class SelectArea : MonoBehaviour
         isAllAreasFilled = true;
         for(int i = 0; i < areaOccupied.Length; i++)
         {
-            if (spawnAreas[i] != null && !areaOccupied[i])
+            if (spawnAreas[StageNumber].Stages[i] != null && !areaOccupied[i])
             {
                 isAllAreasFilled = false;
                 break;
             }
         }
+    }
+
+    public void AddList()
+    {
+        int i = 0;
+
+        spawnObjects = new GameObject[spawnAreas[StageNumber].Stages.Count];
+        if(gameManager == null)
+        {
+            gameManager = GameManager.Instance;
+        }
+        foreach (var player in gameManager.players)
+        {
+            spawnObjects[i] = player.gameObject;
+            i++;
+        }
+
+        StageNumber = gameManager.StageNum;
+
+        //スコアを低い順にソート
+        availableSpawnObjects = spawnObjects.OrderBy(obj =>
+        {
+            var spawnObj = obj.GetComponent<PlayerBase>();
+            return spawnObj != null ? spawnObj.TotalScore : float.MaxValue;
+        }).ToList();
+
+
+        if (spawnObjects.Length == 0) Debug.LogWarning("SpawnObjects is empty");
+        foreach (var obj in availableSpawnObjects) Debug.Log($"Object: {obj.name}, Score: {obj.GetComponent<SpawnObject>()?.score}");
     }
 
     void OnDestroy()
