@@ -223,6 +223,11 @@ public class Player : PlayerBase
         }
     }
 
+    public new void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
+    }
+
     //“Š±Œã‚É•Ç‚âNPC‚ÉÕ“Ë‚µ‚½Û‚Ìˆ—
     protected override void OnCollisionEnter(Collision collision)
     {

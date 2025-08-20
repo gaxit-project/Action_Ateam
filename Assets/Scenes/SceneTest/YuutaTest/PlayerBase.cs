@@ -9,6 +9,10 @@ using UnityEngine.UI;
 
 public class PlayerBase : MonoBehaviour
 {
+    public float Speed { get; set; } = 5f;
+    public float Weight { get; set; } = 1f;
+    public float Rotation { get; set; } = 50f;
+
     //プレイヤー関係
     protected new Rigidbody rigidbody;
     protected new CameraController camera;
@@ -88,6 +92,10 @@ public class PlayerBase : MonoBehaviour
         PlayerColor = colorAssigner.AssignColorToObject(gameObject);
         //Debug.Log($"Bot 初期カラー: {PlayerColor}, renderer.material.color: {GetComponent<Renderer>().material.color}");
 
+        speed = Speed;
+        weight = Weight;
+        rotation = Rotation;
+
 
         if (rigidbody)
         {
@@ -140,6 +148,37 @@ public class PlayerBase : MonoBehaviour
         //ステータスを取得
         speed = player.Speed;
         weight = player.Weight;
+    }
+
+    public virtual void ApplyBuff(BuffItem buff)
+    {
+        if (buff == null) return;
+
+        Speed += buff.speedModifier;
+        Weight += buff.weightModifier;
+        Rotation += buff.rotationModifier;
+
+        player.Speed = Speed;
+        player.Weight = Weight;
+        player.Rotation = Rotation;
+
+        speed = Speed;
+        weight = Weight;
+        rotation = Rotation;
+        Debug.Log($"Buff applied: Speed={player.Speed}, Weight={player.Weight}, Rotation={player.Rotation}");
+    }
+
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("BuffItem"))
+        {
+            BuffItemInstance instance = other.GetComponent<BuffItemInstance>();
+            if (instance != null)
+            {
+                ApplyBuff(instance.BuffItem);
+                Destroy(other.gameObject);
+            }
+        }
     }
 
     protected virtual void OnCollisionEnter(Collision collision)

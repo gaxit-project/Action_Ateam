@@ -304,8 +304,9 @@ namespace NPC.StateAI
             else if(SceneManager.GetActiveScene().buildIndex == 1) StartCoroutine("GetTargets");
         }
 
-        public void OnTriggerEnter(Collider other)
+        public new void OnTriggerEnter(Collider other)
         {
+            base.OnTriggerEnter(other);
             if (other.gameObject.CompareTag("ThrowArea"))
             {
                 enemyAI.EnemyStateMachine.TransitionTo(enemyAI.EnemyStateMachine.throwState);
