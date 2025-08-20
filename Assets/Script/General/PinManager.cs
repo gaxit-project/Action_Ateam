@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PinManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class PinManager : MonoBehaviour
     [SerializeField] private List<PinBase> WhitePins = new List<PinBase>();
     [SerializeField] private List<PinBase> GoldPins = new List<PinBase>();
     [SerializeField] private List<PinBase> BlackPins = new List<PinBase>();
+    [SerializeField] private GameObject[] pinCircles;
 
     [Header("Pinの配置(Prefab)")]
     [SerializeField] private GameObject[] _pinPrefab = new GameObject[3];
@@ -33,7 +35,8 @@ public class PinManager : MonoBehaviour
         }
         GameObject parent = Instantiate(_pinPrefab[rnd], Position, Quaternion.identity);
         
-        PinBase[] childPins = parent.GetComponentsInChildren<PinBase>();
+
+    PinBase[] childPins = parent.GetComponentsInChildren<PinBase>();
         foreach (PinBase pin in childPins)
         {
             string name = pin.gameObject.name;
@@ -55,7 +58,10 @@ public class PinManager : MonoBehaviour
                 Debug.LogWarning($"未分類のピンオブジェクト名: {name}");
             }
         }
-    }
+        
+        pinCircles[rnd].SetActive(true);
+    
+}
 
     public int GetKnockedDownPinCount(string PlayerID)
     {

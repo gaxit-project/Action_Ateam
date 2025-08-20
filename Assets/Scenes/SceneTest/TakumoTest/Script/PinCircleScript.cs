@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class PinCircleScript : MonoBehaviour
 {
     [SerializeField] private GameObject pinObject;
+    [SerializeField] private GameObject[] _pinPrefab = new GameObject[7];
     private PinBase pinBase;
 
     private void Reset()
