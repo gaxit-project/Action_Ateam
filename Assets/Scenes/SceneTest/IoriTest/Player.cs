@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 public class Player : PlayerBase
 {
     private GameManager gameManager;
-    //private int buildIndex;
+    private int buildIndex;
     [SerializeField] private GameObject icon;
 
     public enum PlayerState
@@ -37,9 +37,10 @@ public class Player : PlayerBase
         arrowUIName = "Arrow3";
         arrowUI = transform.Find(arrowUIName).gameObject;
         if (arrowUI == null) Debug.LogError("UIが見つかりません！");
-        //buildIndex = SceneManager.GetActiveScene().buildIndex;
+        buildIndex = SceneManager.GetActiveScene().buildIndex;
         gameManager = GameObject.FindFirstObjectByType<GameManager>();
         //if(buildIndex == 1) icon.SetActive(true);
+        if (buildIndex == 3) transform.eulerAngles += new Vector3(0f, 180f, 0f);
     }
 
     void FixedUpdate()
@@ -53,7 +54,7 @@ public class Player : PlayerBase
 
         //左スティックで向き変更
         if (!isAttacking && !isAttacked && currentState != PlayerState.Throwed)
-           LstickX = Input.GetAxis("Horizontal") * rotateSpeed * 2f * Time.fixedDeltaTime;
+            LstickX = Input.GetAxis("Horizontal") * rotateSpeed * 2f * Time.fixedDeltaTime;
         else LstickX = 0f;
         transform.Rotate(0f, LstickX, 0f);
 
@@ -357,6 +358,15 @@ public class Player : PlayerBase
         await Task.Delay(300);
         isReflecting = false;
         isDecelerating = true;
+    }
+
+    protected override void ForcedReflection()
+    {
+        Vector3 reflectVelocity = new Vector3(incomingVelocity.x, incomingVelocity.y, -incomingVelocity.z).normalized;
+        transform.forward = reflectVelocity;
+        throwVelocity = reflectVelocity * speed * throwPower;
+        rigidbody.linearVelocity = throwVelocity;
+        Invoke(nameof(ChangeIncomingVelocity), 0.01f);
     }
 
 }

@@ -367,5 +367,15 @@ namespace NPC.StateAI
         {
             incomingVelocity = rb.linearVelocity;
         }
+
+        protected override void ForcedReflection()
+        {
+            Vector3 reflectVelocity = new Vector3(incomingVelocity.x, incomingVelocity.y, -incomingVelocity.z).normalized;
+            transform.forward = reflectVelocity;
+            throwVelocity = reflectVelocity * speed * throwPower;
+            rigidbody.linearVelocity = throwVelocity;
+            Invoke(nameof(ChangeIncomingVelocity), 0.01f);
+        }
+
     }
 }

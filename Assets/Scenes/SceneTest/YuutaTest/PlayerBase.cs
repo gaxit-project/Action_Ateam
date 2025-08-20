@@ -79,7 +79,11 @@ public class PlayerBase : MonoBehaviour
 
     protected GameObject arrowUI;
     private bool arrowDisplay = false;
-    [SerializeField] protected string arrowUIName;
+    [SerializeField] protected string arrowUIName; 
+    
+    protected bool isStayingOnWall = false;
+    protected float stayingTime = 0f;
+
 
     protected virtual void Start()
     {
@@ -147,7 +151,20 @@ public class PlayerBase : MonoBehaviour
 
         //ステータスを取得
         speed = player.Speed;
-        weight = player.Weight;
+        weight = player.Weight; 
+        
+        if (isStayingOnWall)
+        {
+            stayingTime += Time.deltaTime;
+            if (stayingTime >= 1f)
+            {
+                Debug.LogWarning("強制反射");
+                isStayingOnWall = false;
+                stayingTime = 0f;
+                ForcedReflection();
+            }
+        }
+
     }
 
     public virtual void ApplyBuff(BuffItem buff)
@@ -198,6 +215,18 @@ public class PlayerBase : MonoBehaviour
                 SpawnEffect(collision.transform.position - new Vector3(0, 1, 0), 2);
             }
 
+        }
+
+        if (collision.gameObject.CompareTag("Wall")) isStayingOnWall = true;
+    }
+
+    protected void OnCollisionExit(Collision collision)
+    {
+        if (isStayingOnWall && collision.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log("カウントリセット");
+            isStayingOnWall = false;
+            stayingTime = 0f;
         }
     }
 
@@ -285,6 +314,11 @@ public class PlayerBase : MonoBehaviour
                 arrowUI.SetActive(false);
                 break;
         }
+    }
+
+    protected virtual void ForcedReflection()
+    {
+
     }
 
     public class Character
