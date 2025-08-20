@@ -11,7 +11,11 @@ TagManager:
   - ThrowArea
   - Target
   - FxTemporaire
+<<<<<<< HEAD
   - PinCircle
+=======
+  - BuffItem
+>>>>>>> feature/Buff
   layers:
   - Default
   - TransparentFX
