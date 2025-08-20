@@ -85,6 +85,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChangingArea-2
       objectReference: {fileID: 0}
+    - target: {fileID: 6188619780702745882, guid: 98c98738302278b43a27a69215ab66fc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -146,6 +150,10 @@ PrefabInstance:
     - target: {fileID: 2267214807276152145, guid: 24394d54e87222747a0314043f915c54, type: 3}
       propertyPath: m_Name
       value: ChangingArea-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665500733531343651, guid: 24394d54e87222747a0314043f915c54, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
