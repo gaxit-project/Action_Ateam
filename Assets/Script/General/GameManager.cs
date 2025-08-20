@@ -1,13 +1,14 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static Player2;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
@@ -176,7 +177,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         List<Vector3> spawnPositions = new List<Vector3>();
         for (int i = 0; i < totalPlayers; i++)
         {
-            spawnPositions.Add(StartPoint + new Vector3(0f, 0f, (2 - i) * 5f - 2.5f));
+            spawnPositions.Add(StartPoint + new Vector3(10f, 0f, (2 - i) * 5f - 2.5f));
         }
 
         spawnPositions = spawnPositions.OrderBy(x => Random.value).ToList(); //スポーン場所をランダムに
@@ -242,7 +243,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         else Debug.LogError("1つあるいは複数のタイマー関連のオブジェクトが取得できませんでした");
 
         SelectArea selectArea = FindFirstObjectByType<SelectArea>();
-        //selectArea.AddList();
+        selectArea.AddList();
     }
 
     public void ResultSetting()
@@ -279,6 +280,39 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
         colorAssigner.AssignColors();
         RankSort();
+    }
+
+    public void CameraControl()
+    {
+        switch (StageNum)
+        {
+            case 0:
+                if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
+                cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
+                break;
+            case 1:
+                if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
+                cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
+                break;
+            case 2:
+                if (cameraController == null) cameraController = GameObject.FindFirstObjectByType<CameraController>();
+                cameraController.throwingCameraPosition = StartPoint - new Vector3(0f, 0f, 5f);
+                break;
+        }
+
+        foreach(var p in players)
+        {
+            if(p.IsBot == false)
+            {
+                var player = p.GetComponent<Player>();
+                var cam = FindFirstObjectByType<CameraController>();
+                if (cam == null) Debug.LogError("nullだよ");
+                cam.SetTargetPlayer(player, StartPoint); // Instantiate後に必ず設定！
+            }
+        }
+ 
+
+
     }
 
     public void ResetGame()
