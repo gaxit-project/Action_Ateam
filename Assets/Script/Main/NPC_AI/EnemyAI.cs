@@ -63,6 +63,8 @@ namespace NPC.StateAI
 
         protected override void Start()
         {
+            //クラス内のステータスを初期化する
+            player.InitializeStatus(speed, weight);
             enemyStateMachine.Initialize(enemyStateMachine.idleState);
             StartCoroutine("GetTargets");
             PlayerColor = ColorAssigner.Instance.GetAssignedColor(gameObject);
@@ -71,8 +73,9 @@ namespace NPC.StateAI
             if (arrowUI == null) Debug.LogError("UIが見つかりません！");
         }
 
-        private void Update()
+        protected override void Update()
         {
+            base.Update();
             transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
             enemyStateMachine.Update();
             //if (!IsGrounded() && enemyAI.agent.enabled) enemyAI.agent.enabled = false;

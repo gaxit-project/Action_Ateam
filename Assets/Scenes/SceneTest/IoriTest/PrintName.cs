@@ -6,7 +6,7 @@ public class PrintName : MonoBehaviour
     [SerializeField]private Transform target;
 
     private PlayerBase playerbase;
-    [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private TextMeshPro _text;
     void Start()
     {
         TextName();
