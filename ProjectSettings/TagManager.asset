@@ -10,6 +10,8 @@ TagManager:
   - NPC
   - ThrowArea
   - Target
+  - FxTemporaire
+  - BuffItem
   layers:
   - Default
   - TransparentFX
