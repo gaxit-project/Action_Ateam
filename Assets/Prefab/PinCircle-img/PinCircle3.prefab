@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 571105757314555236}
   m_Layer: 5
   m_Name: PinCircle3
-  m_TagString: Untagged
+  m_TagString: PinCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

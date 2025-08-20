@@ -80,6 +80,8 @@ public class DisplayScore : MonoBehaviour
         foreach (var n in npcs) n.gameObject.SetActive(false);
         GameObject[] pins = GameObject.FindGameObjectsWithTag("Pin");
         foreach (var pin in pins) pin.gameObject.SetActive(false);
+        GameObject[] pinCircle = GameObject.FindGameObjectsWithTag("PinCircle");
+        foreach (var p in pinCircle) p.gameObject.SetActive(false);
         gameManager.StopTimer();
         AudioManager.Instance.PlayBGM(2);
         frameMoveCameraScript.WarpCameraToMenObject();

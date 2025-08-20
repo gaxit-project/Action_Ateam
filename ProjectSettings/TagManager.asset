@@ -10,6 +10,8 @@ TagManager:
   - NPC
   - ThrowArea
   - Target
+  - FxTemporaire
+  - PinCircle
   layers:
   - Default
   - TransparentFX
