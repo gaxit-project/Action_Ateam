@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 public class Player : PlayerBase
 {
     private GameManager gameManager;
-    private int buildIndex;
+    //private int buildIndex;
     [SerializeField] private GameObject icon;
 
     public enum PlayerState
@@ -37,20 +37,15 @@ public class Player : PlayerBase
         arrowUIName = "Arrow3";
         arrowUI = transform.Find(arrowUIName).gameObject;
         if (arrowUI == null) Debug.LogError("UIが見つかりません！");
-        buildIndex = SceneManager.GetActiveScene().buildIndex;
+        //buildIndex = SceneManager.GetActiveScene().buildIndex;
         gameManager = GameObject.FindFirstObjectByType<GameManager>();
-        if(buildIndex == 1) icon.SetActive(true);
+        //if(buildIndex == 1) icon.SetActive(true);
     }
 
     void FixedUpdate()
     {   
         //プレイヤーの進む方向
         Vector3 targetVelocity;
-
-        //ステータスを取得
-        speed = player.Speed;
-        weight = player.Weight;
-        rotation = player.Rotation;
 
         //右スティックでカメラ回転(CamelaControllerに渡す)
         float r = (Input.GetAxis("Horizontal2") + (Input.mousePosition.x - initialMousePositionX) * 0.01f) * rotateSpeed * 2f * Time.fixedDeltaTime;
@@ -187,7 +182,7 @@ public class Player : PlayerBase
                 }
                 */
 
-                if(buildIndex == 1) icon.SetActive(false);
+                //if(buildIndex == 1) icon.SetActive(false);
 
                 if (player.IsGrounded(transform.position, rayDistance))
                 {

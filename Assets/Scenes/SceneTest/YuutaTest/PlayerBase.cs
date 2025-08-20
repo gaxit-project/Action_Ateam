@@ -22,7 +22,7 @@ public class PlayerBase : MonoBehaviour
     private ColorAssigner colorAssigner;
 
     //ステータス
-    [SerializeField] protected float speed = 5f;
+    [SerializeField] protected float speed = 10f;
     [SerializeField] protected float weight = 10f;
     [SerializeField] protected float initialRotation = 0f;
     /*
@@ -124,7 +124,7 @@ public class PlayerBase : MonoBehaviour
     }
 
 
-    private void Update()
+    protected virtual void Update()
     {
         /*
         if (isThrowTimerStarted)
@@ -136,6 +136,10 @@ public class PlayerBase : MonoBehaviour
             gameManager.currentFrameResult();
         }
         */
+
+        //ステータスを取得
+        speed = player.Speed;
+        weight = player.Weight;
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
