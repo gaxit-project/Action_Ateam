@@ -82,7 +82,13 @@ public class DisplayScore : MonoBehaviour
         foreach (var pin in pins) pin.gameObject.SetActive(false);
         GameObject[] pinCircle = GameObject.FindGameObjectsWithTag("PinCircle");
         foreach (var p in pinCircle) p.gameObject.SetActive(false);
-        gameManager.StopTimer();
+
+        GameObject camObj = GameObject.FindGameObjectWithTag("MainCamera");
+            Camera mainCam = camObj.GetComponent<Camera>();
+            mainCam.orthographic = true;
+            mainCam.orthographicSize = 40f; // ï\é¶îÕàÕÇÃí≤êÆ
+            mainCam.transform.rotation = Quaternion.Euler(30, 45, 0);
+            gameManager.StopTimer();
         AudioManager.Instance.PlayBGM(2);
         frameMoveCameraScript.WarpCameraToMenObject();
         frameStarterScript_2.FrameObjectUPFalse();
