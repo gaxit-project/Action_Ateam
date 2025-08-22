@@ -146,7 +146,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         pinManager = FindFirstObjectByType<PinManager>();
 
         //ステージをランダムに選択
-        StageNum = Random.Range(0, 3);
+        if(Num_NowFrame <= 3) StageNum = Num_NowFrame - 1;
+        else StageNum = Random.Range(0, 3);
         switch (StageNum)
         {
             case 0:
