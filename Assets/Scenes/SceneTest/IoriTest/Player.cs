@@ -21,6 +21,7 @@ public class Player : PlayerBase
     private float LstickX;
     private float initialMousePositionX;
     public bool isControllEasily { private get; set; } = false;
+    public bool canRotate { private get; set; } = false;
     protected PlayerState currentState = PlayerState.Idle;
     
     //プロパティ
@@ -53,7 +54,7 @@ public class Player : PlayerBase
         RstickX = Mathf.Clamp(r, -10f, 10f);
 
         //左スティックで向き変更
-        if (!isAttacking && !isAttacked && currentState != PlayerState.Throwed)
+        if (!isAttacking && !isAttacked && currentState != PlayerState.Throwed && canRotate)
             LstickX = Input.GetAxis("Horizontal") * rotateSpeed * 2f * Time.fixedDeltaTime;
         else LstickX = 0f;
         transform.Rotate(0f, LstickX, 0f);
@@ -224,11 +225,6 @@ public class Player : PlayerBase
         }
     }
 
-    public new void OnTriggerEnter(Collider other)
-    {
-        base.OnTriggerEnter(other);
-    }
-
     //投擲後に壁やNPCに衝突した際の処理
     protected override void OnCollisionEnter(Collision collision)
     {
@@ -378,9 +374,12 @@ public class Player : PlayerBase
     /// <param name="buff"></param>
     public override void ApplyBuff(BuffItem buff)
     {
-        base.ApplyBuff(buff); 
-        throwVelocity = transform.forward * speed * throwPower;
-        rigidbody.linearVelocity = throwVelocity;
+        if (currentState == PlayerState.Throwed)
+        {
+            base.ApplyBuff(buff);
+            throwVelocity = transform.forward * speed * throwPower;
+            rigidbody.linearVelocity = throwVelocity;
+        }
     }
 
 }

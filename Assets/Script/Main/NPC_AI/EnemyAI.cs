@@ -304,7 +304,7 @@ namespace NPC.StateAI
             else if(SceneManager.GetActiveScene().buildIndex == 1) StartCoroutine("GetTargets");
         }
 
-        public new void OnTriggerEnter(Collider other)
+        protected override void OnTriggerEnter(Collider other)
         {
             base.OnTriggerEnter(other);
             if (other.gameObject.CompareTag("ThrowArea"))
@@ -386,9 +386,12 @@ namespace NPC.StateAI
         /// <param name="buff"></param>
         public override void ApplyBuff(BuffItem buff)
         {
-            base.ApplyBuff(buff);
-            throwVelocity = transform.forward * speed * throwPower;
-            rb.linearVelocity = throwVelocity;
+            if (enemyAI.EnemyStateMachine.CurrentState == enemyAI.EnemyStateMachine.throwState)
+            {
+                base.ApplyBuff(buff);
+                throwVelocity = transform.forward * speed * throwPower;
+                rb.linearVelocity = throwVelocity;
+            }
         }
     }
 }

@@ -95,7 +95,11 @@ public class FrameStarterScript_2 : MonoBehaviour
         if (moveT >= 1f && scaleT >= 1f)
         {
             isFinshed = true;
-            foreach (Player player in players) player.ChangeArrowMode();
+            foreach (Player player in players)
+            {
+                player.ChangeArrowMode();
+                player.canRotate = true;
+            }
             foreach (EnemyAI enemyAI in npcs) enemyAI.ChangeArrowMode();
             Debug.Log("目的地に到達＆縮小完了！");
             this.enabled = false;
