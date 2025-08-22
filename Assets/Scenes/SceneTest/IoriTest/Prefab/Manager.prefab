@@ -64,6 +64,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 18e638596d0b61546a5795249b6a3192, type: 3}
   - {fileID: 8300000, guid: b2cc8e569ea327c43be0c541c55a8d53, type: 3}
   - {fileID: 8300000, guid: 5eed6a8899f2aaa4b9f8ddc019277830, type: 3}
+  - {fileID: 8300000, guid: 6ee474f2913f47d41b44b9a70859c7b4, type: 3}
   _bgmLists:
   - {fileID: 8300000, guid: 5aea1eb8e494546ccb52c0d547cb54c6, type: 3}
   - {fileID: 8300000, guid: a4157eac71a524d5e85d2fb6f4649506, type: 3}
