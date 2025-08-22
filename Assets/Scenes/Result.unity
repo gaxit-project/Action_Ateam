@@ -173,6 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -184,6 +185,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1251688309}
   arrowUIName: Arrow3
@@ -2707,6 +2709,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -2718,6 +2721,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1156855350}
   arrowUIName: Arrow3
@@ -4036,6 +4040,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -4047,6 +4052,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 298325495}
   arrowUIName: Arrow3
@@ -6751,6 +6757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -6762,6 +6769,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1779260742}
   arrowUIName: Arrow3
@@ -8399,6 +8407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -8410,6 +8419,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1815308640}
   arrowUIName: Arrow3
@@ -8647,6 +8657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -8658,6 +8669,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1844971261}
   arrowUIName: Arrow3
@@ -9964,6 +9976,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -9975,6 +9988,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1750873705}
   arrowUIName: Arrow3
@@ -11049,6 +11063,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -11060,6 +11075,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 486781124}
   arrowUIName: Arrow3
@@ -12008,6 +12024,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -12019,6 +12036,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1391032490}
   arrowUIName: Arrow3
@@ -12769,6 +12787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -12780,6 +12799,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 631860997}
   arrowUIName: Arrow3
@@ -12983,6 +13003,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -12994,6 +13015,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1981421550}
   arrowUIName: Arrow3
@@ -14554,6 +14576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -14565,6 +14588,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 245251309}
   arrowUIName: Arrow3
@@ -15070,6 +15094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -15081,6 +15106,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1583304694}
   arrowUIName: Arrow3
@@ -15972,6 +15998,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -15983,6 +16010,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 134481435}
   arrowUIName: Arrow3
@@ -16298,6 +16326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -16309,6 +16338,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1009626708}
   arrowUIName: Arrow3
@@ -17925,20 +17955,20 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 1, g: 0.99908215, b: 0.9009434, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.05
     m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_NearPlane: 0.1
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
@@ -17988,13 +18018,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 786929776}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: -0, y: 0.4129526, z: -0, w: 0.9107525}
+  m_LocalPosition: {x: 12, y: 32, z: -27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 48.781, z: 0}
 --- !u!1 &788192314
 GameObject:
   m_ObjectHideFlags: 0
@@ -18049,6 +18079,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -18060,6 +18091,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 183854628}
   arrowUIName: Arrow3
@@ -18751,6 +18783,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -18762,6 +18795,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 2090677402}
   arrowUIName: Arrow3
@@ -19197,6 +19231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -19208,6 +19243,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 228358789}
   arrowUIName: Arrow3
@@ -19591,6 +19627,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -19602,6 +19639,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 99238268}
   arrowUIName: Arrow3
@@ -19884,6 +19922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -19895,6 +19934,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 821691946}
   arrowUIName: Arrow3
@@ -21284,6 +21324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -21295,6 +21336,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1274792417}
   arrowUIName: Arrow3
@@ -22786,6 +22828,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -22797,6 +22840,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1935606216}
   arrowUIName: Arrow3
@@ -23190,6 +23234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -23201,6 +23246,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 307811523}
   arrowUIName: Arrow3
@@ -23722,6 +23768,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -23733,6 +23780,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 387977461}
   arrowUIName: Arrow3
@@ -29550,6 +29598,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -29561,6 +29610,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 786109188}
   arrowUIName: Arrow3
@@ -30179,6 +30229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -30190,6 +30241,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1958817921}
   arrowUIName: Arrow3
@@ -33896,6 +33948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -33907,6 +33960,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 701207667}
   arrowUIName: Arrow3
@@ -34805,6 +34859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -34816,6 +34871,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 422445239}
   arrowUIName: Arrow3
@@ -37627,6 +37683,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -37638,6 +37695,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1546297722}
   arrowUIName: Arrow3
@@ -37809,6 +37867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -37820,6 +37879,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 142414686}
   arrowUIName: Arrow3
@@ -37991,6 +38051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -38002,6 +38063,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 186693675}
   arrowUIName: Arrow3
@@ -39859,6 +39921,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -39870,6 +39933,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 419604248}
   arrowUIName: Arrow3
@@ -40547,6 +40611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -40558,6 +40623,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1583097604}
   arrowUIName: Arrow3
@@ -40931,6 +40997,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -40942,6 +41009,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 961695791}
   arrowUIName: Arrow3
@@ -43347,6 +43415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -43358,6 +43427,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 754572618}
   arrowUIName: Arrow3
@@ -44247,6 +44317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -44258,6 +44329,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 977550431}
   arrowUIName: Arrow3
@@ -45042,6 +45114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -45053,6 +45126,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1320472109}
   arrowUIName: Arrow3
@@ -46073,6 +46147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -46084,6 +46159,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 195398705}
   arrowUIName: Arrow3
@@ -48013,6 +48089,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -48024,6 +48101,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1026085135}
   arrowUIName: Arrow3
@@ -49031,6 +49109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -49042,6 +49121,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 42786685}
   arrowUIName: Arrow3
@@ -49410,6 +49490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -49421,6 +49502,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 197604202}
   arrowUIName: Arrow3
@@ -49592,6 +49674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -49603,6 +49686,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 281728911}
   arrowUIName: Arrow3
@@ -49830,6 +49914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerID: UnKnown
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  TotalScore: 0
   speed: 10
   weight: 10
   initialRotation: 0
@@ -49841,6 +49926,7 @@ MonoBehaviour:
   gravity: 20
   collisionEffectPrefab: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
+  collisionEffectPrefab3: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 1468491863}
   arrowUIName: Arrow3
