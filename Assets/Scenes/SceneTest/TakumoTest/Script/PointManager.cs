@@ -49,7 +49,7 @@ public class PointManager : MonoBehaviour
         {
             if(player.IsBot == false)
             {
-                PlayerName[num] = "YOU";
+                PlayerName[num] = "You";
                 PlayerColors[num] = player.GetPlayerColor();
                 num++;
             }

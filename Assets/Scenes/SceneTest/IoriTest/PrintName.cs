@@ -27,7 +27,7 @@ public class PrintName : MonoBehaviour
 
         if(playerbase.IsBot == false)
         {
-            _text.text = "YOU";
+            _text.text = "You";
             _text.color = playerbase.PlayerColor;
         }
         else

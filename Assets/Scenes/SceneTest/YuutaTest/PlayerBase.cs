@@ -381,12 +381,12 @@ public class PlayerBase : MonoBehaviour
     /// <returns>PlayerColorの名前</returns>
     public string GetColorName()
     {
-        if (PlayerColor == Color.red) return "RED";
-        if (PlayerColor == Color.blue) return "BLUE";
-        if (PlayerColor == Color.green) return "GREEN";
-        if (PlayerColor == Color.yellow) return "YELLOW";
-        if (PlayerColor == Color.magenta) return "MAGENTA"; 
-        if (PlayerColor == Color.cyan) return "CYAN"; 
+        if (PlayerColor == Color.red) return "Red";
+        if (PlayerColor == Color.blue) return "Blue";
+        if (PlayerColor == Color.green) return "Green";
+        if (PlayerColor == Color.yellow) return "Yellow";
+        if (PlayerColor == Color.magenta) return "Magenta"; 
+        if (PlayerColor == Color.cyan) return "Cyan"; 
 
         return "その他";
     }
