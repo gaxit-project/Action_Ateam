@@ -193,6 +193,7 @@ public class PlayerBase : MonoBehaviour
             if (instance != null)
             {
                 ApplyBuff(instance.BuffItem);
+                AudioManager.Instance.PlaySound(10);
                 Destroy(other.gameObject);
             }
         }
