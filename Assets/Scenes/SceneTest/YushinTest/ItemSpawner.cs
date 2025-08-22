@@ -6,20 +6,26 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField] private GameObject buffItemPrefab;
     [SerializeField] private BuffItem[] buffItems;
     [SerializeField] private float spawnInterval = 5f;
-    [SerializeField] private int maxItems = 5;
-    [SerializeField] private GameObject spawnBox;
+    [SerializeField] private GameObject[] spawnBoxes;
     [SerializeField] private Transform spawnParent;
 
-    private int currentItemCount = 0;
-    private BoxCollider boxCollider;
+    private int maxItemsPerBox = 3;
+    private int[] currentItemCount;
+    private BoxCollider[] boxColliders;
 
     private void Start()
     {
         if (buffItemPrefab == null || buffItems.Length == 0) return;
-        if (spawnBox == null) return;
+        if (spawnBoxes == null) return;
 
-        boxCollider = spawnBox.GetComponent<BoxCollider>();
-        if (boxCollider == null) return;
+        boxColliders = new BoxCollider[spawnBoxes.Length];
+        currentItemCount = new int[spawnBoxes.Length];
+        for(int i = 0; i < spawnBoxes.Length; i++)
+        {
+            if (spawnBoxes[i] == null) return;
+            boxColliders[i] = spawnBoxes[i].GetComponent<BoxCollider>();
+            currentItemCount[i] = 0;
+        }
 
         StartCoroutine(SpawnItems());
     }
@@ -28,19 +34,22 @@ public class ItemSpawner : MonoBehaviour
     {
         while (true)
         {
-            if(currentItemCount < maxItems)
+            for(int i = 0; i < spawnBoxes.Length; i++)
             {
-                SpawnItem();
-                currentItemCount++;
+                if (currentItemCount[i] < maxItemsPerBox)
+                {
+                    SpawnItem(i);
+                    currentItemCount[i]++;
+                }
+                yield return new WaitForSeconds(spawnInterval);
             }
-            yield return new WaitForSeconds(spawnInterval);
         }
     }
 
-    private void SpawnItem()
+    private void SpawnItem(int boxIndex)
     {
         BuffItem buff = buffItems[Random.Range(0, buffItems.Length)];
-        Vector3 spawnPos = GetRandomPointInBoxCollider();
+        Vector3 spawnPos = GetRandomPointInBoxCollider(boxIndex);
         GameObject item = Instantiate(buffItemPrefab, spawnPos, Quaternion.identity, spawnParent);
         item.tag = "BuffItem";
         BuffItemInstance component = item.GetComponent<BuffItemInstance>();
@@ -48,12 +57,12 @@ public class ItemSpawner : MonoBehaviour
         {
             component.SetBuffItem(buff);
         }
-        item.AddComponent<ItemTracker>().Initialize(this);
+        item.AddComponent<ItemTracker>().Initialize(this, boxIndex);
     }
 
-    private Vector3 GetRandomPointInBoxCollider()
+    private Vector3 GetRandomPointInBoxCollider(int boxIndex)
     {
-        Bounds bounds = boxCollider .bounds;
+        Bounds bounds = boxColliders[boxIndex].bounds;
         Vector3 center = bounds.center;
         Vector3 extents = bounds.extents;
         Vector3 localPoint = new Vector3(
@@ -61,22 +70,31 @@ public class ItemSpawner : MonoBehaviour
             Random.Range(-extents.y, extents.y),
             Random.Range(-extents.z, extents.z)
         );
-        return center + boxCollider.transform.TransformVector(localPoint);
+        return center + boxColliders[boxIndex].transform.TransformVector(localPoint);
     }
 
-    public void OnItemDestroyed()
+    public void OnItemDestroyed(int boxIndex)
     {
-        currentItemCount--;
+        if(boxIndex >= 0 && boxIndex < boxColliders.Length)
+        {
+            currentItemCount[boxIndex]--;
+        }
     }
 
     private void OnDrawGizmos()
     {
-        if(spawnBox != null && spawnBox.GetComponent<BoxCollider>() != null)
+        if(spawnBoxes != null)
         {
             Gizmos.color = Color.green;
-            BoxCollider collider = spawnBox.GetComponent<BoxCollider>();
-            Gizmos.matrix = Matrix4x4.TRS(spawnBox.transform.position, spawnBox.transform.rotation, spawnBox.transform.lossyScale);
-            Gizmos.DrawWireCube(collider.center, collider.size);
+            for (int i = 0; i < spawnBoxes.Length; i++)
+            {
+                if(spawnBoxes[i] != null && spawnBoxes[i].GetComponent<BoxCollider>() != null)
+                {
+                    BoxCollider collider = spawnBoxes[i].GetComponent<BoxCollider>();
+                    Gizmos.matrix = Matrix4x4.TRS(spawnBoxes[i].transform.position, spawnBoxes[i].transform.rotation, spawnBoxes[i].transform.lossyScale);
+                    Gizmos.DrawWireCube(collider.center, collider.size);
+                }
+            }
         }
     }
 }
@@ -84,17 +102,19 @@ public class ItemSpawner : MonoBehaviour
 public class ItemTracker : MonoBehaviour
 {
     private ItemSpawner spawner;
+    private int boxIndex;
 
-    public void Initialize(ItemSpawner spawner)
+    public void Initialize(ItemSpawner spawner, int boxIndex)
     {
         this.spawner = spawner;
+        this.boxIndex = boxIndex;
     }
 
     private void OnDestroy()
     {
         if(spawner != null)
         {
-            spawner.OnItemDestroyed();
+            spawner.OnItemDestroyed(boxIndex);
         }
     }
 }
