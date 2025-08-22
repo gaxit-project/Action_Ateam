@@ -360,6 +360,9 @@ public class Player : PlayerBase
         isDecelerating = true;
     }
 
+    /// <summary>
+    /// ã≠êßîΩéÀ
+    /// </summary>
     protected override void ForcedReflection()
     {
         Vector3 reflectVelocity = new Vector3(incomingVelocity.x, incomingVelocity.y, -incomingVelocity.z).normalized;
@@ -367,6 +370,17 @@ public class Player : PlayerBase
         throwVelocity = reflectVelocity * speed * throwPower;
         rigidbody.linearVelocity = throwVelocity;
         Invoke(nameof(ChangeIncomingVelocity), 0.01f);
+    }
+
+    /// <summary>
+    /// ÉoÉtÇ…ÇÊÇÈâ¡ë¨èàóù
+    /// </summary>
+    /// <param name="buff"></param>
+    public override void ApplyBuff(BuffItem buff)
+    {
+        base.ApplyBuff(buff); 
+        throwVelocity = transform.forward * speed * throwPower;
+        rigidbody.linearVelocity = throwVelocity;
     }
 
 }

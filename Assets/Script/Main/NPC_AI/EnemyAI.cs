@@ -368,14 +368,27 @@ namespace NPC.StateAI
             incomingVelocity = rb.linearVelocity;
         }
 
+        /// <summary>
+        /// 強制反射
+        /// </summary>
         protected override void ForcedReflection()
         {
             Vector3 reflectVelocity = new Vector3(incomingVelocity.x, incomingVelocity.y, -incomingVelocity.z).normalized;
             transform.forward = reflectVelocity;
             throwVelocity = reflectVelocity * speed * throwPower;
-            rigidbody.linearVelocity = throwVelocity;
+            rb.linearVelocity = throwVelocity;
             Invoke(nameof(ChangeIncomingVelocity), 0.01f);
         }
 
+        /// <summary>
+        /// バフによる加速処理
+        /// </summary>
+        /// <param name="buff"></param>
+        public override void ApplyBuff(BuffItem buff)
+        {
+            base.ApplyBuff(buff);
+            throwVelocity = transform.forward * speed * throwPower;
+            rb.linearVelocity = throwVelocity;
+        }
     }
 }
