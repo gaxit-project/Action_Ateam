@@ -14,6 +14,7 @@ public class FrameStarterScript_2 : MonoBehaviour
 
     public bool isFinshed = false;
     public GameManager gameManager;
+    [SerializeField] private SelectArea selectArea;
     private Player[] players;
     private EnemyAI[] npcs;
 
@@ -85,6 +86,11 @@ public class FrameStarterScript_2 : MonoBehaviour
         // ˆÚ“®‚Æk¬‚ðŽžŠÔƒx[ƒX‚Å•âŠÔ
         FrameObjectUP.transform.position = Vector3.Lerp(startPos, targetPos, moveT);
         FrameObjectUP.transform.localScale = Vector3.Lerp(initialScale, targetScale, scaleT);
+
+        if (!selectArea.isAllAreasFilled)
+        {
+            return;
+        }
 
         if (moveT >= 1f && scaleT >= 1f)
         {
