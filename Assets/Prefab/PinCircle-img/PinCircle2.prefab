@@ -123,7 +123,19 @@ PrefabInstance:
     - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 69a051796b74e7744aab83e5bf5d285d, type: 3}
+      objectReference: {fileID: 21300000, guid: 1b82d7fccfc98194bb104ae60f77d49f, type: 3}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2779009095357424002, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Name
       value: GoldPin3_img
@@ -241,7 +253,19 @@ PrefabInstance:
     - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 69a051796b74e7744aab83e5bf5d285d, type: 3}
+      objectReference: {fileID: 21300000, guid: 1b82d7fccfc98194bb104ae60f77d49f, type: 3}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2779009095357424002, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Name
       value: GoldPin1_img
@@ -359,7 +383,19 @@ PrefabInstance:
     - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ded16594d3d4ae941a5108b5d8b6d321, type: 3}
+      objectReference: {fileID: 21300000, guid: 27126914957a677438d92814bb040ea4, type: 3}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2779009095357424002, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Name
       value: BlackPin3_img
@@ -465,7 +501,19 @@ PrefabInstance:
     - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ded16594d3d4ae941a5108b5d8b6d321, type: 3}
+      objectReference: {fileID: 21300000, guid: 27126914957a677438d92814bb040ea4, type: 3}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2779009095357424002, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Name
       value: BlackPin2_img
@@ -571,7 +619,19 @@ PrefabInstance:
     - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 69a051796b74e7744aab83e5bf5d285d, type: 3}
+      objectReference: {fileID: 21300000, guid: 1b82d7fccfc98194bb104ae60f77d49f, type: 3}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2779009095357424002, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Name
       value: GoldPin5_img
@@ -791,7 +851,19 @@ PrefabInstance:
     - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 69a051796b74e7744aab83e5bf5d285d, type: 3}
+      objectReference: {fileID: 21300000, guid: 1b82d7fccfc98194bb104ae60f77d49f, type: 3}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2779009095357424002, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Name
       value: GoldPin6_img
@@ -909,7 +981,19 @@ PrefabInstance:
     - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ded16594d3d4ae941a5108b5d8b6d321, type: 3}
+      objectReference: {fileID: 21300000, guid: 27126914957a677438d92814bb040ea4, type: 3}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2779009095357424002, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Name
       value: BlackPin4_img
@@ -1015,7 +1099,19 @@ PrefabInstance:
     - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 69a051796b74e7744aab83e5bf5d285d, type: 3}
+      objectReference: {fileID: 21300000, guid: 1b82d7fccfc98194bb104ae60f77d49f, type: 3}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2779009095357424002, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Name
       value: GoldPin2_img
@@ -1133,7 +1229,19 @@ PrefabInstance:
     - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ded16594d3d4ae941a5108b5d8b6d321, type: 3}
+      objectReference: {fileID: 21300000, guid: 27126914957a677438d92814bb040ea4, type: 3}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2779009095357424002, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Name
       value: BlackPin1_img
@@ -1239,7 +1347,19 @@ PrefabInstance:
     - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 69a051796b74e7744aab83e5bf5d285d, type: 3}
+      objectReference: {fileID: 21300000, guid: 1b82d7fccfc98194bb104ae60f77d49f, type: 3}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489052742973997321, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2779009095357424002, guid: 297788629de942c4eb1ef9f48014833b, type: 3}
       propertyPath: m_Name
       value: GoldPin4_img
