@@ -14,7 +14,7 @@ public class PrintName : MonoBehaviour
         int buildindex = SceneManager.GetActiveScene().buildIndex;
         if(buildindex == 3)
         {
-            this.gameObject.SetActive(false);
+            _text.text = playerbase.Rank.ToString();
         }
     }
 

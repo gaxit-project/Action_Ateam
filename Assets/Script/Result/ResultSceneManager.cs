@@ -2,7 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
-using System.Collections; // Coroutineのために追加
+using System.Collections;
+using UnityEngine.Animations;
 
 public class ResultSceneManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class ResultSceneManager : MonoBehaviour
 
     [Header("Rank")]
     [SerializeField] private Vector3 _posRank1 = new Vector3();
-    [SerializeField]private Vector3 _rotRank1 = new Vector3();
+    [SerializeField] private Vector3 _rotRank1 = new Vector3();
     [SerializeField] private Vector3 _posRank2 = new Vector3();
     [SerializeField] private Vector3 _rotRank2 = new Vector3();
     [SerializeField] private Vector3 _posRank3 = new Vector3();
@@ -23,8 +24,6 @@ public class ResultSceneManager : MonoBehaviour
     [SerializeField] private Vector3 _posRank4 = new Vector3();
     [SerializeField] private Vector3 _rotRank4 = new Vector3();
 
-    private Vector3 newPosition;
-    private Quaternion newRotation;
     private void Start()
     {
         cameraController = FindFirstObjectByType<CameraController>();
@@ -36,46 +35,37 @@ public class ResultSceneManager : MonoBehaviour
             return;
         }
 
-        // コルーチンを開始して、GameManagerの準備を待つ
         StartCoroutine(SetupResultScene());
     }
 
     private IEnumerator SetupResultScene()
     {
-        Debug.Log("IENUMERATORSTART");
-        gameManager.ResultSetting(); // GameManagerがRankSort()などを内部で呼ぶことを期待
+        gameManager.ResultSetting();
 
-        // GameManager.players リストが準備されるまで待機する
-        // ループ回数や条件は、GameManagerの処理速度に合わせて調整してください。
-        // あるいは、GameManagerから「準備完了」のイベントを受け取るのが理想的です。
         int maxAttempts = 10;
         int currentAttempt = 0;
         while ((gameManager.players == null || gameManager.players.Count == 0) && currentAttempt < maxAttempts)
         {
-            Debug.Log("GameManager.players の準備を待っています...");
-            yield return null; // 1フレーム待つ
+            yield return null;
             currentAttempt++;
         }
 
         if (gameManager.players == null || gameManager.players.Count == 0)
         {
             Debug.LogError("GameManagerのplayersリストが時間内に準備できませんでした。");
-            yield break; // コルーチンを終了
+            yield break;
         }
 
-        // GameManagerが生成したプレイヤーオブジェクト（ボール）のY座標をランクに応じて調整
-        SetPlayerHeightsByRank();
-
-        // カメラをリザルトモードに設定
+        SetPlayerPositions(); // メソッド名を変更
         SetResultCameraMode();
 
         CrownScript crownScript = FindFirstObjectByType<CrownScript>();
-        crownScript.CrownMove();
+        if (crownScript != null)
+        {
+            crownScript.CrownMove();
+        }
     }
 
-    /// <summary>
-    /// リザルト時のカメラ位置・向き設定
-    /// </summary>
     public void SetResultCameraMode()
     {
         if (cameraController == null)
@@ -83,82 +73,63 @@ public class ResultSceneManager : MonoBehaviour
             Debug.LogError("CameraControllerNULL");
             return;
         }
-        Debug.Log("CameraModeCahnge");
         cameraController.StopCameraMove();
         cameraController.ResultCameraMode(_resultCameraPosition, _resultCameraRotation);
-
-        Debug.Log("カメラをリザルトモードに設定");
     }
 
     /// <summary>
-    /// ランクに応じてプレイヤー（ボール）のXY座標を設定
+    /// playerの場所を決める
     /// </summary>
-
-public void SetPlayerHeightsByRank()
-{
-    if (gameManager.players == null || gameManager.players.Count == 0)
+    /// <summary>
+    /// 順位に応じてプレイヤーの位置と向きを設定します。
+    /// </summary>
+    public void SetPlayerPositions()
     {
-        Debug.LogWarning("GameManagerのplayersリストが空です。リザルトボールが生成されていません。");
-        return;
-    }
-
-    var sortedPlayers = gameManager.players.OrderBy(p => p.Rank).ToList();
-
-    // プレイヤーを順位ごとにグループ化します
-    var playersGroupedByRank = sortedPlayers.GroupBy(p => p.Rank);
-
-    foreach (var group in playersGroupedByRank)
-    {
-        int rank = group.Key; // 現在の順位
-        List<PlayerBase> playersInRank = group.ToList(); // この順位の全プレイヤー
-
-        Vector3 basePosition;
-        Quaternion baseRotation;
-
-        switch (rank)
+        if (gameManager.players == null || gameManager.players.Count == 0)
         {
-            case 1:
-                basePosition = _posRank1;
-                baseRotation = Quaternion.Euler(_rotRank1);
-                break;
-            case 2:
-                basePosition = _posRank2;
-                baseRotation = Quaternion.Euler(_rotRank2);
-                break;
-            case 3:
-                basePosition = _posRank3;
-                baseRotation = Quaternion.Euler(_rotRank3);
-                break;
-            case 4:
-                basePosition = _posRank4;
-                baseRotation = Quaternion.Euler(_rotRank4);
-                break;
-            default:
-                Debug.LogError($"順位が定まっていません: {rank}");
-                continue; // 次の順位グループに進みます
+            Debug.LogWarning("GameManagerのplayersリストが空です。リザルトボールが生成されていません。");
+            return;
         }
 
-        // 同一順位のプレイヤーをずらすためのオフセットを計算します
-        // 最初のプレイヤーは-10、そこから+5ずつずらします。
-        // 例えば、3人同率の場合： -10, -5, 0 (実際にはベース位置に+0, +5, +10されるので、基準点を考慮して調整します)
-        // ここでは、一番左のプレイヤーが基準位置から-10になるように調整します。
-        float startZOffset = -10f; // 最初のプレイヤーのオフセット
-        float spacing = 10f; // 各プレイヤー間の間隔
+        // プレイヤーをRankプロパティの昇順（小さい値から大きい値へ）でソートします
+        var sortedPlayers = gameManager.players.OrderBy(p => p.Rank).ToList();
 
-        for (int i = 0; i < playersInRank.Count; i++)
+        for (int i = 0; i < sortedPlayers.Count; i++)
         {
-            PlayerBase player = playersInRank[i];
+            PlayerBase player = sortedPlayers[i];
+            Vector3 newPosition;
+            Quaternion newRotation;
 
-            // 基準位置に、計算したXオフセットを追加します
-            Vector3 newPosition = basePosition + new Vector3(startZOffset + 0f, 0f, (i * spacing));
-            Quaternion newRotation = baseRotation; // 回転は共通
+            // ソートされたリストのインデックスに基づいて位置と回転を設定
+            switch (i)
+            {
+                case 0: // 順位が1位のプレイヤー
+                    newPosition = _posRank1;
+                    newRotation = Quaternion.Euler(_rotRank1);
+                    break;
+                case 1: // 順位が2位のプレイヤー
+                    newPosition = _posRank2;
+                    newRotation = Quaternion.Euler(_rotRank2);
+                    break;
+                case 2: // 順位が3位のプレイヤー
+                    newPosition = _posRank3;
+                    newRotation = Quaternion.Euler(_rotRank3);
+                    break;
+                case 3: // 順位が4位のプレイヤー
+                    newPosition = _posRank4;
+                    newRotation = Quaternion.Euler(_rotRank4);
+                    break;
+                default:
+                    Debug.LogWarning($"プレイヤーが多すぎます。インデックス {i} のプレイヤーは配置されません。");
+                    continue;
+            }
 
             // プレイヤーのTransformを更新
             player.transform.position = newPosition;
             player.transform.rotation = newRotation;
             player.transform.localScale = new Vector3(30f, 30f, 30f);
 
-            // Rigidbodyの設定（既存のコードを維持）
+            // Rigidbodyの設定
             var rb = player.GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -167,5 +138,5 @@ public void SetPlayerHeightsByRank()
             }
         }
     }
-}
+
 }
