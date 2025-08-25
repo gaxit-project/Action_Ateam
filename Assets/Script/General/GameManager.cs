@@ -322,7 +322,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         players.Clear();
         playerScores.Clear();
         Num_NowFrame = 1;
-        PlayerScore = new int[NumHumanPlayers + NumBots, 11]; 
+        PlayerScore = new int[NumHumanPlayers + NumBots, 11];
+        isCounting = false;
     }
 
     /// <summary>
