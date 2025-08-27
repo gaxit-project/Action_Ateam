@@ -16478,7 +16478,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2130485150559971973, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7546423158512417502, guid: b4423000dcf6db748988d8b60bd06eba, type: 3}
       propertyPath: m_Pivot.x
@@ -26495,8 +26495,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffItemPrefab: {fileID: 611525450302514227, guid: fcd93ae9b7792da4881a00571e4aeec2, type: 3}
   buffItems:
-  - {fileID: 11400000, guid: 5a01a505b4c961c49ada3737163f22c9, type: 2}
-  spawnInterval: 3
+  - {fileID: 11400000, guid: 2effce159f603b04d95bc0c428ff4262, type: 2}
+  spawnInterval: 0
   spawnBoxes:
   - {fileID: 2045797450}
   - {fileID: 1109559814}

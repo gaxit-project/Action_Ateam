@@ -15,6 +15,24 @@ public class PrintName : MonoBehaviour
         if(buildindex == 3)
         {
             _text.text = playerbase.Rank.ToString();
+            switch(playerbase.Rank)
+            {
+                case 1:
+                    _text.color = new Color32(230, 180, 84, 255);
+                    break;
+                case 2:
+                    _text.color = new Color32(192, 192, 192, 255);
+                    break;
+                case 3:
+                    _text.color = new Color32(184, 115, 51, 255);
+                    break;
+                case 4:
+                    _text.color = new Color32(101, 49, 142, 255);
+                    break;
+                default:
+                    _text.color = Color.white;
+                    break;
+            }
         }
     }
 
