@@ -75,7 +75,7 @@ public class CrownScript : MonoBehaviour
         for (i = 1; i < player + bot; i++)
         {
 
-            if (scores[i] >= scores[maxIndex[0]])
+            if (scores[i] == scores[maxIndex[0]])
             {
                 maxIndex[j] = i;
                 j++;
@@ -85,7 +85,7 @@ public class CrownScript : MonoBehaviour
         string ID;
         bool isPlayer;
         int k = 0;
-        while (j >= k)
+        while (k < j)
         {
             if (maxIndex[k] + 1 <= player)
             {
