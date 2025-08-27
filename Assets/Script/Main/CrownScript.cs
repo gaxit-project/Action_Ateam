@@ -21,9 +21,9 @@ public class CrownScript : MonoBehaviour
 
     public void CrownMove()
     {
-        if(gameManager == null)
+        if (gameManager == null)
         {
-            gameManager = GameManager.Instance;     
+            gameManager = GameManager.Instance;
         }
         int player = gameManager.NumHumanPlayers, bot = gameManager.NumBots;
         int[] scores = new int[player + bot];
@@ -32,7 +32,7 @@ public class CrownScript : MonoBehaviour
 
 
         /*ScoreをPlayerーbotの順で順番に取得する*/
-        while (i<player)
+        while (i < player)
         {
             var playerdata = gameManager.GetPlayerScoreData("Player" + (i + 1));
             if (playerdata != null)
@@ -43,7 +43,7 @@ public class CrownScript : MonoBehaviour
             {
                 Debug.LogError("ERROR");
             }
-        i++;
+            i++;
         }
 
         while (j < bot)
@@ -60,62 +60,80 @@ public class CrownScript : MonoBehaviour
 
 
         // 最大スコアのインデックスを取得
-        int maxIndex = 0;
+        int[] maxIndex = new int[player + bot];
+        maxIndex[0] = 0;
         for (i = 1; i < player + bot; i++)
         {
 
-            if (scores[i] > scores[maxIndex])
+            if (scores[i] > scores[maxIndex[0]])
             {
-                maxIndex = i;
+                maxIndex[0] = i;
             }
         }
+
+        j = 0;
+        for (i = 1; i < player + bot; i++)
+        {
+
+            if (scores[i] >= scores[maxIndex[0]])
+            {
+                maxIndex[j] = i;
+                j++;
+            }
+        }
+
         string ID;
         bool isPlayer;
-        if (maxIndex + 1 <= player)
+        int k = 0;
+        while (j >= k)
         {
-            ID = ("Player" + (maxIndex + 1));
-            isPlayer = true;
-        }
-        else
-        {
-            ID = ("Bot" + (maxIndex + 1 - player));
-            Debug.Log("ID:Bot" + (maxIndex + 1 - player));
-            isPlayer = false;
-        }
-
-
-        // 該当するcrownだけを有効化,GetPlayerID()
-        GameObject[] chara;
-        if (scores[maxIndex] > 0)
-        {
-            if (isPlayer)
+            if (maxIndex[k] + 1 <= player)
             {
-                chara = GameObject.FindGameObjectsWithTag("Player");
-                foreach (GameObject Aris in chara)
-                {
-                    Player player1 = Aris.GetComponent<Player>();
-                    if (player1 != null && player1.GetPlayerID() == ID)
-                    {
-                        player1.Crowned();
-                        break;
-                    }
-                }
+                ID = ("Player" + (maxIndex[k] + 1));
+                isPlayer = true;
             }
             else
             {
-                chara = GameObject.FindGameObjectsWithTag("NPC");
-                foreach (GameObject Aris in chara)
+                ID = ("Bot" + (maxIndex[k] + 1 - player));
+                Debug.Log("ID:Bot" + (maxIndex[k] + 1 - player));
+                isPlayer = false;
+            }
+
+
+            // 該当するcrownだけを有効化,GetPlayerID()
+            GameObject[] chara;
+            if (scores[maxIndex[k]] > 0)
+            {
+                if (isPlayer)
                 {
-                    EnemyAI player1 = Aris.GetComponent<EnemyAI>();
-                    Debug.Log(player1.GetPlayerID());
-                    if (player1 != null && player1.GetPlayerID() == ID)
+                    chara = GameObject.FindGameObjectsWithTag("Player");
+                    foreach (GameObject Aris in chara)
                     {
-                        player1.Crowned();
-                        break;
+                        Player player1 = Aris.GetComponent<Player>();
+                        if (player1 != null && player1.GetPlayerID() == ID)
+                        {
+                            player1.Crowned();
+                            break;
+                        }
                     }
-                    //Debug.LogError("1位のNPCが見つかりません!");
+                }
+                else
+                {
+                    chara = GameObject.FindGameObjectsWithTag("NPC");
+                    foreach (GameObject Aris in chara)
+                    {
+                        EnemyAI player1 = Aris.GetComponent<EnemyAI>();
+                        Debug.Log(player1.GetPlayerID());
+                        if (player1 != null && player1.GetPlayerID() == ID)
+                        {
+                            player1.Crowned();
+                            break;
+                        }
+                        //Debug.LogError("1位のNPCが見つかりません!");
+                    }
                 }
             }
-        }       
+            k++;
+        }
     }
 }
