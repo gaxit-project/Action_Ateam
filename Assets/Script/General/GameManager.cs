@@ -178,7 +178,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         List<Vector3> spawnPositions = new List<Vector3>();
         for (int i = 0; i < totalPlayers; i++)
         {
-            spawnPositions.Add(new Vector3(-10f, 0f, (2 - i) * 5f - 2.5f));
+            spawnPositions.Add(StartPoint + new Vector3(-20f, 0f, (2 - i) * 5f - 2.5f));
         }
 
         spawnPositions = spawnPositions.OrderBy(x => Random.value).ToList(); //スポーン場所をランダムに
