@@ -69,10 +69,11 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] protected float gravity = 20f; //
     protected Vector3 reflection = Vector3.zero;
 
-    //衝突エフェクト
+    //エフェクト関係
     [SerializeField] protected GameObject collisionEffectPrefab;
     [SerializeField] protected GameObject collisionEffectPrefab2;
     [SerializeField] protected GameObject collisionEffectPrefab3;
+    [SerializeField] protected GameObject speedUpEffectPrefab;
     [SerializeField] protected float effectDuration = 2.0f;
 
     [SerializeField] protected GameObject crown;
@@ -183,6 +184,8 @@ public class PlayerBase : MonoBehaviour
         weight = Weight;
         rotation = Rotation;
         Debug.Log($"Buff applied: Speed={player.Speed}, Weight={player.Weight}, Rotation={player.Rotation}");
+
+        SpawnEffect(this.transform.position, 4);
     }
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -259,6 +262,11 @@ public class PlayerBase : MonoBehaviour
                 GameObject effect3 = Instantiate(collisionEffectPrefab3, position, Quaternion.Euler(new Vector3(-90, 0, 0)));
                 Destroy(effect3, effectDuration);
                 break;
+            case 4:
+                GameObject speedUp = Instantiate(speedUpEffectPrefab, this.transform);
+                Destroy(speedUp, 15f);
+                break;
+
 
         }
     }
