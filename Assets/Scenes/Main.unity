@@ -12868,6 +12868,7 @@ MonoBehaviour:
   collisionEffectPrefab: {fileID: 0}
   collisionEffectPrefab2: {fileID: 0}
   collisionEffectPrefab3: {fileID: 0}
+  speedUpEffectPrefab: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 0}
   arrowUIName: 
@@ -22718,6 +22719,7 @@ MonoBehaviour:
   collisionEffectPrefab: {fileID: 0}
   collisionEffectPrefab2: {fileID: 0}
   collisionEffectPrefab3: {fileID: 0}
+  speedUpEffectPrefab: {fileID: 0}
   effectDuration: 2
   crown: {fileID: 0}
   arrowUIName: 
@@ -26583,6 +26585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1828093359}
   - component: {fileID: 1828093358}
+  - component: {fileID: 1828093360}
   m_Layer: 0
   m_Name: ItemSpawner
   m_TagString: Untagged
@@ -26597,7 +26600,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1828093357}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0a5796089a99f043bc3ed0f97c6910e, type: 3}
   m_Name: 
@@ -26626,6 +26629,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1828093360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828093357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0a5796089a99f043bc3ed0f97c6910e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffItemPrefab: {fileID: 7378846995957204085, guid: 83bada6d8819fbc47beaed5eb758c070, type: 3}
+  buffItems:
+  - {fileID: 11400000, guid: 869d2fb04eb36dc42b75b581a2378a75, type: 2}
+  spawnInterval: 0
+  spawnBoxes:
+  - {fileID: 2045797450}
+  - {fileID: 1109559814}
+  - {fileID: 1812435221}
+  spawnParent: {fileID: 0}
 --- !u!1001 &1833138475
 PrefabInstance:
   m_ObjectHideFlags: 0
