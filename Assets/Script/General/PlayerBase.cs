@@ -404,6 +404,26 @@ public class PlayerBase : MonoBehaviour
     {
         Rank = rank;
     }
+
+    public enum CharacterType
+    {
+        Character1,
+        Character2,
+        Character3,
+        Character4,
+    }
+
+    public class PlayerInfo
+    {
+        public InputDevice PairWithDevice { get; private set; } = default;
+        public CharacterType SelectedCharacter { get; private set; } = default;
+
+        public PlayerInfo(InputDevice pairWithDevice, CharacterType selectedCharacter)
+        {
+            PairWithDevice = pairWithDevice;
+            SelectedCharacter = selectedCharacter;
+        }
+    }
     public class PlayerClass : Character
     {
 

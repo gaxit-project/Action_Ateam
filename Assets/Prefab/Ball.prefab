@@ -684,6 +684,7 @@ GameObject:
   - component: {fileID: 5880580961469226319}
   - component: {fileID: 5893953705359030968}
   - component: {fileID: 6291786655432667019}
+  - component: {fileID: 1995779740905214021}
   m_Layer: 3
   m_Name: Ball
   m_TagString: Player
@@ -856,6 +857,36 @@ MonoBehaviour:
   crown: {fileID: 7509194120042052673}
   arrowUIName: Arrow3
   icon: {fileID: 5183030478663923132}
+--- !u!114 &1995779740905214021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162004822796889170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &8533600915095642518
 GameObject:
   m_ObjectHideFlags: 0

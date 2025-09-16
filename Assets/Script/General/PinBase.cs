@@ -11,7 +11,7 @@ public class PinBase : MonoBehaviour
     private Rigidbody rb;
 
     private Quaternion initialRotation;
-    private bool isFallDown = false;
+    public bool isFallDown = false;
 
     public string KnockedByPlayerID = null;
     public Color KnockedByPlayerColor;
@@ -90,10 +90,6 @@ public class PinBase : MonoBehaviour
         if (other.gameObject.tag == "Pin" || other.gameObject.tag == "Player" || other.gameObject.tag == "NPC")
         {
             AudioManager.Instance.PlaySound(1);
-        }
-        if (other.gameObject.tag == "Pin")
-        {
-            
         }
 
         if(other.gameObject.tag == "Player" || other.gameObject.tag == "NPC")
