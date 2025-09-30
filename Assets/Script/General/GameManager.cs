@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using static Player2;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
@@ -23,14 +24,15 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public int Num_NowFrame = 1;
 
     //Playerのスコア管理
+    public GameObject[] playerObj;
     public List<PlayerBase> players = new List<PlayerBase>();
     public List<PlayerScoreData> playerScores = new List<PlayerScoreData>();
 
     [Header("PlayerとbotPrefabと人数")]
     public GameObject _playerPrefab;
     public GameObject _botPrefab;
-    public int NumHumanPlayers;
-    public int NumBots;
+    public int NumHumanPlayers = 0;
+    public int NumBots = 4;
     [Header("ステージ番号")]
     public int StageNum;
 
@@ -46,12 +48,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     public ColorAssigner colorAssigner;
 
-    //private int[] NowFramePoint_0 = new int[11];
-    //private int[] NowFramePoint_1 = new int[11];
-    //private int[] NowFramePoint_2 = new int[11];
-    //private int[] NowFramePoint_3 = new int[11];
-    //int pp0,pp1,pp2,pp3;//a-dは仮置き,スコアを表す
-
     //Timer関連
     private float maxTime = 11f;
     private float remainingTime = 10f;
@@ -59,6 +55,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private TextMeshProUGUI timer;
     private Image image;
     private bool isGettingTimer = false;
+
+    public PlayerInfo[] playerInfos = default;
 
     private void Start()
     {
@@ -68,6 +66,22 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         colorAssigner = FindFirstObjectByType<ColorAssigner>();
         cameraController = GameObject.FindFirstObjectByType<CameraController>();
         DS = GameObject.FindFirstObjectByType<DisplayScore>();
+
+        playerInfos = new PlayerInfo[NumHumanPlayers];
+        playerObj = new GameObject[4];
+
+        if (players == null)
+            players = new List<PlayerBase>();
+
+        if (playerScores == null)
+            playerScores = new List<PlayerScoreData>();
+
+        if (!IsStart)
+        {
+            Debug.LogWarning("クリアされたよ");
+            players.Clear();
+            playerScores.Clear();
+        }
     }
 
     private void Update()
@@ -101,6 +115,14 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
     }
 
+    /// <summary>
+    /// プレイヤー情報を登録
+    /// </summary>
+    /// <param name="playerInfos">プレイヤー情報</param>
+    public void SetInformation(PlayerInfo[] playerInfos)
+    {
+        this.playerInfos = playerInfos;
+    }
 
     public void CurrentFrameResult()
     {
@@ -128,19 +150,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     /// </summary>
     public void SetUpPlayers()
     {
-        if (players == null)
-            players = new List<PlayerBase>();
-
-        if (playerScores == null)
-            playerScores = new List<PlayerScoreData>();
-
-        if (!IsStart)
-        {
-            Debug.LogWarning("クリアされたよ");
-            players.Clear();
-            playerScores.Clear();
-        }
-
         //合計人数
         int totalPlayers = NumHumanPlayers + NumBots;
         pinManager = FindFirstObjectByType<PinManager>();
@@ -188,14 +197,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         //Player
         for (int i = 0; i < NumHumanPlayers; i++)
         {
-            var playerobj = Instantiate(_playerPrefab, spawnPositions[spawnIndex++], Quaternion.identity);
+            var playerobj = playerObj[i];
+            playerobj.transform.position = spawnPositions[spawnIndex];
             var player = playerobj.GetComponent<Player>();
-            player.Init($"Player{i + 1}", false);
-            players.Add(player);
-            if (IsStart == false)
-            {
-                playerScores.Add(new PlayerScoreData($"Player{i + 1}", false));
-            }
             var cam = FindFirstObjectByType<CameraController>();
             if (cam == null) Debug.LogError("nullだよ");
             cam.SetTargetPlayer(player, StartPoint); // Instantiate後に必ず設定！
@@ -206,16 +210,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
 
         //Bot
-        for (int i = 0; i < NumBots; i++)
+        for (int i = NumHumanPlayers; i < totalPlayers; i++)
         {
-            var botobj = Instantiate(_botPrefab, spawnPositions[spawnIndex++], Quaternion.identity);
+            var botobj = playerObj[i];
+            botobj.transform.position = spawnPositions[spawnIndex];
             var bot = botobj.GetComponent<PlayerBase>();
-            bot.Init($"Bot{i + 1}", true);
-            players.Add(bot);
-            if (IsStart == false)
-            {
-                playerScores.Add(new PlayerScoreData($"Bot{i + 1}", true));
-            }
             bot.LoadScore();
         }
         

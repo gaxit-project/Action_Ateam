@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
+using UnityEngine.InputSystem;
 
 public class Player : PlayerBase
 {
@@ -23,6 +24,8 @@ public class Player : PlayerBase
     public bool isControllEasily { private get; set; } = false;
     public bool canRotate { private get; set; } = false;
     protected PlayerState currentState = PlayerState.Idle;
+
+    public PlayerInfo playerInfo;
     
     //プロパティ
     public PlayerState PlayerStateProperty
@@ -381,5 +384,4 @@ public class Player : PlayerBase
             rigidbody.linearVelocity = throwVelocity;
         }
     }
-
 }
