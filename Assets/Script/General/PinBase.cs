@@ -91,10 +91,6 @@ public class PinBase : MonoBehaviour
         {
             AudioManager.Instance.PlaySound(1);
         }
-        if (other.gameObject.tag == "Pin")
-        {
-            
-        }
 
         if(other.gameObject.tag == "Player" || other.gameObject.tag == "NPC")
         {

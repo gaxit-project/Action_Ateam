@@ -758,6 +758,7 @@ MonoBehaviour:
   collisionEffectPrefab2: {fileID: 4244991902187735139, guid: fe5dd02ef714f3c4cb245ac13a4fce95, type: 3}
   collisionEffectPrefab3: {fileID: 5985634496115995773, guid: 463cf9f7af4680240898f6aeba3fe3e6, type: 3}
   speedUpEffectPrefab: {fileID: 2971741089286388018, guid: 0a00700d3df77024a9ce04ee46e93bb5, type: 3}
+  speedDownEffectPrefab: {fileID: 2971741089286388018, guid: cc3caa70cafa9d44f8c5a6b53c53a29f, type: 3}
   effectDuration: 1
   crown: {fileID: 7474330199149223649}
   arrowUIName: Arrow4

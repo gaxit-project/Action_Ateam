@@ -74,6 +74,7 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] protected GameObject collisionEffectPrefab2;
     [SerializeField] protected GameObject collisionEffectPrefab3;
     [SerializeField] protected GameObject speedUpEffectPrefab;
+    [SerializeField] protected GameObject speedDownEffectPrefab;
     [SerializeField] protected float effectDuration = 2.0f;
 
     [SerializeField] protected GameObject crown;
@@ -172,7 +173,7 @@ public class PlayerBase : MonoBehaviour
     {
         if (buff == null) return;
 
-        Speed += buff.speedModifier;
+        Speed = Mathf.Clamp(speed + buff.speedModifier, 5f, 30f);
         Weight += buff.weightModifier;
         Rotation += buff.rotationModifier;
 
@@ -185,7 +186,8 @@ public class PlayerBase : MonoBehaviour
         rotation = Rotation;
         Debug.Log($"Buff applied: Speed={player.Speed}, Weight={player.Weight}, Rotation={player.Rotation}");
 
-        SpawnEffect(this.transform.position, 4);
+        if (buff.speedModifier > 0) SpawnEffect(this.transform.position, 4);
+        else SpawnEffect(this.transform.position, 5);
     }
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -264,7 +266,11 @@ public class PlayerBase : MonoBehaviour
                 break;
             case 4:
                 GameObject speedUp = Instantiate(speedUpEffectPrefab, this.transform);
-                Destroy(speedUp, 15f);
+                Destroy(speedUp, 5f);
+                break;
+            case 5:
+                GameObject speedDown = Instantiate(speedDownEffectPrefab, this.transform);
+                Destroy(speedDown, 5f);
                 break;
 
 
